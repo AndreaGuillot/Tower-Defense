@@ -21,7 +21,7 @@ class Installation {
 	//Position de l'installation
 	Position p;
 	//Type de l'installation : radar, usine, stock
-	installationType type;
+	uint type;
     //Propriétés de l'installation
     Size size;
     uint cost;
@@ -47,30 +47,37 @@ class Installation {
         return this->range;
     }
 
+    uint getType(){
+        return this->type;
+    }
+
 };
 
 class Andrea: public Installation{
 
-    Andrea(uint range = 10; uint cost = 80){
+    Andrea(uint range = 10; uint cost = 80; type = radar){
         this->range = range;
         this->cost = cost;
+        this->type = type;
     }
     
 }
 
 class Margaux: public Installation{
 
-    Margaux(uint range = 5; uint cost = 150){
+    Margaux(uint range = 5; uint cost = 150; type = usine){
         this->range = range;
         this->cost = cost;
+        this->type = type;
     }
 }
 
 class BaptisteEtNicolas: public Installation{
 
-    BaptisteEtNicolas(uint range = 20; uint cost = 70){
+    BaptisteEtNicolas(uint range = 20; uint cost = 70; type = stock){
         this->range = range;
         this->cost = cost;
+        this->type = type;
     }
 }
 

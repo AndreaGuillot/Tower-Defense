@@ -14,13 +14,14 @@ class Tower {
 	//Position de la tour
 	Position p;
 	//Type de la tour
-	towerType type;
+	bool type;
     //Propriétés de la tour
     uint power;
     float rate;
     uint range;
     uint cost;
-
+    //Installations à proximité
+    bool instNear[3] = {0, 0, 0};
     public:
     //Constructeur
     //Accesseurs
@@ -47,6 +48,16 @@ class Tower {
 	}
 
 	virtual string getType() = 0;
+
+	void addInstallation(Installation installation){
+		//Si c'est du type radar par exemple, on aura à l'index radar (=0 grace à l'enum) TRUE
+		this->instNear[installation.type] = 1;
+	}
+
+	void delInstallation(Installation installation){
+		this->instNear[installation.type] = 0;
+	}
+
 };
 
 class Yoann: public Tower{
@@ -60,8 +71,8 @@ class Yoann: public Tower{
     		this->power = power;
     	}
 
-    	string getType(){
-    		return "Rocket";
+    	bool getType(){
+    		return yoann;
     	}
 }
 
@@ -76,8 +87,8 @@ class Clara: public Tower{
     		this->power = power;
     	}
 
-    	string getType(){
-    		return "Laser";
+    	bool getType(){
+    		return clara;
     	}
 }
 
@@ -92,8 +103,8 @@ class Jules: public Tower{
     		this->power = power;
     	}
 
-    	string getType(){
-    		return "Multidimensionnelle";
+    	bool getType(){
+    		return jules;
     	}
 
 }
@@ -109,8 +120,8 @@ class Oceanne: public Tower{
     		this->power = power;
     	}
 
-    	string getType(){
-    		return "Archers";
+    	bool getType(){
+    		return oceanne;
     	}
 }
 
