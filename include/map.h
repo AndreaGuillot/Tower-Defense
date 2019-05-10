@@ -1,20 +1,28 @@
 #ifndef MAP_H__
 #define MAP_H__
 
-#include <SDL/SDL.h>
-#include <GL/gl.h>
-#include <GL/glu.h>
+#include "../include/colors.h"
 
 class Map {
 
     private:
-	//Couleur du chemin
-    Color3f in;
-	Color3f out;
-	Color3f path;
-	Color3f node;
-	Color3f construct;
+	//Image ppm
+	Map* map;
+	//Noeuds
+	Node* listNode;
+	int nbNode;
+	//Couleurs de la carte
+    Color colorIn;
+	Color colorOut;
+	Color colorPath;
+	Color colorNode;
+	Color colorConstruct;
 
+	public:
+	//Vérifie la map
+	int verifictaionMap(char *mapName, Map *map);
+	//Crée la couleur (r, g, b)
+	Color createColor(float r, float g, float b);
 };
 
 #endif
