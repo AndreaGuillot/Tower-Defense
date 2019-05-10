@@ -2,6 +2,7 @@
 #define MONSTER_H__
 
 #include "installation.h"
+#include "tower.h"
 
 class Monster {
 
@@ -48,6 +49,35 @@ class Monster {
         //Calculer
         this->p.x = newX;
         this->p.y = newY;
+    }
+
+    void hitBy(Tower tower){
+        int newPV = this->pv;
+        switch (tower.type){
+            case yoann:
+                newPV = int(tower.power*(1-this->resistance_TDR));
+                break;
+            case clara:
+                newPV = int(tower.power*(1-this->resistance_TDV));
+                break;
+            case jules:
+                newPV = int(tower.power*(1-this->resistance_TDJ));
+                break;
+            case oceanne:
+                newPV = int(tower.power*(1-this->resistance_TDB));
+                break;
+            default:
+                break;
+        }
+        if(newPV>0){
+            this->pv = (uint)newPV;
+        }else{
+            killMonster(this);
+        }
+    }
+
+    void killMonster(){
+        delete this;
     }
 
 };

@@ -51,6 +51,9 @@ class Installation {
         return this->type;
     }
 
+    void affects(Tower tower){
+        tower.instNear[this->type] = 1;
+    }
 };
 
 class Andrea: public Installation{

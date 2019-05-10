@@ -16,23 +16,36 @@ class Tower {
 	//Type de la tour
 	bool type;
     //Propriétés de la tour
-    uint power;
+    //On a des float pour quand on ajoute les 25%
+    float power;
     float rate;
-    uint range;
+    float range;
     uint cost;
     //Installations à proximité
     bool instNear[3] = {0, 0, 0};
     public:
     //Constructeur
     //Accesseurs
-    uint getPower(){
-    	return this->power;
+    float getPower(){
+    	if(instNear[usine])
+    		return 1.25*this->power;
+    	else{
+    		return this->power;
+    	}
     }
-    uint getRange(){
-    	return this->range;
+    float getRange(){
+    	if(instNear[radar])
+    		return 1.25*this->range;
+    	else{
+    		return this->range;
+    	}
     }
     float getRate(){
-    	return this->rate;
+    	if(instNear[stock]){}
+    		return 1.25*this->rate;
+    	else{
+    		return this->rate;
+    	}
     }
     uint getCost(){
     	return this->cost;
@@ -64,7 +77,7 @@ class Yoann: public Tower{
 
     public:
 
-    	Yoann(uint range=10; float rate=2.0; uint cost=120; uint power =70){
+    	Yoann(float range=10.; float rate=2.0; uint cost=120; float power =70.){
     		this->range = range;
     		this->rate = rate;
     		this->cost = cost;
@@ -80,7 +93,7 @@ class Clara: public Tower{
 
     public:
 
-    	Clara(uint range=20; float rate=1.0; uint cost=80; uint power =60){
+    	Clara(float range=20.; float rate=1.0; uint cost=80; float power =60.){
     		this->range = range;
     		this->rate = rate;
     		this->cost = cost;
@@ -96,7 +109,7 @@ class Jules: public Tower{
 
     public:
 
-    	Jules(uint range=15; float rate=1.5; uint cost=60; uint power =30){
+    	Jules(float range=15.; float rate=1.5; uint cost=60; float power =30.){
     		this->range = range;
     		this->rate = rate;
     		this->cost = cost;
@@ -113,7 +126,7 @@ class Oceanne: public Tower{
 
     public:
 
-    	Oceanne(uint range=50; float rate=0.5; uint cost=50; uint power =10){
+    	Oceanne(float range=50.; float rate=0.5; uint cost=50; float power =10.){
     		this->range = range;
     		this->rate = rate;
     		this->cost = cost;
