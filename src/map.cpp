@@ -4,10 +4,10 @@
 #include <ctype.h>
 #include "../include/map.h"
 
-int verificationMap(char *mapName, Map *map){ 
+int map::createMap(char *cheminITD){ 
 
     //Lecture du fichier
-	FILE* fileITD = fopen(mapName, "r");
+	FILE* fileITD = fopen(cheminITD, "r");
 	if(fileITD == NULL)
     {
 		fprintf(stderr, "Erreur fichier : impossible de lire le fichier itd.\n");
@@ -150,3 +150,19 @@ int verificationMap(char *mapName, Map *map){
     fclose(fileITD);
 
 }
+
+/*ANDREAAAAAAA ASKIP CA CA MARCHE MIEUX
+Il faut cerifier que carte par exemple est écrit au début puis récupere ce qu'il y a après ;)
+Du coup j'ai le code de Jules et Guillaume :
+
+while (std::getline(file, line)) {
+            if (line.find("#") != std::string::npos) { continue; } // Skip comments
+            else if (line.find("carte") != std::string::npos) { m_mapPath += line.substr(6, line.size()); }
+            else if (line.find("energie") != std::string::npos) { m_energy = getNumberFromString(line); }
+            else if (line.find("chemin") != std::string::npos) { m_pathColor = getColorFromString(line); }
+            else if (line.find("noeud") != std::string::npos) { m_nodeColor = getColorFromString(line); }
+            else if (line.find("construct") != std::string::npos) { m_constructColor = getColorFromString(line); }
+            else if (line.find("in") != std::string::npos) { m_startColor = getColorFromString(line); }
+            else if (line.find("out") != std::string::npos) { m_endColor = getColorFromString(line); }
+        }
+*/

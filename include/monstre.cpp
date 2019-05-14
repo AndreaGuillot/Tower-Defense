@@ -21,10 +21,10 @@ class Monster {
     public:
     //Constructeur
     //Accesseurs
-    uint getPV(){
+    float getPV(){
         return this->pv;
     }
-    uint getSpeed(){
+    float getSpeed(){
         return this->speed;
     }
     //Ce qu'on gagne qd il meurt

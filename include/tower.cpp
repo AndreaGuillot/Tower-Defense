@@ -14,7 +14,7 @@ class Tower {
 	//Position de la tour
 	Position p;
 	//Type de la tour
-	bool type;
+	towerType type;
     //Propriétés de la tour
     //On a des float pour quand on ajoute les 25%
     float power;
@@ -60,7 +60,7 @@ class Tower {
 		this->rate=rt;
 	}
 
-	virtual string getType() = 0;
+	virtual towerType getType() = 0;
 
 	void addInstallation(Installation installation){
 		//Si c'est du type radar par exemple, on aura à l'index radar (=0 grace à l'enum) TRUE
@@ -84,7 +84,7 @@ class Yoann: public Tower{
     		this->power = power;
     	}
 
-    	bool getType(){
+    	towerType getType(){
     		return yoann;
     	}
 }
@@ -100,7 +100,7 @@ class Clara: public Tower{
     		this->power = power;
     	}
 
-    	bool getType(){
+    	towerType getType(){
     		return clara;
     	}
 }
@@ -116,7 +116,7 @@ class Jules: public Tower{
     		this->power = power;
     	}
 
-    	bool getType(){
+    	towerType getType(){
     		return jules;
     	}
 
@@ -133,7 +133,7 @@ class Oceanne: public Tower{
     		this->power = power;
     	}
 
-    	bool getType(){
+    	towerType getType(){
     		return oceanne;
     	}
 }

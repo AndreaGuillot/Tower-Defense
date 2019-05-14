@@ -20,7 +20,7 @@ class Map {
 
 	public:
 	//Vérifie la map
-	int verifictaionMap(char *mapName, Map *map);
+	int createMap(char *cheminITD);
 	//Crée la couleur (r, g, b)
 	Color createColor(float r, float g, float b);
 };
