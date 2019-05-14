@@ -1,14 +1,14 @@
 #ifndef COLOR_H__
 #define COLOR_H__
 
-class Color {
+typedef struct color {
 
-    private:
-    float r, g, b;
+    unsigned int r;
+    unsigned int g;
+    unsigned int b;
+    
+}Color;
 
-    public:
-    Color createColor(float r, float g, float b);
-
-};
+Color colorRGB(unsigned int r, unsigned int g, unsigned int b);
 
 #endif
