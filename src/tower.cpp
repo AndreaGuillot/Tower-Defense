@@ -1,12 +1,7 @@
-#ifndef TOWER_H__
-#define TOWER_H__
-
-#include <installation.h>
 #include <stdlib.h>
-
-enum towerType {
-    yoann, clara, jules, oceanne
-};
+#include "../include/installation.h"
+#include "../include/tower.h"
+#include "../include/monstre.h"
 
 class Tower {
 
@@ -64,11 +59,11 @@ class Tower {
 
 	void addInstallation(Installation installation){
 		//Si c'est du type radar par exemple, on aura à l'index radar (=0 grace à l'enum) TRUE
-		this->instNear[installation.type] = 1;
+		this->instNear[installation.getType()] = 1;
 	}
 
 	void delInstallation(Installation installation){
-		this->instNear[installation.type] = 0;
+		this->instNear[installation.getType()] = 0;
 	}
 
 };
@@ -137,5 +132,3 @@ class Oceanne: public Tower{
     		return oceanne;
     	}
 }
-
-#endif

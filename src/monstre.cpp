@@ -1,8 +1,6 @@
-#ifndef MONSTER_H__
-#define MONSTER_H__
-
-#include "installation.h"
-#include "tower.h"
+#include "../include/installation.h"
+#include "../include/tower.h"
+#include "../include/monstre.h"
 
 class Monster {
 
@@ -53,18 +51,18 @@ class Monster {
 
     void hitBy(Tower tower){
         int newPV = this->pv;
-        switch (tower.type){
+        switch (tower.getType()){
             case yoann:
-                newPV = int(tower.power*(1-this->resistance_TDR));
+                newPV = int(tower.getPower()*(1-this->resistance_TDR));
                 break;
             case clara:
-                newPV = int(tower.power*(1-this->resistance_TDV));
+                newPV = int(tower.getPower()*(1-this->resistance_TDV));
                 break;
             case jules:
-                newPV = int(tower.power*(1-this->resistance_TDJ));
+                newPV = int(tower.getPower()*(1-this->resistance_TDJ));
                 break;
             case oceanne:
-                newPV = int(tower.power*(1-this->resistance_TDB));
+                newPV = int(tower.getPower()*(1-this->resistance_TDB));
                 break;
             default:
                 break;
@@ -76,7 +74,8 @@ class Monster {
         }
     }
 
-    void killMonster(){
+    void killMonster(Joueur j){
+        j.kill(this);
         delete this;
     }
 
@@ -122,5 +121,3 @@ class Julien: public Monster{
         }
 
 }
-
-#endif

@@ -1,10 +1,6 @@
 #ifndef INSTALLATION_H__
 #define INSTALLATION_H__
 
-enum installationType {
-    radar, usine, stock
-};
-
 class Position{
     float x;
     float y;

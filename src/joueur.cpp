@@ -1,5 +1,6 @@
-#ifndef JOUEUR_H__
-#define JOUEUR_H__
+#include "../include/installation.h"
+#include "../include/tower.h"
+#include "../include/monstre.h"
 
 class Joueur {
 
@@ -39,5 +40,3 @@ class Joueur {
     }
 
 };
-
-#endif
