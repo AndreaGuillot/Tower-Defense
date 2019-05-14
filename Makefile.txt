@@ -1,0 +1,35 @@
+CC		=	gcc
+CFLAGS	=	-Wall -O2 -g
+LDFLAGS	=   -lSDL -lGLU -lGL -lm -lglut -lSDL_image
+SRC		=	./src/
+OBJ		=	./obj/
+BIN		=	./bin/
+INCL	=	./include/
+
+
+$(BIN)itd: $(OBJ)main.o $(OBJ)color.o $(OBJ)map.o $(OBJ)monster.o $(OBJ)tower.o $(INCL)installation.o $(OBJ)joueur.o $
+	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)
+
+$(OBJ)main.o: $(SRC)main.c $(INCL)color.h $(INCL)map.h $(INCL)monster.h $(INCL)tower.h $(INCL)installation.h $(INCL)joueur.h
+	$(CC) $(CFLAGS) -o $@ -c $< $(LDFLAGS)
+
+$(OBJ)color.o: $(SRC)color.c $(INCL)color.h
+	$(CC) $(CFLAGS) -o $@ -c $< $(LDFLAGS)
+
+$(OBJ)map.o: $(SRC)map.c $(INCL)map.h $(INCL)color.h
+	$(CC) $(CFLAGS) -o $@ -c $< $(LDFLAGS)
+
+$(OBJ)monster.o: $(SRC)monster.c $(INCL)monster.h
+	$(CC) $(CFLAGS) -o $@ -c $< $(LDFLAGS)
+
+$(OBJ)tower.o: $(SRC)tower.c $(INCL)tower.h
+	$(CC) $(CFLAGS) -o $@ -c $< $(LDFLAGS)
+
+$(OBJ)game.o: $(SRC)joueur.c $(INCL)joueur.h
+	$(CC) $(CFLAGS) -o $@ -c $< $(LDFLAGS)
+
+$(OBJ)installation.o: $(SRC)installation.c $(INCL)installation.h
+	$(CC) $(CFLAGS) -o $@ -c $< $(LDFLAGS)
+
+clean:
+	rm -rf $(OBJ)*.o
