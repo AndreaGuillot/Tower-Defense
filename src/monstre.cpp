@@ -83,7 +83,7 @@ class Monster {
 
 class Lucie: public Monster{
     public:
-        Lucie(uint pv=200; uint speed; uint money = 20; float resistance_TDR = 0.5; float resistance_TDV = 0; float resistance_TDJ = 0.3; float resistance_TDB = 0.2){
+        Lucie(uint pv=200; uint speed = 0.09; uint money = 20; float resistance_TDR = 0.5; float resistance_TDV = 0; float resistance_TDJ = 0.3; float resistance_TDB = 0.2){
             this->pv = pv;
             this->speed = speed;
             this->money = money;
@@ -96,7 +96,7 @@ class Lucie: public Monster{
 
 class Barbara: public Monster{
     public:
-        Barbara(uint pv=100; uint speed; uint money = 15; float resistance_TDR = 0.1; float resistance_TDV = 0.5; float resistance_TDJ = 0.3; float resistance_TDB = 0.1){
+        Barbara(uint pv=100; uint speed = 0.11; uint money = 15; float resistance_TDR = 0.1; float resistance_TDV = 0.5; float resistance_TDJ = 0.3; float resistance_TDB = 0.1){
             this->pv = pv;
             this->speed = speed;
             this->money = money;
@@ -110,7 +110,7 @@ class Barbara: public Monster{
 
 class Julien: public Monster{
     public:
-        Julien(uint pv=50; uint speed; uint money = 8; float resistance_TDR = 0.1; float resistance_TDV = 0.8; float resistance_TDJ = 0; float resistance_TDB = 0){
+        Julien(uint pv=50; uint speed = 0.14; uint money = 8; float resistance_TDR = 0.1; float resistance_TDV = 0.8; float resistance_TDJ = 0; float resistance_TDB = 0){
             this->pv = pv;
             this->speed = speed;
             this->money = money;
@@ -121,3 +121,33 @@ class Julien: public Monster{
         }
 
 }
+
+/*class Vague{
+    //On est a la combien tième vague
+    int numero;
+    list<Monster> listMonster;
+    /*Les vagues de 10
+
+    Vague de début : 4 Barbara, 6 Julien
+    Vague 2nd : 5 Barbara, 5 Julien
+    Vague de milieu : 1 Lucie, 6 Barbara, 3 Julien
+    Vague 4e: 3 Lucie, 4 Barbara, 3 Julien
+    Vague de fin : 5 Lucie, 3 Barbara, 2 Julien
+    void displayVague(){
+        switch(this->numero/10){
+            case 0: this->listMonster.push_back(Barbara());
+                this->listMonster.push_back(Barbara());
+                this->listMonster.push_back(Barbara());
+                this->listMonster.push_back(Barbara());
+                this->listMonster.push_back(Julien());
+                this->listMonster.push_back(Julien());
+                this->listMonster.push_back(Julien());
+                this->listMonster.push_back(Julien());
+            case 1:
+            case 2:
+            case 3:
+            case 4:
+            default:
+        }
+    }
+}*/
