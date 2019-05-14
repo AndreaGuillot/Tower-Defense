@@ -35,7 +35,7 @@ int map::createMap(char *cheminITD){
             return 0;
         }
 
-        //Troisème ligne : paramètres
+        //Troisème à huitième ligne : paramètres
         char *param;
         int pathR, pathG, pathB;
         int nodeR, nodeG, nodeB;
@@ -132,18 +132,33 @@ int map::createMap(char *cheminITD){
             }
         }
 
-        //Quatrième ligne : nombre de noeuds
+        //Neuvième ligne : nombre de noeuds
         int nbNode;
-        fgets(line, 4, fileITD);
+        int nbLine;
+        int cpt;
+        fgets(line, 5, fileITD);
         sscanf(line, "%d", &nbNode);
-        if()
-
-        //Cinquième ligne : description des noeuds 
+        while((cpt = fgetc(fileITD)) != EOF)
+        {
+            if(cpt == '\n')
+            {
+                nbLine++;
+            }
+        }
+        if((nbLine-9) != nbNode)
+        {
+            fprintf(stderr, "Erreur fichier : nombre de noeuds incorrect.\n");
+            return 0;
+        } else {
+            (*map).nbNode = nbNode;
+        }
+        //Dixième à dernière ligne : description des noeuds 
         int nodeIndice;
 		int nodeType;
 		int nodeX;
 		int nodeY;
         int nodeLink;
+        fgets(line, 20, fileITD);
 
     }
     
