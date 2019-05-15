@@ -5,7 +5,7 @@
 #include <SDL/SDL_image.h>
 
 #include "../include/color.h"
-#include "../src/node.cpp"
+#include "../include/node.h"
 
 typedef struct Map {
 
@@ -23,6 +23,10 @@ typedef struct Map {
 
 }Map;
 
+// Vérifie la map
 int verifMap(FILE* fileITD, Map *map);
+// Charge la map
+Map loadMap(char* fileNameITD);
+
 
 #endif

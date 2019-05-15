@@ -7,11 +7,11 @@
 
 #include "../include/map.h"
 
-int verifMap(FILE* fileITD, Map *map) { 
-
+int verifMap(FILE* fileITD, Map *map)
+{ 
     char line[100];
     
-    // Première ligne : format itd
+    /* Première ligne : format itd */
     int version;
     fgets(line, 5, fileITD);
     if(strcmp(line, "@ITD") != 0)
@@ -26,7 +26,7 @@ int verifMap(FILE* fileITD, Map *map) {
         return 0; 
     }
 
-    // Deuxième ligne : commentaire
+    /* Deuxième ligne : commentaire */
     fgets(line, 2, fileITD);
     if(strcmp(line, "#") !=0)
     {
@@ -34,12 +34,12 @@ int verifMap(FILE* fileITD, Map *map) {
         return 0;
     }
 
-    // Troisème à huitième ligne : paramètres
+    /* Troisème à huitième ligne : paramètres */
     char param[10];
     int R = 0;
     int G = 0;
     int B = 0;
-    //// Carte
+    // Carte
     char* fileName = (char*)malloc(sizeof(char)*30);
     if(fileName == NULL)
     {
@@ -56,7 +56,7 @@ int verifMap(FILE* fileITD, Map *map) {
     else {
         (*map).image = fileName;
     }
-    //// Chemin
+    // Chemin
     fgets(line, 20, fileITD);
     sscanf(line, "%s" "%d" "%d" "%d", param, &R, &G, &B);
     if(strcmp(param, "chemin") !=0)
@@ -72,7 +72,7 @@ int verifMap(FILE* fileITD, Map *map) {
     } else {
         (*map).pathColor = colorRGB(R, G, B);
     }
-    //// Noeud
+    // Noeud
     fgets(line, 20, fileITD);
     sscanf(line, "%s" "%d" "%d" "%d", param, &R, &G, &B);
     if(strcmp(param, "noeud") !=0)
@@ -88,7 +88,7 @@ int verifMap(FILE* fileITD, Map *map) {
     } else {
         (*map).nodeColor = colorRGB(R, G, B);
     }
-    //// Construct
+    // Construct
     fgets(line, 25, fileITD);
     sscanf(line, "%s" "%d" "%d" "%d", param, &R, &G, &B);
     if(strcmp(param, "construct") !=0)
@@ -104,7 +104,7 @@ int verifMap(FILE* fileITD, Map *map) {
     } else {
         (*map).constructColor = colorRGB(R, G, B);
     }
-    //// In
+    // In
     fgets(line, 20, fileITD);
     sscanf(line, "%s" "%d" "%d" "%d", param, &R, &G, &B);
     if(strcmp(param, "in") !=0)
@@ -120,7 +120,7 @@ int verifMap(FILE* fileITD, Map *map) {
     } else {
         (*map).inColor = colorRGB(R, G, B);
     }
-    //// Out
+    // Out
     fgets(line, 20, fileITD);
     sscanf(line, "%s" "%d" "%d" "%d", param, &R, &G, &B);
     if(strcmp(param, "out") !=0)
@@ -137,7 +137,7 @@ int verifMap(FILE* fileITD, Map *map) {
         (*map).outColor = colorRGB(R, G, B);
     }
 
-    // Neuvième ligne : nombre de noeuds
+    /* Neuvième ligne : nombre de noeuds */
     int nbLine = 0;
     int nbNode = 0;
     int cpt;
@@ -158,11 +158,11 @@ int verifMap(FILE* fileITD, Map *map) {
         (*map).nbNode = nbNode;
     }
 
-    // Dixième à dernière ligne : description des noeuds
-    //// Re-positionnement du curseur de lecture
+    /* Dixième à dernière ligne : description des noeuds */
+    // Re-positionnement du curseur de lecture
     long posFile = ftell(fileITD); 
     fseek(fileITD, posFile, SEEK_SET);
-    //// Supression du caractère '\n' à la fin du nom de fichier
+    // Supression du caractère '\n' à la fin du nom de fichier
     while(int i=0 < strlen(fileName))
     {
         if(fileName[i] == '\n')
@@ -171,7 +171,7 @@ int verifMap(FILE* fileITD, Map *map) {
         }
         i++;
     }
-    //// Chargement de l'image
+    // Chargement de l'image
     int X;
     int Y;
     char file[100] = "images/";
@@ -192,7 +192,7 @@ int verifMap(FILE* fileITD, Map *map) {
         }
         i++;
     }
-    //// Création de la liste des noeuds
+    // Création de la liste des noeuds
     fseek(fileITD, posFile, SEEK_SET);
     fscanf(fileITD, "%*d %*d %d %d\n", &X, &Y);
     Node* fileNode = createNode(X, Y);
@@ -206,10 +206,29 @@ int verifMap(FILE* fileITD, Map *map) {
     }
     (*fileNode).next = NULL;
     (*map).listNode = tmp;
-
-    //// Destruction des données de l'image chargée
+    // Destruction des données de l'image chargée
     SDL_FreeSurface(image);
 
     return 1;
+}
 
+
+Map loadMap(char* fileNameITD)
+{
+    FILE* fileITD = fopen(fileNameITD, "r");
+    if(fileITD == NULL)
+    {
+        fprintf(stderr, "Erreur ouverture du fichier : %s.\n", fileNameITD);
+        exit(1);
+    } else {
+        Map map;
+        if(verifMap(fileITD, &map))
+        {
+            printf("Map créée.\n");
+            return map;
+        } else {
+            fprintf(stderr, "Fichier incorrect : %s.\n", fileNameITD);
+            exit(1);
+        }
+    }
 }
