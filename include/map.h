@@ -1,28 +1,32 @@
 #ifndef MAP_H__
 #define MAP_H__
 
-#include "../include/colors.h"
+#include <SDL/SDL.h>
+#include <SDL/SDL_image.h>
 
-class Map {
+#include "../include/color.h"
+#include "../include/node.h"
 
-    private:
+typedef struct Map {
+
 	//Image ppm
-	Map* map;
+	char* image;
 	//Noeuds
-	Node* listNode;
 	int nbNode;
+	Node* listNode;
 	//Couleurs de la carte
-    Color colorIn;
-	Color colorOut;
-	Color colorPath;
-	Color colorNode;
-	Color colorConstruct;
+    Color inColor;
+	Color outColor;
+	Color pathColor;
+	Color nodeColor;
+	Color constructColor;
 
-	public:
-	//Vérifie la map
-	int createMap(char *cheminITD);
-	//Crée la couleur (r, g, b)
-	Color createColor(float r, float g, float b);
-};
+}Map;
+
+// Vérifie la map
+int verifMap(FILE* fileITD, Map *map);
+// Charge la map
+Map loadMap(char* fileNameITD);
+
 
 #endif

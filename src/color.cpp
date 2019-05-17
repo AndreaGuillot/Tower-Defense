@@ -1,15 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "../include/colors.h"
+#include "../include/color.h"
 
-Color createColor(float r, float g, float b){
+Color colorRGB(unsigned int r, unsigned int g, unsigned int b){
 
-	Color color;
+	Color newColor;
+	newColor.r = r;
+	newColor.g = g;
+	newColor.b = b;
 
-	color.red = r;
-	color.green = g;
-	color.blue = b;
-
-	return color;
+	return newColor;
 
 }

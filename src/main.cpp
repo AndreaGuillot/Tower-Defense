@@ -1,17 +1,32 @@
+#include <stdlib.h>
+#include <stdio.h>
+#include <math.h>
 #include <SDL/SDL.h>
+#include <SDL/SDL_image.h>
 #include <GL/gl.h>
 #include <GL/glu.h>
-#include <cstdlib>
-#include <cstdio>
-#include "../include/installation.h"
-#include "../include/joueur.h"
-#include "../include/map.h"
-#include "../include/monstre.h"
-#include "../include/tower.h"
+#include <GL/glut.h>
 
-/* Dimensions de la fenetre */
+#include "sdl_tools.h"
+#include "geometry/Color3f.h"
+#include "element/Monster.h"
+#include "element/Tower.h"
+#include "element/Shot.h"
+#include "file/Map.h"
+#include "file/Texture.h"
+#include "file/Image.h"
+#include "ihm/Node.h"
+#include "ihm/Draw.h"
+#include "ihm/Menu.h"
+#include "ihm/Interface.h"
+#include "file/FileTower.h"
+
 static unsigned int WINDOW_WIDTH = 800;
-static unsigned int WINDOW_HEIGHT = 450;
+static unsigned int WINDOW_HEIGHT = 660;
+static const unsigned int BIT_PER_PIXEL = 32;
+static const Uint32 FRAMERATE_MILLISECONDS = 1000 / 10;
+static const Uint32 FRAMERATE_MILLISECONDS_RAPIDE = 1000 / 50;
+float pi = 3.14;
 
 void reshape() {
 	glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
@@ -33,9 +48,9 @@ void setVideoMode() {
 	SDL_GL_SwapBuffers();
 }
 
-int main(int argc, char** argv) 
-{
-    int testMouse = 0;
+int main(int argc, char** argv) {
+
+	int testMouse = 0;
 	int play = 0;
 	int testTower = 0;
 	int nbMenu = 0;
@@ -57,7 +72,7 @@ int main(int argc, char** argv)
 
 	glutInit(&argc, argv); // initialisation de GLUT
 
-    SDL_WM_SetCaption("Tower Defence", NULL);
+    	SDL_WM_SetCaption("Tower Defense IMAC1", NULL);
 
 	/***** Variables ******/
 	//Texture menuMap
