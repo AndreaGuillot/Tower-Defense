@@ -1,21 +1,12 @@
 #ifndef INSTALLATION_H__
 #define INSTALLATION_H__
-#include "../include/installation.h"
-#include "../include/tower.h"
-#include "../include/monstre.h"
+#include "installation.h"
+#include "tower.h"
+#include "monstre.h"
+#include "struct.h"
 
 enum installationType {
     radar, usine, stock
-};
-
-class Position{
-    float x;
-    float y;
-};
-
-class Size{
-    float width;
-    float height;
 };
 
 class Installation {

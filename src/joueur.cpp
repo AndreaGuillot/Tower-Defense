@@ -12,31 +12,31 @@ class Joueur {
         Joueur(argent=100){
             this->argent = argent;
         }
-    //Accesseurs
-    uint getArgent(){
-        return this->argent;
-    }
-
-    void kill(Monster m){
-        this->argent += m.money;
-    }
-
-    void buildTower(Tower t){
-        int new_argent = this->argent -= t.cost;
-        if(new_argent<0){
-            //Impossible de construire
-        }else{
-            this->argent = new_argent;
+        //Accesseurs
+        uint getArgent(){
+            return this->argent;
         }
-    }
 
-    void buildInstallation(Installation i){
-        int new_argent = this->argent -= i.cost;
-        if(new_argent<0){
-            //Impossible de construire
-        }else{
-            this->argent = new_argent;
+        void updateMoneyKill(Monster m){
+            this->argent += m.getReward();
         }
-    }
+
+        void updateMoneyBuildTower(Tower t){
+            int new_argent -= t.getCost();
+            if(new_argent<0){
+                //Impossible de construire
+            }else{
+                this->argent = new_argent;
+            }
+        }
+
+        void updateMoneyBuildInstallation(Installation i){
+            int new_argent -= i.getCost();
+            if(new_argent<0){
+                //Impossible de construire
+            }else{
+                this->argent = new_argent;
+            }
+        }
 
 };

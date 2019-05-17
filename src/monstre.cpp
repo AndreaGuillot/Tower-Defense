@@ -5,20 +5,55 @@
 class Monster {
 
     private:
-	//Position du monstre
-	Position p;
+    //Position du monstre
+    Position p;
+    //S'il y a une erreur sur sa position
+    float erreur;
+    //Ses caractéristiques sur le chemin
+    Sens sens;
+    Node *node_prev;
+    Node *node_next;
+    Monster monster_prev;
+    Monster monster_next;
     //Propriétés du monstre
-	uint pv;
-	uint speed;
+    monsterType type;
+    uint pv;
+    uint speed;
     uint money;
-	float resistance_TDR;
+    float resistance_TDR;
     float resistance_TDV;
     float resistance_TDJ;
     float resistance_TDB;
 	
     public:
-    //Constructeur
     //Accesseurs
+    Position getPosition(){
+        return this->p;
+    }
+    float getErreur(){
+        return this->erreur;
+    }
+
+    Sens getSens(){
+        return this->sens;
+    }
+    Node getPrev(){
+        return this->node_prev;
+    }
+    Node getNext();{
+        return this->node_next;
+    }
+    Monster getPrevM(){
+        return this->monster_prev;
+    }
+    Monster getNextM(){
+        return this->monster_next;
+    }
+
+    monsterType getType(){
+        return this->type;
+    }
+    
     float getPV(){
         return this->pv;
     }
@@ -41,42 +76,120 @@ class Monster {
     float getResistance_TDB(){
         return this->resistance_TDB;
     }
-    //Mutateurs
-    void move(){
-        float newX, newY;
-        //Calculer
-        this->p.x = newX;
-        this->p.y = newY;
+
+    //Constructeurs
+
+    void setPosition(Position p){
+        this->p = p;
     }
 
-    void hitBy(Tower tower){
-        int newPV = this->pv;
-        switch (tower.getType()){
-            case yoann:
-                newPV = int(tower.getPower()*(1-this->resistance_TDR));
-                break;
-            case clara:
-                newPV = int(tower.getPower()*(1-this->resistance_TDV));
-                break;
-            case jules:
-                newPV = int(tower.getPower()*(1-this->resistance_TDJ));
-                break;
-            case oceanne:
-                newPV = int(tower.getPower()*(1-this->resistance_TDB));
-                break;
-            default:
-                break;
-        }
-        if(newPV>0){
-            this->pv = (uint)newPV;
-        }else{
-            killMonster(this);
-        }
+    void setX(float x){
+        this->p.positionSetX(x);
     }
 
-    void killMonster(Joueur j){
-        j.kill(this);
-        delete this;
+    void setY(float y){
+        this->p.positionSetY(y);
+    }
+
+    void setErreur(float e){
+        this->erreur = e;
+    }
+
+    void setNodePrev(Node node){
+        this->node_prev = node;
+    }
+    void setNodeNext(Node node){
+        this->node_next=node;
+    }
+
+    void setPrevMonster(Monster m){
+        this->monster_prev = m;
+    }
+
+    void setNextMonster(Monster m){
+        this->monster_next = m;
+    }
+
+    //Fonctions
+
+    void calculErreur() {
+
+        //Si on est sur un chemin
+        if(this->node_prev != NULL && this->node_next != NULL) {
+
+            //Si on bute sur l'axe des x
+            if(this->node_prev->x == this->node_next->x) {
+
+                this->erreur = 0; //erreur
+
+                if(this->node_prev->y <= this->node_next->y)
+                    this->sens = bas;
+                else
+                    this->sens = haut;
+            }
+            //Si on bute sur l'axe des y
+            else if(this->node_prev->y == this->node_next->y) {
+
+                this->erreur = 0;//erreur
+
+                if(this->node_prev->x <= this->node_next->x)
+                    this->sens = droite;
+                else
+                    this->sens = gauche;
+            }
+            else {
+
+                float dx = (this->node_next->x) - (this->node_prev->x);
+                float dy = (this->node_next->y) - (this->node_prev->y);   
+
+                if(dx > 0) {
+                    if(dy > 0) {
+
+                        if(dx >= dy)
+                            this->erreur = (this->node_next->x) - (this->node_prev->x);
+                        else
+                            this->erreur = (this->node_next->y) - (this->node_prev->y);
+                    }
+                    else {
+
+                        if(dx >= -dy)
+                            this->erreur = (this->node_next->x) - (this->node_prev->x);
+                        else
+                            this->erreur = (this->node_next->y) - (this->node_prev->y);
+
+                    }
+
+                    this->sens = droite;
+
+                }
+                else {
+                    if(dy > 0) {
+
+                        if(-dx >= dy)
+                            this->erreur = (this->node_next->x) - (this->node_prev->x);
+                        else
+                            this->erreur = (this->node_next->y) - (this->node_prev->y);
+
+                    }
+                    else {
+
+                        if(dx <= dy)
+                            this->erreur = (this->node_next->x) - (this->node_prev->x);
+                        else
+                            this->erreur = (this->node_next->y) - (this->node_prev->y);
+
+                    }
+
+                    this->sens = gauche;
+                
+                }       
+
+            }
+
+        }
+        else
+            fprintf(stderr, "Erreur sur le pointeur du monstre\n");
+
     }
 
 };
@@ -122,32 +235,209 @@ class Julien: public Monster{
 
 }
 
-/*class Vague{
-    //On est a la combien tième vague
-    int numero;
-    list<Monster> listMonster;
-    /*Les vagues de 10
+class listMonster {
 
-    Vague de début : 4 Barbara, 6 Julien
-    Vague 2nd : 5 Barbara, 5 Julien
-    Vague de milieu : 1 Lucie, 6 Barbara, 3 Julien
-    Vague 4e: 3 Lucie, 4 Barbara, 3 Julien
-    Vague de fin : 5 Lucie, 3 Barbara, 2 Julien
-    void displayVague(){
-        switch(this->numero/10){
-            case 0: this->listMonster.push_back(Barbara());
-                this->listMonster.push_back(Barbara());
-                this->listMonster.push_back(Barbara());
-                this->listMonster.push_back(Barbara());
-                this->listMonster.push_back(Julien());
-                this->listMonster.push_back(Julien());
-                this->listMonster.push_back(Julien());
-                this->listMonster.push_back(Julien());
-            case 1:
-            case 2:
-            case 3:
-            case 4:
-            default:
+    private:
+        int length;
+
+        Monster head;
+        Monster tail;
+
+    public:
+        int getLength(){
+            return this->length;
         }
-    }
-}*/
+        Monster getHead(){
+            return this->head;
+        }
+        Monster getTail(){
+            return this->tail;
+        }
+
+        bool addMonster(monsterType type, Node node) {
+            if(this!=NULL){
+                //On crée le monstre
+
+                switch(type){
+                    case Lucie: 
+                        Lucie monster;
+                        break;
+
+                    case Barbara: 
+                        Barbara monster;
+                        break;
+                    case Julien: 
+                        Julien monster;
+                        break;
+                    default: break;
+                }
+
+                if(monster != NULL){
+                    monster.setPosition(node.getPosition());
+                    monster.setNodePrev(node);
+                    monster.setNodeNext(node.getNext());
+
+                    //Vérifie le déplacement pour savoir dans quelle sens il se déplace et pour donner l'erreur
+                    monster.calculErreur();
+
+                    //Comme il est a la fin de la liste, il pointe sur NULL
+                    monster->monster_next = NULL;
+
+                    //Si la liste était vide de base, alors elle est composée de seulement ce monstre
+                    if(this->tail == NULL){
+                        this->head = monster;
+                        monster.setPrevMonster(NULL);
+                    }else{
+                    //On pointe le précédent monstre sur la queue de la liste et on ajoute a la queue le monstre
+                        monster.setPrevMonster(this->tail);
+                        this->tail.setNextMonster(monster);
+                    }
+
+                    this->tail = monster;
+
+                    this->length++;
+                }else{
+                    fprintf(stderr, "Problème dans la creation du nouveau monstre\n");
+                    return 0;
+                }
+            }else{
+                fprintf(stderr, "Cette liste de monstres n'existe pas\n");
+                return 0;
+            }
+            return 1;
+        }
+
+        /************* Deplacer les monstres *************/
+        /* Deplace les monstre : Vérifie s'il se déplace à l'horizontal, vertical ou autrement puis le déplace. Prend en paramètre la liste de  *
+        *  monstres et et le dernier noeud de la carte. Retourne 0 en cas d'erreur et 1 sinon et 2 s'il est arrivé à la fin. */
+        int moveMonster (Node node){
+
+            if(this != NULL){
+                Monster tmp = this->head;
+
+                while(tmp != NULL){
+                    if(k%tmp.getSpeed() == 0){
+                        //S'il avance selon l'axe des y
+                        if(tmp.getPrev().getX() == tmp.getNext().getX()){
+                            if(tmp.getSens() == bas)
+                                tmp.setY(tmp.getPosition().getY()+1);
+                            else
+                                tmp.setY(tmp.getPosition().getY()-1);
+
+                        //S'il avance selon l'axe des x
+                        }else if(tmp.getPrev().getY() == tmp.getNext().getY()){
+                            if(tmp.getSens() == droite)
+                                tmp.setX(tmp.getPosition().getX()+1);
+                            else
+                                tmp.setX(tmp.getPosition().getX()-1);
+                        }else{
+                            //Il avance selon les deux axes
+
+                            float x, y;
+                            x = (tmp.getNext().getPosition() - tmp.getPrev().getPosition())*2;
+                            y = (tmp.getNext().getPositionY() - tmp.getPrev().getPosition())*2;
+
+                            if(x>0){
+                                if(y>0){
+                                    if(x>=y){
+                                        tmp.setX(tmp.getPositionX()+1);
+                                        tmp.setErreur(tmp.getErreur() - y);
+
+                                        if(tmp.getErreur() <=0){
+                                            tmp.setY(tmp.getY()+1);
+                                            tmp.setErreur(tmp.getErreur()+x);
+                                        }
+                                    }else{
+                                        tmp.setY(tmp.getY()+1);
+                                        tmp.setErreur(tmp.getErreur() - x);
+
+                                        if(tmp.getErreur() <= 0){
+                                            tmp.setX(tmp.getX()+1);
+                                            tmp.setErreur(tmp.getErreur() + y);
+                                        }
+                                    }
+                                }else{
+
+                                    if(x>=y){
+                                        tmp.setX(tmp.getX+1);
+                                        tmp.setErreur(tmp.getErreur() + y);
+
+                                        if(tmp.getErreur() <=0){
+                                            tmp.setY(tmp.getY()-1);
+                                            tmp.setErreur(tmp.getErreur() +x);
+                                        }
+                                    }else{
+                                        tmp.setY(tmp.getY()-1);
+                                        tmp.setErreur(tmp.getErreur() +x);
+
+                                        if(tmp.getErreur() > 0){
+                                            tmp.setX(tmp.getX()+1);
+                                            tmp.setErreur(tmp.getErreur()+y);
+                                        }
+                                    }
+                                }
+                            }else{
+                                if(y>0){
+                                    if( -x >= y){
+                                        tmp.setX(tmp.getX()-1);
+                                        tmp.setErreur(tmp.getErreur()+y);
+
+                                        if(tmp.getErreur() >= 0){
+                                            tmp.setY(tmp.getY()+1);
+                                            tmp.setErreur(tmp.getErreur()+x);
+                                        }
+                                    }else{
+                                        tmp.setY(tmp.getY()+1);
+                                        tmp.setErreur(tmp.getErreur()+x);
+
+                                        if(tmp.getErreur() <=0){
+                                            tmp.setX(tmp.getX()-1);
+                                            tmp.setErreur(tmp.getErreur()+y);
+                                        }
+                                    }
+                                }else{
+                                    if(x <= y){
+                                        tmp.setX(tmp.getX()-1);
+                                        tmp.setErreur(tmp.getErreur() - y);
+
+                                        if(tmp.getErreur() >= 0){
+                                            tmp.setY(tmp.getY()-1);
+                                            tmp.setErreur(tmp.getErreur() +x);
+                                        }
+                                    }else{
+                                        tmp.setY(tmp.getY()-1);
+                                        tmp.setErreur(tmp.getErreur() - y);
+
+                                        if(tmp.getErreur() >= 0){
+                                            tmp.setX(tmp.getX()-1);
+                                            tmp.setErreur(tmp.getErreur() +y);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        if(tmp.getPosition() == tmp.getNext().getPosition()){
+                            if(tmp.getPosition() == node.getPosition())
+                                return 2;
+                            else{
+                                tmp.setNodePrev(tmp.getNext());
+                                tmp.setNodeNext(tmp.getNext().getNext());
+
+                                tmp.calculErreur();
+                            }
+                        }
+                    }
+
+                    tmp = tmp.getNext();
+                }
+
+            }else {
+                fprintf(stderr, "Cette liste de monstres n'existe pas");
+                return 0;
+            }
+
+            return 1;
+        }
+}
+

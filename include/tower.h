@@ -5,7 +5,7 @@
 #include <stdlib.h>
 
 enum towerType {
-    yoann, clara, jules, oceanne
+    yoann, clara, jules, oceane
 };
 
 class Tower {
@@ -57,9 +57,9 @@ class Jules: public Tower{
     	towerType getType();
 }
 
-class Oceanne: public Tower{
+class Oceane: public Tower{
     public:
-    	Oceanne(float range=50.; float rate=0.5; uint cost=50; float power =10.);
+    	Oceane(float range=50.; float rate=0.5; uint cost=50; float power =10.);
     	towerType getType();
 }
 
