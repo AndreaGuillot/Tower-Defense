@@ -49,6 +49,10 @@ class Node {
 			return this->next;
 		}
 
+		void setNext(Node node){
+			this->next = node;
+		}
+
 };
 
 class listNode {
@@ -58,6 +62,27 @@ class listNode {
 	//Pointeur
 	Node head; //pointeur vers le premier element
 	Node tail; //pointeur vers le dernier element
+
+public: 
+	int getLength(){
+		return this->length;
+	}
+
+	Node getHead(){
+		return this->head;
+	}
+
+	Node getTail(){
+		return this->tail;
+	}
+
+	void setHead(Node node){
+		this->head = node;
+	}
+
+	void setTail(Node node){
+		this->tail = node;
+	}
 };
 
 #endif

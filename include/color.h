@@ -1,14 +1,17 @@
 #ifndef COLOR_H__
 #define COLOR_H__
 
-typedef struct color {
+class Color {
 
     unsigned int r;
     unsigned int g;
     unsigned int b;
     
-}Color;
-
-Color colorRGB(unsigned int r, unsigned int g, unsigned int b);
+    Color();
+    
+    uint getR();
+    uint getG();
+    uint getB();
+}
 
 #endif

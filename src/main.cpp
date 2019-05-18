@@ -70,6 +70,8 @@ int main(int argc, char** argv) {
 
     	SDL_WM_SetCaption("Tower Defense IMAC1", NULL);
 
+    Map map = NULL;
+
 	/***** Variables ******/
 	//Texture menuMap
 	GLuint menuMap;
@@ -90,8 +92,6 @@ int main(int argc, char** argv) {
 	GLuint menuPrincipalButton;
 	SDL_Surface* imgMenuPrincipalButton = NULL;
 
-	Map map;
-
 	//La carte
 	GLuint texture;
 	SDL_Surface* imgMap = NULL;
@@ -101,11 +101,11 @@ int main(int argc, char** argv) {
 	SDL_Surface* imgHelp = NULL;
 
 	//Texture des monstres
-	GLuint monster;
+	GLuint monsterTxt;
 	SDL_Surface* imgMonster = NULL;
 
 	//Texture des tours
-	GLuint tower;
+	GLuint towerTxt;
 	SDL_Surface* imgTower = NULL;
 
 	//Texture des shots	
@@ -151,26 +151,25 @@ int main(int argc, char** argv) {
 	//Initialisation de la liste de monstre
 	listMonster monsters = new listMonster();
 	//Initialisation de la liste de tours
-	LTower* p_ltower = new_LTower();
+	listTower towers = new listTower();
 	//Initialisation de la liste de shots
-	LShot* p_lshot = new_LShot();
+	listShot shots = new listShot();
 
-	//Initialisation de la liste de tours (file)
-	LFileTower* p_lfileTower =  newFileTower ("./data/IDTtower.idt");
+	//Initialisation de la liste de tours (file) --------------------------------------------------AUCUNE IDEE DE CE A QUOI CA SERT
+	listFileTower fileTower =  new listFileTower ("../data/IDTtower.idt");
 
 	int i = 0;
-	int nb_monster = 0, j = 0;
+	int j = 0;
 	int k = 0;
-	int propriete = 0;
-	int aide = 0;
+	Propriete propriete = aucune;
 	int apparition = 130;
 	int infoMoney = 0;
 
 	//Pour afficher les propriétés
-	Tower* pTower = NULL;
-	Monster* pMonster = NULL;
+	Tower tower = NULL;
+	Monster pMonster = NULL;
 
-	int loop = 1;
+	bool loop = 1;
 
 	/**** Main loop ***/
   	while(loop) {
@@ -180,137 +179,78 @@ int main(int argc, char** argv) {
 
 		glClear(GL_COLOR_BUFFER_BIT);
 		glMatrixMode(GL_MODELVIEW);
-
-		if(nbMenu == 0)
-			drawMenuMap (&menuMap, &menuMapButton, nbtexture);
-		else if(nbMenu == 4)
+/************************************************************************************************************************/
+		if(nbMenu == gameOver)
 			drawGameOverWin(&fondGameOver, &menuPrincipalButton);
-		else if(nbMenu == 5)
+		else if(nbMenu == gameWin)
 			drawGameOverWin(&fondWin, &menuPrincipalButton);
-		else if(nbMenu == 1) {
+		else if(nbMenu == menu) {
+
+				loadTexture("../images/temp/MenuPrincipal.png", &menuPrincipal, imgMenuPrincipal);
+
+				loadTexture("../images/temp/sprite_button_menu.png", &menuPrincipalButton, imgMenuPrincipalButton);
+
+				//La carte
+				Map map = loadMap("./data/IDTMap1.idt");
+				//Texture de la carte
+
+				loadMapTexture(map, &texture, imgMap);
+				if(nbtexture == 1)
+					loadTexture("../images/temp/map1.ppm", &texture, imgMap);
+				
+				//Texture des monstres
+				loadTexture("../images/temp/sprite_monster.png", &monsterTxtTxt, imgMonster);
+				//Texture des tours
+				loadTexture("../images/temp/sprite_tour.png", &towerTxtTxt, imgTower);
+
+				//Texture des shots	
+				loadTexture("../images/shot.png", &shot, imgShot);
+				//Texture menu
+				loadTexture("../images/temp/sprite_menu1.png", &spriteMenu, imgButtonMenu);
+				//Texture fond menu
+				loadTexture("../images/fondMenu.png", &fondMenu, imgFondMenu);
+				//Texture pour les boutons
+				loadTexture("../images/temp/sprite_button1.png", &spriteButton, imgSpriteButton);
+				//Bouton plus ou upgrate les tours
+				loadTexture("../images/temp/bt_plus.png", &btPlus, imgbtPlus);
+				//Texture fond menu up
+				loadTexture("../images/temp/fondMenuUp.png", &fondMenuUp, imgFondMenuUp);
+
+				//Texture fond Game Over
+				loadTexture("../images/temp/GameOver.png", &fondGameOver, imgFondGameOver);
+				//Texture fond Win
+				loadTexture("../images/temp/YouWin.png", &fondWin, imgFondWin);
+
+				drawMenuPrincipal (&menuPrincipal, &menuPrincipalButton);
+		}else {
 			
-			//Charge les textures de la première carte
-			if(nbMap == 1) {
+			drawMap(&texture);
+			//Dessin du menu du dessus
+			drawMenuUp(&spriteButton, &fondMenuUp);
+			//Dessin du menu de gauche (les tours)
+			drawMenuLeft(&spriteMenu, &fondMenu, joueur);
+			//Dessin de l'interface (données du joueur)
+			drawInterface (&spriteButton, joueur);
 
-				loadTexture("./images/map1/MenuPrincipal.png", &menuPrincipal, imgMenuPrincipal);
-
-				loadTexture("./images/map1/sprite_button_menu.png", &menuPrincipalButton, imgMenuPrincipalButton);
-
-				//La carte
-				map = newMap ("./data/IDTMap1.idt");
-				//Texture de la carte
-
-				loadMapTexture(map, &texture, imgMap);
-				if(nbtexture == 1)
-					loadTexture("./images/map1/map1.ppm", &texture, imgMap);
-				//Texture aide
-				loadTexture("./images/map1/help.png", &help, imgHelp);
-
-				//Texture des monstres
-				loadTexture("./images/map1/sprite_monster.png", &monster, imgMonster);
-				//Texture des tours
-				loadTexture("./images/map1/sprite_tour.png", &tower, imgTower);
-
-				//Texture des shots	
-				loadTexture("./images/shot.png", &shot, imgShot);
-				//Texture menu
-				loadTexture("./images/map1/sprite_menu1.png", &spriteMenu, imgButtonMenu);
-				//Texture fond menu
-				loadTexture("./images/fondMenu.png", &fondMenu, imgFondMenu);
-				//Texture pour les boutons
-				loadTexture("./images/map1/sprite_button1.png", &spriteButton, imgSpriteButton);
-				//Bouton plus ou upgrate les tours
-				loadTexture("./images/map1/bt_plus.png", &btPlus, imgbtPlus);
-				//Texture fond menu up
-				loadTexture("./images/map1/fondMenuUp.png", &fondMenuUp, imgFondMenuUp);
-
-				//Texture fond Game Over
-				loadTexture("./images/map1/GameOver.png", &fondGameOver, imgFondGameOver);
-				//Texture fond Win
-				loadTexture("./images/map1/YouWin.png", &fondWin, imgFondWin);
-				//Texture fond Tuto
-				loadTexture("./images/btTuto.png", &fondTuto, imgFondTuto);
-
-			}
-			//Charge les textures de la deuxième carte
-			else if(nbMap == 2) {
-				loadTexture("./images/map2/MenuPrincipal.png", &menuPrincipal, imgMenuPrincipal);
-
-				loadTexture("./images/map2/sprite_button_menu.png", &menuPrincipalButton, imgMenuPrincipalButton);
-
-				//La carte
-				map = newMap ("./data/IDTMap2.idt");
-				//Texture de la carte
-
-				loadMapTexture(map, &texture, imgMap);
-				if(nbtexture == 1)
-					loadTexture("./images/map2/map2.ppm", &texture, imgMap);
-				//Texture aide
-				loadTexture("./images/map2/help.png", &help, imgHelp);
-
-				//Texture des monstres
-				loadTexture("./images/map2/sprite_monster.png", &monster, imgMonster);
-				//Texture des tours
-				loadTexture("./images/map2/sprite_tour.png", &tower, imgTower);
-
-				//Texture des shots	
-				loadTexture("./images/shot.png", &shot, imgShot);
-				//Texture menu
-				loadTexture("./images/map2/sprite_menu1.png", &spriteMenu, imgButtonMenu);
-				//Texture fond menu
-				loadTexture("./images/fondMenu.png", &fondMenu, imgFondMenu);
-				//Texture pour les boutons
-				loadTexture("./images/map2/sprite_button1.png", &spriteButton, imgSpriteButton);
-				//Bouton plus ou upgrate les tours
-				loadTexture("./images/map2/bt_plus.png", &btPlus, imgbtPlus);
-				//Texture fond menu up
-				loadTexture("./images/map2/fondMenuUp.png", &fondMenuUp, imgFondMenuUp);
-				//Texture fond Game Over
-				loadTexture("./images/map2/GameOver.png", &fondGameOver, imgFondGameOver);
-				//Texture fond Win
-				loadTexture("./images/map2/YouWin.png", &fondWin, imgFondWin);
-				//Texture fond Tuto
-				loadTexture("./images/btTuto.png", &fondTuto, imgFondTuto);
+			if(nbtexture == 0) {
+				//Dessin du chemin et noeud
+				map.drawRoad ();
 			}
 
-			drawMenuPrincipale (&menuPrincipal, &menuPrincipalButton);
-		}
-		else if(nbMenu == 2) 
-			drawHelp (&help, &spriteButton, &menuPrincipalButton, nbMenu);
-		else {
-			//Afficher l'aide
-			if(aide == 1)
-				drawHelp (&help, &spriteButton, &menuPrincipalButton, nbMenu);
-			//Affiche la carte et les différents élements du jeu
-			else {
-				//Dessin de la carte
-				drawMap(&texture);
-				//Dessin du menu du dessus
-				drawMenuUp(&spriteButton, &fondMenuUp, play);
-				//Dessin du menu de gauche (les tours)
-				drawMenuLeft(&spriteMenu, &fondMenu, interface);
-				//Dessin de l'interface (données du joueur)
-				drawInterface (&spriteButton, interface);
+			//Si proprité = 1
+			if(propriete == propTower) {
+				//Affiche les propriétés de la tours
+				tower.drawProprieteTower(&towerTxt, &spriteMenu, &btPlus, interface);
+				pMonster = NULL;
+			}
+			//Si propriété = 2
+				else if(propriete == propMonster) {
 
-				if(nbtexture == 0) {
-					//Dessin du chemin et noeud
-					drawRoad (map);
-				}
-
-				//Si proprité = 1
-				if(propriete == 1) {
-					//Affiche les propriétés de la tours
-					drawProprieteTower(&tower, &spriteMenu, &btPlus, pTower, interface);
-					pMonster = NULL;
-				}
-				//Si propriété = 2
-				else if(propriete == 2) {
-
-					pTower = NULL;
+					tower = NULL;
 					if(pMonster != NULL) {
 						if(pMonster->pv > 0) {
 							//Affiche les propriété du monstre
-							drawProprieteMonster(&monster, pMonster);
+							drawProprieteMonster(&monsterTxt, pMonster);
 						}
 						else {
 							propriete = 0;
@@ -345,7 +285,7 @@ int main(int argc, char** argv) {
 						nb_monster = 0;
 						propriete = 0;
 						aide = 0;
-						initAll(monsters, p_lshot, p_ltower, interface);
+						initAll(monsters, shots, towers, interface);
 
 						nbMenu = 5;
 					}
@@ -353,16 +293,16 @@ int main(int argc, char** argv) {
 					j++;
 
 					//Création d'un pointeur tour temporaire pour parcourir la liste de tours
-					Tower *p_temp = p_ltower->p_head;
+					Tower *p_temp = towers->p_head;
 
 					//Parcours la liste de tours
 					while(p_temp != NULL){
 
 						// Si p_temp = au pointeur du dernier de la liste
-						if(p_temp == p_ltower->p_tail) {
+						if(p_temp == towers->p_tail) {
 							if(testMouse == 0) {
 								if((p_temp->compteur)%(p_temp->rate) == 0) {
-									if(inSight (p_lshot, monsters, p_temp) != 0) {
+									if(inSight (shots, monsters, p_temp) != 0) {
 										(p_temp->compteur)=0;
 									}
 								}
@@ -370,7 +310,7 @@ int main(int argc, char** argv) {
 						}
 						else {
 							if((p_temp->compteur)%(p_temp->rate) == 0) {
-								if(inSight (p_lshot, monsters, p_temp) != 0) {
+								if(inSight (shots, monsters, p_temp) != 0) {
 									(p_temp->compteur)=0;
 								}
 							}
@@ -382,9 +322,9 @@ int main(int argc, char** argv) {
 				}
 
 				//Dessiner les tours
-				drawTower(&tower, p_ltower, monsters, pTower, testMouse, testTower);
+				drawTower(&towerTxt, towers, monsters, tower, testMouse, testTower);
 				//Dessiner les monstres
-				drawMonster(&monster, monsters, play);
+				drawMonster(&monsterTxt, monsters, play);
 
 				//Si le jeu n'est pas en pause
 				if(play != 1) {
@@ -393,10 +333,10 @@ int main(int argc, char** argv) {
 					if(moveMonster(monsters, map->list_node->p_tail, k) == 2) {
 
 						//Pointeur shot temporaire pour parcourir la liste
-						Shot *p_tempS = p_lshot->p_head;
+						Shot *p_tempS = shots->p_head;
 
 						while(p_tempS != NULL) {
-							if(p_tempS->target == p_lshot->p_head)
+							if(p_tempS->target == shots->p_head)
 								p_tempS->target == NULL;
 
 							p_tempS = p_tempS->p_next;
@@ -413,16 +353,16 @@ int main(int argc, char** argv) {
 							propriete = 0;
 							aide = 0;
 
-							initAll(monsters, p_lshot, p_ltower, interface);
+							initAll(monsters, shots, towers, interface);
 	
 							nbMenu = 4;
 						}
 					}
 
 					while(i < 3) {
-						drawShot(&shot, p_lshot); //dessin du shot
-						moveShot(p_lshot); //Bouger le shot
-						collisionMissile(p_lshot, monsters, interface, pMonster, &propriete); //test de collision
+						drawShot(&shot, shots); //dessin du shot
+						moveShot(shots); //Bouger le shot
+						collisionMissile(shots, monsters, interface, pMonster, &propriete); //test de collision
 						i++;
 					}
 					i = 0;
@@ -430,11 +370,11 @@ int main(int argc, char** argv) {
 
 				}
 				else {
-					drawShot(&shot, p_lshot); //dessin du shot
+					drawShot(&shot, shots); //dessin du shot
 				}
 
 				if(infoMoney != 0)
-					drawMoney(pTower, infoMoney);
+					drawMoney(tower, infoMoney);
 
 				if(tuto != 0) 
 					drawTutorial(&fondTuto, tuto);
@@ -471,7 +411,7 @@ int main(int argc, char** argv) {
 
 							if(testMouse == 0) {
 								//test click sur le menu de la tour
-								if(clickMenuTour(p_ltower, p_lfileTower, interface, e.button.x, e.button.y) == 1)
+								if(clickMenuTour(towers, fileTower, interface, e.button.x, e.button.y) == 1)
 									testMouse = 1;
 							}
 							else {
@@ -479,25 +419,25 @@ int main(int argc, char** argv) {
 									testMouse = 0;
 							}
 
-							if(pTower != NULL && propriete == 1) {
+							if(tower != NULL && propriete == 1) {
 								//Test click pour supprimer une tour
-								clickTourDelete(p_ltower, p_lshot, pTower, interface, e.button.x, e.button.y, &propriete);
+								clickTourDelete(towers, shots, tower, interface, e.button.x, e.button.y, &propriete);
 								//Test click pour upgrade une tour
-								clickTourUpgrate(pTower, interface, e.button.x, e.button.y, &propriete);
+								clickTourUpgrate(tower, interface, e.button.x, e.button.y, &propriete);
 							}
 
 							//test click play / pause / avance rapide
 							play = clickTime(e.button.x, e.button.y, play, &nb_monster, &j);
 							//Test click exit
-							loop = clickExit(monsters, p_lshot, p_ltower, p_lfileTower, map, interface, e.button.x, e.button.y, aide);
+							loop = clickExit(monsters, shots, towers, fileTower, map, interface, e.button.x, e.button.y, aide);
 							//Test click sur une tower
-							pTower = clickTower(p_ltower, e.button.x, e.button.y, &propriete);
+							tower = clickTower(towers, e.button.x, e.button.y, &propriete);
 							//Test click sur un monstre
 							pMonster = clickMonster(monsters, e.button.x, e.button.y, &propriete);
 							//Test click aide
 							aide = clickAide(e.button.x, e.button.y, aide);
 							//Test ckick tuto
-							tuto = clickTuto(pTower, e.button.x, e.button.y, tuto, testMouse, testTower, &tutoend);
+							tuto = clickTuto(tower, e.button.x, e.button.y, tuto, testMouse, testTower, &tutoend);
 						}
 					}
 					break;
@@ -505,7 +445,7 @@ int main(int argc, char** argv) {
 				case SDL_MOUSEMOTION :
 					if(testMouse == 1) {
 						//Bouger la tour et test si elle est sur une zone constructible ou non
-						if(moveTower(p_ltower, p_ltower->p_tail, map->list_pixels, e.button.x, e.button.y) == 1)
+						if(moveTower(towers, towers->p_tail, map->list_pixels, e.button.x, e.button.y) == 1)
 							testTower = 1;
 						else
 							testTower = 0;
@@ -519,7 +459,7 @@ int main(int argc, char** argv) {
 			  		switch(e.key.keysym.sym){
 		    			case SDLK_ESCAPE : 
 							loop = 0;
-							freeAll(monsters, p_lshot, p_ltower, p_lfileTower, map, interface);
+							freeAll(monsters, shots, towers, fileTower, map, interface);
 							break;
 
 			    		default : break;
@@ -555,8 +495,8 @@ int main(int argc, char** argv) {
 	freeTexture(&menuPrincipalButton, imgMenuPrincipalButton);
 	freeTexture(&texture, imgMap);
 	freeTexture(&help, imgHelp);
-	freeTexture(&monster, imgMonster);
-	freeTexture(&tower, imgTower);
+	freeTexture(&monsterTxt, imgMonster);
+	freeTexture(&towerTxt, imgTower);
 	freeTexture(&shot, imgShot);
 	freeTexture(&spriteMenu, imgButtonMenu);
 	freeTexture(&fondMenu, imgFondMenu);

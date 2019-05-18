@@ -26,6 +26,9 @@ class Monster {
     float resistance_TDB;
 	
     public:
+    Monster(){
+        this = NULL;
+    }
     //Get
     Position getPosition(){
         return this->p;

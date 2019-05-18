@@ -1,6 +1,14 @@
 #ifndef STRUCT_H__
 #define STRUCT_H__
 
+enum Propriete{
+	aucune, propTower, propMonster
+};
+
+enum Menus{
+	menu, play, gameOver, gameWin
+};
+
 class Position{
     float x;
     float y;
