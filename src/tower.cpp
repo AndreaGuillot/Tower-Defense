@@ -1,12 +1,12 @@
-#include <stdlib.h>
-#include "../include/installation.h"
 #include "../include/tower.h"
-#include "../include/monstre.h"
 
 class Tower {
 
     public:
     //Constructeur
+    Tower(){
+        this = NULL;
+    }
     //Get
     Position getPosition(){
         return this->p;
@@ -68,8 +68,6 @@ class Tower {
     void setPrev(Tower tower){
         this->prev = tower;
     }
-
-	virtual towerType getType() = 0;
 
     int drawProprieteTower(GLuint* tower, GLuint* spriteMenu, GLuint* btPlus, Joueur joueur) {
 
@@ -351,12 +349,20 @@ class listTower{
         this->tail.set(NULL);
     }
 
+    int getLength(){
+        return this->length;
+    }
+
     Tower getHead(){
         return this->;head
     }
 
     Tower getTail(){
         return this->tail;
+    }
+
+    void setLength(int a){
+        this->length = a;
     }
 
     void setHead(Tower t){

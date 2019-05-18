@@ -1,9 +1,18 @@
 #ifndef MONSTER_H__
 #define MONSTER_H__
 
+#include "draw.h"
+#include "filetower.h"
 #include "installation.h"
-#include "tower.h"
+#include "color.h"
+#include "joueur.h"
+#include "map.h"
+#include "node.h"
+#include "shot.h"
 #include "struct.h"
+#include "tower.h"
+#include <string.h>
+#include <iostream>
 
 enum Sens{
     haut, droite, bas, gauche
@@ -37,6 +46,8 @@ class Monster {
     float resistance_TDB;
 	
     public:
+
+    Monster();
     //Get
     Position getPosition();
     float getX();
@@ -72,7 +83,7 @@ class Monster {
 
     //Fonctions
     void calculErreur();
-    void hitBy(Tower tower);
+    int drawProprieteMonster(GLuint* monster);
 };
 
 class Lucie: public Monster{
@@ -107,6 +118,9 @@ class listMonster {
         bool addMonster(monsterType type, Node n);
         int moveMonster(Node n);
         void removeMonster(Monster m);
+        void removeAllMonsters();
+        void freeAllMonsters();
+        int drawMonster(GLuint* monster);
 }
 
 #endif

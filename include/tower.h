@@ -1,9 +1,17 @@
 #ifndef TOWER_H__
 #define TOWER_H__
 
+#include "draw.h"
+#include "filetower.h"
 #include "installation.h"
+#include "color.h"
+#include "joueur.h"
+#include "map.h"
+#include "monster.h"
+#include "shot.h"
 #include "struct.h"
-#include <stdlib.h>
+#include <string.h>
+#include <iostream>
 
 enum towerType {
     oceane, jules, clara, yoann
@@ -31,8 +39,10 @@ class Tower {
 
     public:
     //Constructeur
+    Tower();
     //Get
     Position getPosition();
+    virtual towerType getType() = 0;
     float getPower();
     float getRange();
     float getRate();
@@ -48,9 +58,13 @@ class Tower {
 	void setRate(int rt);
     void setPosition(Position p);
     void setPrev(Tower t);
-    void setNext(Tower t);
+    void setNext(Tower t);	
 
-	virtual towerType getType() = 0;
+    //functions
+
+    int drawProprieteTower(GLuint* tower, GLuint* spriteMenu, GLuint* btPlus, Joueur joueur);
+    int reach(listShot shots, listMonster monsters);
+
 };
 
 class Yoann: public Tower{
@@ -89,13 +103,20 @@ public:
 
     listTower();
 
+    int getLength();
     Tower getHead();
     Tower getTail();
+
+    void setLength(int a);
     void setHead(Tower t);
     void setTail(Tower t);
+
     int addTower(towerType type, Position p);
     int moveTower(Tower tower, listNode list_node, float x, float y);
     void removeTower(Tower t);
+    void removeTower(Tower tower);
+    void removeAllTower();
+    void freeAllTower();
 }
 
 #endif

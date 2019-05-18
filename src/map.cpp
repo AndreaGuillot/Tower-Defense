@@ -212,34 +212,55 @@ int verifMap(FILE* fileITD, Map *map)
     return 1;
 }
 
-
-Map loadMap(char* fileNameITD)
-{
-    FILE* fileITD = fopen(fileNameITD, "r");
-    if(fileITD == NULL)
-    {
-        fprintf(stderr, "Erreur ouverture du fichier : %s.\n", fileNameITD);
-        exit(1);
-    } else {
-        Map map;
-        if(verifMap(fileITD, &map))
-        {
-            printf("Map créée.\n");
-            return map;
-        } else {
-            fprintf(stderr, "Fichier incorrect : %s.\n", fileNameITD);
-            exit(1);
-        }
-    }
-}
-
-
 class Map{
 
-    /*********************** Dessiner du chemin et des noeuds ***********************/
-    /* Dessine du chemin et des noeuds. Prend en paramètre la liste de noeud et la map. *
-    *  Retourne 0 en cas d'erreur et 1 sinon.                       */
+    Map(){
+        this=NULL;
+    }
+    //Get
+    string getImage(){
+        return this->image;
+    }
+    Image* getImg(){
+        return this->img;
+    }
+    //Noeuds
+    int getNbNode(){
+        return this->nbNode;
+    }
+    listNode getListNode(){
+        return this->listNode;
+    }
+    //Couleurs de la carte
+    Color getInColor(){
+        return this->inColor;
+    }
+    Color getOutColor(){
+        return this->outColor;
+    }
+    Color getPathColor(){
+        return this->pathColor;
+    }
+    Color getNodeColor(){
+        return this->nodeColor;
+    }
+    Color getConstructColor(){
+        return this->constructColor;
+    }
+    listNode getListConstruct(){
+        return this->listConstruct;
+    }
 
+    int getNbMonstres(){
+        return this->nbMonstres;
+    }
+
+    //Set
+    void setNbMonstres(int a){
+        this->nbMonstres = a;
+    }
+
+    //Fonctions
     bool drawRoad() {
 
         if(this != NULL) {
@@ -274,42 +295,23 @@ class Map{
         return 1;
     }
 
-
-    char getImage(){
-        return this->image;
-    }
-    Image* getImg(){
-        return this->img;
-    }
-    //Noeuds
-    int getNbNode(){
-        return this->nbNode;
-    }
-    listNode getListNode(){
-        return this->listNode;
-    }
-    //Couleurs de la carte
-    Color getInColor(){
-        return this->inColor;
-    }
-    Color getOutColor(){
-        return this->outColor;
-    }
-    Color getPathColor(){
-        return this->pathColor;
-    }
-    Color getNodeColor(){
-        return this->nodeColor;
-    }
-    Color getConstructColor(){
-        return this->constructColor;
-    }
-    listNode getListConstruct(){
-        return this->listConstruct;
-    }
-
-    void setNbMonstres(int a){
-        this->nbMonstres = a;
+    bool loadMap(char* fileNameITD)
+    {
+        FILE* fileITD = fopen(fileNameITD, "r");
+        if(fileITD == NULL)
+        {
+            fprintf(stderr, "Erreur ouverture du fichier : %s.\n", fileNameITD);
+            return 0;
+        } else {
+            if(this.verifMap(fileITD))
+            {
+                printf("Map créée.\n");
+                return 1;
+            } else {
+                fprintf(stderr, "Fichier incorrect : %s.\n", fileNameITD);
+                return 0;
+            }
+        }
     }
 
     int apparitionMonster(listMonster monsters, int j, Joueur joueur) {

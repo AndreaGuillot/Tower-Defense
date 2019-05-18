@@ -1,6 +1,18 @@
 #ifndef FILE_TOWER_H_
 #define FILE_TOWER_H_
 
+#include "color.h"
+#include "draw.h"
+#include "installation.h"
+#include "joueur.h"
+#include "map.h"
+#include "monstre.h"
+#include "node.h"
+#include "shot.h"
+#include "struct.h"
+#include "tower.h"
+#include <string.h>
+
 /************* STRUCTURE DU FICHIER TOUR *************/
 /* Liste doublement chainée pour pouvoir naviger dans la liste de tours	*
 *  et récupérer facile n'importe quelle tour dans la liste 		*/
@@ -12,10 +24,7 @@ class FileTower {
 	int cost;
 	int power;
 
-	//Pointer vers l'élément précédent
 	FileTower prev;
-
-	//Pointeur vers l'élément suivant
 	FileTower next;
 
 }

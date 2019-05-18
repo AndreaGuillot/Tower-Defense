@@ -1,13 +1,18 @@
 #ifndef ITD_SHOT_H_
 #define ITD_SHOT_H_
 
-#include "./monstre.h"
-#include "./tower.h"
-#include "./struct.h"
+#include "draw.h"
+#include "filetower.h"
+#include "installation.h"
+#include "color.h"
+#include "joueur.h"
+#include "map.h"
+#include "monster.h"
+#include "struct.h"
+#include "tower.h"
+#include <string.h>
+#include <iostream>
 
-/************* STRUCTURE DU SHOT *************/
-/* Liste doublement chainée pour pouvoir naviger dans la liste de tours	*
-*  et récupérer facile n'importe quelle tour dans la liste 		*/
 class Shot{
 
 	//position du missile
@@ -16,13 +21,10 @@ class Shot{
 
 	//Ennemie visé
 	Monster target;
-	
 	//Tour d'origine
 	Tower tower;
-
 	//Pointer vers l'élément précédent
 	Shot prev;
-
 	//Pointeur vers l'élément suivant
 	Shot next;
 
@@ -54,9 +56,12 @@ class listShot{
 	Shot head; //pointeur vers le premier element
 	Shot tail; //pointeur vers le dernier element
 
+	listShot();
+	//Get
 	int getLength();
 	Shot getHead();
 	Shot getTail();
+	//Set
 	void setLength(int l);
 	void setHead(Shot s);
 	void setTail(Shot s);
@@ -68,24 +73,11 @@ class listShot{
 	void removeShot(Shot s);
 	void removeAllShot();
 	void freeAllShot();
+	int draw(GLuint* shot);
 }
 
-/************* Prototypes des fonctions *************/
-//Initialisation de la liste de missiles
-LShot* new_LShot(void);
-//Ajout d'un missile à la liste
-int addShot(LShot*, Monster*, Tower*);
-//Vérifie si un monstre entre dans le périmètre d'action de la tour
-int inSight (LShot*, LMonster*, Tower*);
-//Bouger le missile
-int moveShot(LShot*);
 //Vérifie s'il y a une collision avec le missile
 int collisionMissile(LShot*, LMonster*, Interface* interface, Monster*, int*);
-//Supprimer un missile à la liste
-LShot* removeShot(LShot*, Shot*);
-//Supprime tous les missiles de la liste
-void removeAllShot (LShot*);
-//Supprimer la liste de missiles
-void freeAllShot (LShot*);
+
 
 #endif

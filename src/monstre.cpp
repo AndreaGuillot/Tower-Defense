@@ -3,27 +3,6 @@
 #include "../include/monstre.h"
 
 class Monster {
-
-    private:
-    //Position du monstre
-    Position p;
-    //S'il y a une erreur sur sa position
-    float erreur;
-    //Ses caractéristiques sur le chemin
-    Sens sens;
-    Node *node_prev;
-    Node *node_next;
-    Monster monster_prev;
-    Monster monster_next;
-    //Propriétés du monstre
-    monsterType type;
-    uint pv;
-    uint speed;
-    uint money;
-    float resistance_TDR;
-    float resistance_TDV;
-    float resistance_TDJ;
-    float resistance_TDB;
 	
     public:
     Monster(){
@@ -206,95 +185,95 @@ class Monster {
 
     int drawProprieteMonster (GLuint* monster) {
 
-    if(this != NULL) {
+        if(this != NULL) {
 
-        int monsterNumber = this->type;
+            int monsterNumber = this->type;
 
-        float x1 = (monsterNumber * (1.0/4.0)) + (2.0/12.0);
-        float x2 = (monsterNumber * (1.0/4.0)) + 0.25;
-        float y1 = 0;
-        float y2 = 0.25;
+            float x1 = (monsterNumber * (1.0/4.0)) + (2.0/12.0);
+            float x2 = (monsterNumber * (1.0/4.0)) + 0.25;
+            float y1 = 0;
+            float y2 = 0.25;
 
-        //Active le texturage 2D
-        glEnable(GL_TEXTURE_2D);
-        //appel de la texture
-        glBindTexture(GL_TEXTURE_2D, *monster);
+            //Active le texturage 2D
+            glEnable(GL_TEXTURE_2D);
+            //appel de la texture
+            glBindTexture(GL_TEXTURE_2D, *monster);
 
-            glBegin(GL_QUADS);
-            //couleur neutre
-            glColor3ub(255,255,255);
-            //coordonée de la texture
-            glTexCoord2f(x2, y1);
-            //Cordonnée du quadrilatère 
-            glVertex2f(20, 300);
+                glBegin(GL_QUADS);
+                //couleur neutre
+                glColor3ub(255,255,255);
+                //coordonée de la texture
+                glTexCoord2f(x2, y1);
+                //Cordonnée du quadrilatère 
+                glVertex2f(20, 300);
 
-            glTexCoord2f(x2, y2);
-            glVertex2f(20, 340);
+                glTexCoord2f(x2, y2);
+                glVertex2f(20, 340);
 
-            glTexCoord2f(x1, y2);
-            glVertex2f(60, 340);
+                glTexCoord2f(x1, y2);
+                glVertex2f(60, 340);
 
-            glTexCoord2f(x1, y1);
-            glVertex2f(60, 300);
-
-
-            glEnd();
-
-        //Déblinder la texture
-        glBindTexture(GL_TEXTURE_2D, 0);
-        //Désactive le texturage 2D
-        glDisable(GL_TEXTURE_2D);
-
-        string machaine;
-
-        /**** points de vie ****/
-        //Convertie un int en un string
-        sprintf(machaine,"%d",this->pv);
-
-        writeString(20, 365,  "Points de vie : ");
-        //Affiche la chaine de caractère
-        writeString(120, 365,  machaine);
-
-        /**** Vitesse ****/
-        //Convertie un int en un string
-        sprintf(machaine,"%d",this->speed);
-
-        writeString(20, 390,  "Vitesse : ");
-        //Affiche la chaine de caractère
-        writeString(120, 390,  machaine);
-
-        /**** Resistance ****/
-        //Convertie un int en un string
-        sprintf(machaine,"%d",this->resistance_TDB);
-
-        writeString(20, 440,  "Resistance à Océane: ");
-        //Affiche la chaine de caractère
-        writeString(120, 440,  machaine);
+                glTexCoord2f(x1, y1);
+                glVertex2f(60, 300);
 
 
-        /**** nombre de monstre ****/
-        string type;
-        switch(this->type){
-            case barbara:
-                type = "Barbara";
-                break;
-            case julien:
-                type = "Julien";
-                break;
-            case lucie:
-                type = "Lucie";
-                break;
-            default:break;
+                glEnd();
+
+            //Déblinder la texture
+            glBindTexture(GL_TEXTURE_2D, 0);
+            //Désactive le texturage 2D
+            glDisable(GL_TEXTURE_2D);
+
+            string machaine;
+
+            /**** points de vie ****/
+            //Convertie un int en un string
+            sprintf(machaine,"%d",this->pv);
+
+            writeString(20, 365,  "Points de vie : ");
+            //Affiche la chaine de caractère
+            writeString(120, 365,  machaine);
+
+            /**** Vitesse ****/
+            //Convertie un int en un string
+            sprintf(machaine,"%d",this->speed);
+
+            writeString(20, 390,  "Vitesse : ");
+            //Affiche la chaine de caractère
+            writeString(120, 390,  machaine);
+
+            /**** Resistance ****/
+            //Convertie un int en un string
+            sprintf(machaine,"%d",this->resistance_TDB);
+
+            writeString(20, 440,  "Resistance à Océane: ");
+            //Affiche la chaine de caractère
+            writeString(120, 440,  machaine);
+
+
+            /**** nombre de monstre ****/
+            string type;
+            switch(this->type){
+                case barbara:
+                    type = "Barbara";
+                    break;
+                case julien:
+                    type = "Julien";
+                    break;
+                case lucie:
+                    type = "Lucie";
+                    break;
+                default:break;
+            }
+
+            writeString(20, 465,  "Type : ");
+            //Affiche la chaine de caractère
+            writeString(120, 465,  type);
         }
 
-        writeString(20, 465,  "Type : ");
-        //Affiche la chaine de caractère
-        writeString(120, 465,  type);
+        return 1;
+
     }
-
-    return 1;
-
-}
 
 };
 
@@ -621,5 +600,84 @@ class listMonster {
             free(this);
         }
 
+        int drawMonster(GLuint* monster) {
+            if(monster != NULL && this != NULL) {
+            
+                //Création d'un pointeur monstre temporaire pour parcourir la liste de monstres
+                Monster tmp = this->tail;
+
+                //Parcours la liste de monstres
+                while(tmp != NULL){
+
+                    int monsterNumber = tmp.getType();
+                    
+                    float xm1, xm2, ym1, ym2;
+                    xm1 = tmp.getX() + 20;
+                    xm2 = tmp.getX() - 20;
+                    ym1 = tmp.getY() + 20;
+                    ym2 = tmp.getY() - 20;
+
+                    float x1 = (monsterNumber * (3.0/12.0));
+                    float x2 = (monsterNumber * (3.0/12.0));
+                    float y1 = 0, y2 = 0;
+
+                    switch(tmp.getSens()) {
+                        case haut :
+                            y1 = 0.5;
+                            y2 = 0.75;
+                            break;
+                        case droite :
+                            y1 = 0.75;
+                            y2 = 1;
+                            break;
+                        case bas :
+                            y1 = 0;
+                            y2 = 0.25;
+                            break;
+                        case gauche :
+                            y1 = 0.25;
+                            y2 = 0.5;
+                            break;
+                    }
+                
+                    //Active le texturage 2D
+                    glEnable(GL_TEXTURE_2D);
+                    //appel de la texture
+                    glBindTexture(GL_TEXTURE_2D, *monster);
+                
+                        glPushMatrix();
+                            glBegin(GL_QUADS);
+                                //coordonée de la texture
+                                glTexCoord2f(x2, y2);
+                                //Cordonnée du quadrilatère 
+                                glVertex2f(xm1, ym1);
+
+                                glTexCoord2f(x2, y1);
+                                glVertex2f(xm1, ym2);
+
+                                glTexCoord2f(x1, y1);
+                                glVertex2f(xm2, ym2);
+
+                                glTexCoord2f(x1, y2);
+                                glVertex2f(xm2, ym1);
+
+                            glEnd();
+                        glPopMatrix();
+
+                    //Déblinder la texture
+                    glBindTexture(GL_TEXTURE_2D, 0);
+                    //Désactive le texturage 2D
+                    glDisable(GL_TEXTURE_2D);
+
+                    tmp = tmp.getPrev();
+                }
+            }
+            else {
+                printf("Erreur : la texture du monstre ou la liste de monstre n'existe pas\n");
+                return 0;
+            }
+
+            return 1;
+        }
 }
 

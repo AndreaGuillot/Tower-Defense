@@ -1,15 +1,7 @@
 #ifndef INSTALLATION_H__
 #define INSTALLATION_H__
 
-class Position{
-    float x;
-    float y;
-};
-
-class Size{
-    float width;
-    float height;
-};
+#include "../include.installation.h"
 
 class Installation {
 
@@ -19,20 +11,19 @@ class Installation {
 	//Type de l'installation : radar, usine, stock
 	uint type;
     //Propriétés de l'installation
-    Size size;
     uint cost;
 	uint range;
 
     public:
     //Constructeur
-    Installation(uint range, uint cost);
+    Installation();
     //Accesseurs
-    int getPosition(){
+    Position getPosition(){
         return this->Position;
     }
 
-    int getSize(){
-        return this->Size;
+    uint getType(){
+        return this->type;
     }
 
     uint getCost(){
@@ -43,8 +34,9 @@ class Installation {
         return this->range;
     }
 
-    uint getType(){
-        return this->type;
+    void setPosition(float x, float y){
+        this->p.setX(x);
+        this->p.setY(y);
     }
 
     void affects(Tower tower){

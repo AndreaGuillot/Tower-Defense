@@ -21,6 +21,7 @@ class Color{
 		this->b = b;
 	}
 
+	//Get
 	uint getR(){
 		return this->r;
 	}
@@ -29,5 +30,16 @@ class Color{
     }
     uint getB(){
     	return this->b;
+    }
+
+    //Set
+    void setR(uint color){
+    	this->r = color;
+    }
+    void setG(uint color){
+    	this->g = color;
+    }
+    void setB(uint color){
+    	this->b = color;
     }
 }

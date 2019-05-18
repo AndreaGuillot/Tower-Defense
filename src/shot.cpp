@@ -2,11 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "element/Tower.h"
-#include "element/Monster.h"
-#include "element/Shot.h"
-#include "geometry/Intersection.h"
-#include "ihm/Interface.h"
+#include "../include/shot.h"
 
 class Shot{
 	public:
@@ -244,6 +240,58 @@ class listShot{
 		}
 		free(this);
 	}
+
+	int draw(GLuint* shot) {
+		if(shot != NULL && this != NULL) {
+
+			Shot tmp = this->head;
+
+			while(tmp != NULL) {
+			
+				//Active le texturage 2D
+				glEnable(GL_TEXTURE_2D);
+				//appel de la texture
+				glBindTexture(GL_TEXTURE_2D, *shot);
+
+					int xm1, xm2, ym1, ym2;
+					xm1 = tmp.getX() + 5;
+					xm2 = tmp.getX() - 5;
+					ym1 = tmp.getY() + 5;
+					ym2 = tmp.getY() - 5;
+
+					glPushMatrix();
+						glBegin(GL_QUADS);
+						//coordonée de la texture
+						glTexCoord2f(1, 0);
+						//Cordonnée du quadrilatère 
+						glVertex2f(xm1, ym1);
+
+						glTexCoord2f(1, 1);
+						glVertex2f(xm1, ym2);
+
+						glTexCoord2f(0, 1);
+						glVertex2f(xm2, ym2);
+
+						glTexCoord2f(0, 0);
+						glVertex2f(xm2, ym1);
+
+						glEnd();
+					glPopMatrix();
+
+				//Déblinder la texture
+				glBindTexture(GL_TEXTURE_2D, 0);
+				//Désactive le texturage 2D
+				glDisable(GL_TEXTURE_2D);
+
+				tmp = tmp.getNext();
+			}
+		}
+		else {
+			fprintf(stderr, "Erreur : al texture du shot ou la liste de shot n'existe pas\n");
+			return 0;
+		}
+		return 1;
+	}
 }								
 
 /************* Collision entre le missile et l'ennemie *************/
@@ -251,7 +299,7 @@ class listShot{
 *  déduit les points de vie du monstre. Prend en paramètre la liste de monstre et le monstre.   *
 *  Retourne 0 en cas d'erreur et 1 sinon.							*/
 
-int collisionMissile(LShot* p_lshot, LMonster* p_lmonster, Interface* interface, Monster* monster, int* propriete) {
+int collisionMissile(listShot p_lshot, listMonster p_lmonster, Joueur interface, Monster monster, int propriete) {
 
 	//On vérifie si notre liste a été allouée
 	if(p_lshot != NULL) {

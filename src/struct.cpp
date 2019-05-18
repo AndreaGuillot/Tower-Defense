@@ -9,7 +9,7 @@ class Position{
 		this->y = y;
 	}
 
-	float get(){
+	Position get(){
 		return this;
 	}
 
@@ -64,8 +64,14 @@ class Vector{
 
 		norme = pow(this->x, 2.0) pow(this->y, 2.0);
 		norme = sqrt(norme);
-
 		return norme;
+	}
+
+	void setX(float x){
+		this->x = x;
+	}
+	void setY(float y){
+		this->y = y;
 	}
 
 	void normalize(){
@@ -77,11 +83,6 @@ class Vector{
 }
 
 class Node {
-
-	private: 
-
-	Position pos;
-	Node next;
 
 	public:
 		Position getPosition(){
@@ -100,6 +101,15 @@ class Node {
 			return this->next;
 		}
 
+		void setPosition(Position p){
+			this->pos = p;
+		}
+		void setX(float a){
+			this->x = a;
+		}
+		void setY(float a){
+			this->y = a;
+		}
 		void setNext(Node node){
 			this->next = node;
 		}
@@ -119,6 +129,10 @@ public:
 
 	Node getTail(){
 		return this->tail;
+	}
+
+	void setLength(int a){
+		this->length = a;
 	}
 
 	void setHead(Node node){

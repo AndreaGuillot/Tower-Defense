@@ -1,9 +1,18 @@
 #ifndef JOUEUR_H__
 #define JOUEUR_H__
 
-#include "monster.h"
-#include "tower.h"
+#include "draw.h"
+#include "filetower.h"
 #include "installation.h"
+#include "color.h"
+#include "map.h"
+#include "monstre.h"
+#include "node.h"
+#include "shot.h"
+#include "struct.h"
+#include "tower.h"
+#include <string.h>
+#include <iostream>
 
 class Joueur {
 
@@ -19,11 +28,12 @@ class Joueur {
     int getNbVagues();
     //Set
     void setArgent(uint argent);
-    void setNbVagues();
+    void setNbVagues(int n);
     //Fonctions
     void updateMonsterKill(Monster m);
-    void updateMoneyBuildTower(Tower t);
-    void updateMoneyBuildInstallation(Installation i);
+    bool updateMoneyBuildTower(Tower t);
+    bool updateMoneyBuildInstallation(Installation i);
+    bool drawInterface (GLuint* spriteButton)
 };
 
 #endif

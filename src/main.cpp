@@ -7,19 +7,19 @@
 #include <GL/glu.h>
 #include <GL/glut.h>
 
-#include "sdl_tools.h"
-#include "geometry/Color3f.h"
-#include "element/Monster.h"
-#include "element/Tower.h"
-#include "element/Shot.h"
-#include "file/Map.h"
-#include "file/Texture.h"
-#include "file/Image.h"
-#include "ihm/Node.h"
-#include "ihm/Draw.h"
-#include "ihm/Menu.h"
-#include "ihm/Interface.h"
-#include "file/FileTower.h"
+#include "../include/draw.h"
+#include "../include/filetower.h"
+#include "../include/installation.h"
+#include "../include/color.h"
+#include "../include/map.h"
+#include "../include/monstre.h"
+#include "../include/node.h"
+#include "../include/shot.h"
+#include "../include/struct.h"
+#include "../include/tower.h"
+#include "../include/joueur.h"
+#include <string.h>
+#include <iostream>
 
 static unsigned int WINDOW_WIDTH = 800;
 static unsigned int WINDOW_HEIGHT = 660;

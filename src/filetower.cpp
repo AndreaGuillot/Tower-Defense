@@ -5,7 +5,6 @@
 #include "../include/filetower.hpp"
 
 class listFileTower{
-private:
 
 public: 
 	/************* Initialisation de la liste de tour (file) *************/
@@ -527,7 +526,7 @@ public:
 	*  Prend en paramètre la liste de tours, la puissance d'attaque, la vitesse d'attaque, le type 	*
 	*  le périmétre d'action et le cout. Retourne 0 en cas d'erreur et 1 sinon			*/
 
-	int addFileTower(LFileTower* this, int power, int rate, char* type_tower, int range, int cost) {
+	int addFileTower(, int power, int rate, char* type_tower, int range, int cost) {
 
 		// On vérifie si notre liste a été allouée
 		if (this != NULL) {

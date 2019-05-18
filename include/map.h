@@ -4,14 +4,24 @@
 #include <SDL/SDL.h>
 #include <SDL/SDL_image.h>
 
-#include "../include/color.h"
-#include "../include/node.h"
+#include "draw.h"
+#include "filetower.h"
+#include "installation.h"
+#include "color.h"
+#include "joueur.h"
+#include "monstre.h"
+#include "node.h"
+#include "shot.h"
+#include "struct.h"
+#include "tower.h"
+#include <string.h>
+#include <iostream>
 
 class Map {
 
 private:
 	//Image ppm
-	char image;
+	string image;
 	Image* img;
 	//Noeuds
 	int nbNode;
@@ -29,30 +39,9 @@ private:
 	//nombre de monstres sur le plateau
 	int nbMontres;
 
-/*Color3f road;
-
-	//couleur des noeuds
-	Color3f node;
-
-	//couleur à la zone constructible
-	Color3f construct;
-
-	//couleur clé de la zone d'entrée
-	Color3f in;
-
-	//couleur clé de la zone de sortie
-	Color3f out;
-*/
-
 public:
 	Map();
-	// Vérifie la map
-	int verifMap(FILE* fileITD, Map *map);
-	// Charge la map
-	Map loadMap(char* fileNameITD);
-
-	bool drawRoad();
-
+	//Get 
 	char getImage();
 	Image* getImg();
 	//Noeuds
@@ -66,6 +55,16 @@ public:
 	Color getConstructColor();
 	listNode getListConstruct();
 
+	//Set
+	void setNbMonstres(int a);
+
+	//fonctions
+	bool drawRoad();
+	bool loadMap(char* fileNameITD);
+	int apparitionMonster(listMonster monsters, int j, Joueur joueur);
 }
+
+// Vérifie la map
+int verifMap(FILE* fileITD, Map map);
 
 #endif
