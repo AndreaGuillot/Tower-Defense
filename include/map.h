@@ -7,8 +7,9 @@
 #include "../include/color.h"
 #include "../include/node.h"
 
-typedef struct Map {
+class Map {
 
+private:
 	//Image ppm
 	char* image;
 	//Noeuds
@@ -21,12 +22,12 @@ typedef struct Map {
 	Color nodeColor;
 	Color constructColor;
 
+public:
+	// Vérifie la map
+	int verifMap(FILE* fileITD, Map *map);
+	// Charge la map
+	Map loadMap(char* fileNameITD);
+
 }Map;
-
-// Vérifie la map
-int verifMap(FILE* fileITD, Map *map);
-// Charge la map
-Map loadMap(char* fileNameITD);
-
 
 #endif
