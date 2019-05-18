@@ -4,23 +4,27 @@
 
 class Joueur {
 
-    private:
-	uint argent;
-	
     public:
     //Constructeur
         Joueur(){
             this->argent = 100;
+            this->nbVagues = 0;
         }
 
         //Get
         uint getArgent(){
             return this->argent;
         }
+        int getNbVagues(){
+            return this->nbVagues;
+        }
 
         //Set
         void setArgent(uint argent){
             this->argent = argent;
+        }
+        void setNbVagues(int n){
+            this->nbVagues = n;
         }
 
         //Fonctions
