@@ -9,14 +9,21 @@ class Joueur {
 	
     public:
     //Constructeur
-        Joueur(argent=100){
-            this->argent = argent;
+        Joueur(){
+            this->argent = 100;
         }
-        //Accesseurs
+
+        //Get
         uint getArgent(){
             return this->argent;
         }
 
+        //Set
+        void setArgent(uint argent){
+            this->argent = argent;
+        }
+
+        //Fonctions
         void updateMoneyKill(Monster m){
             this->argent += m.getReward();
         }
