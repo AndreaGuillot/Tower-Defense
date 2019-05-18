@@ -33,17 +33,30 @@ class Position{
     void setY(float y){
     	this->y = y;
     }
+
+    void addVector(Vector V) {		
+		this->x += (V.getX());
+		this->y += (V.getY());
+	}
 }
 
 class Vector{
 
-	Vector(Point2D A, Point2D B){
+	Vector(Position A, Position B){
 		this.x = (B.getX()) - (A.getX());
 		this.y = (B.getY()) - (A.getY());
 	}
 
 	Vector get(){
 		return this;
+	}
+
+	float getX(){
+		return this->x;
+	}
+
+	float getY(){
+		return this->y;
 	}
 
 	float getNorm() {
@@ -53,6 +66,12 @@ class Vector{
 		norme = sqrt(norme);
 
 		return norme;
+	}
+
+	void normalize(){
+		float norme = this.getNorm();	
+		this->x = (this->x) / norme;
+		this->y = (this->y) / norme;
 	}
 
 }

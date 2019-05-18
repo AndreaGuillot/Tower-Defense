@@ -8,273 +8,243 @@
 #include "geometry/Intersection.h"
 #include "ihm/Interface.h"
 
-/************* Création d'une nouvelle liste de missiles *************/
-/* Initialisation de la liste de missiles et allocation de mémoire pour la liste de missiles		*
-*  Retourne la liste de missiles									*/
+class Shot{
+	public:
 
-LShot* new_LShot(void) {
-	
-	//Alloue de la mémoire 
-	LShot *p_lshot = malloc(sizeof(LShot));
-	if (p_lshot != NULL) {
-		p_lshot->length = 0;
-		p_lshot->p_head = NULL;
-		p_lshot->p_tail = NULL;
+	Shot get(){
+		return this;
 	}
-	else {
-		fprintf(stderr, "Erreur lors de l'allocation memoire de la liste des missiles\n");
-		return NULL;
+	float getX(){
+		return this->x;
+	}
+	float getY(){
+		return this->y;
+	}
+	Monster getTarget(){
+		return this->target;
+	}
+	Tower getTower(){
+		return this->tower;
+	}
+	int getPower(){
+		return this->tower.getPower();
+	}
+	towerType getType(){
+		return this->tower.getType();
 	}
 
-	return p_lshot;
+	Shot getPrev(){
+		return this->prev;
+	}
+	Shot getNext(){
+		return this->next;
+	}
+
+
+	void set(Shot s){
+		this =s;
+	}
+	void setX(float x){
+		this->x = x;
+	}
+	void setY(float y){
+		this->y = y;
+	}
+	void setTarget(Monster m){
+		this->target = m;
+	}
+	void setTower(Tower t){
+		this->tower = t;
+	}
+	void setPrev(Shot s){
+		this->prev = s;
+	}
+	void setNext(Shot s){
+		this->next = s;
+	}
 }
 
-/************* Ajouter un missile en fin de liste *************/
-/* Ajoute un missile à la liste. Alloue la place mémoire pour le missile et attribue les valeurs	*
-*  Prend en paramètre la liste de missiles, le monstre visé, la tour qui envoie le missile. 		*
-*  Retourne 0 en cas d'erreur et 1 sinon								*/
+class listShot{
 
-int addShot(LShot* p_lshot, Monster* target, Tower* tower) {
-
-	// On vérifie si notre liste a été allouée
-	if(p_lshot != NULL) {
-
-		//On vérifie que le monstre a été alloué
-		if(target != NULL) {
-
-			if(tower != NULL) {
-
-				//Création d'un nouveau missile
-				Shot* new_shot = malloc(sizeof(Shot)); 
-		
-				// On vérifie si le malloc n'a pas échoué
-				if (new_shot != NULL) {
-
-					new_shot->x = tower->x;
-					new_shot->y = tower->y;
-					new_shot->target = target;
-					new_shot->tower = tower;
-					new_shot->type_tower = tower->type_tower;
-					new_shot->power = tower->power;
-	
-					//Pointer vers le missile suivant à NULL car on rajoute à la fin de la liste	
-					new_shot->p_next = NULL; 
-
-					// Cas où notre liste est vide (pointeur vers fin de liste à  NULL)
-					if (p_lshot->p_tail == NULL) {
-
-						// Pointe la tête de la liste sur le nouveau missile
-						p_lshot->p_head = new_shot; 
-
-						//Pointe p_prev de le nouveau missile à NULL
-						new_shot->p_prev = NULL;
-					}
-					// Cas où des éléments sont déjà présents dans la  liste
-					else {
-						// Pointe p_prev du nouveau missile sur le dernier missile de la liste
-						new_shot->p_prev = p_lshot->p_tail; 
-
-						// Relie le dernier missile de la liste au nouveau missile
-						p_lshot->p_tail->p_next = new_shot;  
-					}
-
-					// Pointe la fin de la liste sur le nouveau missile
-					p_lshot->p_tail = new_shot; 
-
-					// On augmente de 1 la taille de la liste
-					p_lshot->length++; 
-				}
-				else {
-					fprintf(stderr, "Problème dans la creation du nouveau missile\n");
-					return 0;
-				}
-
-			}
-			else {
-				fprintf(stderr, "Cette tour n'existe pas\n");
-				return 0;
-			}
-		}
-		else {
-			fprintf(stderr, "Ce monstre n'existe pas\n");
-			return 0;
-		}
+	listShots(){
+		this->length = 0;
+		this->head.set(NULL);
+		this->tail.set(NULL);
 	}
-	else {
-		fprintf(stderr, "Cette liste de missiles n'existe pas\n");
-		return 0;
+	int getLength(){
+		return this->length;
+	}
+	Shot getHead(){
+		return this->head;
+	}
+	Shot getTail(){
+		return this->tail;
+	}
+	void setLength(int l){
+		this->length = l;
+	}
+	void setHead(Shot s){
+		this->head = s;
+	}
+	void setTail(Shot s){
+		this->tail = s;
 	}
 
-	return 1; 
-}
+	int addShot(Monster monster, Tower tower) {
+		if(this != NULL) {
+			if(monster != NULL) {
+				if(tower != NULL) {
 
-/************* Vérification si un monstre entre dans le périmètre d'action de la tour *************/
-/* Vérifie si un monstre entre dans le périmètre d'action => vérifie l'équation :		*
-*  (x - x1)² + (y - y1)² <= R² avec (x1, y1) pour centre du cercle et R son rayon	 	*
-*  x et y sont les coordonées des 4 points du quadrilatère qui contient le monstre.		*
-*  Prend en paramètre la liste de shot, la liste de monstre, la tour. Retourne 0 s'il n'y a 	*
-*  pas d'intersection, ou en cas d'erreur et retourne 1 sinon					*/
+					Shot shot = new Shot(tower, monster); 
+			
+					shot.setNext(NULL); 
 
-int inSight (LShot* p_lshot, LMonster* p_lmonster, Tower* p_courant) {
+						if (this->tail == NULL) {
+							this.setHead(shot); 
+							shot.setPrev(NULL);
+						}
+						// Cas où des éléments sont déjà présents dans la  liste
+						else {
+							// Pointe p_prev du nouveau missile sur le dernier missile de la liste
+							shot.setPrev(this->tail); 
 
-	if(p_lshot != NULL) {
-
-		if(p_lmonster != NULL){
-
-			if(p_courant != NULL) {
-
-				if(strcmp("M", p_courant->type_tower) != 0) {
-
-					Monster *p_proche = NULL;
-
-					//Variables pour savoir qui est le plus proche
-					Point2D pointIntersection, pointProche, point1, point2;
-					Vector2D vectorIntersection, vectorProche;
-					float normeIntersection, normeProche = -1;
-
-					//Création d'un monstre temporaire pour parcourir la liste de monstres
-					Monster *p_tmp = p_lmonster->p_head;
-
-					//Parcours la liste de monstres
-					while(p_tmp != NULL){
-
-						Point2D point;
-						point.x = p_courant->x; point.y = p_courant->y; //centre
-
-						point1.x = p_tmp->x + 20; point1.y = p_tmp->y + 20;
-						point2.x = p_tmp->x - 20; point2.y = p_tmp->y - 20;
-
-						//Vérifie s'il y a une intersection
-						if(intersectionCarreDisque (point1, point2, p_courant->range, point) == 1) {
-
-							pointIntersection.x = p_tmp->x; pointIntersection.y = p_tmp->y;
-							vectorIntersection = Vector(point, pointIntersection);
-							normeIntersection = Norm(vectorIntersection);
-				
-							//S'il n'y a pas de point d'intersection avant
-							if(normeProche == -1) {
-								vectorProche = Vector(point, pointProche);
-								normeProche = Norm(vectorProche);
-								p_proche = p_tmp;
-							}
-							//Si la distance du nouveau point d'intersection est plus proche que celle stocker
-							if(normeIntersection < normeProche) {
-								vectorProche = vectorIntersection;
-								normeProche = normeIntersection;
-								p_proche = p_tmp;
-							}
-
+							// Relie le dernier missile de la liste au nouveau missile
+							this->tail.setNext(shot);  
 						}
 
+						// Pointe la fin de la liste sur le nouveau missile
+						this->tail.set(shot); 
 
-						p_tmp = p_tmp->p_next;
-
-					}
-
-					if(p_proche != NULL)
-						addShot(p_lshot, p_proche, p_courant); //Ajout d'un shot à la liste
-
-					return 1;
-
+						// On augmente de 1 la taille de la liste
+						this->length++; 
 				}
 				else {
-				
-					//Création d'un monstre temporaire pour parcourir la liste de monstres
-					Monster *p_tmp = p_lmonster->p_head;
-
-					//Parcours la liste de monstres
-					while(p_tmp != NULL){
-
-						Point2D point, point1, point2;
-						point.x = p_courant->x; point.y = p_courant->y; //centre
-
-						point1.x = p_tmp->x + 20; point1.y = p_tmp->y + 20;
-						point2.x = p_tmp->x - 20; point2.y = p_tmp->y - 20;
-
-						//Vérifie s'il y a une intersection
-						if(intersectionCarreDisque (point1, point2, p_courant->range, point) == 1)
-							addShot(p_lshot, p_tmp, p_courant); //Ajout d'un shot à la liste
-
-						p_tmp = p_tmp->p_next;
-
-					}	
-					return 1;
-
+					fprintf(stderr, "Cette tour n'existe pas\n");
+					return 0;
 				}
-
 			}
 			else {
-				fprintf(stderr, "Cette tour n'existe pas\n");
+				fprintf(stderr, "Ce monstre n'existe pas\n");
 				return 0;
+			}
+		}
+		else {
+			fprintf(stderr, "Cette liste de missiles n'existe pas\n");
+			return 0;
+		}
+
+		return 1; 
+	}
+
+	int moveShot() {
+		if(this != NULL) {
+			Shot tmp = this->head;
+
+			//Parcours la liste de missiles
+			while(tmp != NULL){
+
+				Position point_target;
+				Position point_shot;
+
+				if(tmp.getTarget() != NULL) {
+
+					point_target.set(tmp.getTarget().getX(), tmp.getTarget().getY());
+				}
+				else {
+					point_target.set(810, 100);
+				}
+
+				point_shot.set(tmp.getX(), tmp.getY());
+
+				//Créer un vecteur avec le la position du missile et la position de l'ennemie
+				Vector vector = Vector(point_shot, point_target);
+				//Normalise le vecteur pour avoir une norme de 1
+				vector = vector.normalize();
+				//Ajoute le vecteur normaliser au point qui représente la position du missile pour le déplacer
+				point_shot.addVector(vector);
+
+				tmp.setX(point_shot.getX());
+				tmp.setY(point_shot.getY());
+
+				tmp = tmp.getNext();
 			}
 
 		}
 		else {
-			fprintf(stderr, "Cette liste de monstre n'existe pas\n");
+			fprintf(stderr, "La liste de missiles n'existe pas ou est vide\n");
 			return 0;
 		}
-	}
-	else {
-		fprintf(stderr, "Cette liste de missiles n'existe pas\n");
-		return 0;
+
+		return 1;
 	}
 
-	return 0;
+	void removeShot(Shot shot) {
+		if (this != NULL) {
+			if(shot != NULL) {
+				if (shot.getNext() == NULL) {
+					
+					this.setTail(shot.getPrev());
+					if(this.getTail() != NULL) {
+						//Lien de le dernier missile vers le missile suivant est NULL
+						this.getTail().setNext(NULL);
+					}
+					else 
+						this.setHead(NULL);
+						
+				}else if (shot.getPrev() == NULL) {
+					//Pointe la tête de la liste vers le missile suivant
+					this.setHead(shot.getPrev());
+					if(this.getHead() != NULL) {
+						//Le lien vers de le deuxième missile vers le missile précédent est NULL
+				 		this.getHead().setPrev(NULL);
+					}
+					else 
+						this.setTail(NULL);
+				}
+				else {
+					//Relie le missile suivant au missile précédent du missile que l'on veut supprmer 
+					shot.getNext().setPrev(shot.getPrev());
+					//Relie le missile précédent au missile suivant du missile que l'on veut supprmer 
+					shot.getPrev().setNext(shot.getNext());
+				}
+				//Libère espace mémoire : supprime le missile
+				free(shot);
+				//Décrémente de un la taille de la liste
+				this->length--;
 
-}
-
-/************* Bouger les missiles en direction de l'ennemi *************/
-/* Change la position des missiles pour qu'ils bouge vers l'ennemi. Prend en paramètre la liste de  	*
-*  missiles. Retourne 0 en cas d'erreur et 1 sinon.						 	*/
-
-int moveShot(LShot* p_lshot) {
-
-	//Vérifie que la liste est allouée
-	if(p_lshot != NULL) {
-
-		//Créer un pointeur missile temporaire pour parcourir la liste de missiles
-		Shot *p_tmp = p_lshot->p_head;
-
-		//Parcours la liste de missiles
-		while(p_tmp != NULL){
-
-			Point2D point_target;
-			Point2D point_shot;
-
-			if(p_tmp->target != NULL) {
-
-				point_target.x = p_tmp->target->x;
-				point_target.y = p_tmp->target->y;
 			}
-			else {
-				point_target.x = 810;
-				point_target.y = 100;
-			}
-
-			point_shot.x = p_tmp->x;
-			point_shot.y = p_tmp->y;
-
-			//Créer un vecteur avec le la position du missile et la position de l'ennemie
-			Vector2D vector = Vector(point_shot, point_target);
-			//Normalise le vecteur pour avoir une norme de 1
-			vector = Normalize(vector);
-			//Ajoute le vecteur normaliser au point qui représente la position du missile pour le déplacer
-			Point2D result = PointPlusVector(point_shot, vector);
-
-			p_tmp->x = result.x;
-			p_tmp->y = result.y;
-
-			p_tmp = p_tmp->p_next;
+			else
+				fprintf(stderr, "Ce missile n'existe pas\n");
 		}
-
-	}
-	else {
-		fprintf(stderr, "La liste de missiles n'existe pas ou est vide\n");
-		return 0;
+		else 
+			fprintf(stderr, "Cette liste de missiles n'existe pas\n");
 	}
 
-	return 1;
-}
+	void removeAllShot () {
+		//Si la liste n'est pas vide
+		if (this->length != 0) {
+
+			//Tant que la liste n'est pas vide
+			while (this->head != NULL) {
+				this = removeShot(this, this->head);
+			}
+			
+		}
+	}
+
+	void freeAllShot () {
+		//Si la liste n'est pas vide
+		if (this->length != 0) {
+
+			//Tant que la liste n'est pas vide
+			while (this->head != NULL) {
+				this = removeShot(this, this->head);
+			}
+			
+		}
+		free(this);
+	}
+}								
 
 /************* Collision entre le missile et l'ennemie *************/
 /* Vérifie si le missile entre en collision avec le missile. Si oui supprime le missile et   	*
@@ -295,7 +265,7 @@ int collisionMissile(LShot* p_lshot, LMonster* p_lmonster, Interface* interface,
 		while(p_tmp != NULL){
 
 			//Vérifie s'il y a une intersection pour les quatres coté du quads du monstre
-			Point2D point1, point2, pointC1, pointC2;
+			Position point1, point2, pointC1, pointC2;
 
 			pointC1.x = p_tmp->x + 5; pointC1.y = p_tmp->y + 5;
 			pointC2.x = p_tmp->x - 5; pointC2.y = p_tmp->y - 5;
@@ -379,93 +349,4 @@ int collisionMissile(LShot* p_lshot, LMonster* p_lmonster, Interface* interface,
 
 	return 1;
 
-}
-
-/************* Supprimer un missile selon sa position *************/
-/* Supprime une missile selon sa position, vérifie si c'est le premier, le dernier ou un missile dans la liste puis le supprime *
-*  Prend en paramètre la liste de missiles et le missile à supprimer et retourne la liste de missiles.				*/
-
-LShot* removeShot(LShot* p_lshot, Shot* p_courant) {
-
-	// On vérifie si notre liste a été allouée
-	if (p_lshot != NULL) {
-
-		if(p_courant != NULL) {
-
-			//Si c'est le dernier missile de la liste
-			if (p_courant->p_next == NULL) {
-				
-				//Pointe la fin de la liste sur le missile précédent
-				p_lshot->p_tail = p_courant->p_prev;
-				if(p_lshot->p_tail != NULL) {
-					//Lien de le dernier missile vers le missile suivant est NULL
-					p_lshot->p_tail->p_next = NULL;
-				}
-				else 
-					p_lshot->p_head = NULL;
-					
-			}
-		
-			//Si c'est le premier de la liste
-			else if (p_courant->p_prev == NULL) {
-				//Pointe la tête de la liste vers le missile suivant
-				p_lshot->p_head = p_courant->p_next;
-				if(p_lshot->p_head != NULL) {
-					//Le lien vers de le deuxième misiile vers le missile précédent est NULL
-			 		p_lshot->p_head->p_prev = NULL;
-				}
-				else 
-					p_lshot->p_tail = NULL;
-			}
-			else {
-				//Relie le missile suivant au missile précédent du missile que l'on veut supprmer 
-				p_courant->p_next->p_prev = p_courant->p_prev;
-				//Relie le missile précédent au missile suivant du missile que l'on veut supprmer 
-				p_courant->p_prev->p_next = p_courant->p_next;
-			}
-			//Libère espace mémoire : supprime le missile
-			free(p_courant);
-			//Décrémente de un la taille de la liste
-			p_lshot->length--;
-
-		}
-		else
-			fprintf(stderr, "Ce missile n'existe pas\n");
-	}
-	else 
-		fprintf(stderr, "Cette liste de missiles n'existe pas\n");
-
-	// on retourne notre nouvelle liste
-	return p_lshot; 
-}
-
-/************* Supprimer tous les missiles de la liste *************/
-/* Supprime la liste de missiles. Prend en paramètre un pointeur vers la liste de missiles 	*/
-
-void removeAllShot (LShot* p_lshot) {
-	//Si la liste n'est pas vide
-	if (p_lshot->length != 0) {
-
-		//Tant que la liste n'est pas vide
-		while (p_lshot->p_head != NULL) {
-			p_lshot = removeShot(p_lshot, p_lshot->p_head);
-		}
-		
-	}
-}
-
-/************* Supprimer la liste de missiles *************/
-/* Supprime la liste de missiles. Prend en paramètre un pointeur vers la liste de missiles 	*/
-
-void freeAllShot (LShot* p_lshot) {
-	//Si la liste n'est pas vide
-	if (p_lshot->length != 0) {
-
-		//Tant que la liste n'est pas vide
-		while (p_lshot->p_head != NULL) {
-			p_lshot = removeShot(p_lshot, p_lshot->p_head);
-		}
-		
-	}
-	free(p_lshot);
 }

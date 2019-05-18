@@ -30,6 +30,7 @@ class Vector{
 	Vector(Position a, Position b);
 	Vector get();
 	float getNorm();
+	void normalize();
 }
 
 class Size{
