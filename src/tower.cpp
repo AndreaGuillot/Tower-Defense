@@ -223,7 +223,7 @@ class Tower {
                         }
 
                         if(monster != NULL)
-                            shots.addShot(monster, this); //Ajout d'un shot à la liste                                addShots méthode de listShots
+                            shots.addShot(monster, this);
 
                         return 1;
 
@@ -515,4 +515,76 @@ class listTower{
             fprintf(stderr, "Cette liste de tours n'existe pas");
     }
 
+    void removeTower(Tower tower) {
+        if (this != NULL) {
+            if(tower != NULL) {
+                if (tower.getNext() == NULL) {
+                    this.setTail(tower.getPrev());
+
+                    if(this.getTail() != NULL) {
+                        //Lien de la dernière tour vers la tour suivante est NULL
+                        this.getTail().setNext(NULL);
+                    }
+                    else
+                        this.setHead(NULL);
+                        
+                }
+            
+                //Si c'est la première de la liste
+                else if (tower.getPrev() == NULL) {
+                    //Pointe la tête de la liste vers la tour suivante
+                    this.setHead(tower.getNext());
+
+                    if(this.getHead() != NULL) {
+                        //Le lien vers de la deuxième tour vers la tour précédente est NULL
+                        this.getHead().setPrev(NULL);
+                    }
+                    else
+                        this.setTail(NULL);
+                }
+
+                else {
+                    //Relie la tour suivante à la tour précédente de la tour que l'on veut supprmer 
+                    tower.getNet().setPrev(tower.getPrev());
+                    //Relie la tour précédente à la tour suivante de la tour que l'on veut supprmer 
+                    tower.getPrev().setNext(tower.getNet());
+
+                }
+                //Libère espace mémoire : supprime la tour
+                free(tower);
+                //Décrémente de un la taille de la liste
+                this->length--;
+
+            }
+            else
+                fprintf(stderr, "Cette tour n'existe pas");
+        }
+        else 
+            fprintf(stderr, "Cette liste de tours n'existe pas");
+    }
+
+    void removeAllTower() {
+    //Si la liste n'est pas vide
+        if (this->length != 0) {
+
+            //Tant que la liste n'est pas vide
+            while (this.getHead() != NULL) {
+                this = removeTower(this, this.getHead());
+            }
+            
+        }
+    }   
+
+    void freeAllTower() {
+        //Si la liste n'est pas vide
+        if (this->length != 0) {
+
+            //Tant que la liste n'est pas vide
+            while (this->head != NULL) {
+                this = removeTower(this, this->head);
+            }
+            
+        }
+        free(this);
+    }
 }

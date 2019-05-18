@@ -412,9 +412,6 @@ class listMonster {
             return 1;
         }
 
-        /************* Deplacer les monstres *************/
-        /* Deplace les monstre : Vérifie s'il se déplace à l'horizontal, vertical ou autrement puis le déplace. Prend en paramètre la liste de  *
-        *  monstres et et le dernier noeud de la carte. Retourne 0 en cas d'erreur et 1 sinon et 2 s'il est arrivé à la fin. */
         int moveMonster (Node node){
 
             if(this != NULL){
@@ -598,5 +595,31 @@ class listMonster {
                 return NULL;
             }
         }
+
+        void removeAllMonsters() {
+            //Si la liste n'est pas vide
+            if (this->length != 0) {
+
+                //Tant que la liste n'est pas vide
+                while (this->head != NULL) {
+                    this = removeMonster(this, this->head);
+                }
+                
+            }
+        }
+
+        void freeAllMonsters() {
+            //Si la liste n'est pas vide
+            if (this->length != 0) {
+
+                //Tant que la liste n'est pas vide
+                while (this->head != NULL) {
+                    this = removeMonster(this, this->head);
+                }
+                
+            }
+            free(this);
+        }
+
 }
 
