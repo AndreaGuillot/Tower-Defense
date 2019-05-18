@@ -22,7 +22,12 @@ private:
 	Color pathColor;
 	Color nodeColor;
 	Color constructColor;
+
+	//Liste des zones constructibles
 	listNode listConstruct;
+
+	//nombre de monstres sur le plateau
+	int nbMontres;
 
 /*Color3f road;
 

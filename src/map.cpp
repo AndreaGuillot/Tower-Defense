@@ -233,8 +233,8 @@ Map loadMap(char* fileNameITD)
     }
 }
 
-class Map{
 
+class Map{
 
     /*********************** Dessiner du chemin et des noeuds ***********************/
     /* Dessine du chemin et des noeuds. Prend en paramètre la liste de noeud et la map. *
@@ -307,4 +307,42 @@ class Map{
     listNode getListConstruct(){
         return this->listConstruct;
     }
+
+    void setNbMonstres(int a){
+        this->nbMonstres = a;
+    }
+
+    int apparitionMonster(listMonster monsters, int j, Joueur joueur) {
+
+        if(monsters != NULL) {
+
+                //ajoute un monstre à chaque fois que j est un muliple de 50
+                if(j%(*130) == 0){
+
+                    //S'il y a moins ou 10 monstres
+                    if(this->nbMonstres < 10) {
+
+                        //Random entre 0, 1 et 2 pour avoir les monstres de type lucie, barbara et julien
+                        typeMonster type = rand()%3;
+                        monsters.addMonster(type, this->listNode.getHead());
+                        
+                        this->nbMonstres++;
+                    }
+                    //S'il n'y a plus de monstre
+                    else if(this->nbMonstres == 10 && monsters.getLength() == 0) {
+                        joueur.setNbVagues(joueur.getNbVagues()+1); //Monte de niveau
+                        this->nbMonstres++;
+                    }else
+                        this->nbMonstres = 0;
+                }
+        }
+        else {
+            fprintf(stderr, "Erreur avec la liste de monstre\n");
+            return 0;
+        }
+
+        return 1;
+    }
+
+
 }
