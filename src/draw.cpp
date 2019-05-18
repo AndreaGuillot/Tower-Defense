@@ -490,22 +490,22 @@ int drawMenuLeft (GLuint* spriteMenu, GLuint* fondMenu, Joueur joueur) {
 /* Dessine les tours. Prend en paramètre la texture de la tour, la liste de tours, la liste de monstres, la tour courant	*
 *  et les variables xt1, xt2, testMouse et propriete. Retourne 0 en cas d'erreur, 1 sinon. 					*/
 
-int drawTower (GLuint* tower, listTower p_ltower, listMonster p_lmonster, Tower* p_courant, int testMouse, int testTower) {
+int drawTower (GLuint* towerTxt, listTower towers, listMonster monsters, Tower* tower, int testMouse, int testTower) {
 
-	if(tower != NULL && p_ltower != NULL && p_lmonster != NULL) {
+	if(towerTxt != NULL && towers != NULL && monsters != NULL) {
 
 		//Création d'un pointeur tour temporaire pour parcourir la liste de tours
-		Tower *p_temp = p_ltower->p_tail;
+		Tower *tmp = towers->getTail();
 
 			//Parcours la liste de tours
-			while(p_temp != NULL){
+			while(tmp != NULL){
 
 				if(testMouse == 1) {
 					glPushMatrix();
-					glTranslatef(p_temp->x,p_temp->y, 0.0);
+					glTranslatef(tmp->getPosition()->getX(),tmp->getPosition()->getY(), 0.0);
 
 						//Choisie la couleur
-						if(p_temp == p_ltower->p_tail) {
+						if(tmp == towers->getTail()) {
 							if(testTower == 1) 
 								glColor4f(0,255,0, 0.2);
 							else
@@ -514,17 +514,17 @@ int drawTower (GLuint* tower, listTower p_ltower, listMonster p_lmonster, Tower*
 						else
 							glColor4f(255,255,255, 0.2);
 						//Affiche le périmètre d'action
-						drawDisque(p_temp->range);
+						drawDisque(tmp->getRange());
 				
 					glPopMatrix();
 				}
 
-				if(p_courant != NULL && testMouse != 1) {
-					if(p_courant == p_temp) {
+				if(tower != NULL && testMouse != 1) {
+					if(tower == tmp) {
 						glPushMatrix();
-							glTranslatef(p_temp->x,p_temp->y, 0.0);
+							glTranslatef(tmp->getPosition()->getX(),tmp->getPosition()->getY(), 0.0);
 							glColor4f(255,255,255, 0.2);
-							drawDisque(p_temp->range);
+							drawDisque(tmp->getRange());
 						glPopMatrix();
 					}
 				}
@@ -534,26 +534,19 @@ int drawTower (GLuint* tower, listTower p_ltower, listMonster p_lmonster, Tower*
 				//Active le texturage 2D
 				glEnable(GL_TEXTURE_2D);
 				//appel de la texture
-				glBindTexture(GL_TEXTURE_2D, *tower);
+				glBindTexture(GL_TEXTURE_2D, *towerTxt);
 
 					int xm1, xm2, ym1, ym2;
-					xm1 = p_temp->x + 20;
-					xm2 = p_temp->x - 20;
-					ym1 = p_temp->y + 20;
-					ym2 = p_temp->y - 20;
+					xm1 = tmp->getPosition()->getX() + 20;
+					xm2 = tmp->getPosition()->getX() - 20;
+					ym1 = tmp->getPosition()->getY() + 20;
+					ym2 = tmp->getPosition()->getY() - 20;
 
-					int towerNumber = 0;
-					//Choisir le bon monstre dans le sprite
-					if(strcmp("H", p_temp->type_tower) == 0) 
-						towerNumber = 0;
-					else if(strcmp("M", p_temp->type_tower) == 0) 
-						towerNumber = 1;
-					else if(strcmp("L", p_temp->type_tower) == 0) 
-						towerNumber = 3;
-					else if(strcmp("R", p_temp->type_tower) == 0) 
-						towerNumber = 2;
+					int towerNumber = tmp.getType();
 
-					float x1 = 0, x2 = 1, y1 = (towerNumber * (1.0/4.0)) + 0;
+					float x1 = 0;
+					float x2 = 1;
+					float y1 = (towerNumber * (1.0/4.0)) + 0;
 					float y2 = (towerNumber * (1.0/4.0)) + 0.25;
 
 					glBegin(GL_QUADS);
@@ -579,7 +572,7 @@ int drawTower (GLuint* tower, listTower p_ltower, listMonster p_lmonster, Tower*
 				glDisable(GL_TEXTURE_2D);
 				glPopMatrix();
 
-				p_temp = p_temp->p_prev;
+				tmp = tmp->getPrev();
 			}
 		}
 		else {

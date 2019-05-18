@@ -38,15 +38,15 @@ class Tower {
     int getCompteur(){
         return this->compteur;
     }
-    Tower getNext(){
+    Tower* getNext(){
         return this->next;
     }
-    Tower getPrev(){
+    Tower* getPrev(){
         return this->prev;
     }
 
     //Set
-    void set(Tower t){
+    void set(Tower* t){
         this = t;
     }
 
@@ -62,14 +62,14 @@ class Tower {
     void setPosition(Position p){
         this->p = p;
     }
-    void setNext(Tower tower){
+    void setNext(Tower* tower){
         this->next = tower;
     }
-    void setPrev(Tower tower){
+    void setPrev(Tower* tower){
         this->prev = tower;
     }
 
-    int drawProprieteTower(GLuint* tower, GLuint* spriteMenu, GLuint* btPlus, Joueur joueur) {
+    int drawProprieteTower(GLuint* tower, GLuint* spriteMenu, GLuint* btPlus, Joueur* joueur) {
 
         if(this != NULL) {
 
@@ -171,7 +171,7 @@ class Tower {
 
     }
 
-    int reach(listShot shots, listMonster monsters) {
+    int reach(listShot *shots, listMonster *monsters) {
         if(shots != NULL) {
             if(monsters != NULL){
                 if(this != NULL) {
@@ -353,11 +353,11 @@ class listTower{
         return this->length;
     }
 
-    Tower getHead(){
+    Tower* getHead(){
         return this->;head
     }
 
-    Tower getTail(){
+    Tower* getTail(){
         return this->tail;
     }
 
@@ -365,11 +365,11 @@ class listTower{
         this->length = a;
     }
 
-    void setHead(Tower t){
+    void setHead(Tower* t){
         this->head = t;
     }
 
-    void setTail(Tower t){
+    void setTail(Tower* t){
         this->tail = t;
     }
 
@@ -413,7 +413,7 @@ class listTower{
         return 1;
     }
 
-    int moveTower(Tower tower, listNode list_node, float x, float y) {
+    int moveTower(Tower* tower, listNode list_node, float x, float y) {
         if(this != NULL) {
             if(tower != NULL) {
                 Position pos = new Position(x, y);
@@ -430,7 +430,7 @@ class listTower{
                     p2.setPosition(new Position(x-20, y-20));
 
                     //Si ce n'est pas le premier de la liste
-                    if(tower.getPrev() != NULL){
+                    if(tower->getPrev() != NULL){
 
                         Point p3, p4;
                         //Créer une tour temporaire pour parcourir la liste
@@ -469,15 +469,15 @@ class listTower{
 
     }
 
-    void removeTower(Tower tower) {
+    void removeTower(Tower* tower) {
         if (this != NULL) {
             if(tower != NULL) {
 
                 //Si c'est la dernière tour de la liste
-                if (tower.getNext() == NULL) {
+                if (tower->getNext() == NULL) {
                     
                     //Set la fin de la liste sur la tour précédente
-                    this->tail.set(tower.getPrev());
+                    this->tail.set(tower->getPrev());
 
                     if(this->tail != NULL) {
                         //Lien de la dernière tour vers la tour suivante est NULL
@@ -489,9 +489,9 @@ class listTower{
                 }
             
                 //Si c'est la première de la liste
-                else if (tower.getPrev() == NULL) {
+                else if (tower->getPrev() == NULL) {
                     //Set la tête de la liste sur la tour suivante
-                    this->head.set(tower.getNext());
+                    this->head.set(tower->getNext());
 
                     if(this->head != NULL) {
                         //Le lien vers de la deuxième tour vers la tour précédente est NULL
@@ -503,9 +503,9 @@ class listTower{
 
                 else {
                     //Relie la tour suivante à la tour précédente de la tour que l'on veut supprmer 
-                    tower.getNext().setPrev(tower.getPrev());
+                    tower->getNext().setPrev(tower->getPrev());
                     //Relie la tour précédente à la tour suivante de la tour que l'on veut supprmer 
-                    tower.getPrev().setNext(tower.getNext());
+                    tower->getPrev().setNext(tower->getNext());
 
                 }
                 //Libère espace mémoire : supprime la tour
@@ -524,8 +524,8 @@ class listTower{
     void removeTower(Tower tower) {
         if (this != NULL) {
             if(tower != NULL) {
-                if (tower.getNext() == NULL) {
-                    this.setTail(tower.getPrev());
+                if (tower->getNext() == NULL) {
+                    this.setTail(tower->getPrev());
 
                     if(this.getTail() != NULL) {
                         //Lien de la dernière tour vers la tour suivante est NULL
@@ -537,9 +537,9 @@ class listTower{
                 }
             
                 //Si c'est la première de la liste
-                else if (tower.getPrev() == NULL) {
+                else if (tower->getPrev() == NULL) {
                     //Pointe la tête de la liste vers la tour suivante
-                    this.setHead(tower.getNext());
+                    this.setHead(tower->getNext());
 
                     if(this.getHead() != NULL) {
                         //Le lien vers de la deuxième tour vers la tour précédente est NULL
@@ -551,9 +551,9 @@ class listTower{
 
                 else {
                     //Relie la tour suivante à la tour précédente de la tour que l'on veut supprmer 
-                    tower.getNet().setPrev(tower.getPrev());
+                    tower->getNet().setPrev(tower->getPrev());
                     //Relie la tour précédente à la tour suivante de la tour que l'on veut supprmer 
-                    tower.getPrev().setNext(tower.getNet());
+                    tower->getPrev().setNext(tower->getNet());
 
                 }
                 //Libère espace mémoire : supprime la tour

@@ -7,7 +7,6 @@
 #include "joueur.h"
 #include "map.h"
 #include "monstre.h"
-#include "node.h"
 #include "shot.h"
 #include "struct.h"
 #include "tower.h"
@@ -31,6 +30,6 @@ public:
     void setR(uint color);
     void setG(uint color);
     void setB(uint color);
-}
+};
 
 #endif

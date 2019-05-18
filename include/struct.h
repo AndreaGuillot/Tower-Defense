@@ -7,7 +7,7 @@
 #include "color.h"
 #include "joueur.h"
 #include "map.h"
-#include "monster.h"
+#include "monstre.h"
 #include "shot.h"
 #include "tower.h"
 #include <string.h>
@@ -20,6 +20,8 @@ enum Propriete{
 enum Menus{
 	menu, play, gameOver, gameWin
 };
+
+class Vector;
 
 class Position{
     float x;
@@ -55,7 +57,7 @@ class Vector{
 	void setY(float y);
 
 	void normalize();
-}
+};
 
 class Size{
     float width;
@@ -67,7 +69,7 @@ class Node {
 	private: 
 
 	Position pos;
-	Node next;
+	Node* next;
 
 	public:
 		Position getPosition();
@@ -89,6 +91,8 @@ class listNode {
 	Node head; //pointeur vers le premier element
 	Node tail; //pointeur vers le dernier element
 
+public:
+	listNode();
 	int getLength();
 	Node getHead();
 	Node getTail();

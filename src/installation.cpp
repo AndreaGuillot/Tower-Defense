@@ -39,8 +39,8 @@ class Installation {
         this->p.setY(y);
     }
 
-    void affects(Tower tower){
-        tower.instNear[this->type] = 1;
+    void affects(Tower* tower){
+        tower->instNear[this->type] = 1;
     }
 };
 

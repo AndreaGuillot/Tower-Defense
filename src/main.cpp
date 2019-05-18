@@ -13,7 +13,6 @@
 #include "../include/color.h"
 #include "../include/map.h"
 #include "../include/monstre.h"
-#include "../include/node.h"
 #include "../include/shot.h"
 #include "../include/struct.h"
 #include "../include/tower.h"
@@ -70,19 +69,9 @@ int main(int argc, char** argv) {
 
     	SDL_WM_SetCaption("Tower Defense IMAC1", NULL);
 
-    Map map = NULL;
+    Map map;
 
 	/***** Variables ******/
-	//Texture menuMap
-	GLuint menuMap;
-	SDL_Surface* imgMenuMap = NULL;
-	loadTexture("./images/menu-map.png", &menuMap, imgMenuMap);
-
-	//Texture menuMap button
-	GLuint menuMapButton;
-	SDL_Surface* imgMenuMapButton = NULL;
-	loadTexture("./images/sprite_bt-texture.png", &menuMapButton, imgMenuMapButton);
-
 
 	//Texture menuPrincipal
 	GLuint menuPrincipal;
@@ -95,10 +84,6 @@ int main(int argc, char** argv) {
 	//La carte
 	GLuint texture;
 	SDL_Surface* imgMap = NULL;
-
-	//Texture aide
-	GLuint help;
-	SDL_Surface* imgHelp = NULL;
 
 	//Texture des monstres
 	GLuint monsterTxt;
@@ -140,34 +125,28 @@ int main(int argc, char** argv) {
 	GLuint fondWin;
 	SDL_Surface* imgFondWin = NULL;
 
-	//Texture passer les tuto
-	GLuint fondTuto;
-	SDL_Surface* imgFondTuto = NULL;
-
-
 	//Initialisation de l'interface
-	Joueur joueur = new Joueur();
+	Joueur* joueur = new Joueur();
 
 	//Initialisation de la liste de monstre
-	listMonster monsters = new listMonster();
+	listMonster* monsters = new listMonster();
 	//Initialisation de la liste de tours
-	listTower towers = new listTower();
+	listTower* towers = new listTower();
 	//Initialisation de la liste de shots
-	listShot shots = new listShot();
+	listShot* shots = new listShot();
 
 	//Initialisation de la liste de tours (file) --------------------------------------------------AUCUNE IDEE DE CE A QUOI CA SERT
-	listFileTower fileTower =  new listFileTower ("../data/IDTtower.idt");
+	listFileTower* fileTower =  new listFileTower("../data/IDTtower.idt");
 
 	int i = 0;
 	int j = 0;
 	int k = 0;
 	Propriete propriete = aucune;
-	int apparition = 130;
 	int infoMoney = 0;
 
 	//Pour afficher les propriétés
-	Tower tower = NULL;
-	Monster pMonster = NULL;
+	Tower* tower;
+	Monster* pMonster;
 
 	bool loop = 1;
 
@@ -228,9 +207,9 @@ int main(int argc, char** argv) {
 			//Dessin du menu du dessus
 			drawMenuUp(&spriteButton, &fondMenuUp);
 			//Dessin du menu de gauche (les tours)
-			drawMenuLeft(&spriteMenu, &fondMenu, joueur);
+			drawMenuLeft(&spriteMenu, &fondMenu, *joueur);
 			//Dessin de l'interface (données du joueur)
-			drawInterface (&spriteButton, joueur);
+			joueur->drawInterface (&spriteButton);
 
 			if(nbtexture == 0) {
 				//Dessin du chemin et noeud
@@ -240,7 +219,7 @@ int main(int argc, char** argv) {
 			//Si on veut voir les propriété d'une tour
 			if(propriete == propTower) {
 				//Affiche les propriétés de la tours
-				tower.drawProprieteTower(&towerTxt, &spriteMenu, &btPlus, interface);
+				tower->drawProprieteTower(&towerTxt, &spriteMenu, &btPlus, joueur);
 				pMonster = NULL;
 			}
 			//Si on veut voir les proriétés d'un monstre
@@ -248,9 +227,9 @@ int main(int argc, char** argv) {
 
 					tower = NULL;
 					if(pMonster != NULL) {
-						if(pMonster.getPV() > 0) {
+						if(pMonster->getPV() > 0) {
 							//Affiche les propriété du monstre
-							pMonster.drawProprieteMonster(&monsterTxt);
+							pMonster->drawProprieteMonster(&monsterTxt);
 						}
 						else {
 							propriete = aucune;
@@ -261,18 +240,18 @@ int main(int argc, char** argv) {
 						propriete = aucune;
 				}
 
-				map.apparitionMonster(monsters, j, joueur);
+				map.apparitionMonster(*monsters, j, *joueur);
 
 				//Si nbVague = 20 vagues et plus de monstre alors gagné
-				if(joueur.getNbVagues() == 20 && monsters.getLength() == 0) {
+				if(joueur->getNbVagues() == 20 && monsters->getLength() == 0) {
 
 					testMouse = 0;
 					testTower = 0;
 					j = 0;
 					i = 0;
-					map.setNbMonster(0);
-					propriete = aucnue;
-					initAll(monsters, shots, towers, interface);
+					map.setNbMonstres(0);
+					propriete = aucune;
+					initAll(monsters, shots, towers, joueur);
 
 					nbMenu = gameWin;
 				}
@@ -280,37 +259,37 @@ int main(int argc, char** argv) {
 				j++;
 
 				//Création d'un pointeur tour temporaire pour parcourir la liste de tours
-				Tower tower = towers.getHead();
+				Tower* tower = towers->getHead();
 
 				//Parcours la liste de tours
 				while(tower != NULL){
 
 					// Si tower = au pointeur du dernier de la liste
-					if(tower == towers.getTail()) {
+					if(tower == towers->getTail()) {
 						if(testMouse == 0) {
-							if((tower.getCompteur())%(tower.getRate()) == 0) {
-								if(tower.reach(shots, monsters) != 0) {
-									(tower->compteur)=0;
+							if((tower->getCompteur())%(int)(tower->getRate()) == 0) {
+								if(tower->reach(shots, monsters) != 0) {
+									tower->setCompteur(0);
 								}
 							}
 						}
 					}
 					else {
-						if((tower->compteur)%(tower->rate) == 0) {
-							if(inSight (shots, monsters, tower) != 0) {
-								(tower->compteur)=0;
+						if((tower->getCompteur())%(int)(tower->getRate()) == 0) {
+							if(tower->reach(shots, monsters) != 0) {
+								tower->setCompteur(0);
 							}
 						}
 					}
 
-					(tower->compteur)++;
-					tower = tower->p_next;
+					tower->setCompteur(tower->getCompteur()+1);
+					tower = tower->getNext();
 				}
 
 				//Dessiner les tours
-				drawTower(&towerTxt, towers, monsters, tower, testMouse, testTower);
+				drawTower(&towerTxt, *towers, *monsters, tower, testMouse, testTower);
 				//Dessiner les monstres
-				drawMonster(&monsterTxt, monsters, play);
+				monsters->drawMonster(&monsterTxt);
 
 				//Si le jeu n'est pas en pause
 				if(play != 1) {

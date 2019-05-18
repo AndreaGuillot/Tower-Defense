@@ -4,34 +4,40 @@
 #include <SDL/SDL.h>
 #include <SDL/SDL_image.h>
 
-#include "draw.h"
-#include "filetower.h"
-#include "installation.h"
-#include "color.h"
-#include "joueur.h"
-#include "monstre.h"
-#include "node.h"
-#include "shot.h"
-#include "struct.h"
-#include "tower.h"
-#include <string.h>
+#include "../include/draw.h"
+#include "../include/filetower.h"
+#include "../include/installation.h"
+#include "../include/color.h"
+#include "../include/joueur.h"
+#include "../include/monstre.h"
+#include "../include/shot.h"
+#include "../include/struct.h"
+#include "../include/tower.h"
+#include "image.h"
+
+#include <string>
 #include <iostream>
+#include <stdlib.h>
+#include <stdio.h>
+
+class Color;
+class listNode;
 
 class Map {
 
 private:
 	//Image ppm
-	string image;
+	std::string image;
 	Image* img;
 	//Noeuds
 	int nbNode;
-	listNode listNode;
+	listNode list_node;
 	//Couleurs de la carte
-    Color inColor;
-	Color outColor;
-	Color pathColor;
-	Color nodeColor;
-	Color constructColor;
+    Color* inColor;
+	Color* outColor;
+	Color* pathColor;
+	Color* nodeColor;
+	Color* constructColor;
 
 	//Liste des zones constructibles
 	listNode listConstruct;
@@ -61,8 +67,8 @@ public:
 	//fonctions
 	bool drawRoad();
 	bool loadMap(char* fileNameITD);
-	int apparitionMonster(listMonster monsters, int j, Joueur joueur);
-}
+	bool apparitionMonster(listMonster monsters, int j, Joueur joueur);
+};
 
 // Vérifie la map
 int verifMap(FILE* fileITD, Map map);

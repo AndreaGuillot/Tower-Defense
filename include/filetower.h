@@ -7,7 +7,6 @@
 #include "joueur.h"
 #include "map.h"
 #include "monstre.h"
-#include "node.h"
 #include "shot.h"
 #include "struct.h"
 #include "tower.h"
@@ -24,10 +23,27 @@ class FileTower {
 	int cost;
 	int power;
 
-	FileTower prev;
-	FileTower next;
+	FileTower* prev;
+	FileTower* next;
 
-}
+public:
+	towerType getType_tower();
+	int getRate();
+	int getRange();
+	int getCost();
+	int getPower();
+	FileTower* getPrev();
+	FileTower* getNext();
+
+	void setType_tower(towerType type);
+	void setRate(int n);
+	void setRange(int n);
+	void setCost(int n);
+	void setPower(int n);
+	void setPrev(FileTower* t);
+	void setNext(FileTower* t);
+
+};
 
 /************* STRUCTURE DE LA LISTE DE TOURS *************/
 class listFileTower{
@@ -41,11 +57,17 @@ private:
 
 public:
 
-	listFileTower(char);
+	listFileTower(std::string);
+
+	FileTower getHead();
+	FileTower getTail();
+	void setHead(FileTower t);
+	void setTail(FileTower t);
+
 	int verificationFileTower(char);
 	int addFileTower(int, int, char, int, int);
 	void removeFileTower(FileTower*);
 	void freeAllFileTower ();
-}
+};
 
 #endif

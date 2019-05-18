@@ -7,12 +7,13 @@
 #include "color.h"
 #include "map.h"
 #include "monstre.h"
-#include "node.h"
 #include "shot.h"
 #include "struct.h"
 #include "tower.h"
 #include <string.h>
 #include <iostream>
+
+class Installation;
 
 class Joueur {
 
@@ -31,9 +32,9 @@ class Joueur {
     void setNbVagues(int n);
     //Fonctions
     void updateMonsterKill(Monster m);
-    bool updateMoneyBuildTower(Tower t);
+    bool updateMoneyBuildTower(Tower* t);
     bool updateMoneyBuildInstallation(Installation i);
-    bool drawInterface (GLuint* spriteButton)
+    bool drawInterface (GLuint* spriteButton);
 };
 
 #endif

@@ -19,7 +19,7 @@ class Shot{
 	Monster getTarget(){
 		return this->target;
 	}
-	Tower getTower(){
+	Tower* getTower(){
 		return this->tower;
 	}
 	int getPower(){
@@ -49,7 +49,7 @@ class Shot{
 	void setTarget(Monster m){
 		this->target = m;
 	}
-	void setTower(Tower t){
+	void setTower(Tower* t){
 		this->tower = t;
 	}
 	void setPrev(Shot s){
@@ -86,7 +86,7 @@ class listShot{
 		this->tail = s;
 	}
 
-	int addShot(Monster monster, Tower tower) {
+	int addShot(Monster monster, Tower* tower) {
 		if(this != NULL) {
 			if(monster != NULL) {
 				if(tower != NULL) {

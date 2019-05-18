@@ -4,9 +4,72 @@
 
 #include "../include/filetower.hpp"
 
+class FileTower {
+
+public:
+	towerType getType_tower(){
+		return this->type_tower;
+	}
+	int getRate(){
+		return this->rate;
+	}
+	int getRange(){
+		return this->range;
+	}
+	int getCost(){
+		return this->cost;
+	}
+	int getPower(){
+		return this->power;
+	}
+	FileTower* getPrev(){
+		return this->prev;
+	}
+	FileTower* getNext(){
+		return this->next;
+	}
+
+	void setType_tower(towerType type){
+		this->type_tower = type;
+	}
+	void setRate(int n){
+		this->rate = n;
+	}
+	void setRange(int n){
+		this->range = n;
+	}
+	void setCost(int n){
+		this->cost = n;
+	}
+	void setPower(int n){
+		this->power = n;
+	}
+	void setPrev(FileTower* t){
+		this->prev = t;
+	}
+	void setNext(FileTower* t){
+		this->next = t;
+	}
+
+};
+
 class listFileTower{
 
 public: 
+
+	FileTower getHead(){
+		return this->head;
+	}
+	FileTower getTail(){
+		return this->tail;
+	}
+	void setHead(FileTower t){
+		this->head= t;
+	}
+	void setTail(FileTower t){
+		this->tail= t;
+	}
+
 	/************* Initialisation de la liste de tour (file) *************/
 	/* Alloue de la mémoire pour la liste puis vérifie le fichier à l'aide de la fonction verificationFileTower	*
 	*  Prend en paramère le chemin vers le fichier. Retourne le pointeur vers la liste.				*/
@@ -526,48 +589,42 @@ public:
 	*  Prend en paramètre la liste de tours, la puissance d'attaque, la vitesse d'attaque, le type 	*
 	*  le périmétre d'action et le cout. Retourne 0 en cas d'erreur et 1 sinon			*/
 
-	int addFileTower(, int power, int rate, char* type_tower, int range, int cost) {
+	int addFileTower(int power, int rate, char* type_tower, int range, int cost) {
 
 		// On vérifie si notre liste a été allouée
 		if (this != NULL) {
 			//Création d'une nouvelle tour
-			FileTower* new_fileTower = malloc(sizeof(FileTower)); 
+			FileTower* new_fileTower; 
 			
-			// On vérifie si le malloc n'a pas échoué
-			if (new_fileTower !=  NULL) {
-
-				new_fileTower->rate = rate;
-				new_fileTower->range = range;
-				new_fileTower->type_tower = type_tower;
-				new_fileTower->cost = cost;
-				new_fileTower->power = power;
+			new_fileTower->setRate(rate);
+			new_fileTower->setRange(range);
+			new_fileTower->setType_tower(type_tower);
+			new_fileTower->setCost(cost);
+			new_fileTower->setPower(power);
 		
-				//Pointer vers la tour suivant à NULL car on rajoute à la fin de la liste	
-				new_fileTower->p_next = NULL; 
+			new_fileTower->setNext(NULL); 
 
-				// Cas où notre liste est vide (pointeur vers fin de liste à  NULL)
-				if (this->p_tail == NULL) {
+			if (this->tail == NULL) {
+				// Pointe la tête de la liste sur la nouvelle tour
+				this->setHead(new_fileTower); 
 
-					// Pointe la tête de la liste sur la nouvelle tour
-					this->p_head = new_fileTower; 
+				//Pointe p_prev de la nouvelle tour à NULL
+				new_fileTower->setPrev(NULL);
+			}
+			// Cas où des éléments sont déjà présents dans la  liste
+			else {
+				// Pointe p_prev de la nouvelle tour sur la dernière tour de la liste
+				new_fileTower->setPrev(this->tail); 
 
-					//Pointe p_prev de la nouvelle tour à NULL
-					new_fileTower->p_prev = NULL;
-				}
-				// Cas où des éléments sont déjà présents dans la  liste
-				else {
-					// Pointe p_prev de la nouvelle tour sur la dernière tour de la liste
-					new_fileTower->p_prev = this->p_tail; 
+				// Relie la dernière tour de la liste à la nouvelle tour
+				this->tail->setNext(new_fileTower);  
+			}
 
-					// Relie la dernière tour de la liste à la nouvelle tour
-					this->p_tail->p_next = new_fileTower;  
-				}
+			// Pointe la fin de la liste sur la nouvelle tour
+			this->tail = new_fileTower; 
 
-				// Pointe la fin de la liste sur la nouvelle tour
-				this->p_tail = new_fileTower; 
-
-				// On augmente de 1 la taille de la liste
-				this->length++; 
+			// On augmente de 1 la taille de la liste
+			this->length++; 
 			}
 			else {
 				fprintf(stderr, "Problème dans la creation de la nouvelle tour\n");
@@ -587,50 +644,50 @@ public:
 	/* Supprime une tour selon sa position, vérifie si c'est le premier, le dernier ou une tour dans la liste puis la supprime 	*
 	*  Prend en paramètre la liste de tours et la tour à supprimer et retourne la liste de tours.					*/
 
-	LFileTower* removeFileTower(LFileTower* this, FileTower* p_courant) {
+	void removeFileTower(FileTower* fileTower) {
 
 		// On vérifie si notre liste a été allouée
 		if (this != NULL) {
 
-			if(p_courant != NULL) {
+			if(fileTower != NULL) {
 
 				//Si c'est la dernière tour de la liste
-				if (p_courant->p_next == NULL) {
+				if (fileTower.getNext() == NULL) {
 					
 					//Pointe la fin de la liste sur la tour précédente
-					this->p_tail = p_courant->p_prev;
+					this->setTail(fileTower->getPrev());
 
-					if(this->p_tail != NULL) {
+					if(this->tail != NULL) {
 						//Lien de la dernière tour vers la tour suivante est NULL
-						this->p_tail->p_next = NULL;
+						this->tail->setNext(NULL);
 					}
 					else
-						this->p_head = NULL;
+						this->setHead(NULL);
 						
 				}
 			
 				//Si c'est la première de la liste
-				else if (p_courant->p_prev == NULL) {
+				else if (fileTower.getPrev() == NULL) {
 					//Pointe la tête de la liste vers la tour suivante
-					this->p_head = p_courant->p_next;
+					this->setHead(fileTower.getNext());
 
-					if(this->p_head != NULL) {
+					if(this->head != NULL) {
 						//Le lien vers de la deuxième tour vers la tour précédente est NULL
-				 		this->p_head->p_prev = NULL;
+				 		this->head->setPrev(NULL);
 					}
 					else
-						this->p_tail = NULL;
+						this->tail = NULL;
 				}
 
 				else {
 					//Relie la tour suivante à la tour précédente de la tour que l'on veut supprmer 
-					p_courant->p_next->p_prev = p_courant->p_prev;
+					fileTower.getNext()->setPrev(fileTower.getPrev());
 					//Relie la tour précédente à la tour suivante de la tour que l'on veut supprmer 
-					p_courant->p_prev->p_next = p_courant->p_next;
+					fileTower.getPrev()->setNext(fileTower.getNext());
 
 				}
 				//Libère espace mémoire : supprime la tour
-				free(p_courant);
+				free(fileTower);
 				//Décrémente de un la taille de la liste
 				this->length--;
 
@@ -649,13 +706,13 @@ public:
 	/************* Supprimer la liste de fileTower *************/
 	/* Supprime la liste de missiles. Prend en paramètre un pointeur vers la liste de missiles 	*/
 
-	void freeAllFileTower (LFileTower* this) {
+	void freeAllFileTower () {
 		//Si la liste n'est pas vide
 		if (this->length != 0) {
 
 			//Tant que la liste n'est pas vide
-			while (this->p_head != NULL) {
-				this = removeFileTower(this, this->p_head);
+			while (this->head != NULL) {
+				this = removeFileTower(this, this->head);
 			}
 			
 		}

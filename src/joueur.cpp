@@ -32,8 +32,8 @@ class Joueur {
             this->argent += m.getReward();
         }
 
-        bool updateMoneyBuildTower(Tower t){
-            int new_argent -= t.getCost();
+        bool updateMoneyBuildTower(Tower* t){
+            int new_argent -= t->getCost();
             if(new_argent<0){
                 return 0;
             }else{
