@@ -27,14 +27,16 @@ class Tower {
     	}
     }
     float getRate(){
-    	if(instNear[stock]){}
+    	if(instNear[stock])
     		return 1.25*this->rate;
-    	else{
+    	else
     		return this->rate;
-    	}
     }
     uint getCost(){
     	return this->cost;
+    }
+    int getCompteur(){
+        return this->compteur;
     }
     Tower getNext(){
         return this->next;
@@ -162,16 +164,113 @@ class Tower {
             //Affiche la chaine de caractère
             writeString(80, 465,  typeTour);
 
-            }
-            else {
-                fprintf(stderr, "probleme d'allocation memoire pour la chaine de caractere\n");
-                return 0;
-            }   
+        }else {
+            fprintf(stderr, "probleme d'allocation memoire pour la chaine de caractere\n");
+            return 0;
         }
 
         return 1;
 
-}
+    }
+
+    int reach(listShot shots, listMonster monsters) {
+        if(shots != NULL) {
+            if(monsters != NULL){
+                if(this != NULL) {
+                    if(this->type != jules) {
+
+                        Monster monster = NULL;
+
+                        //Variables pour savoir qui est le plus proche
+                        Position pointIntersection, pointProche, point1, point2;
+                        Vector vectorIntersection, vectorProche;
+                        float normeIntersection, normeProche = -1;
+
+                        //Création d'un monstre temporaire pour parcourir la liste de monstres
+                        Monster tmp = monsters.getHead();
+
+                        //Parcours la liste de monstres
+                        while(tmp != NULL){
+
+                            Position point = new Position(this.getPosition().getX(), this.getPosition().getY()); //centre
+
+                            point1.set(tmp.getX() + 20, tmp.getY() + 20);
+                            point2.set(tmp.getX() - 20, tmp.getY() - 20);
+
+                            //Vérifie s'il y a une intersection
+                            if(intersectionCarreDisque (point1, point2, this->range, point)) {
+
+                                pointIntersection.set(tmp.getX(), tmp.getY());
+                                
+                                vectorIntersection = Vector(point, pointIntersection);
+                                normeIntersection = vectorIntersection.getNorm();
+                    
+                                //S'il n'y a pas de point d'intersection avant
+                                if(normeProche == -1) {
+                                    vectorProche = Vector(point, pointProche);
+                                    normeProche = vectorProche.getNorm();
+                                    monster = tmp;
+                                }
+                                //Si la distance du nouveau point d'intersection est plus proche que celle stocker
+                                if(normeIntersection < normeProche) {
+                                    vectorProche = vectorIntersection;
+                                    normeProche = normeIntersection;
+                                    monster = tmp;
+                                }
+
+                            }
+                            tmp = tmp->p_next;
+                        }
+
+                        if(monster != NULL)
+                            shots.addShot(monster, this); //Ajout d'un shot à la liste                                addShots méthode de listShots
+
+                        return 1;
+
+                    }
+                    else {
+                    
+                        //Création d'un monstre temporaire pour parcourir la liste de monstres
+                        Monster tmp = monsters.getHead();
+
+                        //Parcours la liste de monstres
+                        while(tmp != NULL){
+
+                            Position point, point1, point2;
+                            point.set(this.getPosition().getX(), this.getPosition().getY()); //centre
+                            point1.set(this.getPosition().getX() + 20, this.getPosition().getY() + 20); //centre
+                            point2.set(this.getPosition().getX() - 20, this.getPosition().getY() - 20); //centre
+
+                            //Vérifie s'il y a une intersection
+                            if(intersectionCarreDisque (point1, point2, this->range, point) == 1)
+                                shots.addShot(tmp, this); //Ajout d'un shot à la liste
+
+                            tmp = tmp.getNextM();
+
+                        }   
+                        return 1;
+                    }
+
+                }
+                else {
+                    fprintf(stderr, "Cette tour n'existe pas\n");
+                    return 0;
+                }
+
+            }
+            else {
+                fprintf(stderr, "Cette liste de monstre n'existe pas\n");
+                return 0;
+            }
+        }
+        else {
+            fprintf(stderr, "Cette liste de missiles n'existe pas\n");
+            return 0;
+        }
+
+        return 0;
+
+    }
 
 };
 
@@ -184,6 +283,7 @@ class Yoann: public Tower{
     		this->rate = rate;
     		this->cost = cost;
     		this->power = power;
+            this->compteur = 0;
     	}
 
     	towerType getType(){
@@ -200,6 +300,7 @@ class Clara: public Tower{
     		this->rate = rate;
     		this->cost = cost;
     		this->power = power;
+            this->compteur = 0;
     	}
 
     	towerType getType(){
@@ -216,6 +317,7 @@ class Jules: public Tower{
     		this->rate = rate;
     		this->cost = cost;
     		this->power = power;
+            this->compteur = 0;
     	}
 
     	towerType getType(){
@@ -233,6 +335,7 @@ class Oceane: public Tower{
     		this->rate = rate;
     		this->cost = cost;
     		this->power = power;
+            this->compteur = 0;
     	}
 
     	towerType getType(){
@@ -247,6 +350,23 @@ class listTower{
         this->head.set(NULL);
         this->tail.set(NULL);
     }
+
+    Tower getHead(){
+        return this->;head
+    }
+
+    Tower getTail(){
+        return this->tail;
+    }
+
+    void setHead(Tower t){
+        this->head = t;
+    }
+
+    void setTail(Tower t){
+        this->tail = t;
+    }
+
 
     int addTower(towerType type, Position p) {
 
@@ -394,4 +514,5 @@ class listTower{
         else 
             fprintf(stderr, "Cette liste de tours n'existe pas");
     }
+
 }

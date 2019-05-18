@@ -33,6 +33,12 @@ class Monster {
     Position getPosition(){
         return this->p;
     }
+    float getX(){
+        return this->x;
+    }
+    float getY(){
+        return this->y;
+    }    
     float getErreur(){
         return this->erreur;
     }
@@ -197,6 +203,98 @@ class Monster {
             fprintf(stderr, "Erreur sur le pointeur du monstre\n");
 
     }
+
+    int drawProprieteMonster (GLuint* monster) {
+
+    if(this != NULL) {
+
+        int monsterNumber = this->type;
+
+        float x1 = (monsterNumber * (1.0/4.0)) + (2.0/12.0);
+        float x2 = (monsterNumber * (1.0/4.0)) + 0.25;
+        float y1 = 0;
+        float y2 = 0.25;
+
+        //Active le texturage 2D
+        glEnable(GL_TEXTURE_2D);
+        //appel de la texture
+        glBindTexture(GL_TEXTURE_2D, *monster);
+
+            glBegin(GL_QUADS);
+            //couleur neutre
+            glColor3ub(255,255,255);
+            //coordonée de la texture
+            glTexCoord2f(x2, y1);
+            //Cordonnée du quadrilatère 
+            glVertex2f(20, 300);
+
+            glTexCoord2f(x2, y2);
+            glVertex2f(20, 340);
+
+            glTexCoord2f(x1, y2);
+            glVertex2f(60, 340);
+
+            glTexCoord2f(x1, y1);
+            glVertex2f(60, 300);
+
+
+            glEnd();
+
+        //Déblinder la texture
+        glBindTexture(GL_TEXTURE_2D, 0);
+        //Désactive le texturage 2D
+        glDisable(GL_TEXTURE_2D);
+
+        string machaine;
+
+        /**** points de vie ****/
+        //Convertie un int en un string
+        sprintf(machaine,"%d",this->pv);
+
+        writeString(20, 365,  "Points de vie : ");
+        //Affiche la chaine de caractère
+        writeString(120, 365,  machaine);
+
+        /**** Vitesse ****/
+        //Convertie un int en un string
+        sprintf(machaine,"%d",this->speed);
+
+        writeString(20, 390,  "Vitesse : ");
+        //Affiche la chaine de caractère
+        writeString(120, 390,  machaine);
+
+        /**** Resistance ****/
+        //Convertie un int en un string
+        sprintf(machaine,"%d",this->resistance_TDB);
+
+        writeString(20, 440,  "Resistance à Océane: ");
+        //Affiche la chaine de caractère
+        writeString(120, 440,  machaine);
+
+
+        /**** nombre de monstre ****/
+        string type;
+        switch(this->type){
+            case barbara:
+                type = "Barbara";
+                break;
+            case julien:
+                type = "Julien";
+                break;
+            case lucie:
+                type = "Lucie";
+                break;
+            default:break;
+        }
+
+        writeString(20, 465,  "Type : ");
+        //Affiche la chaine de caractère
+        writeString(120, 465,  type);
+    }
+
+    return 1;
+
+}
 
 };
 
@@ -484,7 +582,7 @@ class listMonster {
                         //Relie le monstre précédent au monstre suivant du monstre que l'on veut supprimer 
                         monster.getPrevM().setNextMonster(monster.getNextM());
                     }
-                    //Libère espace mémoire : supprime le monstre
+                    //Libère esspeed mémoire : supprime le monstre
                     free(monster);
                     //Décrémente de un la taille de la liste
                     this->length--;

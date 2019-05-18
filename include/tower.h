@@ -21,6 +21,8 @@ class Tower {
     float rate;
     float range;
     uint cost;
+
+    int compteur;
     
     Tower prev;
     Tower next;
@@ -35,6 +37,7 @@ class Tower {
     float getRange();
     float getRate();
     uint getCost();
+    int getCompteur();
     Tower getPrev();
     Tower getNext();
 
@@ -83,7 +86,13 @@ private:
     Tower tail; //pointeur vers le dernier element
 
 public:
+
     listTower();
+
+    Tower getHead();
+    Tower getTail();
+    void setHead(Tower t);
+    void setTail(Tower t);
     int addTower(towerType type, Position p);
     int moveTower(Tower tower, listNode list_node, float x, float y);
     void removeTower(Tower t);

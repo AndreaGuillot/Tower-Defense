@@ -10,7 +10,7 @@ enum Sens{
 };
 
 enum monsterType{
-    Lucie, Barbara, Julien
+    lucie, barbara, julien
 };
 
 class Monster {
@@ -39,6 +39,8 @@ class Monster {
     public:
     //Get
     Position getPosition();
+    float getX();
+    float getY();
     float getErreur();
     Sens getSens();
     Node getPrev();
