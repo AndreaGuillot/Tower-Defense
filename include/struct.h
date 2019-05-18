@@ -15,11 +15,22 @@ class Position{
 
     Position(float x, float y);
 
+    Position get();
     float getX();
     float getY();
+    void set(float x, float y);
     void setX(float x);
     void setY(float y);
 };
+
+class Vector{
+	float x;
+	float y;
+
+	Vector(Position a, Position b);
+	Vector get();
+	float getNorm();
+}
 
 class Size{
     float width;
