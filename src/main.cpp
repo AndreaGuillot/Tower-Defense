@@ -90,7 +90,7 @@ int main(int argc, char** argv) {
 	GLuint menuPrincipalButton;
 	SDL_Surface* imgMenuPrincipalButton = NULL;
 
-	Map* map = NULL;
+	Map map;
 
 	//La carte
 	GLuint texture;
@@ -146,10 +146,10 @@ int main(int argc, char** argv) {
 
 
 	//Initialisation de l'interface
-	Interface* interface = newInterface();
+	Joueur joueur = new Joueur();
 
 	//Initialisation de la liste de monstre
-	LMonster* p_lmonster = new_LMonster();
+	listMonster monsters = new listMonster();
 	//Initialisation de la liste de tours
 	LTower* p_ltower = new_LTower();
 	//Initialisation de la liste de shots
@@ -332,10 +332,10 @@ int main(int argc, char** argv) {
 				//Si ce n'est pas en pause
 				if(play != 1) {
 
-					apparitionMonster(p_lmonster, interface, map, &apparition, j, &nb_monster);
+					apparitionMonster(monsters, interface, map, &apparition, j, &nb_monster);
 
 					//Si lvl 19 (20 vagues) et plus de monstre alors gagner
-					if(interface->lvl == 20 && p_lmonster->length == 0) {
+					if(interface->lvl == 20 && monsters->length == 0) {
 
 						play = 0;
 						testMouse = 0;
@@ -345,7 +345,7 @@ int main(int argc, char** argv) {
 						nb_monster = 0;
 						propriete = 0;
 						aide = 0;
-						initAll(p_lmonster, p_lshot, p_ltower, interface);
+						initAll(monsters, p_lshot, p_ltower, interface);
 
 						nbMenu = 5;
 					}
@@ -362,7 +362,7 @@ int main(int argc, char** argv) {
 						if(p_temp == p_ltower->p_tail) {
 							if(testMouse == 0) {
 								if((p_temp->compteur)%(p_temp->rate) == 0) {
-									if(inSight (p_lshot, p_lmonster, p_temp) != 0) {
+									if(inSight (p_lshot, monsters, p_temp) != 0) {
 										(p_temp->compteur)=0;
 									}
 								}
@@ -370,7 +370,7 @@ int main(int argc, char** argv) {
 						}
 						else {
 							if((p_temp->compteur)%(p_temp->rate) == 0) {
-								if(inSight (p_lshot, p_lmonster, p_temp) != 0) {
+								if(inSight (p_lshot, monsters, p_temp) != 0) {
 									(p_temp->compteur)=0;
 								}
 							}
@@ -382,15 +382,15 @@ int main(int argc, char** argv) {
 				}
 
 				//Dessiner les tours
-				drawTower(&tower, p_ltower, p_lmonster, pTower, testMouse, testTower);
+				drawTower(&tower, p_ltower, monsters, pTower, testMouse, testTower);
 				//Dessiner les monstres
-				drawMonster(&monster, p_lmonster, play);
+				drawMonster(&monster, monsters, play);
 
 				//Si le jeu n'est pas en pause
 				if(play != 1) {
 
 					//Bouger le monstre
-					if(moveMonster(p_lmonster, map->list_node->p_tail, k) == 2) {
+					if(moveMonster(monsters, map->list_node->p_tail, k) == 2) {
 
 						//Pointeur shot temporaire pour parcourir la liste
 						Shot *p_tempS = p_lshot->p_head;
@@ -401,7 +401,7 @@ int main(int argc, char** argv) {
 
 							p_tempS = p_tempS->p_next;
 						}
-						p_lmonster = removeMonster(p_lmonster, p_lmonster->p_head);
+						monsters = removeMonster(monsters, monsters->p_head);
 						udapteLife(interface);
 						if(interface->life <= 0) {
 							play = 0;
@@ -413,7 +413,7 @@ int main(int argc, char** argv) {
 							propriete = 0;
 							aide = 0;
 
-							initAll(p_lmonster, p_lshot, p_ltower, interface);
+							initAll(monsters, p_lshot, p_ltower, interface);
 	
 							nbMenu = 4;
 						}
@@ -422,7 +422,7 @@ int main(int argc, char** argv) {
 					while(i < 3) {
 						drawShot(&shot, p_lshot); //dessin du shot
 						moveShot(p_lshot); //Bouger le shot
-						collisionMissile(p_lshot, p_lmonster, interface, pMonster, &propriete); //test de collision
+						collisionMissile(p_lshot, monsters, interface, pMonster, &propriete); //test de collision
 						i++;
 					}
 					i = 0;
@@ -489,11 +489,11 @@ int main(int argc, char** argv) {
 							//test click play / pause / avance rapide
 							play = clickTime(e.button.x, e.button.y, play, &nb_monster, &j);
 							//Test click exit
-							loop = clickExit(p_lmonster, p_lshot, p_ltower, p_lfileTower, map, interface, e.button.x, e.button.y, aide);
+							loop = clickExit(monsters, p_lshot, p_ltower, p_lfileTower, map, interface, e.button.x, e.button.y, aide);
 							//Test click sur une tower
 							pTower = clickTower(p_ltower, e.button.x, e.button.y, &propriete);
 							//Test click sur un monstre
-							pMonster = clickMonster(p_lmonster, e.button.x, e.button.y, &propriete);
+							pMonster = clickMonster(monsters, e.button.x, e.button.y, &propriete);
 							//Test click aide
 							aide = clickAide(e.button.x, e.button.y, aide);
 							//Test ckick tuto
@@ -519,7 +519,7 @@ int main(int argc, char** argv) {
 			  		switch(e.key.keysym.sym){
 		    			case SDLK_ESCAPE : 
 							loop = 0;
-							freeAll(p_lmonster, p_lshot, p_ltower, p_lfileTower, map, interface);
+							freeAll(monsters, p_lshot, p_ltower, p_lfileTower, map, interface);
 							break;
 
 			    		default : break;

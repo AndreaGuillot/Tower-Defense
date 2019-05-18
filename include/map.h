@@ -11,10 +11,10 @@ class Map {
 
 private:
 	//Image ppm
-	char* image;
+	char image;
 	//Noeuds
 	int nbNode;
-	Node* listNode;
+	Node listNode;
 	//Couleurs de la carte
     Color inColor;
 	Color outColor;
@@ -23,11 +23,12 @@ private:
 	Color constructColor;
 
 public:
+	Map();
 	// Vérifie la map
 	int verifMap(FILE* fileITD, Map *map);
 	// Charge la map
 	Map loadMap(char* fileNameITD);
 
-}Map;
+}
 
 #endif

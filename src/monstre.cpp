@@ -240,15 +240,9 @@ class Julien: public Monster{
 
 class listMonster {
 
-    private:
-        int length;
-
-        Monster head;
-        Monster tail;
-
     public:
 
-        void listMonster(){
+        listMonster(){
             this->length = 0;
             head.set(NULL);
             tail.set(NULL);
