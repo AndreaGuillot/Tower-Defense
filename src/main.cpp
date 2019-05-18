@@ -52,7 +52,7 @@ int main(int argc, char** argv) {
 
 	int testMouse = 0;
 	int testTower = 0;
-	int nbMenu = 0;
+	int nbMenu = menu;
 	int nbtexture = 0;
 
 	/* Initialisation */
@@ -179,7 +179,7 @@ int main(int argc, char** argv) {
 
 		glClear(GL_COLOR_BUFFER_BIT);
 		glMatrixMode(GL_MODELVIEW);
-/************************************************************************************************************************/
+
 		if(nbMenu == gameOver)
 			drawGameOverWin(&fondGameOver, &menuPrincipalButton);
 		else if(nbMenu == gameWin)
@@ -199,9 +199,9 @@ int main(int argc, char** argv) {
 					loadTexture("../images/temp/map1.ppm", &texture, imgMap);
 				
 				//Texture des monstres
-				loadTexture("../images/temp/sprite_monster.png", &monsterTxtTxt, imgMonster);
+				loadTexture("../images/temp/sprite_monster.png", &monsterTxt, imgMonster);
 				//Texture des tours
-				loadTexture("../images/temp/sprite_tour.png", &towerTxtTxt, imgTower);
+				loadTexture("../images/temp/sprite_tour.png", &towerTxt, imgTower);
 
 				//Texture des shots	
 				loadTexture("../images/shot.png", &shot, imgShot);
@@ -222,7 +222,7 @@ int main(int argc, char** argv) {
 				loadTexture("../images/temp/YouWin.png", &fondWin, imgFondWin);
 
 				drawMenuPrincipal (&menuPrincipal, &menuPrincipalButton);
-		}else {
+		}else {//On joue
 			
 			drawMap(&texture);
 			//Dessin du menu du dessus
@@ -237,88 +237,74 @@ int main(int argc, char** argv) {
 				map.drawRoad ();
 			}
 
-			//Si proprité = 1
+			//Si on veut voir les propriété d'une tour
 			if(propriete == propTower) {
 				//Affiche les propriétés de la tours
 				tower.drawProprieteTower(&towerTxt, &spriteMenu, &btPlus, interface);
 				pMonster = NULL;
 			}
-			//Si propriété = 2
+			//Si on veut voir les proriétés d'un monstre
 				else if(propriete == propMonster) {
 
 					tower = NULL;
 					if(pMonster != NULL) {
-						if(pMonster->pv > 0) {
+						if(pMonster.getPV() > 0) {
 							//Affiche les propriété du monstre
-							drawProprieteMonster(&monsterTxt, pMonster);
+							pMonster.drawProprieteMonster(&monsterTxt);
 						}
 						else {
-							propriete = 0;
+							propriete = aucune;
 							pMonster = NULL;
 						}
 					}
 					else
-						propriete = 0;
+						propriete = aucune;
 				}
 
-				//Si c'est le tuto alors le jeu est en pause
-				if(tuto != 0) 
-					play = 1;
-				else if(tuto == 0 && tutoend == 1) {
-					play = 0;
-					tutoend=0;
+				map.apparitionMonster(monsters, j, joueur);
+
+				//Si nbVague = 20 vagues et plus de monstre alors gagné
+				if(joueur.getNbVagues() == 20 && monsters.getLength() == 0) {
+
+					testMouse = 0;
+					testTower = 0;
+					j = 0;
+					i = 0;
+					map.setNbMonster(0);
+					propriete = aucnue;
+					initAll(monsters, shots, towers, interface);
+
+					nbMenu = gameWin;
 				}
 
-				//Si ce n'est pas en pause
-				if(play != 1) {
+				j++;
 
-					apparitionMonster(monsters, interface, map, &apparition, j, &nb_monster);
+				//Création d'un pointeur tour temporaire pour parcourir la liste de tours
+				Tower tower = towers.getHead();
 
-					//Si lvl 19 (20 vagues) et plus de monstre alors gagner
-					if(interface->lvl == 20 && monsters->length == 0) {
+				//Parcours la liste de tours
+				while(tower != NULL){
 
-						play = 0;
-						testMouse = 0;
-						testTower = 0;
-						j = 0;
-						i = 0;
-						nb_monster = 0;
-						propriete = 0;
-						aide = 0;
-						initAll(monsters, shots, towers, interface);
-
-						nbMenu = 5;
-					}
-
-					j++;
-
-					//Création d'un pointeur tour temporaire pour parcourir la liste de tours
-					Tower *p_temp = towers->p_head;
-
-					//Parcours la liste de tours
-					while(p_temp != NULL){
-
-						// Si p_temp = au pointeur du dernier de la liste
-						if(p_temp == towers->p_tail) {
-							if(testMouse == 0) {
-								if((p_temp->compteur)%(p_temp->rate) == 0) {
-									if(inSight (shots, monsters, p_temp) != 0) {
-										(p_temp->compteur)=0;
-									}
+					// Si tower = au pointeur du dernier de la liste
+					if(tower == towers.getTail()) {
+						if(testMouse == 0) {
+							if((tower.getCompteur())%(tower.getRate()) == 0) {
+								if(tower.reach(shots, monsters) != 0) {
+									(tower->compteur)=0;
 								}
 							}
 						}
-						else {
-							if((p_temp->compteur)%(p_temp->rate) == 0) {
-								if(inSight (shots, monsters, p_temp) != 0) {
-									(p_temp->compteur)=0;
-								}
+					}
+					else {
+						if((tower->compteur)%(tower->rate) == 0) {
+							if(inSight (shots, monsters, tower) != 0) {
+								(tower->compteur)=0;
 							}
 						}
-
-						(p_temp->compteur)++;
-						p_temp = p_temp->p_next;
 					}
+
+					(tower->compteur)++;
+					tower = tower->p_next;
 				}
 
 				//Dessiner les tours
