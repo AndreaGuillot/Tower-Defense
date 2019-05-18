@@ -2,6 +2,7 @@
 #define TOWER_H__
 
 #include "installation.h"
+#include "struct.h"
 #include <stdlib.h>
 
 enum towerType {
@@ -20,23 +21,33 @@ class Tower {
     float rate;
     float range;
     uint cost;
-    //Installations à proximité
-    bool instNear[3] = {0, 0, 0};
+    
+    Tower prev;
+    Tower next;
+    //Savoir les installations near
+    bool instNear[3];
+
     public:
     //Constructeur
-    //Accesseurs
+    //Get
+    Position getPosition();
     float getPower();
     float getRange();
     float getRate();
     uint getCost();
+    Tower getPrev();
+    Tower getNext();
+
+    //Set
+    void set(Tower t);
 	void setPower(int p);
 	void setRange(float rg);
 	void setRate(int rt);
+    void setPosition(Position p);
+    void setPrev(Tower t);
+    void setNext(Tower t);
 
 	virtual towerType getType() = 0;
-
-	void addInstallation(Installation installation);
-	void delInstallation(Installation installation);
 };
 
 class Yoann: public Tower{
@@ -61,6 +72,21 @@ class Oceane: public Tower{
     public:
     	Oceane(float range=50.; float rate=0.5; uint cost=50; float power =10.);
     	towerType getType();
+}
+
+class listTower {
+
+private:
+    int length;
+    //Pointeur
+    Tower head; //pointeur vers le premier element
+    Tower tail; //pointeur vers le dernier element
+
+public:
+    listTower();
+    int addTower(towerType type, Position p);
+    int moveTower(Tower tower, listNode list_node, float x, float y);
+    void removeTower(Tower t);
 }
 
 #endif

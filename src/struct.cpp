@@ -16,11 +16,11 @@ class Position{
     	return y;
     }
 
-    void positionSetX(float x){
+    void setX(float x){
     	this->x = x;
     }
 
-    void positionSetY(float y){
+    void setY(float y){
     	this->y = y;
     }
 }
@@ -37,11 +37,11 @@ class Node {
 			return this->pos;
 		}
 
-		float getPositionX(){
+		float getX(){
 			return this->pos.getX();
 		}
 
-		float getPositionY(){
+		float getY(){
 			return this->pos.getY();
 		}
 

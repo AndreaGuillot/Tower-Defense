@@ -22,8 +22,8 @@ class Monster {
     float erreur;
     //Ses caractéristiques sur le chemin
     Sens sens;
-    Node *node_prev;
-    Node *node_next;
+    Node node_prev;
+    Node node_next;
     Monster monster_prec;
     Monster monster_next;
     //Propriétés du monstre
@@ -37,7 +37,7 @@ class Monster {
     float resistance_TDB;
 	
     public:
-    //Accesseurs
+    //Get
     Position getPosition();
     float getErreur();
     Sens getSens();
@@ -56,17 +56,21 @@ class Monster {
     float getResistance_TDJ();
     float getResistance_TDB();
 
-    //Constructeurs
+    //Set
+    void set(Monster m);
     void setPosition(float x, float y);
     void setX(float x);
     void setY(float y);
+    void setSens(Sens s);
     void setErreur(float e);
     void setNodePrev(Node node);
     void setNodeNext(Node node);
-    //Mutateurs
-    void move();
+    void setPrevMonster(Monster m);
+    void setNextMonster(Monster m);
+
+    //Fonctions
+    void calculErreur();
     void hitBy(Tower tower);
-    void killMonster();
 };
 
 class Lucie: public Monster{
@@ -89,17 +93,18 @@ class listMonster {
 
     private:
         int length;
-
         Monster head;
         Monster tail;
 
     public:
+        listMonster();
         int getLength();
         Monster getHead();
         Monster getTail();
 
         bool addMonster(monsterType type, Node n);
         int moveMonster(Node n);
+        void removeMonster(Monster m);
 }
 
 #endif

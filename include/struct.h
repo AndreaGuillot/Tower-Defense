@@ -9,8 +9,8 @@ class Position{
 
     float getX();
     float getY();
-    void positionSetX(float x);
-    void positionSetY(float y);
+    void setX(float x);
+    void setY(float y);
 };
 
 class Size{
@@ -27,6 +27,8 @@ class Node {
 
 	public:
 		Position getPosition();
+		float getX();
+		float getY();
 
 };
 

@@ -26,7 +26,7 @@ class Monster {
     float resistance_TDB;
 	
     public:
-    //Accesseurs
+    //Get
     Position getPosition(){
         return this->p;
     }
@@ -77,18 +77,25 @@ class Monster {
         return this->resistance_TDB;
     }
 
-    //Constructeurs
+    //Set
+    void set(Monster m){
+        this = m;
+    }
 
     void setPosition(Position p){
         this->p = p;
     }
 
     void setX(float x){
-        this->p.positionSetX(x);
+        this->p.setX(x);
     }
 
     void setY(float y){
-        this->p.positionSetY(y);
+        this->p.setY(y);
+    }
+
+    void setSens(Sens s){
+        this->sens = s;
     }
 
     void setErreur(float e){
@@ -118,44 +125,44 @@ class Monster {
         if(this->node_prev != NULL && this->node_next != NULL) {
 
             //Si on bute sur l'axe des x
-            if(this->node_prev->x == this->node_next->x) {
+            if(this->node_prev.getX() == this->node_next.getX()) {
 
                 this->erreur = 0; //erreur
 
-                if(this->node_prev->y <= this->node_next->y)
+                if(this->node_prev.getY() <= this->node_next.getY())
                     this->sens = bas;
-                else
-                    this->sens = haut;
+               else
+                    this->sens = haut; 
             }
             //Si on bute sur l'axe des y
-            else if(this->node_prev->y == this->node_next->y) {
+            else if(this->node_prev.getY() == this->node_next.getY()) {
 
                 this->erreur = 0;//erreur
 
-                if(this->node_prev->x <= this->node_next->x)
+                if(this->node_prev.getX() <= this->node_next.getX())
                     this->sens = droite;
                 else
                     this->sens = gauche;
             }
             else {
 
-                float dx = (this->node_next->x) - (this->node_prev->x);
-                float dy = (this->node_next->y) - (this->node_prev->y);   
+                float dx = (this->node_next.getX()) - (this->node_prev.getX());
+                float dy = (this->node_next.getY()) - (this->node_prev.getY());   
 
                 if(dx > 0) {
                     if(dy > 0) {
 
                         if(dx >= dy)
-                            this->erreur = (this->node_next->x) - (this->node_prev->x);
+                            this->erreur = (this->node_next.getX()) - (this->node_prev.getX());
                         else
-                            this->erreur = (this->node_next->y) - (this->node_prev->y);
+                            this->erreur = (this->node_next.getY()) - (this->node_prev.getY());
                     }
                     else {
 
                         if(dx >= -dy)
-                            this->erreur = (this->node_next->x) - (this->node_prev->x);
+                            this->erreur = (this->node_next.getX()) - (this->node_prev.getX());
                         else
-                            this->erreur = (this->node_next->y) - (this->node_prev->y);
+                            this->erreur = (this->node_next.getY()) - (this->node_prev.getY());
 
                     }
 
@@ -166,22 +173,18 @@ class Monster {
                     if(dy > 0) {
 
                         if(-dx >= dy)
-                            this->erreur = (this->node_next->x) - (this->node_prev->x);
+                            this->erreur = (this->node_next.getX()) - (this->node_prev.getX());
                         else
-                            this->erreur = (this->node_next->y) - (this->node_prev->y);
+                            this->erreur = (this->node_next.getY()) - (this->node_prev.getY());
 
                     }
                     else {
-
                         if(dx <= dy)
-                            this->erreur = (this->node_next->x) - (this->node_prev->x);
+                            this->erreur = = (this->node_next.getX()) - (this->node_prev.getX());
                         else
-                            this->erreur = (this->node_next->y) - (this->node_prev->y);
-
+                            this->erreur = = (this->node_next.getY()) - (this->node_prev.getY());
                     }
-
                     this->sens = gauche;
-                
                 }       
 
             }
@@ -244,6 +247,13 @@ class listMonster {
         Monster tail;
 
     public:
+
+        void listMonster(){
+            this->length = 0;
+            head.set(NULL);
+            tail.set(NULL);
+        }
+
         int getLength(){
             return this->length;
         }
@@ -281,11 +291,11 @@ class listMonster {
                     monster.calculErreur();
 
                     //Comme il est a la fin de la liste, il pointe sur NULL
-                    monster->monster_next = NULL;
+                    monster.setNextMonster(NULL);
 
                     //Si la liste était vide de base, alors elle est composée de seulement ce monstre
                     if(this->tail == NULL){
-                        this->head = monster;
+                        this->head.set(monster);
                         monster.setPrevMonster(NULL);
                     }else{
                     //On pointe le précédent monstre sur la queue de la liste et on ajoute a la queue le monstre
@@ -293,7 +303,7 @@ class listMonster {
                         this->tail.setNextMonster(monster);
                     }
 
-                    this->tail = monster;
+                    this->tail.set(monster);
 
                     this->length++;
                 }else{
@@ -438,6 +448,60 @@ class listMonster {
             }
 
             return 1;
+        }
+
+        void removeMonster(Monster monster) {
+
+            if (this != NULL) {
+                if(monster != NULL) {
+                    //Si c'est le dernier monstre de la liste
+                    if (monster.getNextM() == NULL) {
+                    
+                        //Pointe la fin de la liste sur le monstre précédent
+                        this->tail.set(monster.getPrevM());
+                    
+                        if(this->tail != NULL) {
+                            //Lien du dernier monstre vers le monstre suivant est NULL
+                            this->tail.setNextMonster(NULL);
+                        }
+                        else
+                            this->head.set(NULL);
+                        
+                    }
+                    //Si c'est le premier monstre de la liste
+                    else if (monster.getPrevM() == NULL) {
+                        //Pointe la tête de la liste vers le monstre suivant
+                        this->head.set(monster.getNextM());
+
+                        if(this->head != NULL) {
+                            //Le lien vers du deuxième monstre vers le monstre précédent est NULL
+                            this->head.setPrevMonster(NULL);
+                        }
+                        else
+                            this->tail.set(NULL);
+                    }
+
+                    else {
+                        //Relie le monstre suivant au monstre précédent du monstre que l'on veut supprimer 
+                        monster.getNextM().setPrevMonster(monster.getPrevM());
+                        //Relie le monstre précédent au monstre suivant du monstre que l'on veut supprimer 
+                        monster.getPrevM().setNextMonster(monster.getNextM());
+                    }
+                    //Libère espace mémoire : supprime le monstre
+                    free(monster);
+                    //Décrémente de un la taille de la liste
+                    this->length--;
+
+                }
+                else {
+                    fprintf(stderr, "Ce monstre n'existe pas\n");
+                    return NULL;
+                }
+            }
+            else {
+                fprintf(stderr, "Cette liste de monstres n'existe pas\n");
+                return NULL;
+            }
         }
 }
 
