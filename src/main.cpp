@@ -51,13 +51,9 @@ void setVideoMode() {
 int main(int argc, char** argv) {
 
 	int testMouse = 0;
-	int play = 0;
 	int testTower = 0;
 	int nbMenu = 0;
-	int nbMap = 0;
 	int nbtexture = 0;
-	int tuto = 1;
-	int tutoend = 0;
 
 	/* Initialisation */
 	if(-1 == SDL_Init(SDL_INIT_VIDEO)) {
