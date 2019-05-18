@@ -232,3 +232,79 @@ Map loadMap(char* fileNameITD)
         }
     }
 }
+
+class Map{
+
+
+    /*********************** Dessiner du chemin et des noeuds ***********************/
+    /* Dessine du chemin et des noeuds. Prend en paramètre la liste de noeud et la map. *
+    *  Retourne 0 en cas d'erreur et 1 sinon.                       */
+
+    bool drawRoad() {
+
+        if(this != NULL) {
+
+            Node tmp = this->listNode.getHead();
+
+            while(tmp.getNext() != NULL) {
+            
+                glBegin(GL_LINES);
+                    glColor3ub(29,168,194);
+                    glVertex2d(tmp.getX(), tmp.getY());
+                    glVertex2d(tmp.getNext().getX(), tmp.getNext().getY());
+                glEnd();
+
+                glPushMatrix();
+                    glColor3ub((this.getNodeColor()).getR(),(this.getNodeColor()).getG(),(this.getNodeColor()).getB());
+                    glTranslatef(tmp.getX(),tmp.getY(), 0.0);
+                    drawDisque(5);
+                glPopMatrix();
+
+                glColor3ub(255,255,255);
+
+                tmp = tmp.getNext();                  
+
+            }
+        }
+        else {
+            fprintf(stderr, "Erreur la carte n'existe pas\n");
+            return 0;
+        }
+
+        return 1;
+    }
+
+
+    char getImage(){
+        return this->image;
+    }
+    Image* getImg(){
+        return this->img;
+    }
+    //Noeuds
+    int getNbNode(){
+        return this->nbNode;
+    }
+    listNode getListNode(){
+        return this->listNode;
+    }
+    //Couleurs de la carte
+    Color getInColor(){
+        return this->inColor;
+    }
+    Color getOutColor(){
+        return this->outColor;
+    }
+    Color getPathColor(){
+        return this->pathColor;
+    }
+    Color getNodeColor(){
+        return this->nodeColor;
+    }
+    Color getConstructColor(){
+        return this->constructColor;
+    }
+    listNode getListConstruct(){
+        return this->listConstruct;
+    }
+}

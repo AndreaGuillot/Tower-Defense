@@ -6,7 +6,7 @@
 #include <stdlib.h>
 
 enum towerType {
-    yoann, clara, jules, oceane
+    oceane, jules, clara, yoann
 };
 
 class Tower {

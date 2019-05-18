@@ -69,6 +69,110 @@ class Tower {
 
 	virtual towerType getType() = 0;
 
+    int drawProprieteTower(GLuint* tower, GLuint* spriteMenu, GLuint* btPlus, Joueur joueur) {
+
+        if(this != NULL) {
+
+            int type = this->type;
+
+            float x1 = 0;
+            float x2 = 1;
+            float y1 = (type * (1.0/4.0));
+            float y2 = (type * (1.0/4.0)) + 0.25;
+
+            //Active le texturage 2D
+            glEnable(GL_TEXTURE_2D);
+            //appel de la texture
+            glBindTexture(GL_TEXTURE_2D, *tower);
+
+                glBegin(GL_QUADS);
+                //couleur neutre
+                glColor3ub(255,255,255);
+                //coordonée de la texture
+                glTexCoord2f(x2, y1);
+                //Cordonnée du quadrilatère 
+                glVertex2f(20, 300);
+
+                glTexCoord2f(x2, y2);
+                glVertex2f(20, 340);
+
+                glTexCoord2f(x1, y2);
+                glVertex2f(60, 340);
+
+                glTexCoord2f(x1, y1);
+                glVertex2f(60, 300);
+
+
+                glEnd();
+
+            //Déblinder la texture
+            glBindTexture(GL_TEXTURE_2D, 0);
+            //Désactive le texturage 2D
+            glDisable(GL_TEXTURE_2D);
+
+
+            string machaine;
+            int money = 0;
+
+            /**** Cadence ****/
+
+            glColor4f(255,255,255, 1);
+            //Convertie un int en un string
+            sprintf(machaine,"%d",this->rate);
+
+            writeString(20, 390,  "Cadence : ");
+            //Affiche la chaine de caractère
+            writeString(120, 390,  machaine);
+
+            /**** Portée ****/
+
+            glColor4f(255,255,255, 1);
+            //Convertie un int en un string
+            sprintf(machaine,"%d",this->range);
+
+            writeString(20, 415,  "Range : ");
+            //Affiche la chaine de caractère
+            writeString(120, 415,  machaine);
+
+            /**** Puissance ****/
+
+            glColor4f(255,255,255, 1);
+            //Convertie un int en un string
+            sprintf(machaine,"%d",this->power);
+
+            writeString(20, 440,  "Puissance : ");
+            //Affiche la chaine de caractère
+            writeString(120, 440,  machaine);
+
+            /**** type de la tour ****/
+            glColor4f(255,255,255, 1);
+            string typeTour = "";
+
+            //Choisir le bon monstre dans le sprite
+            if(this->type == oceane) 
+                typeTour = "Océane (Archer)";
+            else if(this->type == jules) 
+                typeTour = "Jules (Multidirectionnelle)";
+            else if(this->type == clara) 
+                typeTour = "Clara (Laser)";
+            else if(this->type == yoann) 
+                typeTour = "Yoann (Rocket)";
+
+            writeString(20, 465,  "Type : ");
+            //Affiche la chaine de caractère
+            writeString(80, 465,  typeTour);
+
+            }
+            else {
+                fprintf(stderr, "probleme d'allocation memoire pour la chaine de caractere\n");
+                return 0;
+            }   
+        }
+
+        return 1;
+
+}
+
 };
 
 class Yoann: public Tower{
