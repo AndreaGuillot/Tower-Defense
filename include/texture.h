@@ -2,7 +2,7 @@
 #define TEXTURE_H__
 
 #include "map.h"
-#include "image.h"
+#include "struct.h"
 #include <string>
 #include <SDL/SDL.h>
 #include <SDL/SDL_image.h>

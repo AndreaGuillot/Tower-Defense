@@ -13,7 +13,6 @@
 #include "../include/shot.h"
 #include "../include/struct.h"
 #include "../include/tower.h"
-#include "image.h"
 
 #include <string>
 #include <iostream>
