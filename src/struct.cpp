@@ -178,4 +178,44 @@ bool intersectionCarreDisque (Position point1, Position point2, float rayon, Pos
 	return 0;
 }
 
+bool intersectionCarres (Position point1, Position point2, Position pointC1, Position pointC2) {
+
+	int i;
+	Position point;
+
+	int xmin = ((point1.getX()) < (point2.getX())) ? (point1.getX()) : (point2.getX());
+	int xmax = ((point1.getX()) > (point2.getX())) ? (point1.getX()) : (point2.getX());
+
+	int ymin = ((point1.getY()) < (point2.getY())) ? (point1.getY()) : (point2.getY());
+	int ymax = ((point1.getY()) > (point2.getY())) ? (point1.getY()) : (point2.getY());
+
+	for(i = 0; i < 4; i++) {
+
+		//Vérifie avec les quatres points du quad
+		switch(i) {
+			case 0 :
+				point.getX() = pointC1.getX(); point.getY() = pointC1.getY();
+				break;
+			case 1 :
+				point.getX() = pointC1.getX(); point.getY() = pointC2.getY();
+				break;
+			case 2 :
+				point.getX() = pointC2.getX(); point.getY() = pointC2.getY();
+				break;
+			case 3 :
+				point.getX()= pointC2.getX(); point.getY() = pointC1.getY();
+				break;
+			default :
+				break;
+
+		}
+
+		if(point.getX() <= xmax && point.getX() >= xmin && point.getY() <= ymax && point.getY() >= ymin)
+			return 1;
+
+	}
+
+	return 0;
+}
+
 #endif

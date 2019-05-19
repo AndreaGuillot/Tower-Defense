@@ -229,7 +229,7 @@ class Map{
         return this->nbNode;
     }
     listNode getListNode(){
-        return this->listNode;
+        return this->list_node;
     }
     //Couleurs de la carte
     Color getInColor(){
@@ -295,7 +295,7 @@ class Map{
         return 1;
     }
 
-    bool loadMap(char* fileNameITD)
+    bool loadMap(std::string fileNameITD)
     {
         FILE* fileITD = fopen(fileNameITD, "r");
         if(fileITD == NULL)

@@ -103,5 +103,6 @@ public:
 };
 
 bool intersectionCarreDisque (Position point1, Position point2, float rayon, Position origin);
+bool intersectionCarres (Position point1, Position point2, Position pointC1, Position pointC2);
 
 #endif
