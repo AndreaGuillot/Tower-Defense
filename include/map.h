@@ -42,6 +42,8 @@ private:
 	//Liste des zones constructibles
 	listNode listConstruct;
 
+	listNode list_pixels;
+
 	//nombre de monstres sur le plateau
 	int nbMontres;
 
@@ -60,6 +62,8 @@ public:
 	Color getNodeColor();
 	Color getConstructColor();
 	listNode getListConstruct();
+	int getNbMonstres();
+	listNode getList_pixels();
 
 	//Set
 	void setNbMonstres(int a);
