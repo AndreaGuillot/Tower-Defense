@@ -326,7 +326,7 @@ int main(int argc, char** argv) {
 			while(i < 3) {
 				shots->draw(&shot); //dessin du shot
 				shots->moveShot(); //Bouger le shot
-				collisionMissile(*shots, monsters, joueur, pMonster, &propriete); //test de collision
+				collisionMissile(*shots, *monsters, *joueur, *pMonster, &propriete); //test de collision
 				i++;
 			}
 			i = 0;
@@ -356,7 +356,7 @@ int main(int argc, char** argv) {
 					if(e.button.button == SDL_BUTTON_LEFT) {
 						if(nbMenu != play) {
 							//test click menu principal
-							clickMenuPrincipal(e.button.x, e.button.y, &nbMenu, &nbtexture); 
+							clickMenuPrincipal(e.button.x, e.button.y, &nbMenu); 
 						}
 						else {
 
@@ -368,13 +368,6 @@ int main(int argc, char** argv) {
 							else {
 								if(testTower != 0)
 									testMouse = 0;
-							}
-
-							if(tower != NULL && propriete == propTower) {
-								//Test click pour supprimer une tour
-								clickTourDelete(towers, shots, tower, joueur, e.button.x, e.button.y, &propriete);
-								//Test click pour upgrade une tour
-								clickTourUpgrate(tower, joueur, e.button.x, e.button.y, &propriete);
 							}
 
 							//Test click exit
@@ -390,7 +383,7 @@ int main(int argc, char** argv) {
 				case SDL_MOUSEMOTION :
 					if(testMouse == 1) {
 						//Bouger la tour et test si elle est sur une zone constructible ou non                                     ADD list_pixel sur map
-						if(towers->moveTower(towers.getTail(), map->list_pixels, e.button.x, e.button.y) == 1)
+						if(towers->moveTower(towers->getTail(), map.getList_pixels(), e.button.x, e.button.y) == 1)
 							testTower = 1;
 						else
 							testTower = 0;
