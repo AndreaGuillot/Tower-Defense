@@ -17,6 +17,7 @@
 #include "../include/struct.h"
 #include "../include/tower.h"
 #include "../include/joueur.h"
+#include "../include/texture.h"
 #include <string.h>
 #include <iostream>
 
@@ -141,8 +142,8 @@ int main(int argc, char** argv) {
 	int i = 0;
 	int j = 0;
 	int k = 0;
+	int nb_monster = 0;
 	Propriete propriete = aucune;
-	int infoMoney = 0;
 
 	//Pour afficher les propriétés
 	Tower* tower;
@@ -170,10 +171,10 @@ int main(int argc, char** argv) {
 				loadTexture("../images/temp/sprite_button_menu.png", &menuPrincipalButton, imgMenuPrincipalButton);
 
 				//La carte
-				Map map = loadMap("./data/IDTMap1.idt");
+				map.loadMap("./data/IDTMap1.idt");
 				//Texture de la carte
 
-				loadMapTexture(map, &texture, imgMap);
+				loadMapTexture(&map, &texture, imgMap);
 				if(nbtexture == 1)
 					loadTexture("../images/temp/map1.ppm", &texture, imgMap);
 				
@@ -223,7 +224,7 @@ int main(int argc, char** argv) {
 				pMonster = NULL;
 			}
 			//Si on veut voir les proriétés d'un monstre
-				else if(propriete == propMonster) {
+			else if(propriete == propMonster) {
 
 					tower = NULL;
 					if(pMonster != NULL) {
@@ -238,118 +239,103 @@ int main(int argc, char** argv) {
 					}
 					else
 						propriete = aucune;
-				}
+			}
 
-				map.apparitionMonster(*monsters, j, *joueur);
+			map.apparitionMonster(*monsters, j, *joueur);
 
-				//Si nbVague = 20 vagues et plus de monstre alors gagné
-				if(joueur->getNbVagues() == 20 && monsters->getLength() == 0) {
+			//Si nbVague = 20 vagues et plus de monstre alors gagné
+			if(joueur->getNbVagues() == 20 && monsters->getLength() == 0) {
 
-					testMouse = 0;
-					testTower = 0;
-					j = 0;
-					i = 0;
-					map.setNbMonstres(0);
-					propriete = aucune;
-					initAll(monsters, shots, towers, joueur);
+				testMouse = 0;
+				testTower = 0;
+				j = 0;
+				i = 0;
+				map.setNbMonstres(0);
+				propriete = aucune;
+				initAll(*monsters, *shots, *towers, *joueur);
 
-					nbMenu = gameWin;
-				}
+				nbMenu = gameWin;
+			}
 
-				j++;
+			j++;
 
-				//Création d'un pointeur tour temporaire pour parcourir la liste de tours
-				Tower* tower = towers->getHead();
+			//Création d'un pointeur tour temporaire pour parcourir la liste de tours
+			Tower* tower = towers->getHead();
 
-				//Parcours la liste de tours
-				while(tower != NULL){
+			//Parcours la liste de tours
+			while(tower != NULL){
 
-					// Si tower = au pointeur du dernier de la liste
-					if(tower == towers->getTail()) {
-						if(testMouse == 0) {
-							if((tower->getCompteur())%(int)(tower->getRate()) == 0) {
-								if(tower->reach(shots, monsters) != 0) {
-									tower->setCompteur(0);
-								}
-							}
-						}
-					}
-					else {
+				// Si tower = au pointeur du dernier de la liste
+				if(tower == towers->getTail()) {
+					if(testMouse == 0) {
 						if((tower->getCompteur())%(int)(tower->getRate()) == 0) {
 							if(tower->reach(shots, monsters) != 0) {
 								tower->setCompteur(0);
 							}
 						}
 					}
-
-					tower->setCompteur(tower->getCompteur()+1);
-					tower = tower->getNext();
-				}
-
-				//Dessiner les tours
-				drawTower(&towerTxt, *towers, *monsters, tower, testMouse, testTower);
-				//Dessiner les monstres
-				monsters->drawMonster(&monsterTxt);
-
-				//Si le jeu n'est pas en pause
-				if(play != 1) {
-
-					//Bouger le monstre
-					if(moveMonster(monsters, map->list_node->p_tail, k) == 2) {
-
-						//Pointeur shot temporaire pour parcourir la liste
-						Shot *p_tempS = shots->p_head;
-
-						while(p_tempS != NULL) {
-							if(p_tempS->target == shots->p_head)
-								p_tempS->target == NULL;
-
-							p_tempS = p_tempS->p_next;
-						}
-						monsters = removeMonster(monsters, monsters->p_head);
-						udapteLife(interface);
-						if(interface->life <= 0) {
-							play = 0;
-							testMouse = 0;
-							testTower = 0;
-							j = 0;
-							i = 0;
-							nb_monster = 0;
-							propriete = 0;
-							aide = 0;
-
-							initAll(monsters, shots, towers, interface);
-	
-							nbMenu = 4;
-						}
-					}
-
-					while(i < 3) {
-						drawShot(&shot, shots); //dessin du shot
-						moveShot(shots); //Bouger le shot
-						collisionMissile(shots, monsters, interface, pMonster, &propriete); //test de collision
-						i++;
-					}
-					i = 0;
-					k++;
-
 				}
 				else {
-					drawShot(&shot, shots); //dessin du shot
+					if((tower->getCompteur())%(int)(tower->getRate()) == 0) {
+						if(tower->reach(shots, monsters) != 0) {
+							tower->setCompteur(0);
+						}
+					}
 				}
 
-				if(infoMoney != 0)
-					drawMoney(tower, infoMoney);
-
-				if(tuto != 0) 
-					drawTutorial(&fondTuto, tuto);
+				tower->setCompteur(tower->getCompteur()+1);
+				tower = tower->getNext();
 			}
+
+			//Dessiner les tours
+			drawTower(&towerTxt, *towers, *monsters, tower, testMouse, testTower);
+			//Dessiner les monstres
+			monsters->drawMonster(&monsterTxt);
+
+			if(monsters->moveMonster(map.getListNode().getTail()) == 2) {
+
+				//Pointeur shot temporaire pour parcourir la liste
+				Shot *tmpShot = shots->getHead();
+
+				while(tmpShot != NULL) {
+					if(tmpShot->getTarget().isSame(shots->getHead()->getTarget())){
+						Monster empty;
+						tmpShot->setTarget(empty);
+					}
+
+					*tmpShot = tmpShot->getNext();
+				}
+
+				monsters->removeMonster(monsters->getHead());
+
+				//Il a perdu
+
+				testMouse = 0;
+				testTower = 0;
+				j = 0;
+				i = 0;
+				nb_monster = 0;
+				propriete = aucune;
+
+				initAll(*monsters, *shots, *towers, *joueur);
+
+				nbMenu = gameOver;
+			}
+			
+
+			while(i < 3) {
+				shots->draw(&shot); //dessin du shot
+				shots->moveShot(); //Bouger le shot
+				collisionMissile(*shots, monsters, joueur, pMonster, &propriete); //test de collision
+				i++;
+			}
+			i = 0;
+			k++;
+
 		}
-		
 
 		glFlush();
-		SDL_GL_SwapBuffers();
-		/* ****** */    
+		SDL_GL_SwapBuffers();    
 
 		SDL_Event e;
 		while(SDL_PollEvent(&e)) {
@@ -368,15 +354,15 @@ int main(int argc, char** argv) {
 
 				case SDL_MOUSEBUTTONDOWN :
 					if(e.button.button == SDL_BUTTON_LEFT) {
-						if(nbMenu != 3) {
+						if(nbMenu != play) {
 							//test click menu principal
-							clickMenuPrincipale(e.button.x, e.button.y, &nbMenu, &nbMap, &nbtexture); 
+							clickMenuPrincipal(e.button.x, e.button.y, &nbMenu, &nbtexture); 
 						}
 						else {
 
 							if(testMouse == 0) {
 								//test click sur le menu de la tour
-								if(clickMenuTour(towers, fileTower, interface, e.button.x, e.button.y) == 1)
+								if(clickMenuTour(towers, fileTower, joueur, e.button.x, e.button.y) == 1)
 									testMouse = 1;
 							}
 							else {
@@ -384,39 +370,31 @@ int main(int argc, char** argv) {
 									testMouse = 0;
 							}
 
-							if(tower != NULL && propriete == 1) {
+							if(tower != NULL && propriete == propTower) {
 								//Test click pour supprimer une tour
-								clickTourDelete(towers, shots, tower, interface, e.button.x, e.button.y, &propriete);
+								clickTourDelete(towers, shots, tower, joueur, e.button.x, e.button.y, &propriete);
 								//Test click pour upgrade une tour
-								clickTourUpgrate(tower, interface, e.button.x, e.button.y, &propriete);
+								clickTourUpgrate(tower, joueur, e.button.x, e.button.y, &propriete);
 							}
 
-							//test click play / pause / avance rapide
-							play = clickTime(e.button.x, e.button.y, play, &nb_monster, &j);
 							//Test click exit
-							loop = clickExit(monsters, shots, towers, fileTower, map, interface, e.button.x, e.button.y, aide);
+							loop = clickExit(monsters, shots, towers, fileTower, map, joueur, e.button.x, e.button.y);
 							//Test click sur une tower
 							tower = clickTower(towers, e.button.x, e.button.y, &propriete);
 							//Test click sur un monstre
 							pMonster = clickMonster(monsters, e.button.x, e.button.y, &propriete);
-							//Test click aide
-							aide = clickAide(e.button.x, e.button.y, aide);
-							//Test ckick tuto
-							tuto = clickTuto(tower, e.button.x, e.button.y, tuto, testMouse, testTower, &tutoend);
 						}
 					}
 					break;
 
 				case SDL_MOUSEMOTION :
 					if(testMouse == 1) {
-						//Bouger la tour et test si elle est sur une zone constructible ou non
-						if(moveTower(towers, towers->p_tail, map->list_pixels, e.button.x, e.button.y) == 1)
+						//Bouger la tour et test si elle est sur une zone constructible ou non                                     ADD list_pixel sur map
+						if(towers->moveTower(towers.getTail(), map->list_pixels, e.button.x, e.button.y) == 1)
 							testTower = 1;
 						else
 							testTower = 0;
 					}
-
-					infoMoney = mouseInfo(e.button.x, e.button.y, testMouse, propriete);					
 
 					break;
 
@@ -424,7 +402,7 @@ int main(int argc, char** argv) {
 			  		switch(e.key.keysym.sym){
 		    			case SDLK_ESCAPE : 
 							loop = 0;
-							freeAll(monsters, shots, towers, fileTower, map, interface);
+							freeAll(monsters, shots, towers, fileTower, map, joueur);                                                //freeAll function
 							break;
 
 			    		default : break;
@@ -438,15 +416,8 @@ int main(int argc, char** argv) {
 		}
 
 		Uint32 elapsedTime = SDL_GetTicks() - startTime;
-		if(play == 0) {
-			if(elapsedTime < FRAMERATE_MILLISECONDS) {
-				SDL_Delay(FRAMERATE_MILLISECONDS - elapsedTime);
-			}
-		}
-		else if(play == 2) {
-			if(elapsedTime < FRAMERATE_MILLISECONDS_RAPIDE) {
-		      	SDL_Delay(FRAMERATE_MILLISECONDS_RAPIDE - elapsedTime);
-		   	}
+		if(elapsedTime < FRAMERATE_MILLISECONDS) {
+			SDL_Delay(FRAMERATE_MILLISECONDS - elapsedTime);
 		}
 	  }
 
@@ -454,8 +425,6 @@ int main(int argc, char** argv) {
 	glBindTexture(GL_TEXTURE_2D, 0);
 
 	//Free toutes les textures
-	freeTexture(&menuMap, imgMenuMap);
-	freeTexture(&menuMapButton, imgMenuMapButton);
 	freeTexture(&menuPrincipal, imgMenuPrincipal);
 	freeTexture(&menuPrincipalButton, imgMenuPrincipalButton);
 	freeTexture(&texture, imgMap);
