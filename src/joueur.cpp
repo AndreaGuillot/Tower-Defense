@@ -29,7 +29,13 @@ class Joueur {
 
         //Fonctions
         void updateMoneyKill(Monster m){
-            this->argent += m.getReward();
+            if(m != NULL){
+                this->argent += m.getReward();
+                this->nbMonster++;
+            }else{
+                fprintf(stderr, "Erreur avec le monstre\n");
+                return 0;
+            }
         }
 
         bool updateMoneyBuildTower(Tower* t){
@@ -103,3 +109,15 @@ class Joueur {
 
         }
 };
+
+void initAll (listMonster monsters, listShot shots, listTower towers, Joueur joueur) {
+
+    //Retire les missiles de la liste
+    shots.removeAllShot();
+    //Retire les monstres de la liste
+    monsters.removeAllMonsters();
+    //Retire les tours de la liste
+    towers.removeAllTower();
+    //Réinitialise l'interface
+    joueur.initInterface();
+}

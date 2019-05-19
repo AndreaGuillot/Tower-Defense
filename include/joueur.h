@@ -37,4 +37,6 @@ class Joueur {
     bool drawInterface (GLuint* spriteButton);
 };
 
+void initAll (listMonster monsters, listShot shots, listTower towers, Joueur joueur);
+
 #endif
