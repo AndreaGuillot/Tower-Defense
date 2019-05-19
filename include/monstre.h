@@ -116,7 +116,7 @@ class listMonster {
         Monster getHead();
         Monster getTail();
 
-        bool addMonster(monsterType type, Node n);
+        bool addMonster(monsterType type, Node* n);
         int moveMonster(Node n);
         void removeMonster(Monster m);
         void removeAllMonsters();

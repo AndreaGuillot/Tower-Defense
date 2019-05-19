@@ -85,6 +85,7 @@ class Vector{
 class Node {
 
 	public:
+
 		Position getPosition(){
 			return this->pos;
 		}
@@ -97,8 +98,13 @@ class Node {
 			return this->pos.getY();
 		}
 
-		Node getNext(){
+		Node* getNext(){
 			return this->next;
+		}
+
+		void createNode(float x, float y){
+			this->x = x;
+			this->y = y;
 		}
 
 		void setPosition(Position p){
@@ -127,11 +133,11 @@ public:
 		return this->length;
 	}
 
-	Node getHead(){
+	Node* getHead(){
 		return this->head;
 	}
 
-	Node getTail(){
+	Node* getTail(){
 		return this->tail;
 	}
 
@@ -139,11 +145,11 @@ public:
 		this->length = a;
 	}
 
-	void setHead(Node node){
+	void setHead(Node* node){
 		this->head = node;
 	}
 
-	void setTail(Node node){
+	void setTail(Node* node){
 		this->tail = node;
 	}
 };

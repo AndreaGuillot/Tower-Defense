@@ -242,7 +242,7 @@ int main(int argc, char** argv) {
 						propriete = aucune;
 			}
 
-			map.apparitionMonster(*monsters, j, *joueur);
+			map.apparitionMonster(monsters, j, *joueur);
 
 			//Si nbVague = 20 vagues et plus de monstre alors gagné
 			if(joueur->getNbVagues() == 20 && monsters->getLength() == 0) {
@@ -293,7 +293,7 @@ int main(int argc, char** argv) {
 			//Dessiner les monstres
 			monsters->drawMonster(&monsterTxt);
 
-			if(monsters->moveMonster(map.getListNode().getTail()) == 2) {
+			if(monsters->moveMonster(*(map.getListNode().getTail())) == 2) {
 
 				//Pointeur shot temporaire pour parcourir la liste
 				Shot *tmpShot = shots->getHead();

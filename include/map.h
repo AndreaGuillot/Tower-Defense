@@ -44,22 +44,21 @@ private:
 	listNode list_pixels;
 
 	//nombre de monstres sur le plateau
-	int nbMontres;
+	int nbMonstres;
 
 public:
-	Map();
 	//Get 
-	char getImage();
+	std::string getImage();
 	Image* getImg();
 	//Noeuds
 	int getNbNode();
 	listNode getListNode();
 	//Couleurs de la carte
-    Color getInColor();
-	Color getOutColor();
-	Color getPathColor();
-	Color getNodeColor();
-	Color getConstructColor();
+    Color* getInColor();
+	Color* getOutColor();
+	Color* getPathColor();
+	Color* getNodeColor();
+	Color* getConstructColor();
 	listNode getListConstruct();
 	int getNbMonstres();
 	listNode getList_pixels();
@@ -70,10 +69,9 @@ public:
 	//fonctions
 	bool drawRoad();
 	bool loadMap(char* fileNameITD);
-	bool apparitionMonster(listMonster monsters, int j, Joueur joueur);
+	bool apparitionMonster(listMonster* monsters, int j, Joueur joueur);
+	// Vérifie la map
+	int verifMap(FILE* fileITD);
 };
-
-// Vérifie la map
-int verifMap(FILE* fileITD, Map map);
 
 #endif

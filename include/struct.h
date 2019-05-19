@@ -75,12 +75,13 @@ class Node {
 		Position getPosition();
 		float getX();
 		float getY();
-		Node getNext();
+		Node* getNext();
 
+		void createNode(float x, float y);
 		void setPosition(Position p);
 		void setX(float a);
 		void setY(float a);
-		void setNext(Node node);
+		void setNext(Node* node);
 };
 
 class listNode {
@@ -88,18 +89,18 @@ class listNode {
 	int length;
 
 	//Pointeur
-	Node head; //pointeur vers le premier element
-	Node tail; //pointeur vers le dernier element
+	Node* head; //pointeur vers le premier element
+	Node* tail; //pointeur vers le dernier element
 
 public:
 	listNode();
 	int getLength();
-	Node getHead();
-	Node getTail();
+	Node* getHead();
+	Node* getTail();
 
 	void setLength(int a);
-	void setHead(Node node);
-	void setTail(Node node);
+	void setHead(Node* node);
+	void setTail(Node* node);
 };
 
 bool intersectionCarreDisque (Position point1, Position point2, float rayon, Position origin);

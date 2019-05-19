@@ -387,7 +387,7 @@ class listMonster {
             return this->tail;
         }
 
-        bool addMonster(monsterType type, Node node) {
+        bool addMonster(monsterType type, Node* node) {
             if(this!=NULL){
                 //On crée le monstre
 
@@ -406,9 +406,9 @@ class listMonster {
                 }
 
                 if(monster != NULL){
-                    monster.setPosition(node.getPosition());
+                    monster.setPosition(node->getPosition());
                     monster.setNodePrev(node);
-                    monster.setNodeNext(node.getNext());
+                    monster.setNodeNext(node->getNext());
 
                     //Vérifie le déplacement pour savoir dans quelle sens il se déplace et pour donner l'erreur
                     monster.calculErreur();
