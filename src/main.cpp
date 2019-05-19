@@ -18,6 +18,7 @@
 #include "../include/tower.h"
 #include "../include/joueur.h"
 #include "../include/texture.h"
+#include "../include/click.h"
 #include <string.h>
 #include <iostream>
 
@@ -52,7 +53,7 @@ int main(int argc, char** argv) {
 
 	int testMouse = 0;
 	int testTower = 0;
-	int nbMenu = menu;
+	Menus nbMenu = menu;
 	int nbtexture = 0;
 
 	/* Initialisation */
@@ -362,7 +363,7 @@ int main(int argc, char** argv) {
 
 							if(testMouse == 0) {
 								//test click sur le menu de la tour
-								if(clickMenuTour(towers, fileTower, joueur, e.button.x, e.button.y) == 1)
+								if(clickMenuTour(*towers, *fileTower, *joueur, e.button.x, e.button.y) == 1)
 									testMouse = 1;
 							}
 							else {
@@ -371,18 +372,18 @@ int main(int argc, char** argv) {
 							}
 
 							//Test click exit
-							loop = clickExit(monsters, shots, towers, fileTower, map, joueur, e.button.x, e.button.y);
+							loop = clickExit(*monsters, *shots, *towers, *fileTower, &map, *joueur, e.button.x, e.button.y);
 							//Test click sur une tower
-							tower = clickTower(towers, e.button.x, e.button.y, &propriete);
+							tower = clickTower(*towers, e.button.x, e.button.y, &propriete);
 							//Test click sur un monstre
-							pMonster = clickMonster(monsters, e.button.x, e.button.y, &propriete);
+							pMonster = clickMonster(*monsters, e.button.x, e.button.y, &propriete);
 						}
 					}
 					break;
 
 				case SDL_MOUSEMOTION :
 					if(testMouse == 1) {
-						//Bouger la tour et test si elle est sur une zone constructible ou non                                     ADD list_pixel sur map
+						//Bouger la tour et test si elle est sur une zone constructible ou non
 						if(towers->moveTower(towers->getTail(), map.getList_pixels(), e.button.x, e.button.y) == 1)
 							testTower = 1;
 						else
@@ -395,7 +396,7 @@ int main(int argc, char** argv) {
 			  		switch(e.key.keysym.sym){
 		    			case SDLK_ESCAPE : 
 							loop = 0;
-							freeAll(monsters, shots, towers, fileTower, map, joueur);                                                //freeAll function
+							freeAll(*monsters, *shots, *towers, *fileTower, map, *joueur);
 							break;
 
 			    		default : break;
@@ -418,10 +419,7 @@ int main(int argc, char** argv) {
 	glBindTexture(GL_TEXTURE_2D, 0);
 
 	//Free toutes les textures
-	freeTexture(&menuPrincipal, imgMenuPrincipal);
-	freeTexture(&menuPrincipalButton, imgMenuPrincipalButton);
 	freeTexture(&texture, imgMap);
-	freeTexture(&help, imgHelp);
 	freeTexture(&monsterTxt, imgMonster);
 	freeTexture(&towerTxt, imgTower);
 	freeTexture(&shot, imgShot);
@@ -432,7 +430,6 @@ int main(int argc, char** argv) {
 	freeTexture(&fondMenuUp, imgFondMenuUp);
 	freeTexture(&fondGameOver, imgFondGameOver);
 	freeTexture(&fondWin, imgFondWin);
-	freeTexture(&fondTuto, imgFondTuto);
 
 	SDL_Quit();
 	return EXIT_SUCCESS;
