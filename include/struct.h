@@ -105,4 +105,25 @@ public:
 bool intersectionCarreDisque (Position point1, Position point2, float rayon, Position origin);
 bool intersectionCarres (Position point1, Position point2, Position pointC1, Position pointC2);
 
+class Image {
+
+	private:
+		//Chemin vers l'image
+		char* path;
+
+		//Numero magic : identifie le type de fichier
+		char magicNumber[2];
+		
+		//Les dimensions de l'images
+		unsigned int heightImg;
+		unsigned int widthImg;
+
+		//Valeur maximal de la couleur, résolution de la couleur
+		int maxValue;
+
+	public:
+
+		Image(char* nameImg);
+};
+
 #endif
