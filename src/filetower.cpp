@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "../include/filetower.hpp"
+#include "../include/filetower.h"
 
 class FileTower {
 
