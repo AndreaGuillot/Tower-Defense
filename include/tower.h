@@ -12,6 +12,14 @@
 #include "struct.h"
 #include <string.h>
 #include <iostream>
+#include <stdlib.h>
+#include <stdio.h>
+#include <math.h>
+#include <SDL/SDL.h>
+#include <SDL/SDL_image.h>
+#include <GL/gl.h>
+#include <GL/glu.h>
+#include <GL/glut.h>
 
 enum towerType {
     oceane, jules, clara, yoann
