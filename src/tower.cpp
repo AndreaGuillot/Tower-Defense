@@ -270,6 +270,32 @@ class Tower {
 
     }
 
+    bool isSame(Tower* t){
+        if(this->p.getX() != t.getPosition().getX()){
+            return 0;
+        }
+        if(this->p.getY() != t.getPosition().getY()){
+            return 0;
+        }
+        if(this->type != t.getType()){
+            return 0;
+        }
+        if(this.power != t.getPower()){
+            return 0;
+        }
+        if(this.rate != t.getRate()){
+            return 0;
+        }
+        if(this->cost != t.getCost()){
+            return 0;
+        }
+        if(this->compteur != t.getComteur()){
+            return 0;
+        }
+
+        return 1;
+    }
+
 
 };
 

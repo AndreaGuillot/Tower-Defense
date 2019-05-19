@@ -71,7 +71,8 @@ class Tower {
 
     int drawProprieteTower(GLuint* tower, GLuint* spriteMenu, GLuint* btPlus, Joueur *joueur);
     int reach(listShot *shots, listMonster *monsters);
-
+    bool isSame(Tower* t);
+    
 };
 
 class Yoann: public Tower{
