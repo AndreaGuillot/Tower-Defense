@@ -74,6 +74,7 @@ class Monster {
     void setX(float x);
     void setY(float y);
     void setSens(Sens s);
+    void setPV(uint pv);
     void setErreur(float e);
     void setNodePrev(Node node);
     void setNodeNext(Node node);
@@ -83,6 +84,7 @@ class Monster {
     //Fonctions
     void calculErreur();
     int drawProprieteMonster(GLuint* monster);
+    bool isSame(Monster m);
 };
 
 class Lucie: public Monster{

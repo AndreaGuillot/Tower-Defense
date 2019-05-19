@@ -34,6 +34,8 @@ class Shot{
 
 public:
 
+	Shot();
+	
 	Shot get();
 	float getX();
 	float getY();
@@ -57,14 +59,14 @@ public:
 class listShot{
 
 	int length;
-	Shot head; //pointeur vers le premier element
-	Shot tail; //pointeur vers le dernier element
+	Shot* head; //pointeur vers le premier element
+	Shot* tail; //pointeur vers le dernier element
 public:
 	listShot();
 	//Get
 	int getLength();
-	Shot getHead();
-	Shot getTail();
+	Shot* getHead();
+	Shot* getTail();
 	//Set
 	void setLength(int l);
 	void setHead(Shot s);

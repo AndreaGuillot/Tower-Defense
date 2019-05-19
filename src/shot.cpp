@@ -7,6 +7,11 @@
 class Shot{
 	public:
 
+	Shot(){
+		this->target = NULL;
+		this->tower = NULL;
+	}
+
 	Shot get(){
 		return this;
 	}
@@ -70,10 +75,10 @@ class listShot{
 	int getLength(){
 		return this->length;
 	}
-	Shot getHead(){
+	Shot* getHead(){
 		return this->head;
 	}
-	Shot getTail(){
+	Shot* getTail(){
 		return this->tail;
 	}
 	void setLength(int l){
@@ -299,92 +304,108 @@ class listShot{
 *  déduit les points de vie du monstre. Prend en paramètre la liste de monstre et le monstre.   *
 *  Retourne 0 en cas d'erreur et 1 sinon.							*/
 
-int collisionMissile(listShot p_lshot, listMonster p_lmonster, Joueur interface, Monster monster, int propriete) {
+bool collisionMissile(listShot shots, listMonster monsters, Joueur joueur, Monster monster, int propriete) {
 
 	//On vérifie si notre liste a été allouée
-	if(p_lshot != NULL) {
+	if(shots != NULL) {
 
 		Shot* shotSuppr = NULL;
 			
 		//Créer un pointeur missile temporaire pour parcourir la liste de missiles
-		Shot *p_tmp = p_lshot->p_head;
+		Shot *tmp = shots.getHead();
 
 		//Parcours la liste de missiles
-		while(p_tmp != NULL){
+		while(tmp != NULL){
 
 			//Vérifie s'il y a une intersection pour les quatres coté du quads du monstre
 			Position point1, point2, pointC1, pointC2;
 
-			pointC1.x = p_tmp->x + 5; pointC1.y = p_tmp->y + 5;
-			pointC2.x = p_tmp->x - 5; pointC2.y = p_tmp->y - 5;
+			pointC1.set(tmp.getX()+5, tmp.getY()+5);
+			pointC2.set(tmp.getX()-5, tmp.getY()-5);
 				
-			if(p_tmp->target == NULL) {
+			if(tmp.getTarget() == NULL) {
 
-				if(p_tmp->x < 180 || p_tmp->x > 800 || p_tmp->y < 40 || p_tmp->y > 660)
-					p_lshot = removeShot(p_lshot, p_tmp);
+				if(tmp.getX() < 180 || tmp-.getX() > 800 || tmp.getY() < 40 || tmp.getY() > 660)
+					shots.removeShot(tmp);
 	
-				p_tmp = p_tmp->p_next;
+				tmp = tmp.getNext();
 			}
 			else {
 			
-				point1.x = p_tmp->target->x + 20; point1.y = p_tmp->target->y + 20;
-				point2.y = p_tmp->target->x - 20; point2.y = p_tmp->target->y - 20;
+				point1.set(tmp.getTarget().getX() + 20; point1.y = tmp.getTarget().getY() + 20);
+				point2.set(tmp.getTarget().getX() - 20; point1.y = tmp.getTarget().getY() - 20);
 
 				//Vérifie s'il y a une intersection
-				if(intersectionCarres(point1, point2, pointC1, pointC2) == 1) {
-
-					//Vériie s'il est plus résistant à ce type de tour
-					if(strcmp(p_tmp->type_tower, p_tmp->target->type_tower) == 0) {
-						if((p_tmp->power) > (p_tmp->target->resistance))
-							p_tmp->target->pv -= ((p_tmp->power) - (p_tmp->target->resistance)); //retire des points de vie en fonction de la résistance
-						else 
-							p_tmp->target->pv -= ((p_tmp->power) - ((p_tmp->power) - 1));
-
-					}
-					else
-						p_tmp->target->pv -= p_tmp->power; //retire des points de vie
-
-					if(p_tmp->target->pv <= 0){
+				if(intersectionCarres(point1, point2, pointC1, pointC2)) {
 					
-						p_tmp->target->pv = 0;
+					uint new_PV;
+					typeTower type = tmp.getType();
+
+					//On change les dégats selon la tour et la resistance
+					switch(type){
+						case oceane:
+							new_PV = tmp.getPower()*(1-tmp.getTarget().getResistance_TDR());
+							break;
+
+						case clara:
+							new_PV = tmp.getPower()*(1-tmp.getTarget().getResistance_TDV());
+							break;
+
+						case jules:
+							new_PV = tmp.getPower()*(1-tmp.getTarget().getResistance_TDJ());
+							break;
+
+						case yoann:
+							new_PV = tmp.getPower()*(1-tmp.getTarget().getResistance_TDB());
+							break;
+
+						default:break;
+					}
+
+					tmp.getTarget().setPV(new_PV); //Changer les points de vie
+
+					if(tmp.getTarget().getPV() <= 0){
+					
+						tmp.getTarget().setPV(0);
 
 						//Mets à jours l'interface (money, score, nbmonstre tués)
-						updateInterface(interface, p_tmp->target);
+						joueur.updateMoneyKill(tmp.getTarget());
 
 						//Créer un pointeur missile temporaire pour parcourir la liste de missiles
-						Shot *p_temp = p_lshot->p_head;
+						Shot *tmp_shot = shots.getHead();
 
 						//Parcours la liste de missiles
-						while(p_temp != NULL){
+						while(tmp_shot != NULL){
 
-							if(p_temp != p_tmp) {
-								if(p_temp->target == p_tmp->target) 
-									p_temp->target = NULL;
+							if(tmp_shot != tmp) {
+								if(tmp_shot.getTarget().isSame(tmp.getTarget())) 
+									tmp_shot.setTarget(NULL);
 							}
 
-							p_temp = p_temp->p_next;
+							tmp_shot = tmp_shot.getNext();
 
 						}
 
-						if(monster == p_tmp->target) {
-							monster = NULL;
-							*propriete = 0;
+						if(monster.isSame(tmp.getTarget())){
+							Monster empty = Monster();
+							monster.set(empty);
+							*propriete = aucune;
 						}
 						//retire le monstre de la liste de monstre
-						p_lmonster = removeMonster(p_lmonster, p_tmp->target);
-						p_tmp->target = NULL;
+						monsters.removeMonster(tmp.getTarget());
+						tmp.setTarget(NULL);
 					
 					}
 
-					shotSuppr = p_tmp;
-					p_tmp = p_tmp->p_next;
+					shotSuppr = tmp;
+					tmp = tmp.getNext();
 
 					if(shotSuppr != NULL)
-						p_lshot = removeShot(p_lshot, shotSuppr);//Retire le missile de la liste
+						shots.removeShot(shotSuppr);//Retire le missile de la liste
 			
 				}
 				else
-					p_tmp = p_tmp->p_next;
+					tmp = tmp.getNext();
 			}
 	
 		}
@@ -394,7 +415,5 @@ int collisionMissile(listShot p_lshot, listMonster p_lmonster, Joueur interface,
 		fprintf(stderr, "Cette liste de missiles n'existe pas\n");
 		return 0;
 	}
-
 	return 1;
-
 }
