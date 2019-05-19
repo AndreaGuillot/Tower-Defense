@@ -14,6 +14,8 @@
 #include <iostream>
 
 class Installation;
+class listFileTower;
+class Map;
 
 class Joueur {
 
@@ -38,5 +40,6 @@ class Joueur {
 };
 
 void initAll (listMonster monsters, listShot shots, listTower towers, Joueur joueur);
+void freeAll (listMonster monsters, listShot shots, listTower towers, listFileTower fileTowers, Map map, Joueur joueur);
 
 #endif

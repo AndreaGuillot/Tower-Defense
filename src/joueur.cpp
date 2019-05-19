@@ -121,3 +121,19 @@ void initAll (listMonster monsters, listShot shots, listTower towers, Joueur jou
     //Réinitialise l'interface
     joueur.initInterface();
 }
+
+void freeAll (listMonster monsters, listShot shots, listTower towers, listFileTower fileTowers, Map map, Joueur joueur) {
+
+    //Liblère la liste de missiles
+    freeAllShot (shots);
+    //Libère la liste de monstres
+    freeAllMonsters (monsters);
+    //Libère la liste de tours
+    freeAllTower (towers);
+    //Libère la liste de fileTower
+    freeAllFileTower(fileTowers);
+    //Libère la map
+    freeMap(map);
+    //Libère l'interface
+    freeInterface(joueur);
+}
