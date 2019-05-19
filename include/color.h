@@ -21,7 +21,7 @@ private:
  
 public:
 	//Constructeur  
-    Color();
+    Color(uint r, uint g, uint b);
     //Get
     uint getR();
     uint getG();
