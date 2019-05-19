@@ -304,7 +304,7 @@ class listShot{
 *  déduit les points de vie du monstre. Prend en paramètre la liste de monstre et le monstre.   *
 *  Retourne 0 en cas d'erreur et 1 sinon.							*/
 
-bool collisionMissile(listShot shots, listMonster monsters, Joueur joueur, Monster monster, int propriete) {
+bool collisionMissile(listShot shots, listMonster monsters, Joueur joueur, Monster monster, Propriete *propriete) {
 
 	//On vérifie si notre liste a été allouée
 	if(shots != NULL) {

@@ -55,7 +55,6 @@ public:
 	void setNext(Shot s);
 };
 
-/************* STRUCTURE DE LA LISTE DE TOURS *************/
 class listShot{
 
 	int length;
@@ -83,7 +82,7 @@ public:
 };
 
 //Vérifie s'il y a une collision avec le missile
-int collisionMissile(listShot, listMonster, Joueur, Monster, int);
+int collisionMissile(listShot, listMonster, Joueur, Monster, Propriete*);
 
 
 #endif
