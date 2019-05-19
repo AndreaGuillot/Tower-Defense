@@ -101,23 +101,23 @@ int clickExit(listMonster monsters, listShot shots, listTower towers, listFileTo
 *  position du clique et un pointeur int qui permet de savoir si on affiche ou non des propriétés.	*
 *  Retourne NULL s'il y a une erreur, ou si on n'a pas cliquer sur une tour. Sinon retourne la tour.	*/
 
-Tower* clickTower(LTower* towers, float x, float y, int* propriete) {
+Tower* clickTower(listTower towers, float x, float y, Propriete* propriete) {
 	
 	//Vérifie que la liste de tours existe
 	if(towers != NULL) {
 
 		//Tour temporaire pour parcourir la liste de tour
-		Tower* p_tmp = towers->p_head;
+		Tower* tmp = towers.getHead();
 		
-		while(p_tmp != NULL) {
+		while(tmp != NULL) {
 
 			//Si on a cliqué sur une tour
-			if(x <= (p_tmp->x + 20) && x >= (p_tmp->x - 20) && y <= (p_tmp->y + 20) && y >= (p_tmp->y - 20)) {
-				*propriete = 1;
-				return p_tmp;	
+			if(x <= (tmp.getPosition().getX() + 20) && x >= (tmp.getPosition().getX() - 20) && y <= (tmp.getPosition().getY() + 20) && y >= (tmp.getPosition().getY() - 20)) {
+				*propriete = propTower;
+				return tmp;	
 			}
 
-			p_tmp = p_tmp->p_next;
+			tmp = tmp.getNext();
 
 		}
 	}
@@ -135,23 +135,23 @@ Tower* clickTower(LTower* towers, float x, float y, int* propriete) {
 *  position du clique et un pointeur int qui permet de savoir si on affiche ou non des propriétés.	*
 *  Retourne NULL s'il y a une erreur, ou si on n'a pas cliquer sur une tour. Sinon retourne la tour.	*/
 
-Monster* clickMonster(LMonster* p_lmonster, float x, float y, int* propriete) {
+Monster* clickMonster(listMonster monsters, float x, float y, Propriete* propriete) {
 	
 	//Vérifie que la liste de monstres existe
-	if(p_lmonster != NULL) {
+	if(monsters != NULL) {
 
 		//Tour temporaire pour parcourir la liste de tour
-		Monster* p_tmp = p_lmonster->p_head;
+		Monster* tmp = monsters.getHead();
 		
-		while(p_tmp != NULL) {
+		while(tmp != NULL) {
 
 			//Si on a cliqué sur une tour
-			if(x <= (p_tmp->x + 20) && x >= (p_tmp->x - 20) && y <= (p_tmp->y + 20) && y >= (p_tmp->y - 20)) {
-				*propriete = 2;
-				return p_tmp;	
+			if(x <= (tmp.getPosition().getX() + 20) && x >= (tmp.getPosition().getX() - 20) && y <= (tmp.getPosition().getY() + 20) && y >= (tmp.getPosition().getY() - 20)) {
+				*propriete = propTower;
+				return tmp;	
 			}
 
-			p_tmp = p_tmp->p_next;
+			tmp = tmp.getNext();
 
 		}
 	}
@@ -161,32 +161,5 @@ Monster* clickMonster(LMonster* p_lmonster, float x, float y, int* propriete) {
 	}
 
 	return NULL;
-
-}
-
-/*********************** Mouvement de la souris ***********************/
-/* Au mouvement de la souris regarde si se trouve sur l'un des boutons upgrade, si oui retourne un chiffre.	*/
-int mouseInfo(float x, float y, int testMouse, int propriete) {
-
-	if(propriete == 1) {
-	
-		if(testMouse == 0) {
-			//Améliorer power
-			if(x <= 190 && x >= 165 && y <= 445 && y >= 422)
-				return 1;
-			//Améliorer range
-			else if(x <= 190 && x >= 165 && y <= 420 && y >= 397) 
-				return 2;
-			//Améliorer cadence
-			else if(x <= 190 && x >= 165 && y <= 395 && y >= 372)
-				return 3;
-			//Tout améliorer
-			else if(x <= 190 && x >= 10 && y <= 595 && y >= 545)
-				return 4;
-		
-		}
-	}
-
-	return 0;
 
 }
