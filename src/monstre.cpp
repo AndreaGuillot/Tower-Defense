@@ -86,6 +86,10 @@ class Monster {
         this->sens = s;
     }
 
+    void setPV(uint pv){
+        this->pv = pv;
+    }
+
     void setErreur(float e){
         this->erreur = e;
     }
@@ -275,6 +279,51 @@ class Monster {
 
     }
 
+    bool isSame(Monster m){
+        if(this->getX() != m->getX()){
+            return 0;
+        }
+        if(this->getY() != m->getY()){
+            return 0;
+        }
+        if(this->getErreur() != m->getErreur()){
+            return 0;
+        }
+        if(this->getSens() != m->getSens()){
+            return 0;
+        }
+        if(this->getPrev() != m->getPrev()){
+            return 0;
+        }
+        if(this->getNext() != m->getNext()){
+            return 0;
+        }
+        if(this->getType() != m->getType()){
+            return 0;
+        }
+        if(this->getPV() != m->getPV()){
+            return 0;
+        }
+        if(this->getSpeed() != m->getSpeed()){
+            return 0;
+        }
+        if(this->getReward() != m->getReward()){
+            return 0;
+        }
+        if(this->getResistance_TDR() != m->getResistance_TDR()){
+            return 0;
+        }
+        if(this->getResistance_TDV() != m->getResistance_TDV()){
+            return 0;
+        }
+        if(this->getResistance_TDJ() != m->getResistance_TDJ()){
+            return 0;
+        }
+        if(this->getResistance_TDB() != m->getResistance_TDB()){
+            return 0;
+        }
+        return 1;
+    }
 };
 
 class Lucie: public Monster{
