@@ -28,7 +28,7 @@ private:
 	Image img;
 	//Noeuds
 	int nbNode;
-	listNode list_node;
+	listNode* list_node;
 	//Couleurs de la carte
     Color* inColor;
 	Color* outColor;

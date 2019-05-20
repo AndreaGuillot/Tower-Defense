@@ -404,18 +404,18 @@ int Image::changeColorIn(unsigned char* tabPixels, Map* map) {
 
 int Image::changeColorOut(unsigned char* tabPixels, Map* map) {
 
-	for(uint i=0; i<(img->heightImg); i++) {
+	for(uint i=0; i<(this->heightImg); i++) {
 
 		// puis on parcourt les colonnes du tableau
-		for(uint j=0; j<(img->widthImg); j++) {
+		for(uint j=0; j<(this->widthImg); j++) {
 			
 			//On vérifie la couleur
-			if(tabPixels[i*(img->widthImg)*3+j*3] == 255 && tabPixels[i*(img->widthImg)*3+j*3+1] == 252 && tabPixels[i*(img->widthImg)*3+j*3+2] == 0){
+			if(tabPixels[i*(this->widthImg)*3+j*3] == 255 && tabPixels[i*(this->widthImg)*3+j*3+1] == 252 && tabPixels[i*(this->widthImg)*3+j*3+2] == 0){
 
 				//Change de couleur
-				tabPixels[i*(img->widthImg)*3+j*3] = ((map->getOutColor()).getR())*255;
-				tabPixels[i*(img->widthImg)*3+j*3+1] = ((map->getOutColor()).getG())*255;
-				tabPixels[i*(img->widthImg)*3+j*3+2] = ((map->getOutColor()).getB())*255;
+				tabPixels[i*(this->widthImg)*3+j*3] = ((map->getOutColor())->getR())*255;
+				tabPixels[i*(this->widthImg)*3+j*3+1] = ((map->getOutColor())->getG())*255;
+				tabPixels[i*(this->widthImg)*3+j*3+2] = ((map->getOutColor())->getB())*255;
 			}
 		}
 	}

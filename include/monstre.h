@@ -22,6 +22,7 @@ enum monsterType{
 
 class Node;
 class listNode;
+class Position;
 
 class Monster {
 

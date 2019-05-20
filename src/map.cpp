@@ -74,7 +74,7 @@ bool Map::drawRoad() {
 
     if(this != NULL) {
 
-        Node *tmp = this->list_node.getHead();
+        Node *tmp = this->list_node->getHead();
 
         while(tmp->getNext() != NULL) {
         
@@ -306,8 +306,8 @@ int Map::verifMap(FILE* fileITD)
         fileNode = (*fileNode).getNext();
     }
     (*fileNode).setNext(NULL);
-    this->list_node.setHead(tmp);
-    this->list_node.setTail(NULL);
+    this->list_node->setHead(tmp);
+    this->list_node->setTail(NULL);
     // Destruction des données de l'image chargée
     SDL_FreeSurface(image);
 
@@ -345,7 +345,7 @@ bool Map::apparitionMonster(listMonster* monsters, int j, Joueur joueur) {
 
                     //Random entre 0, 1 et 2 pour avoir les monstres de type lucie, barbara et julien
                     monsterType type = monsterType(rand()%3);
-                    monsters->addMonster(type, this->list_node.getHead());
+                    monsters->addMonster(type, this->list_node->getHead());
                     
                     this->nbMonstres++;
                 }
