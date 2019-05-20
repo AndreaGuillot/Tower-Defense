@@ -35,7 +35,7 @@ public:
 
 	Shot();
 	
-	Shot get();
+	Shot* get();
 	float getX();
 	float getY();
 	Monster* getTarget();
@@ -81,7 +81,7 @@ public:
 };
 
 //Vérifie s'il y a une collision avec le missile
-int collisionMissile(listShot*, listMonster*, Joueur*, Monster*, Propriete*);
+bool collisionMissile(listShot*, listMonster*, Joueur*, Monster*, Propriete*);
 
 
 #endif
