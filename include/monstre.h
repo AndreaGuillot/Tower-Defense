@@ -20,7 +20,6 @@ enum monsterType{
     lucie, barbara, julien
 };
 
-class Position;
 class Node;
 class listNode;
 

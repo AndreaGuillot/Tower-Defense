@@ -11,14 +11,14 @@
 std::string Map::getImage(){
     return this->image;
 }
-Image* Map::getImg(){
+Image Map::getImg(){
     return this->img;
 }
 //Noeuds
 int Map::getNbNode(){
     return this->nbNode;
 }
-listNode Map::getListNode(){
+listNode* Map::getListNode(){
     return this->list_node;
 }
 //Couleurs de la carte
@@ -37,7 +37,7 @@ Color* Map::getNodeColor(){
 Color* Map::getConstructColor(){
     return this->constructColor;
 }
-listNode Map::getListConstruct(){
+listNode* Map::getListConstruct(){
     return this->listConstruct;
 }
 
@@ -45,13 +45,28 @@ int Map::getNbMonstres(){
     return this->nbMonstres;
 }
 
-listNode Map::getList_pixels(){
+listNode* Map::getList_pixels(){
     return this->list_pixels;
 }
 
 //Set
 void Map::setNbMonstres(int a){
     this->nbMonstres = a;
+}
+void Map::setInColor(Color* color){
+    this->inColor = color;
+}
+void Map::setOutColor(Color* color){
+    this->outColor = color;
+}
+void Map::setPathColor(Color* color){
+    this->pathColor = color;
+}
+void Map::setNodeColor(Color* color){
+    this->nodeColor = color;
+}
+void Map::setConstructColor(Color* color){
+    this->constructColor = color;
 }
 
 //Fonctions

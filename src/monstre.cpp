@@ -2,6 +2,13 @@
 #include "../include/tower.h"
 #include "../include/monstre.h"
 
+    Monster::Monster(){
+        Position p = Position();
+        Node* node_prev = NULL;
+        Node* node_next = NULL;
+        Monster* monster_prev = NULL;
+        Monster* monster_next = NULL;
+    }
     //Get
     Position Monster::getPosition(){
         return this->p;

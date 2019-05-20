@@ -7,7 +7,7 @@ Position::Position(){
 	this->y = y=0;
 }
 
-Position Position::get(){
+Position* Position::get(){
 	return this;
 }
 
@@ -40,11 +40,11 @@ void Position::addVector(Vector V) {
 
 
 Vector::Vector(Position A, Position B){
-	this.x = (B.getX()) - (A.getX());
-	this.y = (B.getY()) - (A.getY());
+	this->x = (B.getX()) - (A.getX());
+	this->y = (B.getY()) - (A.getY());
 }
 
-Vector Vector::get(){
+Vector* Vector::get(){
 	return this;
 }
 
@@ -59,7 +59,7 @@ float Vector::getY(){
 float Vector::getNorm() {
 	float norme;
 
-	norme = pow(this->x, 2.0) pow(this->y, 2.0);
+	norme = pow(this->x, 2.0) + pow(this->y, 2.0);
 	norme = sqrt(norme);
 	return norme;
 }
@@ -72,7 +72,7 @@ void Vector::setY(float y){
 }
 
 void Vector::normalize(){
-	float norme = this.getNorm();	
+	float norme = this->getNorm();	
 	this->x = (this->x) / norme;
 	this->y = (this->y) / norme;
 }
@@ -100,20 +100,20 @@ Node* Node::getNext(){
 }
 
 void Node::createNode(float x, float y){
-	this->x = x;
-	this->y = y;
+	this->pos.setX(x);
+	this->pos.setY(y);
 }
 
 void Node::setPosition(Position p){
 	this->pos = p;
 }
 void Node::setX(float a){
-	this->x = a;
+	this->pos.setX(a);
 }
 void Node::setY(float a){
-	this->y = a;
+	this->pos.setY(a);
 }
-void Node::setNext(Node node){
+void Node::setNext(Node* node){
 	this->next = node;
 }
 
@@ -122,7 +122,9 @@ void Node::setNext(Node node){
 
 
 listNode::listNode(){
-	this=NULL;
+	this->length = 0;
+	this->head=NULL;
+	this->tail=NULL;
 }
 
 int listNode::getLength(){
@@ -152,7 +154,7 @@ void listNode::setTail(Node* node){
 bool intersectionCarreDisque (Position point1, Position point2, float rayon, Position origin) {
 
 	int i;
-	Position point = Position(0, 0);
+	Position point = Position();
 
 	for(i = 0; i < 4; i++) {
 
@@ -186,7 +188,7 @@ bool intersectionCarreDisque (Position point1, Position point2, float rayon, Pos
 bool intersectionCarres (Position point1, Position point2, Position pointC1, Position pointC2) {
 
 	int i;
-	Position point = Position(0, 0);
+	Position point = Position();
 
 	int xmin = ((point1.getX()) < (point2.getX())) ? (point1.getX()) : (point2.getX());
 	int xmax = ((point1.getX()) > (point2.getX())) ? (point1.getX()) : (point2.getX());
@@ -199,16 +201,16 @@ bool intersectionCarres (Position point1, Position point2, Position pointC1, Pos
 		//Vérifie avec les quatres points du quad
 		switch(i) {
 			case 0 :
-				point.getX() = pointC1.getX(); point.getY() = pointC1.getY();
+				point.setX(pointC1.getX()); point.setY(pointC1.getY());
 				break;
 			case 1 :
-				point.getX() = pointC1.getX(); point.getY() = pointC2.getY();
+				point.setX(pointC1.getX()); point.setY(pointC2.getY());
 				break;
 			case 2 :
-				point.getX() = pointC2.getX(); point.getY() = pointC2.getY();
+				point.setX(pointC2.getX()); point.setY(pointC2.getY());
 				break;
 			case 3 :
-				point.getX()= pointC2.getX(); point.getY() = pointC1.getY();
+				point.setX(pointC2.getX()); point.setY(pointC1.getY());
 				break;
 			default :
 				break;
@@ -233,7 +235,6 @@ Image::Image(char* nameImg) {
 
 		if(image == NULL){
 			fprintf(stderr, "Erreur : Impossible d'ouvrir l'image\n");
-			return 0;
 		}
 		else{
 
@@ -243,7 +244,6 @@ Image::Image(char* nameImg) {
 				//Si ce n'est pas un ppm, arrete la fonction 
 				if(this->magicNumber[0] != 'P' || this->magicNumber[1] != '6'){
 					fprintf(stderr, "L'image n'est pas au bon format\n");
-					return 0;
 				}
 				else {
 				
@@ -273,15 +273,153 @@ Image::Image(char* nameImg) {
 					}
 					else {
 						fprintf(stderr, "Probleme ce n'est pas la valeur maximal du fichier\n");
-						return 0;
 					}
 
 				}
 			}
 			else {
 				fprintf(stderr, "Probleme ce n'est pas le numéro magique du fichier\n");
-				return 0;
 			}
 		}
-		return 1;
 	}
+
+char* Image::getPath(){
+	return this->path;
+}
+char* Image::getMagicNumber(){
+	return this->magicNumber;
+}
+uint Image::getHeight(){
+	return this->heightImg;
+}
+uint Image::getWidth(){
+	return this->widthImg;
+}
+int Image::getMaxValue(){
+	return this->maxValue;
+}
+
+int Image::ChangeColor(unsigned char* tabPixels, Map* map) {
+	this->changeColorRoad(tabPixels, map);
+	this->changeColorConstruct(tabPixels, map);
+	this->changeColorNode(tabPixels, map);
+	this->changeColorIn(tabPixels, map);
+	this->changeColorOut(tabPixels, map);
+	return 1;
+
+}
+
+int Image::changeColorRoad(unsigned char* tabPixels, Map* map) {
+
+	for(uint i=0; i<(this->heightImg); i++) {
+		for(uint j=0; j<(this->widthImg); j++) {
+			
+			//On vérifie si la route est bien ()
+			if(tabPixels[i*(this->widthImg)*3+j*3] == 255 && tabPixels[i*(this->widthImg)*3+j*3+1] == 0 && tabPixels[i*(this->widthImg)*3+j*3+2] == 0){
+
+				//Change de couleur
+				tabPixels[i*(this->widthImg)*3+j*3] = ((map->getPathColor())->getR())*255;
+				tabPixels[i*(this->widthImg)*3+j*3+1] = ((map->getPathColor())->getG())*255;
+				tabPixels[i*(this->widthImg)*3+j*3+2] = ((map->getPathColor())->getB())*255;
+			}
+		}
+	}
+
+	return 1;
+
+}
+
+int Image::changeColorConstruct(unsigned char* tabPixels, Map* map) {
+
+	if(map->getListConstruct() != NULL) {
+
+		for(uint i=0; i<(this->heightImg); i++) {
+			for(uint j=0; j<(this->widthImg); j++) {
+			
+				if(tabPixels[i*(this->widthImg)*3+j*3] == 0 && tabPixels[i*(this->widthImg)*3+j*3+1] == 0 && tabPixels[i*(this->widthImg)*3+j*3+2] == 255){
+
+					//Change de couleur
+					tabPixels[i*(this->widthImg)*3+j*3] = ((map->getConstructColor())->getR())*255;
+					tabPixels[i*(this->widthImg)*3+j*3+1] = ((map->getConstructColor())->getG())*255;
+					tabPixels[i*(this->widthImg)*3+j*3+2] = ((map->getConstructColor())->getB())*255;
+
+					//Ajoute le noeud à la liste de pixels avec les coordonnées
+					addNode(map->getListConstruct(), j + 200, i + 60);
+				}
+			}
+		}
+	}
+	else {
+		fprintf(stderr, "Erreur : problème au moment de l'allocation pour la liste de pixels de la zone constructible\n");
+		return 0;
+	}
+
+	return 1;
+
+}
+
+int Image::changeColorNode(unsigned char* tabPixels, Map* map) {
+
+	for(uint i=0; i<(this->heightImg); i++) {
+
+		// puis on parcourt les colonnes du tableau
+		for(uint j=0; j<(this->widthImg); j++) {
+			
+			//On vérifie la couleur
+			if(tabPixels[i*(this->widthImg)*3+j*3] == 6 && tabPixels[i*(this->widthImg)*3+j*3+1] == 0 && tabPixels[i*(this->widthImg)*3+j*3+2] == 255){
+
+				//Change de couleur
+				tabPixels[i*(this->widthImg)*3+j*3] = ((map->getConstructColor())->getR())*255;
+				tabPixels[i*(this->widthImg)*3+j*3+1] = ((map->getConstructColor())->getG())*255;
+				tabPixels[i*(this->widthImg)*3+j*3+2] = ((map->getConstructColor())->getB())*255;
+			}
+		}
+	}
+
+	return 1;
+
+}
+
+int Image::changeColorIn(unsigned char* tabPixels, Map* map) {
+
+	for(uint i=0; i<(this->heightImg); i++) {
+
+		// puis on parcourt les colonnes du tableau
+		for(uint j=0; j<(this->widthImg); j++) {
+			
+			//On vérifie la couleur
+			if(tabPixels[i*(this->widthImg)*3+j*3] == 255 && tabPixels[i*(this->widthImg)*3+j*3+1] == 0 && tabPixels[i*(this->widthImg)*3+j*3+2] == 67){
+
+				//Change de couleur
+				tabPixels[i*(this->widthImg)*3+j*3] = ((map->getInColor())->getR())*255;
+				tabPixels[i*(this->widthImg)*3+j*3+1] = ((map->getInColor())->getG())*255;
+				tabPixels[i*(this->widthImg)*3+j*3+2] = ((map->getInColor())->getB())*255;
+			}
+		}
+	}
+
+	return 1;
+
+}
+
+int Image::changeColorOut(unsigned char* tabPixels, Map* map) {
+
+	for(uint i=0; i<(img->heightImg); i++) {
+
+		// puis on parcourt les colonnes du tableau
+		for(uint j=0; j<(img->widthImg); j++) {
+			
+			//On vérifie la couleur
+			if(tabPixels[i*(img->widthImg)*3+j*3] == 255 && tabPixels[i*(img->widthImg)*3+j*3+1] == 252 && tabPixels[i*(img->widthImg)*3+j*3+2] == 0){
+
+				//Change de couleur
+				tabPixels[i*(img->widthImg)*3+j*3] = ((map->getOutColor()).getR())*255;
+				tabPixels[i*(img->widthImg)*3+j*3+1] = ((map->getOutColor()).getG())*255;
+				tabPixels[i*(img->widthImg)*3+j*3+2] = ((map->getOutColor()).getB())*255;
+			}
+		}
+	}
+
+	return 1;
+
+}

@@ -5,8 +5,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#include "../include/map.h"
-#include "../include/image.h"
 #include "../include/texture.h"
 
 /************* Chargement de la texture de la map *************/
@@ -16,9 +14,9 @@
 
 int loadMapTexture(Map* map, GLuint* texture, SDL_Surface* image) {
 
-	image = IMG_Load(map->img->path);
+	image = IMG_Load(map->getImg()->getPath());
 	if(image == NULL) {
-		fprintf(stderr, "impossible de charger l'image %s\n", map->img->path);
+		fprintf(stderr, "impossible de charger l'image %s\n", map->getImg()->getPath());
 		return EXIT_FAILURE;
 	}
 
@@ -43,12 +41,12 @@ int loadMapTexture(Map* map, GLuint* texture, SDL_Surface* image) {
 			break;
 		default:
 			/* On ne traite pas les autres cas */
-			fprintf(stderr, "Format des pixels de l’image %s non pris en charge\n", map->img->path);
+			fprintf(stderr, "Format des pixels de l’image %s non pris en charge\n", map->getImg()->getPath());
 			return EXIT_FAILURE;
 	}
 
 	//Change les couleurs de la map
-	ChangeColor(map->img, image->pixels, map);
+	ChangeColor(map->getImg(), image->getPixels(), map);
 	//Passe l'image pour produire la texture
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image->w, image->h, 0, format, GL_UNSIGNED_BYTE, image->pixels);
 

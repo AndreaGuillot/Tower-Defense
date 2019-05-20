@@ -128,7 +128,7 @@ public:
     void setTail(Tower* t);
 
     int addTower(towerType type, Position p);
-    int moveTower(Tower* tower, listNode list_node, float x, float y);
+    int moveTower(Tower* tower, listNode* list_node, float x, float y);
     void removeTower(Tower* t);
     void removeAllTower();
     void freeAllTower();

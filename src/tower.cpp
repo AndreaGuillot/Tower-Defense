@@ -305,7 +305,7 @@ class Yoann: public Tower{
 
     public:
 
-    	Yoann(float range=10.; float rate=2.0; uint cost=120; float power =70.){
+    	Yoann(float range=10., float rate=2.0, uint cost=120, float power =70.){
     		this->range = range;
     		this->rate = rate;
     		this->cost = cost;
@@ -316,13 +316,13 @@ class Yoann: public Tower{
     	towerType getType(){
     		return yoann;
     	}
-}
+};
 
 class Clara: public Tower{
 
     public:
 
-    	Clara(float range=20.; float rate=1.0; uint cost=80; float power =60.){
+    	Clara(float range=20., float rate=1.0, uint cost=80, float power =60.){
     		this->range = range;
     		this->rate = rate;
     		this->cost = cost;
@@ -333,13 +333,13 @@ class Clara: public Tower{
     	towerType getType(){
     		return clara;
     	}
-}
+};
 
 class Jules: public Tower{
 
     public:
 
-    	Jules(float range=15.; float rate=1.5; uint cost=60; float power =30.){
+    	Jules(float range=15., float rate=1.5, uint cost=60, float power =30.){
     		this->range = range;
     		this->rate = rate;
     		this->cost = cost;
@@ -351,13 +351,13 @@ class Jules: public Tower{
     		return jules;
     	}
 
-}
+};
 
 class Oceane: public Tower{
 
     public:
 
-    	Oceane(float range=50.; float rate=0.5; uint cost=50; float power =10.){
+    	Oceane(float range=50., float rate=0.5, uint cost=50, float power =10.){
     		this->range = range;
     		this->rate = rate;
     		this->cost = cost;
@@ -368,7 +368,7 @@ class Oceane: public Tower{
     	towerType getType(){
     		return oceane;
     	}
-}
+};
 
 class listTower{
 
@@ -442,7 +442,7 @@ class listTower{
         return 1;
     }
 
-    int moveTower(Tower* tower, listNode list_node, float x, float y) {
+    int moveTower(Tower* tower, listNode* list_node, float x, float y) {
         if(this != NULL) {
             if(tower != NULL) {
                 Position pos = new Position(x, y);
@@ -622,4 +622,4 @@ class listTower{
         }
         free(this);
     }
-}
+};

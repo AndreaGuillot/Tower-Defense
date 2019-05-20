@@ -289,15 +289,14 @@ int main(int argc, char** argv) {
 			//Dessiner les monstres
 			monsters->drawMonster(&monsterTxt);
 
-			if(monsters->moveMonster(map.getListNode().getTail()) == 2) {
+			if(monsters->moveMonster(map.getListNode().getTail(), k) == 2) {
 
 				//Pointeur shot temporaire pour parcourir la liste
 				Shot *tmpShot = shots->getHead();
 
 				while(tmpShot != NULL) {
 					if(tmpShot->getTarget()->isSame(shots->getHead()->getTarget())){
-						Monster* empty;
-						tmpShot->setTarget(empty);
+						tmpShot->setTarget(NULL);
 					}
 
 					tmpShot = tmpShot->getNext();

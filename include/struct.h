@@ -1,16 +1,9 @@
 #ifndef STRUCT_H__
 #define STRUCT_H__
 
-#include "draw.h"
-#include "installation.h"
-#include "color.h"
-#include "joueur.h"
-#include "map.h"
-#include "monstre.h"
-#include "shot.h"
-#include "tower.h"
 #include <string.h>
 #include <iostream>
+#include "map.h"
 
 enum Propriete{
 	aucune, propTower, propMonster
@@ -21,6 +14,7 @@ enum Menus{
 };
 
 class Vector;
+class Map;
 
 class Position{
 private: 
@@ -30,7 +24,7 @@ public:
     Position();
 
     //Get
-    Position get();
+    Position* get();
     float getX();
     float getY();
     //Set
@@ -49,7 +43,7 @@ private:
 	float y;
 public:
 	Vector(Position a, Position b);
-	Vector get();
+	Vector* get();
 	float getX();
 	float getY();
 	float getNorm();
@@ -127,6 +121,18 @@ class Image {
 	public:
 
 		Image(char* nameImg);
+		char* getPath();
+		char* getMagicNumber();
+		uint getHeight();
+		uint getWidth();
+		int getMaxValue();
+
+		int ChangeColor(unsigned char* tabPixels, Map* map);
+		int changeColorRoad(unsigned char* tabPixels, Map* map);
+		int changeColorConstruct(unsigned char* tabPixels, Map* map);
+		int changeColorNode(unsigned char* tabPixels, Map* map);
+		int changeColorIn(unsigned char* tabPixels, Map* map);
+		int changeColorOut(unsigned char* tabPixels, Map* map);
 };
 
 #endif

@@ -9,9 +9,7 @@
 #include "../include/color.h"
 #include "../include/joueur.h"
 #include "../include/monstre.h"
-#include "../include/shot.h"
 #include "../include/struct.h"
-#include "../include/tower.h"
 
 #include <string>
 #include <iostream>
@@ -19,6 +17,7 @@
 #include <stdio.h>
 
 class Color;
+class Image;
 class listNode;
 
 class Map {
@@ -26,7 +25,7 @@ class Map {
 private:
 	//Image ppm
 	std::string image;
-	Image* img;
+	Image img;
 	//Noeuds
 	int nbNode;
 	listNode list_node;
@@ -38,32 +37,37 @@ private:
 	Color* constructColor;
 
 	//Liste des zones constructibles
-	listNode listConstruct;
-
-	listNode list_pixels;
+	listNode* listConstruct;
+	listNode* list_pixels;
 
 	//nombre de monstres sur le plateau
 	int nbMonstres;
 
 public:
+	Map();
 	//Get 
 	std::string getImage();
-	Image* getImg();
+	Image getImg();
 	//Noeuds
 	int getNbNode();
-	listNode getListNode();
+	listNode* getListNode();
 	//Couleurs de la carte
     Color* getInColor();
 	Color* getOutColor();
 	Color* getPathColor();
 	Color* getNodeColor();
 	Color* getConstructColor();
-	listNode getListConstruct();
+	listNode* getListConstruct();
 	int getNbMonstres();
-	listNode getList_pixels();
+	listNode* getList_pixels();
 
 	//Set
 	void setNbMonstres(int a);
+	void setInColor(Color* color);
+	void setOutColor(Color* color);
+	void setPathColor(Color* color);
+	void setNodeColor(Color* color);
+	void setConstructColor(Color* color);
 
 	//fonctions
 	bool drawRoad();
