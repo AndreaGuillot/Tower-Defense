@@ -2,7 +2,6 @@
 #define ITD_SHOT_H_
 
 #include "draw.h"
-#include "filetower.h"
 #include "installation.h"
 #include "color.h"
 #include "joueur.h"
@@ -39,20 +38,20 @@ public:
 	Shot get();
 	float getX();
 	float getY();
-	Monster getTarget();
+	Monster* getTarget();
 	Tower* getTower();
 	int getPower();
 	towerType getType();
-	Shot getPrev();
-	Shot getNext();
+	Shot* getPrev();
+	Shot* getNext();
 
-	void set(Shot s);
+	void set(Shot* s);
 	void setX(float x);
 	void setY(float y);
-	void setTarget(Monster m);
+	void setTarget(Monster* m);
 	void setTower(Tower* t);
-	void setPrev(Shot s);
-	void setNext(Shot s);
+	void setPrev(Shot* s);
+	void setNext(Shot* s);
 };
 
 class listShot{
@@ -68,21 +67,21 @@ public:
 	Shot* getTail();
 	//Set
 	void setLength(int l);
-	void setHead(Shot s);
-	void setTail(Shot s);
+	void setHead(Shot* s);
+	void setTail(Shot* s);
 
 	//Fonctions
 
-	int addShot(Monster m, Tower* t);
+	int addShot(Monster* m, Tower* t);
 	int moveShot();
-	void removeShot(Shot s);
+	void removeShot(Shot* s);
 	void removeAllShot();
 	void freeAllShot();
 	int draw(GLuint* shot);
 };
 
 //Vérifie s'il y a une collision avec le missile
-int collisionMissile(listShot, listMonster, Joueur, Monster, Propriete*);
+int collisionMissile(listShot*, listMonster*, Joueur*, Monster*, Propriete*);
 
 
 #endif

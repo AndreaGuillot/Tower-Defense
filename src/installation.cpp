@@ -1,75 +1,57 @@
-#ifndef INSTALLATION_H__
-#define INSTALLATION_H__
+#include "../include/installation.h"
 
-#include "../include.installation.h"
-
-class Installation {
-
-    private:
-	//Position de l'installation
-	Position p;
-	//Type de l'installation : radar, usine, stock
-	uint type;
-    //Propriétés de l'installation
-    uint cost;
-	uint range;
-
-    public:
-    //Constructeur
-    Installation();
     //Accesseurs
-    Position getPosition(){
-        return this->Position;
+    Position* Installation::getPosition(){
+        return this->p;
     }
 
-    uint getType(){
+    uint Installation::getType(){
         return this->type;
     }
 
-    uint getCost(){
+    uint Installation::getCost(){
         return this->cost;
     }
 
-    uint getRange(){
+    uint Installation::getRange(){
         return this->range;
     }
 
-    void setPosition(float x, float y){
-        this->p.setX(x);
-        this->p.setY(y);
+    void Installation::setPosition(float x, float y){
+        this->p->setX(x);
+        this->p->setY(y);
     }
 
-    void affects(Tower* tower){
-        tower->instNear[this->type] = 1;
-    }
-};
-
-class Andrea: public Installation{
-
-    Andrea(uint range = 10; uint cost = 80; type = radar){
-        this->range = range;
-        this->cost = cost;
+    void Installation::setType(installationType type){
         this->type = type;
+    }
+
+    void Installation::setCost(uint val){
+        this->cost = val;
+    }
+
+    void Installation::setRange(uint val){
+        this->range = val;
+    }
+
+    void Installation::affects(Tower* tower){
+        tower->setInstNear((int)this->type, 1);
+    }
+
+Andrea::Andrea(uint range = 10, uint cost = 80, installationType type = radar){
+        this->setRange(range);
+        this->setCost(cost);
+        this->setType(type);
     }
     
-}
-
-class Margaux: public Installation{
-
-    Margaux(uint range = 5; uint cost = 150; type = usine){
-        this->range = range;
-        this->cost = cost;
-        this->type = type;
+Margaux::Margaux(uint range = 5, uint cost = 150, installationType type = usine){
+        this->setRange(range);
+        this->setCost(cost);
+        this->setType(type);
     }
-}
 
-class BaptisteEtNicolas: public Installation{
-
-    BaptisteEtNicolas(uint range = 20; uint cost = 70; type = stock){
-        this->range = range;
-        this->cost = cost;
-        this->type = type;
+BaptisteEtNicolas::BaptisteEtNicolas(uint range = 20, uint cost = 70, installationType type = stock){
+        this->setRange(range);
+        this->setCost(cost);
+        this->setType(type);
     }
-}
-
-#endif

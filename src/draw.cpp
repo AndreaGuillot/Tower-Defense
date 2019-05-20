@@ -3,6 +3,7 @@
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include <GL/glut.h>
+#include <GL/freeglut.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
@@ -308,7 +309,7 @@ int drawMenuUp (GLuint* spriteButton, GLuint* fondMenuUp) {
 /* Dessine le menu. Prend en paramètre les textures pour le menu et un pointeur vers l'interface.	*
 *  Retourne 0 en cas d'erreur 1 sinon.									*/
 
-int drawMenuLeft (GLuint* spriteMenu, GLuint* fondMenu, Joueur joueur) {
+int drawMenuLeft (GLuint* spriteMenu, GLuint* fondMenu, Joueur* joueur) {
 
 	if(spriteMenu != NULL && fondMenu != NULL) {
 		
@@ -348,7 +349,7 @@ int drawMenuLeft (GLuint* spriteMenu, GLuint* fondMenu, Joueur joueur) {
 		//appel de la texture
 		glBindTexture(GL_TEXTURE_2D, *spriteMenu);
 
-			if(joueur.getArgent() >= PRIX_OCEANE)
+			if(joueur->getArgent() >= PRIX_OCEANE)
 				glColor4f(255,255,255, 1);
 			else 
 				glColor4f(255,255,255, 0.5);
@@ -383,7 +384,7 @@ int drawMenuLeft (GLuint* spriteMenu, GLuint* fondMenu, Joueur joueur) {
 		//appel de la texture
 		glBindTexture(GL_TEXTURE_2D, *spriteMenu);
 
-			if(joueur.getArgent() >= PRIX_JULES)
+			if(joueur->getArgent() >= PRIX_JULES)
 				glColor4f(255,255,255, 1);
 			else 
 				glColor4f(255,255,255, 0.5);
@@ -412,7 +413,7 @@ int drawMenuLeft (GLuint* spriteMenu, GLuint* fondMenu, Joueur joueur) {
 
 		/*** TOUR CLARA (Laser) : 80 pieces ***/
 
-		if(joueur.getArgent() >= PRIX_CLARA)
+		if(joueur->getArgent() >= PRIX_CLARA)
 			glColor4f(255,255,255, 1);
 		else 
 			glColor4f(255,255,255, 0.5);
@@ -446,7 +447,7 @@ int drawMenuLeft (GLuint* spriteMenu, GLuint* fondMenu, Joueur joueur) {
 
 		/*** TOUR YOANN (rocket) : 120 pieces ***/
 
-		if(joueur.getArgent() >= PRIX_YOANN)
+		if(joueur->getArgent() >= PRIX_YOANN)
 			glColor4f(255,255,255, 1);
 		else 
 			glColor4f(255,255,255, 0.5);
@@ -490,7 +491,7 @@ int drawMenuLeft (GLuint* spriteMenu, GLuint* fondMenu, Joueur joueur) {
 /* Dessine les tours. Prend en paramètre la texture de la tour, la liste de tours, la liste de monstres, la tour courant	*
 *  et les variables xt1, xt2, testMouse et propriete. Retourne 0 en cas d'erreur, 1 sinon. 					*/
 
-int drawTower (GLuint* towerTxt, listTower towers, listMonster monsters, Tower* tower, int testMouse, int testTower) {
+int drawTower (GLuint* towerTxt, listTower* towers, listMonster* monsters, Tower* tower, int testMouse, int testTower) {
 
 	if(towerTxt != NULL && towers != NULL && monsters != NULL) {
 
@@ -502,7 +503,7 @@ int drawTower (GLuint* towerTxt, listTower towers, listMonster monsters, Tower* 
 
 				if(testMouse == 1) {
 					glPushMatrix();
-					glTranslatef(tmp->getPosition()->getX(),tmp->getPosition()->getY(), 0.0);
+					glTranslatef(tmp->getPosition().getX(),tmp->getPosition().getY(), 0.0);
 
 						//Choisie la couleur
 						if(tmp == towers->getTail()) {
@@ -522,7 +523,7 @@ int drawTower (GLuint* towerTxt, listTower towers, listMonster monsters, Tower* 
 				if(tower != NULL && testMouse != 1) {
 					if(tower == tmp) {
 						glPushMatrix();
-							glTranslatef(tmp->getPosition()->getX(),tmp->getPosition()->getY(), 0.0);
+							glTranslatef(tmp->getPosition().getX(),tmp->getPosition().getY(), 0.0);
 							glColor4f(255,255,255, 0.2);
 							drawDisque(tmp->getRange());
 						glPopMatrix();
@@ -537,12 +538,12 @@ int drawTower (GLuint* towerTxt, listTower towers, listMonster monsters, Tower* 
 				glBindTexture(GL_TEXTURE_2D, *towerTxt);
 
 					int xm1, xm2, ym1, ym2;
-					xm1 = tmp->getPosition()->getX() + 20;
-					xm2 = tmp->getPosition()->getX() - 20;
-					ym1 = tmp->getPosition()->getY() + 20;
-					ym2 = tmp->getPosition()->getY() - 20;
+					xm1 = tmp->getPosition().getX() + 20;
+					xm2 = tmp->getPosition().getX() - 20;
+					ym1 = tmp->getPosition().getY() + 20;
+					ym2 = tmp->getPosition().getY() - 20;
 
-					int towerNumber = tmp.getType();
+					int towerNumber = tmp->getType();
 
 					float x1 = 0;
 					float x2 = 1;
@@ -797,10 +798,13 @@ void drawRectangleLine (int x1, int y1, int x2, int y2) {
 /******************** Ecrire du texte ********************/
 /* Ecrire du texte. Prend en paramamètre sa position et la chaine de caractère	*/
 
-void writeString(int x, int y,  string s) {
+void writeString(int x, int y, char* s) {
+		char* c;
+
 		// Positionne le premier caractère de la chaîne
 		glRasterPos2f(x, y);
-		glutBitmapString(GLUT_BITMAP_HELVETICA_18, s); // Affiche chaque caractère de la chaîne
+		for (c = s; *c != '\0'; c++)
+			glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, *c); // Affiche chaque caractère de la chaîne
 
 		// Réinitialise la position du premier caractère de la chaîne
 		glRasterPos2f(0, 0);

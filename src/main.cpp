@@ -8,7 +8,6 @@
 #include <GL/glut.h>
 
 #include "../include/draw.h"
-#include "../include/filetower.h"
 #include "../include/installation.h"
 #include "../include/color.h"
 #include "../include/map.h"
@@ -137,9 +136,6 @@ int main(int argc, char** argv) {
 	//Initialisation de la liste de shots
 	listShot* shots = new listShot();
 
-	//Initialisation de la liste de tours (file) --------------------------------------------------AUCUNE IDEE DE CE A QUOI CA SERT
-	listFileTower* fileTower =  new listFileTower("../data/IDTtower.idt");
-
 	int i = 0;
 	int j = 0;
 	int k = 0;
@@ -209,7 +205,7 @@ int main(int argc, char** argv) {
 			//Dessin du menu du dessus
 			drawMenuUp(&spriteButton, &fondMenuUp);
 			//Dessin du menu de gauche (les tours)
-			drawMenuLeft(&spriteMenu, &fondMenu, *joueur);
+			drawMenuLeft(&spriteMenu, &fondMenu, joueur);
 			//Dessin de l'interface (données du joueur)
 			joueur->drawInterface (&spriteButton);
 
@@ -289,22 +285,22 @@ int main(int argc, char** argv) {
 			}
 
 			//Dessiner les tours
-			drawTower(&towerTxt, *towers, *monsters, tower, testMouse, testTower);
+			drawTower(&towerTxt, towers, monsters, tower, testMouse, testTower);
 			//Dessiner les monstres
 			monsters->drawMonster(&monsterTxt);
 
-			if(monsters->moveMonster(*(map.getListNode().getTail())) == 2) {
+			if(monsters->moveMonster(map.getListNode().getTail()) == 2) {
 
 				//Pointeur shot temporaire pour parcourir la liste
 				Shot *tmpShot = shots->getHead();
 
 				while(tmpShot != NULL) {
-					if(tmpShot->getTarget().isSame(shots->getHead()->getTarget())){
-						Monster empty;
+					if(tmpShot->getTarget()->isSame(shots->getHead()->getTarget())){
+						Monster* empty;
 						tmpShot->setTarget(empty);
 					}
 
-					*tmpShot = tmpShot->getNext();
+					tmpShot = tmpShot->getNext();
 				}
 
 				monsters->removeMonster(monsters->getHead());
@@ -327,7 +323,7 @@ int main(int argc, char** argv) {
 			while(i < 3) {
 				shots->draw(&shot); //dessin du shot
 				shots->moveShot(); //Bouger le shot
-				collisionMissile(*shots, *monsters, *joueur, *pMonster, &propriete); //test de collision
+				collisionMissile(shots, monsters, joueur, pMonster, &propriete); //test de collision
 				i++;
 			}
 			i = 0;
@@ -363,7 +359,7 @@ int main(int argc, char** argv) {
 
 							if(testMouse == 0) {
 								//test click sur le menu de la tour
-								if(clickMenuTour(*towers, *fileTower, *joueur, e.button.x, e.button.y) == 1)
+								if(clickMenuTour(towers, joueur, e.button.x, e.button.y) == 1)
 									testMouse = 1;
 							}
 							else {
@@ -372,11 +368,11 @@ int main(int argc, char** argv) {
 							}
 
 							//Test click exit
-							loop = clickExit(*monsters, *shots, *towers, *fileTower, &map, *joueur, e.button.x, e.button.y);
+							loop = clickExit(monsters, shots, towers, &map, joueur, e.button.x, e.button.y);
 							//Test click sur une tower
-							tower = clickTower(*towers, e.button.x, e.button.y, &propriete);
+							tower = clickTower(towers, e.button.x, e.button.y, &propriete);
 							//Test click sur un monstre
-							pMonster = clickMonster(*monsters, e.button.x, e.button.y, &propriete);
+							pMonster = clickMonster(monsters, e.button.x, e.button.y, &propriete);
 						}
 					}
 					break;
@@ -396,7 +392,7 @@ int main(int argc, char** argv) {
 			  		switch(e.key.keysym.sym){
 		    			case SDLK_ESCAPE : 
 							loop = 0;
-							freeAll(*monsters, *shots, *towers, *fileTower, map, *joueur);
+							freeAll(*monsters, *shots, *towers, map, *joueur);
 							break;
 
 			    		default : break;

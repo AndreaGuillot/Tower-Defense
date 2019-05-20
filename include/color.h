@@ -2,8 +2,6 @@
 #define COLOR_H__
 
 #include "draw.h"
-#include "filetower.h"
-#include "installation.h"
 #include "joueur.h"
 #include "map.h"
 #include "monstre.h"

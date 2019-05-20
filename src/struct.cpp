@@ -3,7 +3,7 @@
 #include <math.h>
 
 class Position{
-
+public:
 	Position(float x, float y){
 		this->x = x;
 		this->y = y;
@@ -41,7 +41,7 @@ class Position{
 }
 
 class Vector{
-
+public:
 	Vector(Position A, Position B){
 		this.x = (B.getX()) - (A.getX());
 		this.y = (B.getY()) - (A.getY());
@@ -229,20 +229,6 @@ bool intersectionCarres (Position point1, Position point2, Position pointC1, Pos
 }
 
 class Image {
-
-private:
-	//Chemin vers l'image
-	char* path;
-
-	//Numero magic : identifie le type de fichier
-	char magicNumber[2];
-	
-	//Les dimensions de l'images
-	unsigned int heightImg;
-	unsigned int widthImg;
-
-	//Valeur maximal de la couleur, résolution de la couleur
-	int maxValue;
 
 public:
 

@@ -68,7 +68,9 @@ class Tower {
     void setPrev(Tower* tower){
         this->prev = tower;
     }
-
+    void setInstNear(installationType a, bool val){
+        this->instNear[a] = val;
+    }
     int drawProprieteTower(GLuint* tower, GLuint* spriteMenu, GLuint* btPlus, Joueur* joueur) {
 
         if(this != NULL) {

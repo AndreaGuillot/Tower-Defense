@@ -2,7 +2,6 @@
 #define ITD_DRAW_H_
 
 #include "color.h"
-#include "filetower.h"
 #include "installation.h"
 #include "joueur.h"
 #include "map.h"
@@ -19,9 +18,9 @@ int drawMap (GLuint*);
 //Dessin le menu du haut
 int drawMenuUp (GLuint*, GLuint*);
 //Dessin du menu de gauche
-int drawMenuLeft(GLuint*, GLuint*, Joueur);
+int drawMenuLeft(GLuint*, GLuint*, Joueur*);
 //Dessin des tours
-int drawTower (GLuint*, listTower, listMonster, Tower*, int, int);
+int drawTower (GLuint*, listTower*, listMonster*, Tower*, int, int);
 //Dessiner un rectangle avec nombre d'argent besoin pour upgrade une tour
 int drawGameOverWin(GLuint* texture, GLuint* spriteButton);
 //Dessiner un disque
@@ -33,6 +32,6 @@ void drawRectangle (int, int, int, int);
 //Dessiner le contour d'un rectangle
 void drawRectangleLine (int, int, int, int);
 //Ecrire du texte
-void writeString(int, int,  std::string);
+void writeString(int, int, char* s);
 
 #endif

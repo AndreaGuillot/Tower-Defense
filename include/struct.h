@@ -2,7 +2,6 @@
 #define STRUCT_H__
 
 #include "draw.h"
-#include "filetower.h"
 #include "installation.h"
 #include "color.h"
 #include "joueur.h"
@@ -24,9 +23,10 @@ enum Menus{
 class Vector;
 
 class Position{
+private: 
     float x;
     float y;
-
+public:
     Position(float x, float y);
 
     //Get
@@ -44,9 +44,10 @@ class Position{
 };
 
 class Vector{
+private: 
 	float x;
 	float y;
-
+public:
 	Vector(Position a, Position b);
 	Vector get();
 	float getX();

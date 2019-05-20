@@ -2,159 +2,191 @@
 #include "../include/tower.h"
 #include "../include/monstre.h"
 
-class Monster {
-	
-    public:
-    Monster(){
-        this = NULL;
-    }
     //Get
-    Position getPosition(){
+    Position Monster::getPosition(){
         return this->p;
     }
-    float getX(){
-        return this->x;
+    float Monster::getX(){
+        return this->p.getX();
     }
-    float getY(){
-        return this->y;
+    float Monster::getY(){
+        return this->p.getY();
     }    
-    float getErreur(){
+    float Monster::getErreur(){
         return this->erreur;
     }
 
-    Sens getSens(){
+    Sens Monster::getSens(){
         return this->sens;
     }
-    Node getPrev(){
+    Node* Monster::getPrev(){
         return this->node_prev;
     }
-    Node getNext();{
+    Node* Monster::getNext(){
         return this->node_next;
     }
-    Monster getPrevM(){
+    Monster* Monster::getPrevM(){
         return this->monster_prev;
     }
-    Monster getNextM(){
+    Monster* Monster::getNextM(){
         return this->monster_next;
     }
 
-    monsterType getType(){
+    monsterType Monster::getType(){
         return this->type;
     }
     
-    float getPV(){
+    uint Monster::getPV(){
         return this->pv;
     }
-    float getSpeed(){
+    uint Monster::getSpeed(){
         return this->speed;
     }
     //Ce qu'on gagne qd il meurt
-    uint getReward(){
+    uint Monster::getReward(){
         return this->money;
     }
-    float getResistance_TDR(){
+    float Monster::getResistance_TDR(){
         return this->resistance_TDR;
     }
-    float getResistance_TDV(){
+    float Monster::getResistance_TDV(){
         return this->resistance_TDV;
     }
-    float getResistance_TDJ(){
+    float Monster::getResistance_TDJ(){
         return this->resistance_TDJ;
     }
-    float getResistance_TDB(){
+    float Monster::getResistance_TDB(){
         return this->resistance_TDB;
     }
 
     //Set
-    void set(Monster m){
-        this = m;
+    void Monster::set(Monster* m){
+        this->setPosition(m->getPosition().getX(), m->getPosition().getY());
+        this->setSens(m->getSens());
+        this->setPV(m->getPV());
+        this->setErreur(m->getErreur());
+        this->setNodePrev(m->getPrev());
+        this->setNodeNext(m->getNext());
+        this->setPrevMonster(m->getPrevM());
+        this->setNextMonster(m->getNextM());
+        this->setType(m->getType());
+        this->setPV(m->getPV());
+        this->setSpeed(m->getSpeed());
+        this->setReward(m->getReward());
+        this->setResistance_TDR(m->getResistance_TDR());
+        this->setResistance_TDV(m->getResistance_TDV());
+        this->setResistance_TDJ(m->getResistance_TDJ());
+        this->setResistance_TDB(m->getResistance_TDB());
     }
 
-    void setPosition(Position p){
-        this->p = p;
-    }
-
-    void setX(float x){
+    void Monster::setPosition(float x, float y){
         this->p.setX(x);
-    }
-
-    void setY(float y){
         this->p.setY(y);
     }
 
-    void setSens(Sens s){
+    void Monster::setX(float x){
+        this->p.setX(x);
+    }
+
+    void Monster::setY(float y){
+        this->p.setY(y);
+    }
+
+    void Monster::setSens(Sens s){
         this->sens = s;
     }
 
-    void setPV(uint pv){
+    void Monster::setPV(uint pv){
         this->pv = pv;
     }
 
-    void setErreur(float e){
+    void Monster::setErreur(float e){
         this->erreur = e;
     }
 
-    void setNodePrev(Node node){
+    void Monster::setNodePrev(Node* node){
         this->node_prev = node;
     }
-    void setNodeNext(Node node){
+    void Monster::setNodeNext(Node* node){
         this->node_next=node;
     }
 
-    void setPrevMonster(Monster m){
+    void Monster::setPrevMonster(Monster* m){
         this->monster_prev = m;
     }
 
-    void setNextMonster(Monster m){
+    void Monster::setNextMonster(Monster* m){
         this->monster_next = m;
+    }
+
+    void Monster::setType(monsterType m){
+        this->type = m;
+    }
+    void Monster::setSpeed(uint a){
+        this->speed = a;
+    }
+    void Monster::setReward(uint a){
+        this->money = a;
+    }
+    void Monster::setResistance_TDR(float resistance){
+        this->resistance_TDR = resistance;
+    }
+    void Monster::setResistance_TDV(float resistance){
+        this->resistance_TDV = resistance;
+    }
+    void Monster::setResistance_TDJ(float resistance){
+        this->resistance_TDJ = resistance;
+    }
+    void Monster::setResistance_TDB(float resistance){
+        this->resistance_TDB = resistance;
     }
 
     //Fonctions
 
-    void calculErreur() {
+    void Monster::calculErreur() {
 
         //Si on est sur un chemin
         if(this->node_prev != NULL && this->node_next != NULL) {
 
             //Si on bute sur l'axe des x
-            if(this->node_prev.getX() == this->node_next.getX()) {
+            if(this->node_prev->getX() == this->node_next->getX()) {
 
                 this->erreur = 0; //erreur
 
-                if(this->node_prev.getY() <= this->node_next.getY())
+                if(this->node_prev->getY() <= this->node_next->getY())
                     this->sens = bas;
                else
                     this->sens = haut; 
             }
             //Si on bute sur l'axe des y
-            else if(this->node_prev.getY() == this->node_next.getY()) {
+            else if(this->node_prev->getY() == this->node_next->getY()) {
 
                 this->erreur = 0;//erreur
 
-                if(this->node_prev.getX() <= this->node_next.getX())
+                if(this->node_prev->getX() <= this->node_next->getX())
                     this->sens = droite;
                 else
                     this->sens = gauche;
             }
             else {
 
-                float dx = (this->node_next.getX()) - (this->node_prev.getX());
-                float dy = (this->node_next.getY()) - (this->node_prev.getY());   
+                float dx = (this->node_next->getX()) - (this->node_prev->getX());
+                float dy = (this->node_next->getY()) - (this->node_prev->getY());   
 
                 if(dx > 0) {
                     if(dy > 0) {
 
                         if(dx >= dy)
-                            this->erreur = (this->node_next.getX()) - (this->node_prev.getX());
+                            this->erreur = (this->node_next->getX()) - (this->node_prev->getX());
                         else
-                            this->erreur = (this->node_next.getY()) - (this->node_prev.getY());
+                            this->erreur = (this->node_next->getY()) - (this->node_prev->getY());
                     }
                     else {
 
                         if(dx >= -dy)
-                            this->erreur = (this->node_next.getX()) - (this->node_prev.getX());
+                            this->erreur = (this->node_next->getX()) - (this->node_prev->getX());
                         else
-                            this->erreur = (this->node_next.getY()) - (this->node_prev.getY());
+                            this->erreur = (this->node_next->getY()) - (this->node_prev->getY());
 
                     }
 
@@ -165,16 +197,16 @@ class Monster {
                     if(dy > 0) {
 
                         if(-dx >= dy)
-                            this->erreur = (this->node_next.getX()) - (this->node_prev.getX());
+                            this->erreur = (this->node_next->getX()) - (this->node_prev->getX());
                         else
-                            this->erreur = (this->node_next.getY()) - (this->node_prev.getY());
+                            this->erreur = (this->node_next->getY()) - (this->node_prev->getY());
 
                     }
                     else {
                         if(dx <= dy)
-                            this->erreur = = (this->node_next.getX()) - (this->node_prev.getX());
+                            this->erreur = (this->node_next->getX()) - (this->node_prev->getX());
                         else
-                            this->erreur = = (this->node_next.getY()) - (this->node_prev.getY());
+                            this->erreur = (this->node_next->getY()) - (this->node_prev->getY());
                     }
                     this->sens = gauche;
                 }       
@@ -187,7 +219,7 @@ class Monster {
 
     }
 
-    int drawProprieteMonster (GLuint* monster) {
+    int Monster::drawProprieteMonster (GLuint* monster) {
 
         if(this != NULL) {
 
@@ -228,7 +260,7 @@ class Monster {
             //Désactive le texturage 2D
             glDisable(GL_TEXTURE_2D);
 
-            string machaine;
+            char* machaine;
 
             /**** points de vie ****/
             //Convertie un int en un string
@@ -248,7 +280,7 @@ class Monster {
 
             /**** Resistance ****/
             //Convertie un int en un string
-            sprintf(machaine,"%d",this->resistance_TDB);
+            sprintf(machaine,"%f",this->resistance_TDB);
 
             writeString(20, 440,  "Resistance à Océane: ");
             //Affiche la chaine de caractère
@@ -256,7 +288,7 @@ class Monster {
 
 
             /**** nombre de monstre ****/
-            string type;
+            char* type;
             switch(this->type){
                 case barbara:
                     type = "Barbara";
@@ -279,7 +311,7 @@ class Monster {
 
     }
 
-    bool isSame(Monster m){
+    bool Monster::isSame(Monster* m){
         if(this->getX() != m->getX()){
             return 0;
         }
@@ -324,109 +356,93 @@ class Monster {
         }
         return 1;
     }
-};
 
-class Lucie: public Monster{
-    public:
-        Lucie(uint pv=200; uint speed = 0.09; uint money = 20; float resistance_TDR = 0.5; float resistance_TDV = 0; float resistance_TDJ = 0.3; float resistance_TDB = 0.2){
-            this->pv = pv;
-            this->speed = speed;
-            this->money = money;
-            this->resistance_TDR = resistance_TDR;
-            this->resistance_TDV = resistance_TDV;
-            this->resistance_TDJ = resistance_TDJ;
-            this->resistance_TDB = resistance_TDB;
-        }
-}
-
-class Barbara: public Monster{
-    public:
-        Barbara(uint pv=100; uint speed = 0.11; uint money = 15; float resistance_TDR = 0.1; float resistance_TDV = 0.5; float resistance_TDJ = 0.3; float resistance_TDB = 0.1){
-            this->pv = pv;
-            this->speed = speed;
-            this->money = money;
-            this->resistance_TDR = resistance_TDR;
-            this->resistance_TDV = resistance_TDV;
-            this->resistance_TDJ = resistance_TDJ;
-            this->resistance_TDB = resistance_TDB;
-        }
-}
-
-
-class Julien: public Monster{
-    public:
-        Julien(uint pv=50; uint speed = 0.14; uint money = 8; float resistance_TDR = 0.1; float resistance_TDV = 0.8; float resistance_TDJ = 0; float resistance_TDB = 0){
-            this->pv = pv;
-            this->speed = speed;
-            this->money = money;
-            this->resistance_TDR = resistance_TDR;
-            this->resistance_TDV = resistance_TDV;
-            this->resistance_TDJ = resistance_TDJ;
-            this->resistance_TDB = resistance_TDB;
+Lucie::Lucie(uint pv=200, uint speed = 0.09, uint money = 20, float resistance_TDR = 0.5, float resistance_TDV = 0, float resistance_TDJ = 0.3, float resistance_TDB = 0.2){
+            this->setPV(pv);
+            this->setSpeed(speed);
+            this->setReward(money);
+            this->setResistance_TDR(resistance_TDR);
+            this->setResistance_TDV(resistance_TDV);
+            this->setResistance_TDJ(resistance_TDJ);
+            this->setResistance_TDB(resistance_TDB);
         }
 
-}
+Barbara::Barbara(uint pv=100, uint speed = 0.11, uint money = 15, float resistance_TDR = 0.1, float resistance_TDV = 0.5, float resistance_TDJ = 0.3, float resistance_TDB = 0.1){
+            this->setPV(pv);
+            this->setSpeed(speed);
+            this->setReward(money);
+            this->setResistance_TDR(resistance_TDR);
+            this->setResistance_TDV(resistance_TDV);
+            this->setResistance_TDJ(resistance_TDJ);
+            this->setResistance_TDB(resistance_TDB);
+        }
 
-class listMonster {
+Julien::Julien(uint pv=50, uint speed = 0.14, uint money = 8, float resistance_TDR = 0.1, float resistance_TDV = 0.8, float resistance_TDJ = 0, float resistance_TDB = 0){
+            this->setPV(pv);
+            this->setSpeed(speed);
+            this->setReward(money);
+            this->setResistance_TDR(resistance_TDR);
+            this->setResistance_TDV(resistance_TDV);
+            this->setResistance_TDJ(resistance_TDJ);
+            this->setResistance_TDB(resistance_TDB);
+        }
 
-    public:
-
-        listMonster(){
+listMonster::listMonster(){
             this->length = 0;
-            head.set(NULL);
-            tail.set(NULL);
+            head->set(NULL);
+            tail->set(NULL);
         }
 
-        int getLength(){
+        int listMonster::getLength(){
             return this->length;
         }
-        Monster getHead(){
+        Monster* listMonster::getHead(){
             return this->head;
         }
-        Monster getTail(){
+        Monster* listMonster::getTail(){
             return this->tail;
         }
 
-        bool addMonster(monsterType type, Node* node) {
+        bool listMonster::listMonster::addMonster(monsterType type, Node* node) {
             if(this!=NULL){
                 //On crée le monstre
-
+                Monster* monster;
                 switch(type){
-                    case Lucie: 
-                        Lucie monster;
+                    case lucie: 
+                        monster = new Lucie();
                         break;
 
-                    case Barbara: 
-                        Barbara monster;
+                    case barbara: 
+                        monster = new Barbara();
                         break;
-                    case Julien: 
-                        Julien monster;
+                    case julien: 
+                        monster = new Julien();
                         break;
                     default: break;
                 }
 
                 if(monster != NULL){
-                    monster.setPosition(node->getPosition());
-                    monster.setNodePrev(node);
-                    monster.setNodeNext(node->getNext());
+                    monster->setPosition(node->getPosition().getX(), node->getPosition().getY());
+                    monster->setNodePrev(node);
+                    monster->setNodeNext(node->getNext());
 
                     //Vérifie le déplacement pour savoir dans quelle sens il se déplace et pour donner l'erreur
-                    monster.calculErreur();
+                    monster->calculErreur();
 
                     //Comme il est a la fin de la liste, il pointe sur NULL
-                    monster.setNextMonster(NULL);
+                    monster->setNextMonster(NULL);
 
                     //Si la liste était vide de base, alors elle est composée de seulement ce monstre
                     if(this->tail == NULL){
-                        this->head.set(monster);
-                        monster.setPrevMonster(NULL);
+                        this->head->set(monster);
+                        monster->setPrevMonster(NULL);
                     }else{
                     //On pointe le précédent monstre sur la queue de la liste et on ajoute a la queue le monstre
-                        monster.setPrevMonster(this->tail);
-                        this->tail.setNextMonster(monster);
+                        monster->setPrevMonster(this->tail);
+                        this->tail->setNextMonster(monster);
                     }
 
-                    this->tail.set(monster);
+                    this->tail->set(monster);
 
                     this->length++;
                 }else{
@@ -440,126 +456,126 @@ class listMonster {
             return 1;
         }
 
-        int moveMonster (Node node){
+        int listMonster::moveMonster (Node* node, int k){
 
             if(this != NULL){
-                Monster tmp = this->head;
+                Monster* tmp = this->head;
 
                 while(tmp != NULL){
-                    if(k%tmp.getSpeed() == 0){
+                    if(k%tmp->getSpeed() == 0){
                         //S'il avance selon l'axe des y
-                        if(tmp.getPrev().getX() == tmp.getNext().getX()){
-                            if(tmp.getSens() == bas)
-                                tmp.setY(tmp.getPosition().getY()+1);
+                        if(tmp->getPrev()->getX() == tmp->getNext()->getX()){
+                            if(tmp->getSens() == bas)
+                                tmp->setY(tmp->getPosition().getY()+1);
                             else
-                                tmp.setY(tmp.getPosition().getY()-1);
+                                tmp->setY(tmp->getPosition().getY()-1);
 
                         //S'il avance selon l'axe des x
-                        }else if(tmp.getPrev().getY() == tmp.getNext().getY()){
-                            if(tmp.getSens() == droite)
-                                tmp.setX(tmp.getPosition().getX()+1);
+                        }else if(tmp->getPrev()->getY() == tmp->getNext()->getY()){
+                            if(tmp->getSens() == droite)
+                                tmp->setX(tmp->getPosition().getX()+1);
                             else
-                                tmp.setX(tmp.getPosition().getX()-1);
+                                tmp->setX(tmp->getPosition().getX()-1);
                         }else{
                             //Il avance selon les deux axes
 
                             float x, y;
-                            x = (tmp.getNext().getPosition() - tmp.getPrev().getPosition())*2;
-                            y = (tmp.getNext().getPositionY() - tmp.getPrev().getPosition())*2;
+                            x = (tmp->getNext()->getX() - tmp->getPrev()->getX())*2;
+                            y = (tmp->getNext()->getY() - tmp->getPrev()->getY())*2;
 
                             if(x>0){
                                 if(y>0){
                                     if(x>=y){
-                                        tmp.setX(tmp.getPositionX()+1);
-                                        tmp.setErreur(tmp.getErreur() - y);
+                                        tmp->setX(tmp->getX()+1);
+                                        tmp->setErreur(tmp->getErreur() - y);
 
-                                        if(tmp.getErreur() <=0){
-                                            tmp.setY(tmp.getY()+1);
-                                            tmp.setErreur(tmp.getErreur()+x);
+                                        if(tmp->getErreur() <=0){
+                                            tmp->setY(tmp->getY()+1);
+                                            tmp->setErreur(tmp->getErreur()+x);
                                         }
                                     }else{
-                                        tmp.setY(tmp.getY()+1);
-                                        tmp.setErreur(tmp.getErreur() - x);
+                                        tmp->setY(tmp->getY()+1);
+                                        tmp->setErreur(tmp->getErreur() - x);
 
-                                        if(tmp.getErreur() <= 0){
-                                            tmp.setX(tmp.getX()+1);
-                                            tmp.setErreur(tmp.getErreur() + y);
+                                        if(tmp->getErreur() <= 0){
+                                            tmp->setX(tmp->getX()+1);
+                                            tmp->setErreur(tmp->getErreur() + y);
                                         }
                                     }
                                 }else{
 
                                     if(x>=y){
-                                        tmp.setX(tmp.getX+1);
-                                        tmp.setErreur(tmp.getErreur() + y);
+                                        tmp->setX(tmp->getX()+1);
+                                        tmp->setErreur(tmp->getErreur() + y);
 
-                                        if(tmp.getErreur() <=0){
-                                            tmp.setY(tmp.getY()-1);
-                                            tmp.setErreur(tmp.getErreur() +x);
+                                        if(tmp->getErreur() <=0){
+                                            tmp->setY(tmp->getY()-1);
+                                            tmp->setErreur(tmp->getErreur() +x);
                                         }
                                     }else{
-                                        tmp.setY(tmp.getY()-1);
-                                        tmp.setErreur(tmp.getErreur() +x);
+                                        tmp->setY(tmp->getY()-1);
+                                        tmp->setErreur(tmp->getErreur() +x);
 
-                                        if(tmp.getErreur() > 0){
-                                            tmp.setX(tmp.getX()+1);
-                                            tmp.setErreur(tmp.getErreur()+y);
+                                        if(tmp->getErreur() > 0){
+                                            tmp->setX(tmp->getX()+1);
+                                            tmp->setErreur(tmp->getErreur()+y);
                                         }
                                     }
                                 }
                             }else{
                                 if(y>0){
                                     if( -x >= y){
-                                        tmp.setX(tmp.getX()-1);
-                                        tmp.setErreur(tmp.getErreur()+y);
+                                        tmp->setX(tmp->getX()-1);
+                                        tmp->setErreur(tmp->getErreur()+y);
 
-                                        if(tmp.getErreur() >= 0){
-                                            tmp.setY(tmp.getY()+1);
-                                            tmp.setErreur(tmp.getErreur()+x);
+                                        if(tmp->getErreur() >= 0){
+                                            tmp->setY(tmp->getY()+1);
+                                            tmp->setErreur(tmp->getErreur()+x);
                                         }
                                     }else{
-                                        tmp.setY(tmp.getY()+1);
-                                        tmp.setErreur(tmp.getErreur()+x);
+                                        tmp->setY(tmp->getY()+1);
+                                        tmp->setErreur(tmp->getErreur()+x);
 
-                                        if(tmp.getErreur() <=0){
-                                            tmp.setX(tmp.getX()-1);
-                                            tmp.setErreur(tmp.getErreur()+y);
+                                        if(tmp->getErreur() <=0){
+                                            tmp->setX(tmp->getX()-1);
+                                            tmp->setErreur(tmp->getErreur()+y);
                                         }
                                     }
                                 }else{
                                     if(x <= y){
-                                        tmp.setX(tmp.getX()-1);
-                                        tmp.setErreur(tmp.getErreur() - y);
+                                        tmp->setX(tmp->getX()-1);
+                                        tmp->setErreur(tmp->getErreur() - y);
 
-                                        if(tmp.getErreur() >= 0){
-                                            tmp.setY(tmp.getY()-1);
-                                            tmp.setErreur(tmp.getErreur() +x);
+                                        if(tmp->getErreur() >= 0){
+                                            tmp->setY(tmp->getY()-1);
+                                            tmp->setErreur(tmp->getErreur() +x);
                                         }
                                     }else{
-                                        tmp.setY(tmp.getY()-1);
-                                        tmp.setErreur(tmp.getErreur() - y);
+                                        tmp->setY(tmp->getY()-1);
+                                        tmp->setErreur(tmp->getErreur() - y);
 
-                                        if(tmp.getErreur() >= 0){
-                                            tmp.setX(tmp.getX()-1);
-                                            tmp.setErreur(tmp.getErreur() +y);
+                                        if(tmp->getErreur() >= 0){
+                                            tmp->setX(tmp->getX()-1);
+                                            tmp->setErreur(tmp->getErreur() +y);
                                         }
                                     }
                                 }
                             }
                         }
 
-                        if(tmp.getPosition() == tmp.getNext().getPosition()){
-                            if(tmp.getPosition() == node.getPosition())
+                        if((tmp->getX() == tmp->getNext()->getX()) && (tmp->getY() == tmp->getNext()->getY())){
+                            if((tmp->getX() == node->getX()) && (tmp->getY() == node->getY()))
                                 return 2;
                             else{
-                                tmp.setNodePrev(tmp.getNext());
-                                tmp.setNodeNext(tmp.getNext().getNext());
+                                tmp->setNodePrev(tmp->getNext());
+                                tmp->setNodeNext(tmp->getNext()->getNext());
 
-                                tmp.calculErreur();
+                                tmp->calculErreur();
                             }
                         }
                     }
 
-                    tmp = tmp.getNext();
+                    tmp = tmp->getNextM();
                 }
 
             }else {
@@ -570,42 +586,42 @@ class listMonster {
             return 1;
         }
 
-        void removeMonster(Monster monster) {
+        void listMonster::removeMonster(Monster* monster) {
 
             if (this != NULL) {
                 if(monster != NULL) {
                     //Si c'est le dernier monstre de la liste
-                    if (monster.getNextM() == NULL) {
+                    if (monster->getNextM() == NULL) {
                     
                         //Pointe la fin de la liste sur le monstre précédent
-                        this->tail.set(monster.getPrevM());
+                        this->tail->set(monster->getPrevM());
                     
                         if(this->tail != NULL) {
                             //Lien du dernier monstre vers le monstre suivant est NULL
-                            this->tail.setNextMonster(NULL);
+                            this->tail->setNextMonster(NULL);
                         }
                         else
-                            this->head.set(NULL);
+                            this->head->set(NULL);
                         
                     }
                     //Si c'est le premier monstre de la liste
-                    else if (monster.getPrevM() == NULL) {
+                    else if (monster->getPrevM() == NULL) {
                         //Pointe la tête de la liste vers le monstre suivant
-                        this->head.set(monster.getNextM());
+                        this->head->set(monster->getNextM());
 
                         if(this->head != NULL) {
                             //Le lien vers du deuxième monstre vers le monstre précédent est NULL
-                            this->head.setPrevMonster(NULL);
+                            this->head->setPrevMonster(NULL);
                         }
                         else
-                            this->tail.set(NULL);
+                            this->tail->set(NULL);
                     }
 
                     else {
                         //Relie le monstre suivant au monstre précédent du monstre que l'on veut supprimer 
-                        monster.getNextM().setPrevMonster(monster.getPrevM());
+                        monster->getNextM()->setPrevMonster(monster->getPrevM());
                         //Relie le monstre précédent au monstre suivant du monstre que l'on veut supprimer 
-                        monster.getPrevM().setNextMonster(monster.getNextM());
+                        monster->getPrevM()->setNextMonster(monster->getNextM());
                     }
                     //Libère esspeed mémoire : supprime le monstre
                     free(monster);
@@ -615,62 +631,60 @@ class listMonster {
                 }
                 else {
                     fprintf(stderr, "Ce monstre n'existe pas\n");
-                    return NULL;
                 }
             }
             else {
                 fprintf(stderr, "Cette liste de monstres n'existe pas\n");
-                return NULL;
             }
         }
 
-        void removeAllMonsters() {
+        void listMonster::removeAllMonsters() {
             //Si la liste n'est pas vide
             if (this->length != 0) {
 
                 //Tant que la liste n'est pas vide
                 while (this->head != NULL) {
-                    this = removeMonster(this, this->head);
+                    this->removeMonster(this->head);
                 }
                 
             }
         }
 
-        void freeAllMonsters() {
+        void listMonster::freeAllMonsters() {
             //Si la liste n'est pas vide
             if (this->length != 0) {
 
                 //Tant que la liste n'est pas vide
                 while (this->head != NULL) {
-                    this = removeMonster(this, this->head);
+                    this->removeMonster(this->head);
                 }
                 
             }
             free(this);
         }
 
-        int drawMonster(GLuint* monster) {
+        int listMonster::drawMonster(GLuint* monster) {
             if(monster != NULL && this != NULL) {
             
                 //Création d'un pointeur monstre temporaire pour parcourir la liste de monstres
-                Monster tmp = this->tail;
+                Monster* tmp = this->tail;
 
                 //Parcours la liste de monstres
                 while(tmp != NULL){
 
-                    int monsterNumber = tmp.getType();
+                    int monsterNumber = tmp->getType();
                     
                     float xm1, xm2, ym1, ym2;
-                    xm1 = tmp.getX() + 20;
-                    xm2 = tmp.getX() - 20;
-                    ym1 = tmp.getY() + 20;
-                    ym2 = tmp.getY() - 20;
+                    xm1 = tmp->getX() + 20;
+                    xm2 = tmp->getX() - 20;
+                    ym1 = tmp->getY() + 20;
+                    ym2 = tmp->getY() - 20;
 
                     float x1 = (monsterNumber * (3.0/12.0));
                     float x2 = (monsterNumber * (3.0/12.0));
                     float y1 = 0, y2 = 0;
 
-                    switch(tmp.getSens()) {
+                    switch(tmp->getSens()) {
                         case haut :
                             y1 = 0.5;
                             y2 = 0.75;
@@ -718,7 +732,7 @@ class listMonster {
                     //Désactive le texturage 2D
                     glDisable(GL_TEXTURE_2D);
 
-                    tmp = tmp.getPrev();
+                    tmp = tmp->getPrevM();
                 }
             }
             else {
@@ -728,5 +742,3 @@ class listMonster {
 
             return 1;
         }
-}
-

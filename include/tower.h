@@ -2,7 +2,6 @@
 #define TOWER_H__
 
 #include "draw.h"
-#include "filetower.h"
 #include "installation.h"
 #include "color.h"
 #include "joueur.h"
@@ -74,6 +73,7 @@ class Tower {
     void setCompteur(int a);
     void setPrev(Tower* t);
     void setNext(Tower* t);	
+    void setInstNear(int a, bool val);
 
     //functions
 

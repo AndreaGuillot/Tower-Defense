@@ -2,7 +2,6 @@
 #define JOUEUR_H__
 
 #include "draw.h"
-#include "filetower.h"
 #include "installation.h"
 #include "color.h"
 #include "map.h"
@@ -33,13 +32,14 @@ class Joueur {
     void setArgent(uint argent);
     void setNbVagues(int n);
     //Fonctions
-    void updateMonsterKill(Monster m);
-    bool updateMoneyBuildTower(Tower* t);
-    bool updateMoneyBuildInstallation(Installation i);
+    void updateMonsterKill(Monster* m);
+    bool updateMoneyBuildTower(float cost);
+    bool updateMoneyBuildInstallation(Installation* i);
     bool drawInterface (GLuint* spriteButton);
+    void initInterface();
 };
 
 void initAll (listMonster monsters, listShot shots, listTower towers, Joueur joueur);
-void freeAll (listMonster monsters, listShot shots, listTower towers, listFileTower fileTowers, Map map, Joueur joueur);
+void freeAll (listMonster monsters, listShot shots, listTower towers, Map map, Joueur joueur);
 
 #endif

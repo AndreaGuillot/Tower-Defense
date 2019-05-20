@@ -2,7 +2,6 @@
 #define INSTALLATION_H__
 
 #include "color.h"
-#include "filetower.h"
 #include "draw.h"
 #include "joueur.h"
 #include "map.h"
@@ -11,6 +10,13 @@
 #include "struct.h"
 #include "tower.h"
 #include <string.h>
+#include <math.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdint.h>
+
+class Position;
+class Tower;
 
 enum installationType {
     radar, usine, stock
@@ -20,7 +26,7 @@ class Installation {
 
     private:
 	//Position de l'installation
-	Position p;
+	Position* p;
 	//Type de l'installation : radar, usine, stock
 	installationType type;
     //Propriétés de l'installation
@@ -31,12 +37,15 @@ class Installation {
     //Constructeur
     Installation();
     //Accesseurs
-    int getPosition();
+    Position* getPosition();
     uint getCost();
     uint getRange();
     uint getType();
 
     void setPosition(float x, float y);
+    void setCost(uint val);
+    void setRange(uint val);
+    void setType(installationType type);
     void affects(Tower* tower);
 };
 

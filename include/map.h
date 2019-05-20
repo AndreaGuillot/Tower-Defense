@@ -5,7 +5,6 @@
 #include <SDL/SDL_image.h>
 
 #include "../include/draw.h"
-#include "../include/filetower.h"
 #include "../include/installation.h"
 #include "../include/color.h"
 #include "../include/joueur.h"
