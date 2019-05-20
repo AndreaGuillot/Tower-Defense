@@ -4,76 +4,67 @@
 
 #include "../include/filetower.h"
 
-class FileTower {
-
-public:
-	towerType getType_tower(){
+towerType FileTower::getType_tower(){
 		return this->type_tower;
 	}
-	int getRate(){
+	int FileTower::getRate(){
 		return this->rate;
 	}
-	int getRange(){
+	int FileTower::getRange(){
 		return this->range;
 	}
-	int getCost(){
+	int FileTower::getCost(){
 		return this->cost;
 	}
-	int getPower(){
+	int FileTower::getPower(){
 		return this->power;
 	}
-	FileTower* getPrev(){
+	FileTower* FileTower::getPrev(){
 		return this->prev;
 	}
-	FileTower* getNext(){
+	FileTower* FileTower::getNext(){
 		return this->next;
 	}
 
-	void setType_tower(towerType type){
+	void FileTower::setType_tower(towerType type){
 		this->type_tower = type;
 	}
-	void setRate(int n){
+	void FileTower::setRate(int n){
 		this->rate = n;
 	}
-	void setRange(int n){
+	void FileTower::setRange(int n){
 		this->range = n;
 	}
-	void setCost(int n){
+	void FileTower::setCost(int n){
 		this->cost = n;
 	}
-	void setPower(int n){
+	void FileTower::setPower(int n){
 		this->power = n;
 	}
-	void setPrev(FileTower* t){
+	void FileTower::setPrev(FileTower* t){
 		this->prev = t;
 	}
-	void setNext(FileTower* t){
+	void FileTower::setNext(FileTower* t){
 		this->next = t;
 	}
 
-};
-
-class listFileTower{
-
-public: 
-
-	FileTower getHead(){
+FileTower* listFileTower::getHead(){
 		return this->head;
 	}
-	FileTower getTail(){
+	FileTower* listFileTower::getTail(){
 		return this->tail;
 	}
-	void setHead(FileTower t){
+	void listFileTower::setHead(FileTower* t){
 		this->head= t;
 	}
-	void setTail(FileTower t){
+	void listFileTower::setTail(FileTower* t){
 		this->tail= t;
 	}
 
 	/************* Initialisation de la liste de tour (file) *************/
 	/* Alloue de la mémoire pour la liste puis vérifie le fichier à l'aide de la fonction verificationFileTower	*
 	*  Prend en paramère le chemin vers le fichier. Retourne le pointeur vers la liste.				*/
-	listFileTower (char path) {
+	listFileTower::listFileTower (char* path) {
 		if(this != NULL){
 			if(path != NULL) {
 				
@@ -81,7 +72,7 @@ public:
 				this->head = NULL;
 				this->tail = NULL;
 
-				if(this.verificationFileTower(path) == 0) {
+				if(this->verificationFileTower(path) == 0) {
 					fprintf(stderr, "Erreur au moment de la vérification du fichier pour les tours\n");
 				}
 			}
@@ -101,7 +92,7 @@ public:
 	*  Prend en paramètre un pointeur vers une la liste et le chemin vers le fichier ITD.			*
 	*  Retourne 0 en cas d'erreur sinon retourne 1								*/
 
-	int verificationFileTower(char path) {
+	int listFileTower::verificationFileTower(char* path) {
 
 		if(this != NULL) {
 			
@@ -166,7 +157,7 @@ public:
 																					//Récupère la valeur de costR
 																					if(fscanf(itd, "%d\n", &cost) == 1){
 
-																					addFileTower(this, power, rate, "R", range, cost);
+																					this->addFileTower(power, rate, "R", range, cost);
 													
 
 																					}
@@ -272,7 +263,7 @@ public:
 																					//Récupère la valeur de costL
 																					if(fscanf(itd, "%d\n", &cost) == 1){
 
-																					addFileTower(this, power, rate, "L", range, cost);
+																					this->addFileTower(power, rate, "L", range, cost);
 													
 
 																					}
@@ -379,7 +370,7 @@ public:
 																					//Récupère la valeur de costM
 																					if(fscanf(itd, "%d\n", &cost) == 1){
 
-																					addFileTower(this, power, rate, "M", range, cost);
+																					this->addFileTower(power, rate, "M", range, cost);
 													
 
 																					}
@@ -486,7 +477,7 @@ public:
 																					//Récupère la valeur de costH
 																					if(fscanf(itd, "%d\n", &cost) == 1){
 
-																					addFileTower(this, power, rate, "H", range, cost);
+																					this->addFileTower(power, rate, "H", range, cost);
 													
 
 																					}
@@ -589,7 +580,7 @@ public:
 	*  Prend en paramètre la liste de tours, la puissance d'attaque, la vitesse d'attaque, le type 	*
 	*  le périmétre d'action et le cout. Retourne 0 en cas d'erreur et 1 sinon			*/
 
-	int addFileTower(int power, int rate, char* type_tower, int range, int cost) {
+	int listFileTower::addFileTower(int power, int rate, char* type_tower, int range, int cost) {
 
 		// On vérifie si notre liste a été allouée
 		if (this != NULL) {
@@ -644,7 +635,7 @@ public:
 	/* Supprime une tour selon sa position, vérifie si c'est le premier, le dernier ou une tour dans la liste puis la supprime 	*
 	*  Prend en paramètre la liste de tours et la tour à supprimer et retourne la liste de tours.					*/
 
-	void removeFileTower(FileTower* fileTower) {
+	void listFileTower::removeFileTower(FileTower* fileTower) {
 
 		// On vérifie si notre liste a été allouée
 		if (this != NULL) {
@@ -706,7 +697,7 @@ public:
 	/************* Supprimer la liste de fileTower *************/
 	/* Supprime la liste de missiles. Prend en paramètre un pointeur vers la liste de missiles 	*/
 
-	void freeAllFileTower () {
+	void listFileTower::freeAllFileTower () {
 		//Si la liste n'est pas vide
 		if (this->length != 0) {
 
@@ -718,4 +709,3 @@ public:
 		}
 		free(this);
 	}
-}

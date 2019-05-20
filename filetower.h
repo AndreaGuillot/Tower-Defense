@@ -16,7 +16,7 @@
 /* Liste doublement chainée pour pouvoir naviger dans la liste de tours	*
 *  et récupérer facile n'importe quelle tour dans la liste 		*/
 class FileTower {
-
+private:
 	towerType type_tower;
 	int rate;
 	int range;
@@ -52,20 +52,20 @@ private:
 	int length;
 
 	//Pointeur
-	FileTower head; //pointeur vers le premier element
-	FileTower tail; //pointeur vers le dernier element
+	FileTower* head; //pointeur vers le premier element
+	FileTower* tail; //pointeur vers le dernier element
 
 public:
 
-	listFileTower(std::string);
+	listFileTower(char*);
 
-	FileTower getHead();
-	FileTower getTail();
-	void setHead(FileTower t);
-	void setTail(FileTower t);
+	FileTower* getHead();
+	FileTower* getTail();
+	void setHead(FileTower* t);
+	void setTail(FileTower* t);
 
-	int verificationFileTower(char);
-	int addFileTower(int, int, char, int, int);
+	int verificationFileTower(char*);
+	int addFileTower(int, int, char*, int, int);
 	void removeFileTower(FileTower*);
 	void freeAllFileTower ();
 };
