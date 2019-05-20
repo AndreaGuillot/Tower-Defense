@@ -27,7 +27,7 @@ private:
     float x;
     float y;
 public:
-    Position(float x, float y);
+    Position();
 
     //Get
     Position get();
@@ -73,6 +73,7 @@ class Node {
 	Node* next;
 
 	public:
+		Node();
 		Position getPosition();
 		float getX();
 		float getY();

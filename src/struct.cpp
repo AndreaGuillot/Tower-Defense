@@ -1,163 +1,158 @@
-#include"struct.h"
+#include"../include/struct.h"
 #include <stdlib.h>
 #include <math.h>
 
-class Position{
-public:
-	Position(float x, float y){
-		this->x = x;
-		this->y = y;
-	}
-
-	Position get(){
-		return this;
-	}
-
-	float getX(){
-    	return x;
-    }
-
-    float getY(){
-    	return y;
-    }
-
-    void set(float x, float y){
-    	this->x = x;
-    	this->y = y;
-    }
-
-    void setX(float x){
-    	this->x = x;
-    }
-
-    void setY(float y){
-    	this->y = y;
-    }
-
-    void addVector(Vector V) {		
-		this->x += (V.getX());
-		this->y += (V.getY());
-	}
+Position::Position(){
+	this->x = x=0;
+	this->y = y=0;
 }
 
-class Vector{
-public:
-	Vector(Position A, Position B){
-		this.x = (B.getX()) - (A.getX());
-		this.y = (B.getY()) - (A.getY());
-	}
-
-	Vector get(){
-		return this;
-	}
-
-	float getX(){
-		return this->x;
-	}
-
-	float getY(){
-		return this->y;
-	}
-
-	float getNorm() {
-		float norme;
-
-		norme = pow(this->x, 2.0) pow(this->y, 2.0);
-		norme = sqrt(norme);
-		return norme;
-	}
-
-	void setX(float x){
-		this->x = x;
-	}
-	void setY(float y){
-		this->y = y;
-	}
-
-	void normalize(){
-		float norme = this.getNorm();	
-		this->x = (this->x) / norme;
-		this->y = (this->y) / norme;
-	}
-
+Position Position::get(){
+	return this;
 }
 
-class Node {
+float Position::getX(){
+	return x;
+}
 
-	public:
+float Position::getY(){
+	return y;
+}
 
-		Position getPosition(){
-			return this->pos;
-		}
+void Position::set(float x, float y){
+	this->x = x;
+	this->y = y;
+}
 
-		float getX(){
-			return this->pos.getX();
-		}
+void Position::setX(float x){
+	this->x = x;
+}
 
-		float getY(){
-			return this->pos.getY();
-		}
+void Position::setY(float y){
+	this->y = y;
+}
 
-		Node* getNext(){
-			return this->next;
-		}
+void Position::addVector(Vector V) {		
+	this->x += (V.getX());
+	this->y += (V.getY());
+}
 
-		void createNode(float x, float y){
-			this->x = x;
-			this->y = y;
-		}
 
-		void setPosition(Position p){
-			this->pos = p;
-		}
-		void setX(float a){
-			this->x = a;
-		}
-		void setY(float a){
-			this->y = a;
-		}
-		void setNext(Node node){
-			this->next = node;
-		}
 
-};
+Vector::Vector(Position A, Position B){
+	this.x = (B.getX()) - (A.getX());
+	this.y = (B.getY()) - (A.getY());
+}
 
-class listNode {
+Vector Vector::get(){
+	return this;
+}
 
-public: 
-	listNode(){
-		this=NULL;
-	}
-	
-	int getLength(){
-		return this->length;
-	}
+float Vector::getX(){
+	return this->x;
+}
 
-	Node* getHead(){
-		return this->head;
-	}
+float Vector::getY(){
+	return this->y;
+}
 
-	Node* getTail(){
-		return this->tail;
-	}
+float Vector::getNorm() {
+	float norme;
 
-	void setLength(int a){
-		this->length = a;
-	}
+	norme = pow(this->x, 2.0) pow(this->y, 2.0);
+	norme = sqrt(norme);
+	return norme;
+}
 
-	void setHead(Node* node){
-		this->head = node;
-	}
+void Vector::setX(float x){
+	this->x = x;
+}
+void Vector::setY(float y){
+	this->y = y;
+}
 
-	void setTail(Node* node){
-		this->tail = node;
-	}
-};
+void Vector::normalize(){
+	float norme = this.getNorm();	
+	this->x = (this->x) / norme;
+	this->y = (this->y) / norme;
+}
+
+
+
+Node::Node(){
+	this->pos = Position();
+	this->next = NULL;
+}
+Position Node::getPosition(){
+	return this->pos;
+}
+
+float Node::getX(){
+	return this->pos.getX();
+}
+
+float Node::getY(){
+	return this->pos.getY();
+}
+
+Node* Node::getNext(){
+	return this->next;
+}
+
+void Node::createNode(float x, float y){
+	this->x = x;
+	this->y = y;
+}
+
+void Node::setPosition(Position p){
+	this->pos = p;
+}
+void Node::setX(float a){
+	this->x = a;
+}
+void Node::setY(float a){
+	this->y = a;
+}
+void Node::setNext(Node node){
+	this->next = node;
+}
+
+
+
+
+
+listNode::listNode(){
+	this=NULL;
+}
+
+int listNode::getLength(){
+	return this->length;
+}
+
+Node* listNode::getHead(){
+	return this->head;
+}
+
+Node* listNode::getTail(){
+	return this->tail;
+}
+
+void listNode::setLength(int a){
+	this->length = a;
+}
+
+void listNode::setHead(Node* node){
+	this->head = node;
+}
+
+void listNode::setTail(Node* node){
+	this->tail = node;
+}
 
 bool intersectionCarreDisque (Position point1, Position point2, float rayon, Position origin) {
 
 	int i;
-	Position point;
+	Position point = Position(0, 0);
 
 	for(i = 0; i < 4; i++) {
 
@@ -191,7 +186,7 @@ bool intersectionCarreDisque (Position point1, Position point2, float rayon, Pos
 bool intersectionCarres (Position point1, Position point2, Position pointC1, Position pointC2) {
 
 	int i;
-	Position point;
+	Position point = Position(0, 0);
 
 	int xmin = ((point1.getX()) < (point2.getX())) ? (point1.getX()) : (point2.getX());
 	int xmax = ((point1.getX()) > (point2.getX())) ? (point1.getX()) : (point2.getX());
@@ -228,11 +223,9 @@ bool intersectionCarres (Position point1, Position point2, Position pointC1, Pos
 	return 0;
 }
 
-class Image {
 
-public:
 
-	Image(char* nameImg) {
+Image::Image(char* nameImg) {
 
 		FILE* image = NULL;
 		image = fopen(nameImg, "r");
@@ -292,5 +285,3 @@ public:
 		}
 		return 1;
 	}
-
-	};

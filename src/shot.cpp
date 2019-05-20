@@ -147,7 +147,7 @@ int listShot::moveShot() {
 		//Parcours la liste de missiles
 		while(tmp != NULL){
 
-			Position point_target = Position(0, 0);
+			Position point_target;
 			if(tmp->getTarget() != NULL) {
 
 				point_target.set(tmp->getTarget()->getX(), tmp->getTarget()->getY());
@@ -156,7 +156,8 @@ int listShot::moveShot() {
 				point_target.set(810, 100);
 			}
 
-			Position point_shot = Position(tmp->getX(), tmp->getY());
+			Position point_shot;
+			point_shot.set(tmp->getX(), tmp->getY());
 
 			//Créer un vecteur avec le la position du missile et la position de l'ennemie
 			Vector vector = Vector(point_shot, point_target);
@@ -319,10 +320,10 @@ bool collisionMissile(listShot* shots, listMonster* monsters, Joueur* joueur, Mo
 		while(tmp != NULL){
 
 			//Vérifie s'il y a une intersection pour les quatres coté du quads du monstre
-			Position point1 = Position(0, 0);
-			Position point2 = Position(0, 0);
-			Position pointC1 = Position(0, 0); 
-			Position pointC2 = Position(0, 0);
+			Position point1;
+			Position point2;
+			Position pointC1; 
+			Position pointC2;
 
 			pointC1.set(tmp->getX()+5, tmp->getY()+5);
 			pointC2.set(tmp->getX()-5, tmp->getY()-5);
