@@ -10,6 +10,7 @@
 
 class Installation;
 class Map;
+class listTower;
 
 class Joueur {
 

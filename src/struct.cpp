@@ -39,9 +39,9 @@ void Position::addVector(Vector V) {
 
 
 
-Vector::Vector(Position A, Position B){
-	this->x = (B.getX()) - (A.getX());
-	this->y = (B.getY()) - (A.getY());
+Vector::Vector(){
+	this->x = NULL;
+	this->y = NULL;
 }
 
 Vector* Vector::get(){

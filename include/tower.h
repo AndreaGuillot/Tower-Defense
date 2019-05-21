@@ -43,7 +43,7 @@ class Tower {
     //Constructeur
     Tower();
     //Get
-    Position getPosition();
+    Position* getPosition();
     virtual towerType getType() = 0;
     float getPower();
     float getRange();
@@ -58,11 +58,12 @@ class Tower {
 	void setPower(int p);
 	void setRange(float rg);
 	void setRate(int rt);
-    void setPosition(Position p);
+    void setCost(uint cost);
+    void setPosition(Position* p);
     void setCompteur(int a);
     void setPrev(Tower* t);
     void setNext(Tower* t);	
-    void setInstNear(int a, bool val);
+    void setInstNear(installationType a, bool val);
 
     //functions
 
@@ -74,25 +75,25 @@ class Tower {
 
 class Yoann: public Tower{
     public:
-    	Yoann(float range=10., float rate=2.0, uint cost=120, float power =70.);
+    	Yoann(float range, float rate, uint cost, float power);
     	towerType getType();
 };
 
 class Clara: public Tower{
     public:
-    	Clara(float range=20., float rate=1.0, uint cost=80, float power =60.);
+    	Clara(float range, float rate, uint cost, float power);
     	towerType getType();
 };
 
 class Jules: public Tower{
     public:
-    	Jules(float range=15., float rate=1.5, uint cost=60, float power =30.);
+    	Jules(float range, float rate, uint cost, float power);
     	towerType getType();
 };
 
 class Oceane: public Tower{
     public:
-    	Oceane(float range=50., float rate=0.5, uint cost=50, float power =10.);
+    	Oceane(float range, float rate, uint cost, float power);
     	towerType getType();
 };
 

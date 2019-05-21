@@ -46,7 +46,7 @@ int loadMapTexture(Map* map, GLuint* texture, SDL_Surface* image) {
 	}
 
 	//Change les couleurs de la map
-	map->getImg()->ChangeColor(image->pixels, map);
+	map->getImg()->ChangeColor((unsigned char*)image->pixels, map);
 	//Passe l'image pour produire la texture
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image->w, image->h, 0, format, GL_UNSIGNED_BYTE, image->pixels);
 

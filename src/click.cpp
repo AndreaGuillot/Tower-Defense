@@ -145,7 +145,7 @@ Monster* clickMonster(listMonster* monsters, float x, float y, Propriete* propri
 		while(tmp != NULL) {
 
 			//Si on a cliqué sur une tour
-			if(x <= (tmp->getPosition().getX() + 20) && x >= (tmp->getPosition().getX() - 20) && y <= (tmp->getPosition().getY() + 20) && y >= (tmp->getPosition().getY() - 20)) {
+			if(x <= (tmp->getPosition()->getX() + 20) && x >= (tmp->getPosition()->getX() - 20) && y <= (tmp->getPosition()->getY() + 20) && y >= (tmp->getPosition()->getY() - 20)) {
 				*propriete = propTower;
 				return tmp;	
 			}

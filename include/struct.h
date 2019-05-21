@@ -34,7 +34,7 @@ private:
 	float x;
 	float y;
 public:
-	Vector(Position a, Position b);
+	Vector();
 	Vector* get();
 	float getX();
 	float getY();
