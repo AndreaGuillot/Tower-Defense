@@ -10,8 +10,11 @@
 #include <GL/glu.h>
 #include <stdlib.h>
 
-	int loadMapTexture(Map* map, GLuint* texture, SDL_Surface* image);
-	int loadTexture(std::string fileName, GLuint* texture, SDL_Surface* img);
-	void freeTexture(GLuint* texture, SDL_Surface* img);
+//Charge les textures de la map
+int loadMapTexture(Map* map, GLuint* texture, SDL_Surface* image);
+//Charge textures
+int loadTexture(std::string fileName, GLuint* texture, SDL_Surface* img);
+//Libère espace mémoire
+void freeTexture(GLuint* texture, SDL_Surface* img);
 
 #endif

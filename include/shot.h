@@ -13,16 +13,20 @@
 #include <string.h>
 #include <iostream>
 
+/************* Classes Position et Tower *************/
+//Gère monstre
 class Monster;
+//Gère liste monstres
 class listMonster;
+//Gère info joueur
 class Joueur;
 
+/************* Classe Shot : gère les tirs des tours *************/
 class Shot{
 
-	//position du missile
+	//Position du missile
 	float x;
 	float y;
-
 	//Ennemie visé
 	Monster* target;
 	//Tour d'origine
@@ -32,53 +36,60 @@ class Shot{
 	//Pointeur vers l'élément suivant
 	Shot* next;
 
-public:
-
-	Shot();
-	
-	Shot* get();
-	float getX();
-	float getY();
-	Monster* getTarget();
-	Tower* getTower();
-	int getPower();
-	towerType getType();
-	Shot* getPrev();
-	Shot* getNext();
-
-	void set(Shot* s);
-	void setX(float x);
-	void setY(float y);
-	void setTarget(Monster* m);
-	void setTower(Tower* t);
-	void setPrev(Shot* s);
-	void setNext(Shot* s);
+	public:
+		//Constructeur
+		Shot();
+		//Get
+		Shot* get();
+		float getX();
+		float getY();
+		Monster* getTarget();
+		Tower* getTower();
+		int getPower();
+		towerType getType();
+		Shot* getPrev();
+		Shot* getNext();
+		//Set
+		void set(Shot* s);
+		void setX(float x);
+		void setY(float y);
+		void setTarget(Monster* m);
+		void setTower(Tower* t);
+		void setPrev(Shot* s);
+		void setNext(Shot* s);
 };
 
+/************* Classe listShot : gère liste tirs *************/
 class listShot{
 
 	int length;
 	Shot* head; //pointeur vers le premier element
 	Shot* tail; //pointeur vers le dernier element
-public:
-	listShot();
-	//Get
-	int getLength();
-	Shot* getHead();
-	Shot* getTail();
-	//Set
-	void setLength(int l);
-	void setHead(Shot* s);
-	void setTail(Shot* s);
 
-	//Fonctions
-
-	int addShot(Monster* m, Tower* t);
-	int moveShot();
-	void removeShot(Shot* s);
-	void removeAllShot();
-	void freeAllShot();
-	int draw(GLuint* shot);
+	public:
+		//Constructeur
+		listShot();
+		//Get
+		int getLength();
+		Shot* getHead();
+		Shot* getTail();
+		//Set
+		void setLength(int l);
+		void setHead(Shot* s);
+		void setTail(Shot* s);
+		//Fonctions
+		/* Ajoute tir */
+		int addShot(Monster* m, Tower* t);
+		/* Deplacement tir */
+		int moveShot();
+		/* Supprime tir */
+		void removeShot(Shot* s);
+		/* Supprime tous les tirs */
+		void removeAllShot();
+		/* Libère espace mémoire */
+		void freeAllShot();
+		/* Dessine tir */
+		int draw(GLuint* shot);
 };
 
 //Vérifie s'il y a une collision avec le missile

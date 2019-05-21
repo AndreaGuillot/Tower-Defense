@@ -11,27 +11,29 @@
 #include "tower.h"
 #include <string.h>
 
-//Dessin du menu principal
+/************* Prototypes des fonctions *************/
+
+//Dessine : menu principal
 int drawMenuPrincipal (GLuint*, GLuint*);
-//Dessine la carte
+//Dessine : la carte
 int drawMap (GLuint*);
-//Dessin le menu du haut
+//Dessine : menu du haut
 int drawMenuUp (GLuint*, GLuint*);
-//Dessin du menu de gauche
+//Dessine : menu de gauche
 int drawMenuLeft(GLuint*, GLuint*, Joueur*);
-//Dessin des tours
+//Dessine : tours
 int drawTower (GLuint*, listTower*, listMonster*, Tower*, int, int);
-//Dessiner un rectangle avec nombre d'argent besoin pour upgrade une tour
+//Dessine : GameOver / Win
 int drawGameOverWin(GLuint* texture, GLuint* spriteButton);
-//Dessiner un disque
+//Dessine un disque
 void drawDisque(float);
-//Dessiner un clercle
+//Dessine un clercle
 void drawCercle(float);
-//Dessiner un rectangle
+//Dessine un rectangle
 void drawRectangle (int, int, int, int);
-//Dessiner le contour d'un rectangle
+//Dessine le contour d'un rectangle
 void drawRectangleLine (int, int, int, int);
-//Ecrire du texte
+//Ecrit du texte
 void writeString(int, int, char* s);
 
 #endif
