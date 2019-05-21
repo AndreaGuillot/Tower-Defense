@@ -25,6 +25,7 @@ void Joueur::setNbVagues(int n){
 }
 
 //Fonctions
+/* Monstre tué */
 void Joueur::updateMonsterKill(Monster* m){
     if(m != NULL){
         this->argent += m->getReward();
@@ -32,7 +33,7 @@ void Joueur::updateMonsterKill(Monster* m){
         fprintf(stderr, "Erreur avec le monstre\n");
     }
 }
-
+/* Argent achat tour */
 bool Joueur::updateMoneyBuildTower(float cost){
     int new_argent = this->argent-cost;
     if(new_argent<0){
@@ -42,7 +43,7 @@ bool Joueur::updateMoneyBuildTower(float cost){
         return 1;
     }
 }
-
+/* Argent achat installation */
 bool Joueur::updateMoneyBuildInstallation(Installation* i){
     int new_argent = this->argent - i->getCost();
     if(new_argent<0){
@@ -52,7 +53,7 @@ bool Joueur::updateMoneyBuildInstallation(Installation* i){
         return 1;
     }
 }
-
+/* Dessine interface joueur */
 bool Joueur::drawInterface (GLuint* spriteButton) {
     if(this != NULL) {
 
@@ -68,13 +69,13 @@ bool Joueur::drawInterface (GLuint* spriteButton) {
 
         //Active le texturage 2D
         glEnable(GL_TEXTURE_2D);
-        //appel de la texture
+        //Appel de la texture
         glBindTexture(GL_TEXTURE_2D, *spriteButton);
 
             glBegin(GL_QUADS);
-            //couleur neutre
+            //Couleur neutre
             glColor3ub(255,255,255);
-            //coordonée de la texture
+            //Coordonée de la texture
             glTexCoord2f(0.125, 1);
             //Cordonnée du quadrilatère 
             glVertex2f(140, 45);
@@ -104,6 +105,8 @@ bool Joueur::drawInterface (GLuint* spriteButton) {
 
 }
 
+//Initialisations
+
 void Joueur::initInterface () {
     if (this != NULL) {
         this->argent = 100;
@@ -122,6 +125,8 @@ void initAll (listMonster* monsters, listShot* shots, listTower* towers, Joueur*
     //Réinitialise l'interface
     joueur->initInterface();
 }
+
+//Libère espace mémoire
 
 void freeAll (listMonster* monsters, listShot* shots, listTower* towers, Map* map, Joueur* joueur) {
 

@@ -8,9 +8,10 @@
 #include <math.h>
 #include "../include/click.h"
 
-/*********************** Clique sur le menuPrincipale  ***********************/
-/* action clique menu Principale. Prend en paramètre la position et un pointeur vers nbMenu. Retourne 0 en cas d'erreur et 1 sinon	*/
-
+/*********************** Cliquer sur le menu : menu principal  ***********************/
+/* Action : clique menu Principale.								*
+ * Prend en paramètre la position et un pointeur vers nbMenu. 	*
+ * Retourne 0 en cas d'erreur et 1 sinon.						*/
 void clickMenuPrincipal(float x, float y, Menus* nbMenu) {
 
 	//bouton play
@@ -21,9 +22,9 @@ void clickMenuPrincipal(float x, float y, Menus* nbMenu) {
 		*nbMenu = 2;*/
 }
 
-/*********************** Clique sur le menu : achat de tour ***********************/
-/* Achat d'une tour losqu'on clique sur le menu puis affiche la tour. 	*/
-
+/*********************** Cliquer sur le menu : achat de tour ***********************/
+/* Achat d'une tour losqu'on clique sur le menu.	*
+ * Puis affiche la tour. 							*/
 int clickMenuTour(listTower* towers, Joueur* joueur, float x, float y) {
 	if(towers != NULL && joueur != NULL) {
 
@@ -62,13 +63,13 @@ int clickMenuTour(listTower* towers, Joueur* joueur, float x, float y) {
 		//Vérifie qu'il y a un type, sinon pas de clique sur l'un des boutons
 		if(type != NULL) {
 
-			//S'il le joueur a assez d'argent
+			//Si le joueur a assez d'argent
 			if((joueur->getArgent()) >= tmp->getCost()) {
 				//Ajoute une tour
 				Position p;
 				p.set(x, y);
 				towers->addTower(type, p);
-				//Met a jour l'agent
+				//Met à jour l'argent
 				joueur->updateMoneyBuildTower(tmp->getCost());
 				return 1;
 			}
@@ -83,7 +84,8 @@ int clickMenuTour(listTower* towers, Joueur* joueur, float x, float y) {
 }
 
 /*********************** Clique sur le menu : fermer ***********************/
-/* fermer : retourne 0 si on a cliqué sur le bouton avance rapide sinon retourne 1 	*/
+/* Retourne 0 si on a cliqué sur le bouton fermer.	*
+ * Sinon retourne 1.								*/
 int clickExit(listMonster* monsters, listShot* shots, listTower* towers, Map* map, Joueur *joueur, float x, float y) {
 	
 	if(x <= 790 && x >= 760 && y <= 45 && y >= 15) {
@@ -95,11 +97,11 @@ int clickExit(listMonster* monsters, listShot* shots, listTower* towers, Map* ma
 
 }
 
-/*********************** Clique : pour afficher les propriétés d'une tour ***********************/
-/* click retour une tour pour afficher ces propriétés. Prend en paramètre la liste de tours,  la 	*
-*  position du clique et un pointeur int qui permet de savoir si on affiche ou non des propriétés.	*
-*  Retourne NULL s'il y a une erreur, ou si on n'a pas cliquer sur une tour. Sinon retourne la tour.	*/
-
+/*********************** Cliquer : pour afficher les propriétés d'une tour ***********************/
+/* "Click" sur une tour pour afficher ses propriétés.													*
+ * Prend en paramètre : la liste de tours, la position du click et un pointeur int qui permet de
+   savoir si on affiche ou non des propriétés.															*
+ * Retourne NULL s'il y a une erreur, ou si on n'a pas cliquer sur une tour. Sinon retourne la tour.	*/
 Tower* clickTower(listTower* towers, float x, float y, Propriete* propriete) {
 	
 	//Vérifie que la liste de tours existe
@@ -130,10 +132,10 @@ Tower* clickTower(listTower* towers, float x, float y, Propriete* propriete) {
 }
 
 /*********************** Clique : pour afficher les propriétés d'un monstre ***********************/
-/* click retour un monstre pour afficher ces propriétés. Prend en paramètre la liste de monstres,  la 	*
-*  position du clique et un pointeur int qui permet de savoir si on affiche ou non des propriétés.	*
-*  Retourne NULL s'il y a une erreur, ou si on n'a pas cliquer sur une tour. Sinon retourne la tour.	*/
-
+/* "Click" sur un monstre pour afficher ses propriétés.														*
+ * Prend en paramètre la liste de monstres,  la position du clique et un pointeur int qui permet de
+   savoir si on affiche ou non des propriétés.                                								*
+ * Retourne NULL s'il y a une erreur, ou si on n'a pas cliquer sur un monstre. Sinon retourne le monstre.	*/
 Monster* clickMonster(listMonster* monsters, float x, float y, Propriete* propriete) {
 	
 	//Vérifie que la liste de monstres existe

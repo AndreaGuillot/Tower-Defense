@@ -8,10 +8,9 @@
 #include "../include/texture.h"
 
 /************* Chargement de la texture de la map *************/
-/* Charge l'image, attribut l'image à la texture, change les couleurs de la map (fonction ChangeColor)	*
+/* Charge l'image, attribue l'image à la texture, change les couleurs de la map (fonction ChangeColor)	*
 *  Prend en paramètre un pointeur vers la carte, un pointeur vers la texture, et un pointeur vers la 	*
-*  surface SDLRetourne 1 si la carte et charger.							*/
-
+*  surface SDL. Retourne 1 si la carte est chargée.														*/
 int loadMapTexture(Map* map, GLuint* texture, SDL_Surface* image) {
 
 	image = IMG_Load(map->getImg()->getPath());
@@ -22,10 +21,10 @@ int loadMapTexture(Map* map, GLuint* texture, SDL_Surface* image) {
 
 	//Fait une copie de la texture pour la stocker => allocation mémoire
 	glGenTextures(1, texture);
-	//dire qu'on fait des modification sur cette texture
+	//Modification texture
 	glBindTexture(GL_TEXTURE_2D, *texture);
 
-	//choisi le bon format selon l'image
+	//Choisit le bon format selon l'image
 	GLenum format;
 	switch(image->format->BytesPerPixel) {
 		case 1:
@@ -50,16 +49,15 @@ int loadMapTexture(Map* map, GLuint* texture, SDL_Surface* image) {
 	//Passe l'image pour produire la texture
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image->w, image->h, 0, format, GL_UNSIGNED_BYTE, image->pixels);
 
-	//dit qu'on utilise un filtre linéaire : fait une moyenne des couleurs
+	//Moyenne des couleurs
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 
 	return 1;
 }
 
 /************* Chargement de textures *************/
-/* Charge l'image, attribut l'image à la texture. Prend en paramètre un pointeur vers la carte, 	*
-*  un pointeur vers la texture, et un pointeur vers la surface SDLRetourne 1 si la carte et charger.	*/
-
+/* Charge texture, attribue l'image à la texture. Prend en paramètre un pointeur vers le fichier,   		*
+*  un pointeur vers la texture, et un pointeur vers la surface SDL. Retourne 1 si la texture est chargée.	*/
 int loadTexture(char* fileName, GLuint* texture, SDL_Surface* img) {
 	
 	img = IMG_Load(fileName);
@@ -70,10 +68,10 @@ int loadTexture(char* fileName, GLuint* texture, SDL_Surface* img) {
 
 	//Fait une copie de la texture pour la stocker
 	glGenTextures(1, texture);
-	//dire qu'on fait des modification sur cette texture
+	//Modification sur cette texture
 	glBindTexture(GL_TEXTURE_2D, *texture);
 
-	//choisi le bon format selon l'image
+	//Choisit le bon format selon l'image
 	GLenum format;
 	switch(img->format->BytesPerPixel) {
 		case 1:
@@ -90,10 +88,9 @@ int loadTexture(char* fileName, GLuint* texture, SDL_Surface* img) {
 			return EXIT_FAILURE;
 	}
 
-	//
+	//Passe l'image pour produire la texture
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, img->w, img->h, 0, format, GL_UNSIGNED_BYTE, img->pixels);
-
-	//dit qu'on utilise un filtre linéaire : fait une moyenne des couleurs
+	//Moyenne des couleurs
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 
 	return 1;
@@ -101,8 +98,7 @@ int loadTexture(char* fileName, GLuint* texture, SDL_Surface* img) {
 
 /************* Supprimer une texture *************/
 /* Supprime une texture. Prend en paramètre un pointeur vers la texture et un pointeur vers une  	*
-*  surface SDL.												*/
-
+*  surface SDL.																						*/
 void freeTexture(GLuint* texture, SDL_Surface* img) {
 	SDL_FreeSurface(img);
 	glDeleteTextures(1, texture);

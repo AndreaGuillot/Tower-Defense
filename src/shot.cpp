@@ -9,6 +9,7 @@ Shot::Shot(){
 	this->tower = NULL;
 }
 
+//Get
 Shot* Shot::get(){
 	return this;
 }
@@ -38,7 +39,7 @@ Shot* Shot::getNext(){
 	return this->next;
 }
 
-
+//Set
 void Shot::set(Shot* s){
 	this->setX(s->getX());
 	this->setY(s->getY());
@@ -92,6 +93,7 @@ void listShot::setTail(Shot* s){
 	this->tail = s;
 }
 
+/* Ajoute tirs */
 int listShot::addShot(Monster* monster, Tower* tower) {
 	if(this != NULL) {
 		if(monster != NULL) {
@@ -107,19 +109,19 @@ int listShot::addShot(Monster* monster, Tower* tower) {
 						this->setHead(shot); 
 						shot->setPrev(NULL);
 					}
-					// Cas où des éléments sont déjà présents dans la  liste
+					//Cas où des éléments sont déjà présents dans la  liste
 					else {
-						// Pointe p_prev du nouveau missile sur le dernier missile de la liste
+						//Pointe p_prev du nouveau missile sur le dernier missile de la liste
 						shot->setPrev(this->tail); 
 
-						// Relie le dernier missile de la liste au nouveau missile
+						//Relie le dernier missile de la liste au nouveau missile
 						this->tail->setNext(shot);  
 					}
 
-					// Pointe la fin de la liste sur le nouveau missile
+					//Pointe la fin de la liste sur le nouveau missile
 					this->tail->set(shot); 
 
-					// On augmente de 1 la taille de la liste
+					//On augmente de 1 la taille de la liste
 					this->length++; 
 			}
 			else {
@@ -139,12 +141,12 @@ int listShot::addShot(Monster* monster, Tower* tower) {
 
 	return 1; 
 }
-
+/* Déplacements tirs */
 int listShot::moveShot() {
 	if(this != NULL) {
 		Shot* tmp = this->head;
 
-		//Parcours la liste de missiles
+		//Parcourt la liste de missiles
 		while(tmp != NULL){
 
 			Position point_target;
@@ -159,11 +161,11 @@ int listShot::moveShot() {
 			Position point_shot;
 			point_shot.set(tmp->getX(), tmp->getY());
 
-			//Créer un vecteur avec le la position du missile et la position de l'ennemie
+			//Créer un vecteur avec la position du missile et la position de l'ennemi
 			Vector vector = Vector(point_shot, point_target);
 			//Normalise le vecteur pour avoir une norme de 1
 			vector.normalize();
-			//Ajoute le vecteur normaliser au point qui représente la position du missile pour le déplacer
+			//Ajoute le vecteur normalisé au point qui représente la position du missile pour le déplacer
 			point_shot.addVector(vector);
 
 			tmp->setX(point_shot.getX());
@@ -180,7 +182,7 @@ int listShot::moveShot() {
 
 	return 1;
 }
-
+/* Supprime tirs */
 void listShot::removeShot(Shot* shot) {
 	if (this != NULL) {
 		if(shot != NULL) {
@@ -222,7 +224,7 @@ void listShot::removeShot(Shot* shot) {
 	else 
 		fprintf(stderr, "Cette liste de missiles n'existe pas\n");
 }
-
+/* Supprime tous les tirs */
 void listShot::removeAllShot () {
 	//Si la liste n'est pas vide
 	if (this->length != 0) {
@@ -234,7 +236,7 @@ void listShot::removeAllShot () {
 		
 	}
 }
-
+/* Libère espace mémoire */
 void listShot::freeAllShot () {
 		//Si la liste n'est pas vide
 		if (this->length != 0) {
@@ -247,7 +249,7 @@ void listShot::freeAllShot () {
 		}
 		free(this);
 }
-
+/* Dessine tirs */
 int listShot::draw(GLuint* shot) {
 	if(shot != NULL && this != NULL) {
 
@@ -257,7 +259,7 @@ int listShot::draw(GLuint* shot) {
 		
 			//Active le texturage 2D
 			glEnable(GL_TEXTURE_2D);
-			//appel de la texture
+			//Appel de la texture
 			glBindTexture(GL_TEXTURE_2D, *shot);
 
 				int xm1, xm2, ym1, ym2;
@@ -268,7 +270,7 @@ int listShot::draw(GLuint* shot) {
 
 				glPushMatrix();
 					glBegin(GL_QUADS);
-					//coordonée de la texture
+					//Coordonée de la texture
 					glTexCoord2f(1, 0);
 					//Cordonnée du quadrilatère 
 					glVertex2f(xm1, ym1);
@@ -300,12 +302,10 @@ int listShot::draw(GLuint* shot) {
 	return 1;
 }
 								
-
-/************* Collision entre le missile et l'ennemie *************/
+/************* Collision entre le missile et l'ennemi *************/
 /* Vérifie si le missile entre en collision avec le missile. Si oui supprime le missile et   	*
 *  déduit les points de vie du monstre. Prend en paramètre la liste de monstre et le monstre.   *
-*  Retourne 0 en cas d'erreur et 1 sinon.							*/
-
+*  Retourne 0 en cas d'erreur et 1 sinon.														*/
 bool collisionMissile(listShot* shots, listMonster* monsters, Joueur* joueur, Monster *monster, Propriete *propriete) {
 
 	//On vérifie si notre liste a été allouée
@@ -316,7 +316,7 @@ bool collisionMissile(listShot* shots, listMonster* monsters, Joueur* joueur, Mo
 		//Créer un pointeur missile temporaire pour parcourir la liste de missiles
 		Shot *tmp = shots->getHead();
 
-		//Parcours la liste de missiles
+		//Parcourt la liste de missiles
 		while(tmp != NULL){
 
 			//Vérifie s'il y a une intersection pour les quatres coté du quads du monstre
@@ -373,13 +373,13 @@ bool collisionMissile(listShot* shots, listMonster* monsters, Joueur* joueur, Mo
 					
 						tmp->getTarget()->setPV(0);
 
-						//Mets à jours l'interface (money, score, nbmonstre tués)
+						//Met à jours l'interface (money, score, nbmonstre tués)
 						joueur->updateMonsterKill(tmp->getTarget());
 
 						//Créer un pointeur missile temporaire pour parcourir la liste de missiles
 						Shot *tmp_shot = shots->getHead();
 
-						//Parcours la liste de missiles
+						//Parcourt la liste de missiles
 						while(tmp_shot != NULL){
 
 							if(tmp_shot != tmp) {
@@ -395,7 +395,7 @@ bool collisionMissile(listShot* shots, listMonster* monsters, Joueur* joueur, Mo
 							monster->set(NULL);
 							*propriete = aucune;
 						}
-						//retire le monstre de la liste de monstre
+						//Retire le monstre de la liste de monstre
 						monsters->removeMonster(tmp->getTarget());
 						tmp->setTarget(NULL);
 					
@@ -405,7 +405,7 @@ bool collisionMissile(listShot* shots, listMonster* monsters, Joueur* joueur, Mo
 					tmp = tmp->getNext();
 
 					if(shotSuppr != NULL)
-						shots->removeShot(shotSuppr);//Retire le missile de la liste
+						shots->removeShot(shotSuppr); //Retire le missile de la liste
 			
 				}
 				else
