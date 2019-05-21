@@ -14,13 +14,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
+#include "enum.h"
 
 class Position;
 class Tower;
-
-enum installationType {
-    radar, usine, stock
-};
 
 class Installation {
 

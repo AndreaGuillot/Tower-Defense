@@ -3,8 +3,8 @@
 #include <math.h>
 
 Position::Position(){
-	this->x = x=0;
-	this->y = y=0;
+	this->x = 0;
+	this->y = 0;
 }
 
 Position* Position::get(){
@@ -149,6 +149,40 @@ void listNode::setHead(Node* node){
 
 void listNode::setTail(Node* node){
 	this->tail = node;
+}
+
+bool listNode::addNode(float x, float y) {
+
+	// On vérifie si notre liste a été allouée
+	if (this != NULL) {
+		//Création d'un nouveau noeud
+		Node* tmp;
+
+		tmp->setY(x); 
+		tmp->setX(y); 
+		// Rajoute à la fin : dernier élement de la liste 
+		tmp->setNext(NULL); 
+
+		// Cas où notre liste est vide (pointeur vers fin de liste à  NULL)
+		if (this->getHead() == NULL) 
+			this->setHead(NULL); // Pointe la tête de la liste sur le nouveau noeud
+
+		// Cas où des éléments sont déjà présents dans la  liste
+		else 
+			this->getHead()->setNext(tmp);  // Relie le dernier calque de la liste au nouveau noeud
+
+		// Pointe la fin de la liste sur le nouveau noeud
+		this->setTail(tmp); 
+
+		// On augmente de 1 la taille de la liste
+		this->setLength(this->getLength()++); 
+	}
+	else {
+		printf("Cette liste de noeuds n'existe pas\n");
+		return 0;
+	}
+
+	return 1; 
 }
 
 bool intersectionCarreDisque (Position point1, Position point2, float rayon, Position origin) {
@@ -344,7 +378,7 @@ int Image::changeColorConstruct(unsigned char* tabPixels, Map* map) {
 					tabPixels[i*(this->widthImg)*3+j*3+2] = ((map->getConstructColor())->getB())*255;
 
 					//Ajoute le noeud à la liste de pixels avec les coordonnées
-					addNode(map->getListConstruct(), j + 200, i + 60);
+					map->getListConstruct()->addNode(j + 200, i + 60);
 				}
 			}
 		}

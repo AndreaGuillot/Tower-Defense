@@ -4,14 +4,7 @@
 #include <string.h>
 #include <iostream>
 #include "map.h"
-
-enum Propriete{
-	aucune, propTower, propMonster
-};
-
-enum Menus{
-	menu, play, gameOver, gameWin
-};
+#include "enum.h"
 
 class Vector;
 class Map;
@@ -97,6 +90,7 @@ public:
 	void setLength(int a);
 	void setHead(Node* node);
 	void setTail(Node* node);
+	bool addNode(float x, float y);
 };
 
 bool intersectionCarreDisque (Position point1, Position point2, float rayon, Position origin);

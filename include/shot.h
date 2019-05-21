@@ -9,6 +9,7 @@
 #include "monstre.h"
 #include "struct.h"
 #include "tower.h"
+#include "enum.h"
 #include <string.h>
 #include <iostream>
 

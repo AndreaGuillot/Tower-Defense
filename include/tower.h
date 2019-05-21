@@ -19,21 +19,18 @@
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include <GL/glut.h>
+#include "enum.h"
 
-enum towerType {
-    oceane, jules, clara, yoann
-};
-
-class Position;
 class Joueur;
 class listShot;
 class listMonster;
 class listNode;
+class Position;
 
 class Tower {
     private:
 	//Position de la tour
-	Position *p;
+	Position p;
 	//Type de la tour
 	towerType type;
     //Propriétés de la tour

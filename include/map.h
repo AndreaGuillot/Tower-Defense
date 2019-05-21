@@ -17,7 +17,6 @@
 #include <stdio.h>
 
 class Color;
-class Image;
 class listNode;
 
 class Map {

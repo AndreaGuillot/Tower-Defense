@@ -11,18 +11,10 @@
 #include "tower.h"
 #include <string.h>
 #include <iostream>
-
-enum Sens{
-    haut, droite, bas, gauche
-};
-
-enum monsterType{
-    lucie, barbara, julien
-};
+#include "enum.h"
 
 class Node;
 class listNode;
-class Position;
 
 class Monster {
 

@@ -65,8 +65,9 @@ int clickMenuTour(listTower* towers, Joueur* joueur, float x, float y) {
 			//S'il le joueur a assez d'argent
 			if((joueur->getArgent()) >= tmp->getCost()) {
 				//Ajoute une tour
-				Position *p = new Position(x, y);
-				towers->addTower(type, *p);
+				Position p;
+				p.set(x, y);
+				towers->addTower(type, p);
 				//Met a jour l'agent
 				joueur->updateMoneyBuildTower(tmp->getCost());
 				return 1;
