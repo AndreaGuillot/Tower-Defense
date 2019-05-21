@@ -11,24 +11,29 @@
 
 #include "../include/draw.h"
 
+//Constantes
 #define pi 3.14
 #define PRIX_OCEANE 50
 #define PRIX_JULES 60
 #define PRIX_CLARA 80
 #define PRIX_YOANN 120
 
+/*********************** Dessiner : menu principal  ***********************/
+/* Action : dessine menu principal.						*
+ * Prend en paramètre une texture et boutons du menu.	*
+ * Retourne 0 en cas d'erreur et 1 sinon.				*/
 int drawMenuPrincipal (GLuint* texture, GLuint* spriteButton) {
 	if(texture != NULL) {
 
 		//Active le texturage 2D
 		glEnable(GL_TEXTURE_2D);
-		//appel de la texture
+		//Appel de la texture
 		glBindTexture(GL_TEXTURE_2D, *texture);
 
 			glBegin(GL_QUADS);
-			//couleur neutre
+			//Couleur neutre
 			glColor3ub(255,255,255);
-			//coordonée de la texture
+			//Coordonée de la texture
 			glTexCoord2f(1, 1);
 			//Cordonnée du quadrilatère 
 			glVertex2f(800, 660);
@@ -53,13 +58,13 @@ int drawMenuPrincipal (GLuint* texture, GLuint* spriteButton) {
 
 		//Active le texturage 2D
 		glEnable(GL_TEXTURE_2D);
-		//appel de la texture
+		//Appel de la texture
 		glBindTexture(GL_TEXTURE_2D, *spriteButton);
 
 			glBegin(GL_QUADS);
-			//couleur neutre
+			//Couleur neutre
 			glColor3ub(255,255,255);
-			//coordonée de la texture
+			//Coordonée de la texture
 			glTexCoord2f(1, 0.25);
 			//Cordonnée du quadrilatère 
 			glVertex2f(514, 352);
@@ -84,13 +89,13 @@ int drawMenuPrincipal (GLuint* texture, GLuint* spriteButton) {
 
 		//Active le texturage 2D
 		glEnable(GL_TEXTURE_2D);
-		//appel de la texture
+		//Appel de la texture
 		glBindTexture(GL_TEXTURE_2D, *spriteButton);
 
 			glBegin(GL_QUADS);
-			//couleur neutre
+			//Couleur neutre
 			glColor3ub(255,255,255);
-			//coordonée de la texture
+			//Coordonée de la texture
 			glTexCoord2f(1, 0.5);
 			//Cordonnée du quadrilatère 
 			glVertex2f(514, 421);
@@ -115,13 +120,13 @@ int drawMenuPrincipal (GLuint* texture, GLuint* spriteButton) {
 
 		//Active le texturage 2D
 		glEnable(GL_TEXTURE_2D);
-		//appel de la texture
+		//Appel de la texture
 		glBindTexture(GL_TEXTURE_2D, *spriteButton);
 
 			glBegin(GL_QUADS);
-			//couleur neutre
+			//Couleur neutre
 			glColor3ub(255,255,255);
-			//coordonée de la texture
+			//Coordonée de la texture
 			glTexCoord2f(1, 0.75);
 			//Cordonnée du quadrilatère 
 			glVertex2f(514, 490);
@@ -152,22 +157,24 @@ int drawMenuPrincipal (GLuint* texture, GLuint* spriteButton) {
 
 }
 
-/*********************** Dessiner la map ***********************/
-/* Dessine la map. Prend en paramètre une texture.	*/
 
+/*********************** Dessiner : map  ***********************/
+/* Action : dessine la map.					*
+ * Prend en paramètre une texture. 			*
+ * Retourne 0 en cas d'erreur et 1 sinon.	*/
 int drawMap (GLuint* texture) {
 
 	if(texture != NULL) {
 
 		//Active le texturage 2D
 		glEnable(GL_TEXTURE_2D);
-		//appel de la texture
+		//Appel de la texture
 		glBindTexture(GL_TEXTURE_2D, *texture);
 
 			glBegin(GL_QUADS);
-			//couleur neutre
+			//Couleur neutre
 			glColor3ub(255,255,255);
-			//coordonée de la texture
+			//Coordonée de la texture
 			glTexCoord2f(1, 1);
 			//Cordonnée du quadrilatère 
 			glVertex2f(800, 660);
@@ -197,23 +204,24 @@ int drawMap (GLuint* texture) {
 
 }
 
-/*********************** Dessiner le menu haut ***********************/
-/* Dessine le menu. Prend en paramètre la texture pour le menu et la variable play. Retourne 0 en cas d'erreur 1 sinon.	*/
-
+/*********************** Dessiner : menu haut  ***********************/
+/* Action : dessine menu haut.					*											
+ * Prend en paramètre texture menu et boutons.	*
+ * Retourne 0 en cas d'erreur et 1 sinon.		*/								
 int drawMenuUp (GLuint* spriteButton, GLuint* fondMenuUp) {
 
 	if(spriteButton != NULL) {
 
-		/** Fonc menu **/
+		/** Fond menu **/
 		//Active le texturage 2D
 		glEnable(GL_TEXTURE_2D);
-		//appel de la texture
+		//Appel de la texture
 		glBindTexture(GL_TEXTURE_2D, *fondMenuUp);
 
 			glBegin(GL_QUADS);
-			//couleur neutre
+			//Couleur neutre
 			glColor3ub(255,255,255);
-			//coordonée de la texture
+			//Coordonée de la texture
 			glTexCoord2f(1, 1);
 			//Cordonnée du quadrilatère 
 			glVertex2f(800, 60);
@@ -239,13 +247,13 @@ int drawMenuUp (GLuint* spriteButton, GLuint* fondMenuUp) {
 
 		//Active le texturage 2D
 		glEnable(GL_TEXTURE_2D);
-		//appel de la texture
+		//Appel de la texture
 		glBindTexture(GL_TEXTURE_2D, *spriteButton);
 
 			glBegin(GL_QUADS);
-			//couleur neutre
+			//Couleur neutre
 			glColor3ub(255,255,255);
-			//coordonée de la texture
+			//Coordonée de la texture
 			glTexCoord2f(1, 1);
 			//Cordonnée du quadrilatère 
 			glVertex2f(790, 45);
@@ -270,13 +278,13 @@ int drawMenuUp (GLuint* spriteButton, GLuint* fondMenuUp) {
 
 		//Active le texturage 2D
 		glEnable(GL_TEXTURE_2D);
-		//appel de la texture
+		//Appel de la texture
 		glBindTexture(GL_TEXTURE_2D, *spriteButton);
 
 			glBegin(GL_QUADS);
-			//couleur neutre
+			//Couleur neutre
 			glColor3ub(255,255,255);
-			//coordonée de la texture
+			//Coordonée de la texture
 			glTexCoord2f(0.5, 1);
 			//Cordonnée du quadrilatère 
 			glVertex2f(720, 45);
@@ -305,9 +313,10 @@ int drawMenuUp (GLuint* spriteButton, GLuint* fondMenuUp) {
 	return 1;
 }
 
-/*********************** Dessiner le menu left ***********************/
-/* Dessine le menu. Prend en paramètre les textures pour le menu et un pointeur vers l'interface.	*
-*  Retourne 0 en cas d'erreur 1 sinon.									*/
+/*********************** Dessiner : menu gauche  ***********************/
+/* Action : dessine menu gauche.									*				
+ * Prend en paramètre les textures et un pointeur vers joueur.		*
+ * Retourne 0 en cas d'erreur et 1 sinon.							*/	
 
 int drawMenuLeft (GLuint* spriteMenu, GLuint* fondMenu, Joueur* joueur) {
 
@@ -317,11 +326,11 @@ int drawMenuLeft (GLuint* spriteMenu, GLuint* fondMenu, Joueur* joueur) {
 
 		//Active le texturage 2D
 		glEnable(GL_TEXTURE_2D); 
-		//appel de la texture
+		//Appel de la texture
 		glBindTexture(GL_TEXTURE_2D, *fondMenu);
 
 			glBegin(GL_QUADS);
-			//coordonée de la texture
+			//Coordonée de la texture
 			glTexCoord2f(1, 1);
 			//Cordonnée du quadrilatère 
 			glVertex2f(200, 660);
@@ -346,7 +355,7 @@ int drawMenuLeft (GLuint* spriteMenu, GLuint* fondMenu, Joueur* joueur) {
 
 		//Active le texturage 2D
 		glEnable(GL_TEXTURE_2D);
-		//appel de la texture
+		//Appel de la texture
 		glBindTexture(GL_TEXTURE_2D, *spriteMenu);
 
 			if(joueur->getArgent() >= PRIX_OCEANE)
@@ -355,7 +364,7 @@ int drawMenuLeft (GLuint* spriteMenu, GLuint* fondMenu, Joueur* joueur) {
 				glColor4f(255,255,255, 0.5);
 
 			glBegin(GL_QUADS);
-			//coordonée de la texture
+			//Coordonée de la texture
 			glTexCoord2f(1, 0.142);
 			//Cordonnée du quadrilatère 
 			glVertex2f(190, 120);
@@ -381,7 +390,7 @@ int drawMenuLeft (GLuint* spriteMenu, GLuint* fondMenu, Joueur* joueur) {
 
 		//Active le texturage 2D
 		glEnable(GL_TEXTURE_2D);
-		//appel de la texture
+		//Appel de la texture
 		glBindTexture(GL_TEXTURE_2D, *spriteMenu);
 
 			if(joueur->getArgent() >= PRIX_JULES)
@@ -390,7 +399,7 @@ int drawMenuLeft (GLuint* spriteMenu, GLuint* fondMenu, Joueur* joueur) {
 				glColor4f(255,255,255, 0.5);
 
 			glBegin(GL_QUADS);
-			//coordonée de la texture
+			//Coordonée de la texture
 			glTexCoord2f(1, 0.285);
 			//Cordonnée du quadrilatère 
 			glVertex2f(190, 175);
@@ -420,11 +429,11 @@ int drawMenuLeft (GLuint* spriteMenu, GLuint* fondMenu, Joueur* joueur) {
 
 		//Active le texturage 2D
 		glEnable(GL_TEXTURE_2D);
-		//appel de la texture
+		//Appel de la texture
 		glBindTexture(GL_TEXTURE_2D, *spriteMenu);
 
 			glBegin(GL_QUADS);
-			//coordonée de la texture
+			//Coordonée de la texture
 			glTexCoord2f(1, 0.428);
 			//Cordonnée du quadrilatère 
 			glVertex2f(190, 230);
@@ -454,11 +463,11 @@ int drawMenuLeft (GLuint* spriteMenu, GLuint* fondMenu, Joueur* joueur) {
 
 		//Active le texturage 2D
 		glEnable(GL_TEXTURE_2D);
-		//appel de la texture
+		//Appel de la texture
 		glBindTexture(GL_TEXTURE_2D, *spriteMenu);
 
 			glBegin(GL_QUADS);
-			//coordonée de la texture
+			//Coordonée de la texture
 			glTexCoord2f(1, 0.571);
 			//Cordonnée du quadrilatère 
 			glVertex2f(190, 285);
@@ -487,10 +496,11 @@ int drawMenuLeft (GLuint* spriteMenu, GLuint* fondMenu, Joueur* joueur) {
 	return 1;
 }
 
-/*********************** Dessiner les tours ***********************/
-/* Dessine les tours. Prend en paramètre la texture de la tour, la liste de tours, la liste de monstres, la tour courant	*
-*  et les variables xt1, xt2, testMouse et propriete. Retourne 0 en cas d'erreur, 1 sinon. 					*/
-
+/*********************** Dessiner : tour  ***********************/
+/* Action : dessine les tours.													*				
+ * Prend en paramètre la texture, la liste des tours, la liste des monstres,
+   la tour actuelle, et les variables testMouse et testTower.					*
+ * Retourne 0 en cas d'erreur et 1 sinon.										*/	
 int drawTower (GLuint* towerTxt, listTower* towers, listMonster* monsters, Tower* tower, int testMouse, int testTower) {
 
 	if(towerTxt != NULL && towers != NULL && monsters != NULL) {
@@ -498,14 +508,14 @@ int drawTower (GLuint* towerTxt, listTower* towers, listMonster* monsters, Tower
 		//Création d'un pointeur tour temporaire pour parcourir la liste de tours
 		Tower *tmp = towers->getTail();
 
-			//Parcours la liste de tours
+			//Parcourt la liste de tours
 			while(tmp != NULL){
 
 				if(testMouse == 1) {
 					glPushMatrix();
 					glTranslatef(tmp->getPosition().getX(),tmp->getPosition().getY(), 0.0);
 
-						//Choisie la couleur
+						//Choisit la couleur
 						if(tmp == towers->getTail()) {
 							if(testTower == 1) 
 								glColor4f(0,255,0, 0.2);
@@ -534,7 +544,7 @@ int drawTower (GLuint* towerTxt, listTower* towers, listMonster* monsters, Tower
 				glPushMatrix();
 				//Active le texturage 2D
 				glEnable(GL_TEXTURE_2D);
-				//appel de la texture
+				//Appel de la texture
 				glBindTexture(GL_TEXTURE_2D, *towerTxt);
 
 					int xm1, xm2, ym1, ym2;
@@ -551,7 +561,7 @@ int drawTower (GLuint* towerTxt, listTower* towers, listMonster* monsters, Tower
 					float y2 = (towerNumber * (1.0/4.0)) + 0.25;
 
 					glBegin(GL_QUADS);
-					//coordonée de la texture
+					//Coordonée de la texture
 					glTexCoord2f(x2, y2);
 					//Cordonnée du quadrilatère 
 					glVertex2f(xm1, ym1);
@@ -584,8 +594,9 @@ int drawTower (GLuint* towerTxt, listTower* towers, listMonster* monsters, Tower
 		return 1;
 }
 
-/******************** Dessiner GameOver / Win ********************/
-/* Affiche Game Over ou Win. Prend en paramètre les textures.		*/
+/*********************** Dessiner : GameOver / Win  ***********************/
+/* Action : affiche Game Over ou Win.	*
+ * Prend en paramètre les textures.		*/
 
 int drawGameOverWin(GLuint* texture, GLuint* spriteButton) {
 
@@ -593,13 +604,13 @@ int drawGameOverWin(GLuint* texture, GLuint* spriteButton) {
 
 		//Active le texturage 2D
 		glEnable(GL_TEXTURE_2D);
-		//appel de la texture
+		//Appel de la texture
 		glBindTexture(GL_TEXTURE_2D, *texture);
 
 			glBegin(GL_QUADS);
-			//couleur neutre
+			//Couleur neutre
 			glColor3ub(255,255,255);
-			//coordonée de la texture
+			//Coordonée de la texture
 			glTexCoord2f(1, 1);
 			//Cordonnée du quadrilatère 
 			glVertex2f(800, 660);
@@ -624,13 +635,13 @@ int drawGameOverWin(GLuint* texture, GLuint* spriteButton) {
 
 		//Active le texturage 2D
 		glEnable(GL_TEXTURE_2D);
-		//appel de la texture
+		//Appel de la texture
 		glBindTexture(GL_TEXTURE_2D, *spriteButton);
 
 			glBegin(GL_QUADS);
-			//couleur neutre
+			//Couleur neutre
 			glColor3ub(255,255,255);
-			//coordonée de la texture
+			//Coordonée de la texture
 			glTexCoord2f(1, 0.25);
 			//Cordonnée du quadrilatère 
 			glVertex2f(514, 352);
@@ -655,13 +666,13 @@ int drawGameOverWin(GLuint* texture, GLuint* spriteButton) {
 
 		//Active le texturage 2D
 		glEnable(GL_TEXTURE_2D);
-		//appel de la texture
+		//Appel de la texture
 		glBindTexture(GL_TEXTURE_2D, *spriteButton);
 
 			glBegin(GL_QUADS);
-			//couleur neutre
+			//Couleur neutre
 			glColor3ub(255,255,255);
-			//coordonée de la texture
+			//Coordonée de la texture
 			glTexCoord2f(1, 0.5);
 			//Cordonnée du quadrilatère 
 			glVertex2f(514, 421);
@@ -686,13 +697,13 @@ int drawGameOverWin(GLuint* texture, GLuint* spriteButton) {
 
 		//Active le texturage 2D
 		glEnable(GL_TEXTURE_2D);
-		//appel de la texture
+		//Appel de la texture
 		glBindTexture(GL_TEXTURE_2D, *spriteButton);
 
 			glBegin(GL_QUADS);
-			//couleur neutre
+			//Couleur neutre
 			glColor3ub(255,255,255);
-			//coordonée de la texture
+			//Coordonée de la texture
 			glTexCoord2f(1, 0.75);
 			//Cordonnée du quadrilatère 
 			glVertex2f(514, 490);
@@ -724,9 +735,9 @@ int drawGameOverWin(GLuint* texture, GLuint* spriteButton) {
 }
 
 
-/************* Dessiner un cercle en fonction de son rayon plein *************/
-/* Dessine un cercle plein. Prend en paramètre le rayon du cercle.		*/
-
+/************* Dessiner : un cercle en fonction de son rayon plein *************/
+/* Action : dessine un cercle plein. 		*
+ * Prend en paramètre le rayon du cercle.	*/
 void drawDisque(float rayon) {
 	
 	int i, j = 100;
@@ -747,9 +758,9 @@ void drawDisque(float rayon) {
 
 }
 
-/************* Dessiner un cercle en fonction de son rayon vide *************/
-/* Dessine un cercle vide. Prend en paramètre le rayon du cercle.		*/
-
+/************* Dessiner : un cercle en fonction de son rayon vide *************/
+/* Action : dessine un cercle vide. 		*
+ * Prend en paramètre le rayon du cercle.	*/
 void drawCercle(float rayon) {
 	
 	int i, j = 100;
@@ -768,9 +779,9 @@ void drawCercle(float rayon) {
 
 }
 
-/******************** Dessiner un rectangle / carré plein ********************/
-/* Dessine un carré ou rectangle plein. Prend en paramètre les coordonées des deux points opposés	*/
-
+/******************** Dessiner : un rectangle / carré plein ********************/
+/* Action : dessine un carré ou rectangle plein. 				*
+ * Prend en paramètre les coordonées des deux points opposés.	*/
 void drawRectangle (int x1, int y1, int x2, int y2) {
 
 	glBegin(GL_QUADS);
@@ -781,9 +792,9 @@ void drawRectangle (int x1, int y1, int x2, int y2) {
 	glEnd();
 }
 
-/******************** Dessiner un rectangle / carré vide ********************/
-/* Dessine un carré ou rectangle vide. Prend en paramètre les coordonées des deux points opposés	*/
-
+/******************** Dessiner : un rectangle / carré vide ********************/
+/* Action : dessine un carré ou rectangle vide.					*
+ * Prend en paramètre les coordonées des deux points opposés.	*/
 void drawRectangleLine (int x1, int y1, int x2, int y2) {
 
 	glBegin(GL_LINE_LOOP);
@@ -796,8 +807,8 @@ void drawRectangleLine (int x1, int y1, int x2, int y2) {
 
 
 /******************** Ecrire du texte ********************/
-/* Ecrire du texte. Prend en paramamètre sa position et la chaine de caractère	*/
-
+/* Action : Ecrire du texte. 									*
+ * Prend en paramamètre sa position et la chaine de caractère.	*/
 void writeString(int x, int y, char* s) {
 		char* c;
 
@@ -809,5 +820,3 @@ void writeString(int x, int y, char* s) {
 		// Réinitialise la position du premier caractère de la chaîne
 		glRasterPos2f(0, 0);
 }
-
-

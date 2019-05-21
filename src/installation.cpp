@@ -1,43 +1,44 @@
 #include "../include/installation.h"
 
-    //Accesseurs
-    Position* Installation::getPosition(){
-        return this->p;
-    }
+//Accesseurs
+Position* Installation::getPosition(){
+    return this->p;
+}
 
-    uint Installation::getType(){
-        return this->type;
-    }
+uint Installation::getType(){
+    return this->type;
+}
 
-    uint Installation::getCost(){
-        return this->cost;
-    }
+uint Installation::getCost(){
+    return this->cost;
+}
 
-    uint Installation::getRange(){
-        return this->range;
-    }
+uint Installation::getRange(){
+    return this->range;
+}
 
-    void Installation::setPosition(float x, float y){
-        this->p->setX(x);
-        this->p->setY(y);
-    }
+void Installation::setPosition(float x, float y){
+    this->p->setX(x);
+    this->p->setY(y);
+}
 
-    void Installation::setType(installationType type){
-        this->type = type;
-    }
+void Installation::setType(installationType type){
+    this->type = type;
+}
 
-    void Installation::setCost(uint val){
-        this->cost = val;
-    }
+void Installation::setCost(uint val){
+    this->cost = val;
+}
 
-    void Installation::setRange(uint val){
-        this->range = val;
-    }
+void Installation::setRange(uint val){
+    this->range = val;
+}
 
-    void Installation::affects(Tower* tower){
-        tower->setInstNear((int)this->type, 1);
-    }
+void Installation::affects(Tower* tower){
+    tower->setInstNear((int)this->type, 1);
+}
 
+//Types d'installation
 Andrea::Andrea(uint range = 10, uint cost = 80, installationType type = radar){
         this->setRange(range);
         this->setCost(cost);

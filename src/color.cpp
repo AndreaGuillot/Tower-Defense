@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include "../include/color.h"
 
+/*********************** Gérer couleurs du jeu  ***********************/
+
 Color::Color(uint r, uint g, uint b){
 	this->r = r;
 	this->g = g;

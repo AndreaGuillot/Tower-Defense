@@ -71,6 +71,7 @@ void Map::setConstructColor(Color* color){
 }
 
 //Fonctions
+/* Dessine les chemins */
 bool Map::drawRoad() {
 
     if(this != NULL) {
@@ -104,12 +105,12 @@ bool Map::drawRoad() {
 
     return 1;
 }
-
+/* Vérification de la map */
 int Map::verifMap(FILE* fileITD)
 { 
     char line[100];
     
-    /* Première ligne : format itd */
+    /** Première ligne : format itd **/
     int version;
     fgets(line, 5, fileITD);
     if(strcmp(line, "@ITD") != 0)
@@ -124,7 +125,7 @@ int Map::verifMap(FILE* fileITD)
         return 0; 
     }
 
-    /* Deuxième ligne : commentaire */
+    /** Deuxième ligne : commentaire **/
     fgets(line, 2, fileITD);
     if(strcmp(line, "#") !=0)
     {
@@ -132,12 +133,12 @@ int Map::verifMap(FILE* fileITD)
         return 0;
     }
 
-    /* Troisème à huitième ligne : paramètres */
+    /** Troisème à huitième ligne : paramètres **/
     char param[10];
     int R = 0;
     int G = 0;
     int B = 0;
-    // Carte
+    //Carte
     char* fileName = (char*)malloc(sizeof(char)*30);
     if(fileName == NULL)
     {
@@ -156,7 +157,7 @@ int Map::verifMap(FILE* fileITD)
         //load l'image
 
     }
-    // Chemin
+    //Chemin
     fgets(line, 20, fileITD);
     sscanf(line, "%s" "%d" "%d" "%d", param, &R, &G, &B);
     if(strcmp(param, "chemin") !=0)
@@ -172,7 +173,7 @@ int Map::verifMap(FILE* fileITD)
     } else {
         this->pathColor = new Color(R, G, B);
     }
-    // Noeud
+    //Noeud
     fgets(line, 20, fileITD);
     sscanf(line, "%s" "%d" "%d" "%d", param, &R, &G, &B);
     if(strcmp(param, "noeud") !=0)
@@ -188,7 +189,7 @@ int Map::verifMap(FILE* fileITD)
     } else {
         this->nodeColor = new Color(R, G, B);
     }
-    // Construct
+    //Construct
     fgets(line, 25, fileITD);
     sscanf(line, "%s" "%d" "%d" "%d", param, &R, &G, &B);
     if(strcmp(param, "construct") !=0)
@@ -204,7 +205,7 @@ int Map::verifMap(FILE* fileITD)
     } else {
         this->constructColor = new Color(R, G, B);
     }
-    // In
+    //In
     fgets(line, 20, fileITD);
     sscanf(line, "%s" "%d" "%d" "%d", param, &R, &G, &B);
     if(strcmp(param, "in") !=0)
@@ -220,7 +221,7 @@ int Map::verifMap(FILE* fileITD)
     } else {
         this->inColor = new Color(R, G, B);
     }
-    // Out
+    //Out
     fgets(line, 20, fileITD);
     sscanf(line, "%s" "%d" "%d" "%d", param, &R, &G, &B);
     if(strcmp(param, "out") !=0)
@@ -237,7 +238,7 @@ int Map::verifMap(FILE* fileITD)
         this->outColor = new Color(R, G, B);
     }
 
-    /* Neuvième ligne : nombre de noeuds */
+    /** Neuvième ligne : nombre de noeuds **/
     int nbLine = 0;
     int nbNode = 0;
     int cpt;
@@ -258,11 +259,11 @@ int Map::verifMap(FILE* fileITD)
         this->nbNode = nbNode;
     }
 
-    /* Dixième à dernière ligne : description des noeuds */
-    // Re-positionnement du curseur de lecture
+    /** Dixième à dernière ligne : description des noeuds **/
+    //Re-positionnement du curseur de lecture
     long posFile = ftell(fileITD); 
     fseek(fileITD, posFile, SEEK_SET);
-    // Supression du caractère '\n' à la fin du nom de fichier
+    //Supression du caractère '\n' à la fin du nom de fichier
     while(int i=0 < strlen(fileName))
     {
         if(fileName[i] == '\n')
@@ -271,7 +272,7 @@ int Map::verifMap(FILE* fileITD)
         }
         i++;
     }
-    // Chargement de l'image
+    //Chargement de l'image
     int X;
     int Y;
     char file[100] = "images/";
@@ -292,7 +293,7 @@ int Map::verifMap(FILE* fileITD)
         }
         i++;
     }
-    // Création de la liste des noeuds
+    //Création de la liste des noeuds
     fseek(fileITD, posFile, SEEK_SET);
     fscanf(fileITD, "%*d %*d %d %d\n", &X, &Y);
     Node* fileNode;
@@ -309,12 +310,12 @@ int Map::verifMap(FILE* fileITD)
     (*fileNode).setNext(NULL);
     this->list_node->setHead(tmp);
     this->list_node->setTail(NULL);
-    // Destruction des données de l'image chargée
+    //Destruction des données de l'image chargée
     SDL_FreeSurface(image);
 
     return 1;
 }
-
+/* Charge la map */
 bool Map::loadMap(char* fileNameITD)
 {
     FILE* fileITD = fopen(fileNameITD, "r");
@@ -333,12 +334,12 @@ bool Map::loadMap(char* fileNameITD)
         }
     }
 }
-
+/* Affiche monstre */
 bool Map::apparitionMonster(listMonster* monsters, int j, Joueur* joueur) {
 
     if(monsters != NULL) {
 
-            //ajoute un monstre à chaque fois que j est un muliple de 50
+            //Ajoute un monstre à chaque fois que j est un muliple de 50
             if(j%130 == 0){
 
                 //S'il y a moins ou 10 monstres

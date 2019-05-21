@@ -2,11 +2,12 @@
 #include <stdlib.h>
 #include <math.h>
 
+/** Position **/
 Position::Position(){
 	this->x = 0;
 	this->y = 0;
 }
-
+//Get
 Position* Position::get(){
 	return this;
 }
@@ -18,7 +19,7 @@ float Position::getX(){
 float Position::getY(){
 	return y;
 }
-
+//Set
 void Position::set(float x, float y){
 	this->x = x;
 	this->y = y;
@@ -31,7 +32,7 @@ void Position::setX(float x){
 void Position::setY(float y){
 	this->y = y;
 }
-
+//Fonction
 void Position::addVector(Vector V) {		
 	this->x += (V.getX());
 	this->y += (V.getY());
@@ -43,7 +44,7 @@ Vector::Vector(){
 	this->x = NULL;
 	this->y = NULL;
 }
-
+//Get
 Vector* Vector::get(){
 	return this;
 }
@@ -63,26 +64,26 @@ float Vector::getNorm() {
 	norme = sqrt(norme);
 	return norme;
 }
-
+//Set
 void Vector::setX(float x){
 	this->x = x;
 }
 void Vector::setY(float y){
 	this->y = y;
 }
-
+//Fonction
 void Vector::normalize(){
 	float norme = this->getNorm();	
 	this->x = (this->x) / norme;
 	this->y = (this->y) / norme;
 }
 
-
-
+/** Noeud **/
 Node::Node(){
 	this->pos = Position();
 	this->next = NULL;
 }
+//Get
 Position Node::getPosition(){
 	return this->pos;
 }
@@ -98,12 +99,11 @@ float Node::getY(){
 Node* Node::getNext(){
 	return this->next;
 }
-
 void Node::createNode(float x, float y){
 	this->pos.setX(x);
 	this->pos.setY(y);
 }
-
+//Set 
 void Node::setPosition(Position p){
 	this->pos = p;
 }
@@ -118,15 +118,13 @@ void Node::setNext(Node* node){
 }
 
 
-
-
-
+/** Liste noeuds **/
 listNode::listNode(){
 	this->length = 0;
 	this->head=NULL;
 	this->tail=NULL;
 }
-
+//Get
 int listNode::getLength(){
 	return this->length;
 }
@@ -138,7 +136,7 @@ Node* listNode::getHead(){
 Node* listNode::getTail(){
 	return this->tail;
 }
-
+//Set
 void listNode::setLength(int a){
 	this->length = a;
 }
@@ -150,31 +148,31 @@ void listNode::setHead(Node* node){
 void listNode::setTail(Node* node){
 	this->tail = node;
 }
-
+//Fonction
 bool listNode::addNode(float x, float y) {
 
-	// On vérifie si notre liste a été allouée
+	//On vérifie si notre liste a été allouée
 	if (this != NULL) {
 		//Création d'un nouveau noeud
 		Node* tmp;
 
 		tmp->setY(x); 
 		tmp->setX(y); 
-		// Rajoute à la fin : dernier élement de la liste 
+		//Rajoute à la fin : dernier élement de la liste 
 		tmp->setNext(NULL); 
 
-		// Cas où notre liste est vide (pointeur vers fin de liste à  NULL)
+		//Cas où notre liste est vide (pointeur vers fin de liste à  NULL)
 		if (this->getHead() == NULL) 
 			this->setHead(NULL); // Pointe la tête de la liste sur le nouveau noeud
 
-		// Cas où des éléments sont déjà présents dans la  liste
+		//Cas où des éléments sont déjà présents dans la  liste
 		else 
 			this->getHead()->setNext(tmp);  // Relie le dernier calque de la liste au nouveau noeud
 
-		// Pointe la fin de la liste sur le nouveau noeud
+		//Pointe la fin de la liste sur le nouveau noeud
 		this->setTail(tmp); 
 
-		// On augmente de 1 la taille de la liste
+		//On augmente de 1 la taille de la liste
 		this->setLength(this->getLength()+1); 
 	}
 	else {
@@ -259,8 +257,7 @@ bool intersectionCarres (Position point1, Position point2, Position pointC1, Pos
 	return 0;
 }
 
-
-
+/** Image **/
 Image::Image(char* nameImg) {
 
 		FILE* image = NULL;
@@ -300,7 +297,7 @@ Image::Image(char* nameImg) {
 					//Récupérer la résolution de la couleur
 					if(fscanf(image, "%d\n", &(this->maxValue)) == 1){
 					
-						// On ferme le vide le buffer et on ferme l'image
+						//On ferme l'image
 						fflush(image);
 						fclose(image);
 
@@ -308,7 +305,6 @@ Image::Image(char* nameImg) {
 					else {
 						fprintf(stderr, "Probleme ce n'est pas la valeur maximal du fichier\n");
 					}
-
 				}
 			}
 			else {
@@ -316,7 +312,7 @@ Image::Image(char* nameImg) {
 			}
 		}
 	}
-
+//Get
 char* Image::getPath(){
 	return this->path;
 }
@@ -332,7 +328,7 @@ uint Image::getWidth(){
 int Image::getMaxValue(){
 	return this->maxValue;
 }
-
+//Fonctions : gèrent couleurs
 int Image::ChangeColor(unsigned char* tabPixels, Map* map) {
 	this->changeColorRoad(tabPixels, map);
 	this->changeColorConstruct(tabPixels, map);
