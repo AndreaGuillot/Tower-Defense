@@ -4,7 +4,6 @@
 #include <string.h>
 #include <iostream>
 #include "map.h"
-#include "enum.h"
 
 /************* Classes Vector et Map *************/
 //Gère les éléments vectoriels

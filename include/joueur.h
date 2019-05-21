@@ -1,13 +1,9 @@
 #ifndef JOUEUR_H__
 #define JOUEUR_H__
 
-#include "draw.h"
 #include "installation.h"
-#include "color.h"
 #include "map.h"
-#include "monstre.h"
 #include "shot.h"
-#include "struct.h"
 #include "tower.h"
 #include <string.h>
 #include <iostream>
@@ -15,9 +11,12 @@
 /************* Classes Installation, listFileTower et Map *************/
 //Gère les bâtiments
 class Installation;
+<<<<<<< HEAD
 //Gère liste tours
 class listFileTower;
 //Gère la map
+=======
+>>>>>>> master
 class Map;
 
 /************* Classe Joueur : gère les informations du joueur *************/

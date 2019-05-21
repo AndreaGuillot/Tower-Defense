@@ -1,23 +1,22 @@
-#include "../include/installation.h"
-#include "../include/tower.h"
 #include "../include/monstre.h"
+#include "../include/draw.h"
 
     Monster::Monster(){
-        Position p = Position();
+        Position* p = NULL;
         Node* node_prev = NULL;
         Node* node_next = NULL;
         Monster* monster_prev = NULL;
         Monster* monster_next = NULL;
     }
     //Get
-    Position Monster::getPosition(){
+    Position* Monster::getPosition(){
         return this->p;
     }
     float Monster::getX(){
-        return this->p.getX();
+        return this->p->getX();
     }
     float Monster::getY(){
-        return this->p.getY();
+        return this->p->getY();
     }    
     float Monster::getErreur(){
         return this->erreur;
@@ -68,7 +67,7 @@
 
     //Set
     void Monster::set(Monster* m){
-        this->setPosition(m->getPosition().getX(), m->getPosition().getY());
+        this->setPosition(m->getPosition()->getX(), m->getPosition()->getY());
         this->setSens(m->getSens());
         this->setPV(m->getPV());
         this->setErreur(m->getErreur());
@@ -87,16 +86,16 @@
     }
 
     void Monster::setPosition(float x, float y){
-        this->p.setX(x);
-        this->p.setY(y);
+        this->p->setX(x);
+        this->p->setY(y);
     }
 
     void Monster::setX(float x){
-        this->p.setX(x);
+        this->p->setX(x);
     }
 
     void Monster::setY(float y){
-        this->p.setY(y);
+        this->p->setY(y);
     }
 
     void Monster::setSens(Sens s){
@@ -473,16 +472,16 @@ listMonster::listMonster(){
                         //S'il avance selon l'axe des y
                         if(tmp->getPrev()->getX() == tmp->getNext()->getX()){
                             if(tmp->getSens() == bas)
-                                tmp->setY(tmp->getPosition().getY()+1);
+                                tmp->setY(tmp->getPosition()->getY()+1);
                             else
-                                tmp->setY(tmp->getPosition().getY()-1);
+                                tmp->setY(tmp->getPosition()->getY()-1);
 
                         //S'il avance selon l'axe des x
                         }else if(tmp->getPrev()->getY() == tmp->getNext()->getY()){
                             if(tmp->getSens() == droite)
-                                tmp->setX(tmp->getPosition().getX()+1);
+                                tmp->setX(tmp->getPosition()->getX()+1);
                             else
-                                tmp->setX(tmp->getPosition().getX()-1);
+                                tmp->setX(tmp->getPosition()->getX()-1);
                         }else{
                             //Il avance selon les deux axes
 

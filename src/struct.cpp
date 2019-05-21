@@ -175,7 +175,7 @@ bool listNode::addNode(float x, float y) {
 		this->setTail(tmp); 
 
 		// On augmente de 1 la taille de la liste
-		this->setLength(this->getLength()++); 
+		this->setLength(this->getLength()+1); 
 	}
 	else {
 		printf("Cette liste de noeuds n'existe pas\n");

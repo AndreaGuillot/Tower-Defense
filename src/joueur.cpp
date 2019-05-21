@@ -1,4 +1,5 @@
 #include "../include/joueur.h"
+#include "../include/draw.h"
 #include <stdlib.h>
 #include <string.h>
 

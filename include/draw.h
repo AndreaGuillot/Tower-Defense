@@ -1,13 +1,7 @@
 #ifndef ITD_DRAW_H_
 #define ITD_DRAW_H_
 
-#include "color.h"
-#include "installation.h"
 #include "joueur.h"
-#include "map.h"
-#include "monstre.h"
-#include "shot.h"
-#include "struct.h"
 #include "tower.h"
 #include <string.h>
 

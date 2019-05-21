@@ -1,14 +1,8 @@
 #ifndef CLICK_H__
 #define CLICK_H__
 
-#include "draw.h"
-#include "installation.h"
-#include "color.h"
-#include "joueur.h"
+#include "enum.h"
 #include "map.h"
-#include "monstre.h"
-#include "shot.h"
-#include "tower.h"
 #include <string.h>
 #include <iostream>
 

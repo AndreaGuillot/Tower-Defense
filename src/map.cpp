@@ -6,12 +6,13 @@
 #include <string.h>
 
 #include "../include/map.h"
+#include "../include/draw.h"
 
 //Get
 std::string Map::getImage(){
     return this->image;
 }
-Image Map::getImg(){
+Image* Map::getImg(){
     return this->img;
 }
 //Noeuds
@@ -333,7 +334,7 @@ bool Map::loadMap(char* fileNameITD)
     }
 }
 
-bool Map::apparitionMonster(listMonster* monsters, int j, Joueur joueur) {
+bool Map::apparitionMonster(listMonster* monsters, int j, Joueur* joueur) {
 
     if(monsters != NULL) {
 
@@ -351,7 +352,7 @@ bool Map::apparitionMonster(listMonster* monsters, int j, Joueur joueur) {
                 }
                 //S'il n'y a plus de monstre
                 else if(this->nbMonstres == 10 && monsters->getLength() == 0) {
-                    joueur.setNbVagues(joueur.getNbVagues()+1); //Monte de niveau
+                    joueur->setNbVagues(joueur->getNbVagues()+1); //Monte de niveau
                     this->nbMonstres++;
                 }else
                     this->nbMonstres = 0;

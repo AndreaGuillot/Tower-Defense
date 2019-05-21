@@ -1,17 +1,14 @@
 #ifndef ITD_SHOT_H_
 #define ITD_SHOT_H_
 
-#include "draw.h"
-#include "installation.h"
-#include "color.h"
 #include "joueur.h"
-#include "map.h"
-#include "monstre.h"
-#include "struct.h"
-#include "tower.h"
-#include "enum.h"
 #include <string.h>
 #include <iostream>
+#include <SDL/SDL.h>
+#include <SDL/SDL_image.h>
+#include <GL/gl.h>
+#include <GL/glu.h>
+#include <stdlib.h>
 
 /************* Classes Position et Tower *************/
 //Gère monstre
@@ -20,6 +17,7 @@ class Monster;
 class listMonster;
 //Gère info joueur
 class Joueur;
+class Tower;
 
 /************* Classe Shot : gère les tirs des tours *************/
 class Shot{
