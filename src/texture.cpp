@@ -46,7 +46,7 @@ int loadMapTexture(Map* map, GLuint* texture, SDL_Surface* image) {
 	}
 
 	//Change les couleurs de la map
-	ChangeColor(map->getImg(), image->getPixels(), map);
+	map->getImg()->ChangeColor(image->pixels, map);
 	//Passe l'image pour produire la texture
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image->w, image->h, 0, format, GL_UNSIGNED_BYTE, image->pixels);
 
@@ -60,7 +60,7 @@ int loadMapTexture(Map* map, GLuint* texture, SDL_Surface* image) {
 /* Charge l'image, attribut l'image à la texture. Prend en paramètre un pointeur vers la carte, 	*
 *  un pointeur vers la texture, et un pointeur vers la surface SDLRetourne 1 si la carte et charger.	*/
 
-int loadTexture(string fileName, GLuint* texture, SDL_Surface* img) {
+int loadTexture(char* fileName, GLuint* texture, SDL_Surface* img) {
 	
 	img = IMG_Load(fileName);
 	if(img == NULL) {

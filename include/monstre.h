@@ -1,17 +1,15 @@
 #ifndef MONSTER_H__
 #define MONSTER_H__
 
-#include "draw.h"
-#include "installation.h"
-#include "color.h"
-#include "joueur.h"
-#include "map.h"
-#include "shot.h"
 #include "struct.h"
-#include "tower.h"
+#include "enum.h"
 #include <string.h>
 #include <iostream>
-#include "enum.h"
+#include <SDL/SDL.h>
+#include <SDL/SDL_image.h>
+#include <GL/gl.h>
+#include <GL/glu.h>
+#include <GL/glut.h>
 
 class Node;
 class listNode;
@@ -20,7 +18,7 @@ class Monster {
 
     private:
 	//Position du monstre
-	Position p;
+	Position* p;
     //S'il y a une erreur sur sa position
     float erreur;
     //Ses caractéristiques sur le chemin
@@ -43,7 +41,7 @@ class Monster {
 
     Monster();
     //Get
-    Position getPosition();
+    Position* getPosition();
     float getX();
     float getY();
     float getErreur();

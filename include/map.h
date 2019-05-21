@@ -3,28 +3,25 @@
 
 #include <SDL/SDL.h>
 #include <SDL/SDL_image.h>
-
-#include "../include/draw.h"
-#include "../include/installation.h"
-#include "../include/color.h"
-#include "../include/joueur.h"
-#include "../include/monstre.h"
-#include "../include/struct.h"
-
 #include <string>
 #include <iostream>
 #include <stdlib.h>
 #include <stdio.h>
+#include "color.h"
+#include "joueur.h"
+#include "monstre.h"
 
 class Color;
 class listNode;
+class Image;
+class Joueur;
 
 class Map {
 
 private:
 	//Image ppm
 	std::string image;
-	Image img;
+	Image* img;
 	//Noeuds
 	int nbNode;
 	listNode* list_node;
@@ -46,7 +43,7 @@ public:
 	Map();
 	//Get 
 	std::string getImage();
-	Image getImg();
+	Image* getImg();
 	//Noeuds
 	int getNbNode();
 	listNode* getListNode();
@@ -71,7 +68,7 @@ public:
 	//fonctions
 	bool drawRoad();
 	bool loadMap(char* fileNameITD);
-	bool apparitionMonster(listMonster* monsters, int j, Joueur joueur);
+	bool apparitionMonster(listMonster* monsters, int j, Joueur* joueur);
 	// Vérifie la map
 	int verifMap(FILE* fileITD);
 };

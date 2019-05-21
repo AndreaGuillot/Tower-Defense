@@ -238,7 +238,7 @@ int main(int argc, char** argv) {
 						propriete = aucune;
 			}
 
-			map.apparitionMonster(monsters, j, *joueur);
+			map.apparitionMonster(monsters, j, joueur);
 
 			//Si nbVague = 20 vagues et plus de monstre alors gagné
 			if(joueur->getNbVagues() == 20 && monsters->getLength() == 0) {

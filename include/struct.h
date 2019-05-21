@@ -4,7 +4,6 @@
 #include <string.h>
 #include <iostream>
 #include "map.h"
-#include "enum.h"
 
 class Vector;
 class Map;

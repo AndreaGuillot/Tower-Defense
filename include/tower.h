@@ -1,14 +1,6 @@
 #ifndef TOWER_H__
 #define TOWER_H__
 
-#include "draw.h"
-#include "installation.h"
-#include "color.h"
-#include "joueur.h"
-#include "map.h"
-#include "monstre.h"
-#include "shot.h"
-#include "struct.h"
 #include <string.h>
 #include <iostream>
 #include <stdlib.h>
@@ -19,18 +11,18 @@
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include <GL/glut.h>
-#include "enum.h"
+#include "joueur.h"
+#include "struct.h"
 
 class Joueur;
 class listShot;
 class listMonster;
 class listNode;
-class Position;
 
 class Tower {
     private:
 	//Position de la tour
-	Position p;
+	Position* p;
 	//Type de la tour
 	towerType type;
     //Propriétés de la tour

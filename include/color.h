@@ -1,13 +1,6 @@
 #ifndef COLOR_H__
 #define COLOR_H__
 
-#include "draw.h"
-#include "joueur.h"
-#include "map.h"
-#include "monstre.h"
-#include "shot.h"
-#include "struct.h"
-#include "tower.h"
 #include <string.h>
 
 class Color {

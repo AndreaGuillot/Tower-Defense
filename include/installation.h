@@ -1,20 +1,13 @@
 #ifndef INSTALLATION_H__
 #define INSTALLATION_H__
 
-#include "color.h"
-#include "draw.h"
 #include "joueur.h"
-#include "map.h"
-#include "monstre.h"
-#include "shot.h"
-#include "struct.h"
-#include "tower.h"
+#include "enum.h"
 #include <string.h>
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
-#include "enum.h"
 
 class Position;
 class Tower;

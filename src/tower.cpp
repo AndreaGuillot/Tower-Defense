@@ -1,4 +1,9 @@
 #include "../include/tower.h"
+#include <string.h>
+#include <iostream>
+#include <stdlib.h>
+#include <stdio.h>
+#include <math.h>
 
 class Tower {
 
