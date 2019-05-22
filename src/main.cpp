@@ -18,6 +18,7 @@
 #include "../include/joueur.h"
 #include "../include/texture.h"
 #include "../include/click.h"
+#include "../include/enum.h"
 #include <string.h>
 #include <iostream>
 
@@ -252,7 +253,7 @@ int main(int argc, char** argv) {
 					i = 0;
 					map.setNbMonstres(0);
 					propriete = aucune;
-					initAll(*monsters, *shots, *towers, *joueur);
+					initAll(monsters, shots, towers, joueur);
 
 					nbMenu = gameWin;
 				}
@@ -316,7 +317,7 @@ int main(int argc, char** argv) {
 					nb_monster = 0;
 					propriete = aucune;
 
-					initAll(*monsters, *shots, *towers, *joueur);
+					initAll(monsters, shots, towers, joueur);
 
 					nbMenu = gameOver;
 				}
@@ -394,7 +395,7 @@ int main(int argc, char** argv) {
 							switch(e.key.keysym.sym){
 								case SDLK_ESCAPE : 
 								loop = 0;
-								freeAll(*monsters, *shots, *towers, map, *joueur);
+								freeAll(monsters, shots, towers, &map, joueur);
 								break;
 
 								default : break;

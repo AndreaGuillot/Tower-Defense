@@ -66,8 +66,8 @@ int clickMenuTour(listTower* towers, Joueur* joueur, float x, float y) {
 			//Si le joueur a assez d'argent
 			if((joueur->getArgent()) >= tmp->getCost()) {
 				//Ajoute une tour
-				Position p;
-				p.set(x, y);
+				Position* p;
+				p->set(x, y);
 				towers->addTower(type, p);
 				//Met à jour l'argent
 				joueur->updateMoneyBuildTower(tmp->getCost());
@@ -89,7 +89,7 @@ int clickMenuTour(listTower* towers, Joueur* joueur, float x, float y) {
 int clickExit(listMonster* monsters, listShot* shots, listTower* towers, Map* map, Joueur *joueur, float x, float y) {
 	
 	if(x <= 790 && x >= 760 && y <= 45 && y >= 15) {
-		freeAll (*monsters, *shots, *towers, *map, *joueur);
+		freeAll (monsters, shots, towers, map, joueur);
 		return 0;
 	}
 
@@ -113,7 +113,7 @@ Tower* clickTower(listTower* towers, float x, float y, Propriete* propriete) {
 		while(tmp != NULL) {
 
 			//Si on a cliqué sur une tour
-			if(x <= (tmp->getPosition().getX() + 20) && x >= (tmp->getPosition().getX() - 20) && y <= (tmp->getPosition().getY() + 20) && y >= (tmp->getPosition().getY() - 20)) {
+			if(x <= (tmp->getPosition()->getX() + 20) && x >= (tmp->getPosition()->getX() - 20) && y <= (tmp->getPosition()->getY() + 20) && y >= (tmp->getPosition()->getY() - 20)) {
 				*propriete = propTower;
 				return tmp;	
 			}

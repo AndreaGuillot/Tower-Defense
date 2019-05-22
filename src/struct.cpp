@@ -78,40 +78,46 @@ void Vector::normalize(){
 	this->y = (this->y) / norme;
 }
 
+void Vector::getVector2D(Position A, Position B) {
+	
+	this->setX(B.getX() - A.getX());
+	this->setY(B.getY() - A.getY());
+}
+
 /** Noeud **/
 Node::Node(){
-	this->pos = Position();
+	this->pos = NULL;
 	this->next = NULL;
 }
 //Get
-Position Node::getPosition(){
+Position* Node::getPosition(){
 	return this->pos;
 }
 
 float Node::getX(){
-	return this->pos.getX();
+	return this->pos->getX();
 }
 
 float Node::getY(){
-	return this->pos.getY();
+	return this->pos->getY();
 }
 
 Node* Node::getNext(){
 	return this->next;
 }
 void Node::createNode(float x, float y){
-	this->pos.setX(x);
-	this->pos.setY(y);
+	this->pos->setX(x);
+	this->pos->setY(y);
 }
 //Set 
-void Node::setPosition(Position p){
+void Node::setPosition(Position* p){
 	this->pos = p;
 }
 void Node::setX(float a){
-	this->pos.setX(a);
+	this->pos->setX(a);
 }
 void Node::setY(float a){
-	this->pos.setY(a);
+	this->pos->setY(a);
 }
 void Node::setNext(Node* node){
 	this->next = node;
@@ -183,6 +189,18 @@ bool listNode::addNode(float x, float y) {
 	return 1; 
 }
 
+void listNode::freeAllNode () {
+	//Si la liste n'est pas vide
+	if (this->length != 0) {
+
+		//Tant que la liste n'est pas vide
+		while (this->head != NULL) {
+			this->removeNode(this->head);
+		}
+		
+	}
+	free(this);
+}
 bool intersectionCarreDisque (Position point1, Position point2, float rayon, Position origin) {
 
 	int i;
@@ -452,4 +470,12 @@ int Image::changeColorOut(unsigned char* tabPixels, Map* map) {
 
 	return 1;
 
+}
+
+void Image::freeImage () {
+	//Si l'interface existe
+	if (this != NULL) {
+		free(this->path);
+		free(this);
+	}
 }

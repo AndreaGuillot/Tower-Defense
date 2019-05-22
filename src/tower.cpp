@@ -69,7 +69,7 @@ void Tower::setRange(float rg){
 void Tower::setRate(int rt){
 	this->rate=rt;
 }
-void setCost(uint cost){
+void Tower::setCost(uint cost){
     this->cost = cost;
 }
 void Tower::setPosition(Position* p){
@@ -216,17 +216,15 @@ int Tower::reach(listShot *shots, listMonster *monsters) {
 
                             pointIntersection.set(tmp->getX(), tmp->getY());
                             
-                            /*********************                                                             ICIIIIII*******************/
+
                             Vector vectorIntersection;
-                            vectorIntersection.setA(point);
-                            vectorIntersection.setB(pointIntersection);
+                            vectorIntersection.getVector2D(point, pointIntersection);
                             normeIntersection = vectorIntersection.getNorm();
                 
                             //S'il n'y a pas de point d'intersection avant
                             if(normeProche == -1) {
                                 Vector vectorProche;
-                                vectorProche.setA(point);
-                                vectorProche.setB(pointProche);
+                                vectorProche.getVector2D(point, pointProche);
                                 normeProche = vectorProche.getNorm();
                                 monster = tmp;
                             }
@@ -319,7 +317,7 @@ bool Tower::isSame(Tower* t){
 
 
 
-Yoann::Yoann(float range=10., float rate=2.0, uint cost=120, float power =70.){
+Yoann::Yoann(float range, float rate, uint cost, float power){
 	this->setRange(range);
 	this->setRate(rate);
 	this->setCost(cost);
@@ -333,7 +331,7 @@ towerType Yoann::getType(){
 
 
 
-Clara::Clara(float range=20., float rate=1.0, uint cost=80, float power =60.){
+Clara::Clara(float range, float rate, uint cost, float power){
 	this->setRange(range);
     this->setRate(rate);
     this->setCost(cost);
@@ -347,7 +345,7 @@ towerType Clara::getType(){
 
 
 
-Jules::Jules(float range=15., float rate=1.5, uint cost=60, float power =30.){
+Jules::Jules(float range, float rate, uint cost, float power){
 	this->setRange(range);
     this->setRate(rate);
     this->setCost(cost);
@@ -361,7 +359,7 @@ towerType Jules::getType(){
 
 
 
-Oceane::Oceane(float range=50., float rate=0.5, uint cost=50, float power =10.){
+Oceane::Oceane(float range, float rate, uint cost, float power){
 	this->setRange(range);
     this->setRate(rate);
     this->setCost(cost);
@@ -405,22 +403,22 @@ void listTower::setTail(Tower* t){
 }
 
 
-int listTower::addTower(towerType type, Position p) {
+int listTower::addTower(towerType type, Position* p) {
 
     if(this !=NULL){
         Tower* tower;
         switch(type){
             case (int)yoann:
-                tower = Yoann();
+                tower = new Yoann();
                 break;
             case (int)clara:
-                tower = Clara();
+                tower = new Clara();
                 break;
             case (int)jules:
-                tower = Jules();
+                tower = new Jules();
                 break;
             case (int)oceane:
-                tower = Oceane();                    
+                tower = new Oceane();                    
                 break;
             default: break;
         }
@@ -432,7 +430,7 @@ int listTower::addTower(towerType type, Position p) {
             this->head = tower;
             tower->setPrev(NULL);
         }else{
-            tower.setPrev(this->tail);
+            tower->setPrev(this->tail);
             this->tail->setNext(tower);
         }
 
@@ -448,19 +446,20 @@ int listTower::addTower(towerType type, Position p) {
 int listTower::moveTower(Tower* tower, listNode* list_node, float x, float y) {
     if(this != NULL) {
         if(tower != NULL) {
-            Position pos = new Position(x, y);
+            Position* pos;
+            pos->set(x, y);
             tower->setPosition(pos);
         
             Position p1, p2;
 
-            p1.setPosition(new Position(x+15, y+20));
-            p2.setPosition(new Position(x-15, y-20));
+            p1.set(x+15, y+20);
+            p2.set(x-15, y-20);
 
             if(verificationConstruct(list_node, p1, p2) == 1) {
 
-                p1.setX(x+20)
+                p1.setX(x+20);
                 p1.setY(y+20);
-                p2.setX(x-20)
+                p2.setX(x-20);
                 p2.setY(y-20);
 
                 //Si ce n'est pas le premier de la liste
@@ -557,53 +556,6 @@ void listTower::removeTower(Tower* tower) {
         fprintf(stderr, "Cette liste de tours n'existe pas");
 }
 
-void listTower::removeTower(Tower* tower) {
-    if (this != NULL) {
-        if(tower != NULL) {
-            if (tower->getNext() == NULL) {
-                this.setTail(tower->getPrev());
-
-                if(this->getTail() != NULL) {
-                    //Lien de la dernière tour vers la tour suivante est NULL
-                    this->getTail()->setNext(NULL);
-                }
-                else
-                    this->setHead(NULL);
-                    
-            }
-        
-            //Si c'est la première de la liste
-            else if (tower->getPrev() == NULL) {
-                //Positione la tête de la liste vers la tour suivante
-                this->setHead(tower->getNext());
-
-                if(this->getHead() != NULL) {
-                    //Le lien vers de la deuxième tour vers la tour précédente est NULL
-                    this->getHead()->setPrev(NULL);
-                }
-                else
-                    this->setTail(NULL);
-            }
-
-            else {
-                //Relie la tour suivante à la tour précédente de la tour que l'on veut supprmer 
-                tower->getNet()->setPrev(tower->getPrev());
-                //Relie la tour précédente à la tour suivante de la tour que l'on veut supprmer 
-                tower->getPrev()->setNext(tower->getNet());
-
-            }
-            //Libère espace mémoire : supprime la tour
-            free(tower);
-            //Décrémente de un la taille de la liste
-            this->length--;
-
-        }
-        else
-            fprintf(stderr, "Cette tour n'existe pas");
-    }
-    else 
-        fprintf(stderr, "Cette liste de tours n'existe pas");
-}
 
 void listTower::removeAllTower() {
 //Si la liste n'est pas vide

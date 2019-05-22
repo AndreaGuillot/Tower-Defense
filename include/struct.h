@@ -34,12 +34,6 @@ class Position {
 		void addVector(Vector v);
 };
 
-class Vector {
-
-	private: 
-		float x;
-		float y;
-
 class Vector{
 private: 
 	float x;
@@ -51,18 +45,13 @@ public:
 	float getY();
 	float getNorm();
 
-		//Get
-		Vector* get();
-		float getX();
-		float getY();
-		float getNorm();
+	//Set
+	void setX(float x);
+	void setY(float y);
 
-		//Set
-		void setX(float x);
-		void setY(float y);
-
-		//Fonctions
-		void normalize();
+	//Fonctions
+	void normalize();
+	void getVector2D(Position A, Position B) ;
 };
 
 /************* Classe Size : gère taille images *************/
@@ -77,20 +66,20 @@ class Node {
 
 	private: 
 		//Propriétés
-		Position pos;
+		Position* pos;
 		Node* next;
 
 	public:
 		//Constructeur
 		Node();
 		//Get
-		Position getPosition();
+		Position* getPosition();
 		float getX();
 		float getY();
 		Node* getNext();
 		//Set
 		void createNode(float x, float y);
-		void setPosition(Position p);
+		void setPosition(Position* p);
 		void setX(float a);
 		void setY(float a);
 		void setNext(Node* node);
@@ -117,6 +106,7 @@ class listNode {
 		//Fonctions
 		/* Ajoute noeud */
 		bool addNode(float x, float y);
+		void freeAllNode();
 };
 
 //Calculent intersections
@@ -153,6 +143,7 @@ class Image {
 		int changeColorNode(unsigned char* tabPixels, Map* map);
 		int changeColorIn(unsigned char* tabPixels, Map* map);
 		int changeColorOut(unsigned char* tabPixels, Map* map);
+		void freeImage();
 };
 
 #endif

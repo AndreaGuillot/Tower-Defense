@@ -35,7 +35,7 @@ void Installation::setRange(uint val){
 }
 
 void Installation::affects(Tower* tower){
-    tower->setInstNear((int)this->type, 1);
+    tower->setInstNear(this->type, 1);
 }
 
 //Types d'installation

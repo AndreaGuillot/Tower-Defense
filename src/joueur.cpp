@@ -55,51 +55,45 @@ bool Joueur::updateMoneyBuildInstallation(Installation* i){
 }
 /* Dessine interface joueur */
 bool Joueur::drawInterface (GLuint* spriteButton) {
-    if(this != NULL) {
+    
+    char* machaine;
 
-        char* machaine;
+    glColor3ub(255,255,255);
+    
+    /**** Money ****/
+    //Convertie un int en un string
+    sprintf(machaine,"%d",this->getArgent());
+    //Affiche la chaine de caractère
+    writeString(180, 40,  machaine);
 
+    //Active le texturage 2D
+    glEnable(GL_TEXTURE_2D);
+    //Appel de la texture
+    glBindTexture(GL_TEXTURE_2D, *spriteButton);
+
+        glBegin(GL_QUADS);
+        //Couleur neutre
         glColor3ub(255,255,255);
-        
-        /**** Money ****/
-        //Convertie un int en un string
-        sprintf(machaine,"%d",this->getArgent());
-        //Affiche la chaine de caractère
-        writeString(180, 40,  machaine);
+        //Coordonée de la texture
+        glTexCoord2f(0.125, 1);
+        //Cordonnée du quadrilatère 
+        glVertex2f(140, 45);
 
-        //Active le texturage 2D
-        glEnable(GL_TEXTURE_2D);
-        //Appel de la texture
-        glBindTexture(GL_TEXTURE_2D, *spriteButton);
+        glTexCoord2f(0.125, 0);
+        glVertex2f(140, 15);
 
-            glBegin(GL_QUADS);
-            //Couleur neutre
-            glColor3ub(255,255,255);
-            //Coordonée de la texture
-            glTexCoord2f(0.125, 1);
-            //Cordonnée du quadrilatère 
-            glVertex2f(140, 45);
+        glTexCoord2f(0, 0);
+        glVertex2f(170, 15);
 
-            glTexCoord2f(0.125, 0);
-            glVertex2f(140, 15);
+        glTexCoord2f(0, 1);
+        glVertex2f(170, 45);
 
-            glTexCoord2f(0, 0);
-            glVertex2f(170, 15);
+        glEnd();
 
-            glTexCoord2f(0, 1);
-            glVertex2f(170, 45);
-
-            glEnd();
-
-        //Déblinder la texture
-        glBindTexture(GL_TEXTURE_2D, 0);
-        //Désactive le texturage 2D
-        glDisable(GL_TEXTURE_2D);
-    }
-    else {
-        fprintf(stderr, "Il y a un problème avec l'interface\n");
-        return 0;
-    }   
+    //Déblinder la texture
+    glBindTexture(GL_TEXTURE_2D, 0);
+    //Désactive le texturage 2D
+    glDisable(GL_TEXTURE_2D);
 
     return 1;
 
@@ -108,10 +102,8 @@ bool Joueur::drawInterface (GLuint* spriteButton) {
 //Initialisations
 
 void Joueur::initInterface () {
-    if (this != NULL) {
-        this->argent = 100;
-        this->nbVagues = 0;
-    }
+    this->argent = 100;
+    this->nbVagues = 0;
 }
 
 void initAll (listMonster* monsters, listShot* shots, listTower* towers, Joueur* joueur) {
@@ -126,7 +118,11 @@ void initAll (listMonster* monsters, listShot* shots, listTower* towers, Joueur*
     joueur->initInterface();
 }
 
-//Libère espace mémoire
+void Joueur::freeInterface () {
+    if (this != NULL) {
+        free(this);
+    }
+}
 
 void freeAll (listMonster* monsters, listShot* shots, listTower* towers, Map* map, Joueur* joueur) {
 
@@ -137,48 +133,7 @@ void freeAll (listMonster* monsters, listShot* shots, listTower* towers, Map* ma
     //Libère la liste de tours
     towers->freeAllTower();
     //Libère la map
-    /**
-
-
-
-
-
-
-
-
-
-
-
-
-
-    A FAIRE
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    */
-    //map->freeMap();  
+    map->freeMap();  
     //Libère l'interface
-    //joueur->freeInterface();
+    joueur->freeInterface();
 }

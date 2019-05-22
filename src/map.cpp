@@ -9,7 +9,7 @@
 #include "../include/draw.h"
 
 //Get
-std::string Map::getImage(){
+char* Map::getImage(){
     return this->image;
 }
 Image* Map::getImg(){
@@ -74,33 +74,26 @@ void Map::setConstructColor(Color* color){
 /* Dessine les chemins */
 bool Map::drawRoad() {
 
-    if(this != NULL) {
+    Node *tmp = this->list_node->getHead();
 
-        Node *tmp = this->list_node->getHead();
+    while(tmp->getNext() != NULL) {
+    
+        glBegin(GL_LINES);
+            glColor3ub(29,168,194);
+            glVertex2d(tmp->getX(), tmp->getY());
+            glVertex2d(tmp->getNext()->getX(), tmp->getNext()->getY());
+        glEnd();
 
-        while(tmp->getNext() != NULL) {
-        
-            glBegin(GL_LINES);
-                glColor3ub(29,168,194);
-                glVertex2d(tmp->getX(), tmp->getY());
-                glVertex2d(tmp->getNext()->getX(), tmp->getNext()->getY());
-            glEnd();
+        glPushMatrix();
+            glColor3ub((this->getNodeColor())->getR(),(this->getNodeColor())->getG(),(this->getNodeColor())->getB());
+            glTranslatef(tmp->getX(),tmp->getY(), 0.0);
+            drawDisque(5);
+        glPopMatrix();
 
-            glPushMatrix();
-                glColor3ub((this->getNodeColor())->getR(),(this->getNodeColor())->getG(),(this->getNodeColor())->getB());
-                glTranslatef(tmp->getX(),tmp->getY(), 0.0);
-                drawDisque(5);
-            glPopMatrix();
+        glColor3ub(255,255,255);
 
-            glColor3ub(255,255,255);
+        tmp = tmp->getNext();                  
 
-            tmp = tmp->getNext();                  
-
-        }
-    }
-    else {
-        fprintf(stderr, "Erreur la carte n'existe pas\n");
-        return 0;
     }
 
     return 1;
@@ -304,8 +297,8 @@ int Map::verifMap(FILE* fileITD)
         fscanf(fileITD, "%*d %*d %d %d\n", &X, &Y);
         Node* node;
         node->createNode(X, Y);
-        (*fileNode).setNext(node);
-        fileNode = (*fileNode).getNext();
+        fileNode->setNext(node);
+        fileNode = fileNode->getNext();
     }
     (*fileNode).setNext(NULL);
     this->list_node->setHead(tmp);
@@ -365,4 +358,15 @@ bool Map::apparitionMonster(listMonster* monsters, int j, Joueur* joueur) {
     }
 
     return 1;
+}
+
+void Map::freeMap () {
+    //Si la map existe
+    if (this != NULL) {
+        this->img->freeImage ();
+        this->list_pixels->freeAllNode ();
+        this->list_node->freeAllNode ();
+        this->listConstruct->freeAllNode ();
+        free(this);
+    }
 }

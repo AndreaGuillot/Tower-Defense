@@ -11,14 +11,10 @@
 /************* Classes Installation, listFileTower et Map *************/
 //Gère les bâtiments
 class Installation;
-<<<<<<< HEAD
 //Gère liste tours
-class listFileTower;
-//Gère la map
-=======
->>>>>>> master
-class Map;
 class listTower;
+//Gère la map
+class Map;
 
 /************* Classe Joueur : gère les informations du joueur *************/
 class Joueur {
@@ -47,11 +43,12 @@ class Joueur {
         bool drawInterface (GLuint* spriteButton);
         /* Innitialise interface */
         void initInterface();
+        void freeInterface();
 };
 
 //Innitialise tous les éléments
-void initAll (listMonster monsters, listShot shots, listTower towers, Joueur joueur);
+void initAll (listMonster* monsters, listShot* shots, listTower* towers, Joueur* joueur);
 //Libère mémoire
-void freeAll (listMonster monsters, listShot shots, listTower towers, Map map, Joueur joueur);
+void freeAll (listMonster* monsters, listShot* shots, listTower* towers, Map* map, Joueur* joueur);
 
 #endif

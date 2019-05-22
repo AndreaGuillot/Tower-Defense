@@ -162,7 +162,8 @@ int listShot::moveShot() {
 			point_shot.set(tmp->getX(), tmp->getY());
 
 			//Créer un vecteur avec la position du missile et la position de l'ennemi
-			Vector vector = Vector(point_shot, point_target);
+			Vector vector;
+			vector.getVector2D(point_shot, point_target);
 			//Normalise le vecteur pour avoir une norme de 1
 			vector.normalize();
 			//Ajoute le vecteur normalisé au point qui représente la position du missile pour le déplacer

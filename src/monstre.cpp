@@ -2,11 +2,11 @@
 #include "../include/draw.h"
 
 Monster::Monster(){
-    Position* p = NULL;
-    Node* node_prev = NULL;
-    Node* node_next = NULL;
-    Monster* monster_prev = NULL;
-    Monster* monster_next = NULL;
+    this->p = NULL;
+    this->node_prev = NULL;
+    this->node_next = NULL;
+    this->monster_prev = NULL;
+    this->monster_next = NULL;
 }
 
 //Get
@@ -365,7 +365,7 @@ bool Monster::isSame(Monster* m){
 }
 
 //Types de monstre
-Lucie::Lucie(uint pv=200, uint speed = 0.09, uint money = 20, float resistance_TDR = 0.5, float resistance_TDV = 0, float resistance_TDJ = 0.3, float resistance_TDB = 0.2){
+Lucie::Lucie(uint pv, uint speed, uint money, float resistance_TDR, float resistance_TDV, float resistance_TDJ, float resistance_TDB){
             this->setPV(pv);
             this->setSpeed(speed);
             this->setReward(money);
@@ -375,7 +375,7 @@ Lucie::Lucie(uint pv=200, uint speed = 0.09, uint money = 20, float resistance_T
             this->setResistance_TDB(resistance_TDB);
         }
 
-Barbara::Barbara(uint pv=100, uint speed = 0.11, uint money = 15, float resistance_TDR = 0.1, float resistance_TDV = 0.5, float resistance_TDJ = 0.3, float resistance_TDB = 0.1){
+Barbara::Barbara(uint pv, uint speed, uint money, float resistance_TDR, float resistance_TDV, float resistance_TDJ, float resistance_TDB){
             this->setPV(pv);
             this->setSpeed(speed);
             this->setReward(money);
@@ -385,7 +385,7 @@ Barbara::Barbara(uint pv=100, uint speed = 0.11, uint money = 15, float resistan
             this->setResistance_TDB(resistance_TDB);
         }
 
-Julien::Julien(uint pv=50, uint speed = 0.14, uint money = 8, float resistance_TDR = 0.1, float resistance_TDV = 0.8, float resistance_TDJ = 0, float resistance_TDB = 0){
+Julien::Julien(uint pv, uint speed, uint money, float resistance_TDR, float resistance_TDV, float resistance_TDJ, float resistance_TDB){
             this->setPV(pv);
             this->setSpeed(speed);
             this->setReward(money);
@@ -397,8 +397,8 @@ Julien::Julien(uint pv=50, uint speed = 0.14, uint money = 8, float resistance_T
 //Liste des monstres
 listMonster::listMonster(){
     this->length = 0;
-    head->set(NULL);
-    tail->set(NULL);
+    this->head->set(NULL);
+    this->tail->set(NULL);
 }
 
 //Get
@@ -433,7 +433,7 @@ bool listMonster::listMonster::addMonster(monsterType type, Node* node) {
         }
 
         if(monster != NULL){
-            monster->setPosition(node->getPosition().getX(), node->getPosition().getY());
+            monster->setPosition(node->getPosition()->getX(), node->getPosition()->getY());
             monster->setNodePrev(node);
             monster->setNodeNext(node->getNext());
 

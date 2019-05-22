@@ -5,6 +5,8 @@
 #include "tower.h"
 #include <string.h>
 
+class listTower;
+
 /************* Prototypes des fonctions *************/
 
 //Dessine : menu principal

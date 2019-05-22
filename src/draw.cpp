@@ -513,7 +513,7 @@ int drawTower (GLuint* towerTxt, listTower* towers, listMonster* monsters, Tower
 
 				if(testMouse == 1) {
 					glPushMatrix();
-					glTranslatef(tmp->getPosition().getX(),tmp->getPosition().getY(), 0.0);
+					glTranslatef(tmp->getPosition()->getX(),tmp->getPosition()->getY(), 0.0);
 
 						//Choisit la couleur
 						if(tmp == towers->getTail()) {
@@ -533,7 +533,7 @@ int drawTower (GLuint* towerTxt, listTower* towers, listMonster* monsters, Tower
 				if(tower != NULL && testMouse != 1) {
 					if(tower == tmp) {
 						glPushMatrix();
-							glTranslatef(tmp->getPosition().getX(),tmp->getPosition().getY(), 0.0);
+							glTranslatef(tmp->getPosition()->getX(),tmp->getPosition()->getY(), 0.0);
 							glColor4f(255,255,255, 0.2);
 							drawDisque(tmp->getRange());
 						glPopMatrix();
@@ -548,10 +548,10 @@ int drawTower (GLuint* towerTxt, listTower* towers, listMonster* monsters, Tower
 				glBindTexture(GL_TEXTURE_2D, *towerTxt);
 
 					int xm1, xm2, ym1, ym2;
-					xm1 = tmp->getPosition().getX() + 20;
-					xm2 = tmp->getPosition().getX() - 20;
-					ym1 = tmp->getPosition().getY() + 20;
-					ym2 = tmp->getPosition().getY() - 20;
+					xm1 = tmp->getPosition()->getX() + 20;
+					xm2 = tmp->getPosition()->getX() - 20;
+					ym1 = tmp->getPosition()->getY() + 20;
+					ym2 = tmp->getPosition()->getY() - 20;
 
 					int towerNumber = tmp->getType();
 

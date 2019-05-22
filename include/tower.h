@@ -13,6 +13,7 @@
 #include <GL/glut.h>
 #include "joueur.h"
 #include "struct.h"
+#include "draw.h"
 
 class Joueur;
 class listShot;
@@ -75,25 +76,25 @@ class Tower {
 
 class Yoann: public Tower{
     public:
-    	Yoann(float range, float rate, uint cost, float power);
+    	Yoann(float range=10., float rate=2.0, uint cost=120, float power =70.);
     	towerType getType();
 };
 
 class Clara: public Tower{
     public:
-    	Clara(float range, float rate, uint cost, float power);
+    	Clara(float range=20., float rate=1.0, uint cost=80, float power =60.);
     	towerType getType();
 };
 
 class Jules: public Tower{
     public:
-    	Jules(float range, float rate, uint cost, float power);
+    	Jules(float range=15., float rate=1.5, uint cost=60, float power =30.);
     	towerType getType();
 };
 
 class Oceane: public Tower{
     public:
-    	Oceane(float range, float rate, uint cost, float power);
+    	Oceane(float range=50., float rate=0.5, uint cost=50, float power =10.);
     	towerType getType();
 };
 
@@ -117,7 +118,7 @@ public:
     void setHead(Tower* t);
     void setTail(Tower* t);
 
-    int addTower(towerType type, Position p);
+    int addTower(towerType type, Position* p);
     int moveTower(Tower* tower, listNode* list_node, float x, float y);
     void removeTower(Tower* t);
     void removeAllTower();
