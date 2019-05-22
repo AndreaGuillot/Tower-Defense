@@ -431,7 +431,7 @@ int Map::verificationMap(char* nameITD){
 
                         //Alloue de la mémoire pour une image
                         Image* new_img;
-                        char* path = (char*)malloc(50*sizeof(char));
+                        char* path;
                 
                         //Récupère le chemin vers l'image ppm
                         if(fscanf(itd, "%s\n", path) == 1){

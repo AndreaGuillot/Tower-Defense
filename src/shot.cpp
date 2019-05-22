@@ -71,8 +71,8 @@ void Shot::setNext(Shot* s){
 
 listShot::listShot(){
 	this->length = 0;
-	this->head->set(NULL);
-	this->tail->set(NULL);
+	this->head = NULL;
+	this->tail = NULL;
 }
 int listShot::getLength(){
 	return this->length;

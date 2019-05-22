@@ -432,10 +432,10 @@ int Image::getMaxValue(){
 }
 
 void Image::setPath(char* line){
-	this->path = line;
+	strcpy(this->path, line);
 }
 void Image::setMagicNumber(char* line){
-	this->magicNumber = line;
+	strcpy(this->magicNumber, line);
 }
 void Image::setHeight(uint nb){
 	this->heightImg = nb;

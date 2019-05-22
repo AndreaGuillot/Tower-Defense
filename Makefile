@@ -1,5 +1,5 @@
 # Compilateur
-CC = gcc
+CC = g++
 # $(BIN) est la nom du binaire genere
 BIN = itd
 BIN_PATH = bin

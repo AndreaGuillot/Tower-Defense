@@ -397,8 +397,8 @@ Julien::Julien(uint pv, uint speed, uint money, float resistance_TDR, float resi
 //Liste des monstres
 listMonster::listMonster(){
     this->length = 0;
-    this->head->set(NULL);
-    this->tail->set(NULL);
+    this->head = NULL;
+    this->tail = NULL;
 }
 
 //Get

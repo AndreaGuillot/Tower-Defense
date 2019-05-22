@@ -120,9 +120,9 @@ class Image {
 
 	private:
 		//Chemin vers l'image
-		char* path;
+		char path[50];
 		//Numero magic : identifie le type de fichier
-		char* magicNumber;
+		char magicNumber[2];
 		//Les dimensions de l'images
 		unsigned int heightImg;
 		unsigned int widthImg;

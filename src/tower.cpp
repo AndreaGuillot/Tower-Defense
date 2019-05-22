@@ -89,101 +89,93 @@ void Tower::setInstNear(installationType a, bool val){
 }
 int Tower::drawProprieteTower(GLuint* tower, GLuint* spriteMenu, GLuint* btPlus, Joueur* joueur) {
 
-    if(this != NULL) {
+    int type = this->type;
 
-        int type = this->type;
+    float x1 = 0;
+    float x2 = 1;
+    float y1 = (type * (1.0/4.0));
+    float y2 = (type * (1.0/4.0)) + 0.25;
 
-        float x1 = 0;
-        float x2 = 1;
-        float y1 = (type * (1.0/4.0));
-        float y2 = (type * (1.0/4.0)) + 0.25;
+    //Active le texturage 2D
+    glEnable(GL_TEXTURE_2D);
+    //appel de la texture
+    glBindTexture(GL_TEXTURE_2D, *tower);
 
-        //Active le texturage 2D
-        glEnable(GL_TEXTURE_2D);
-        //appel de la texture
-        glBindTexture(GL_TEXTURE_2D, *tower);
+        glBegin(GL_QUADS);
+        //couleur neutre
+        glColor3ub(255,255,255);
+        //coordonée de la texture
+        glTexCoord2f(x2, y1);
+        //Cordonnée du quadrilatère 
+        glVertex2f(20, 300);
 
-            glBegin(GL_QUADS);
-            //couleur neutre
-            glColor3ub(255,255,255);
-            //coordonée de la texture
-            glTexCoord2f(x2, y1);
-            //Cordonnée du quadrilatère 
-            glVertex2f(20, 300);
+        glTexCoord2f(x2, y2);
+        glVertex2f(20, 340);
 
-            glTexCoord2f(x2, y2);
-            glVertex2f(20, 340);
+        glTexCoord2f(x1, y2);
+        glVertex2f(60, 340);
 
-            glTexCoord2f(x1, y2);
-            glVertex2f(60, 340);
-
-            glTexCoord2f(x1, y1);
-            glVertex2f(60, 300);
+        glTexCoord2f(x1, y1);
+        glVertex2f(60, 300);
 
 
-            glEnd();
+        glEnd();
 
-        //Déblinder la texture
-        glBindTexture(GL_TEXTURE_2D, 0);
-        //Désactive le texturage 2D
-        glDisable(GL_TEXTURE_2D);
+    //Déblinder la texture
+    glBindTexture(GL_TEXTURE_2D, 0);
+    //Désactive le texturage 2D
+    glDisable(GL_TEXTURE_2D);
 
 
-        char* machaine;
-        int money = 0;
+    char* machaine;
 
-        /**** Cadence ****/
+    /**** Cadence ****/
 
-        glColor4f(255,255,255, 1);
-        //Convertie un int en un string
-        sprintf(machaine,"%d",this->rate);
+    glColor4f(255,255,255, 1);
+    //Convertie un int en un string
+    sprintf(machaine,"%f",this->rate);
 
-        writeString(20, 390,  "Cadence : ");
-        //Affiche la chaine de caractère
-        writeString(120, 390,  machaine);
+    writeString(20, 390,  "Cadence : ");
+    //Affiche la chaine de caractère
+    writeString(120, 390,  machaine);
 
-        /**** Portée ****/
+    /**** Portée ****/
 
-        glColor4f(255,255,255, 1);
-        //Convertie un int en un string
-        sprintf(machaine,"%d",this->range);
+    glColor4f(255,255,255, 1);
+    //Convertie un int en un string
+    sprintf(machaine,"%f",this->range);
 
-        writeString(20, 415,  "Range : ");
-        //Affiche la chaine de caractère
-        writeString(120, 415,  machaine);
+    writeString(20, 415,  "Range : ");
+    //Affiche la chaine de caractère
+    writeString(120, 415,  machaine);
 
-        /**** Puissance ****/
+    /**** Puissance ****/
 
-        glColor4f(255,255,255, 1);
-        //Convertie un int en un string
-        sprintf(machaine,"%d",this->power);
+    glColor4f(255,255,255, 1);
+    //Convertie un int en un string
+    sprintf(machaine,"%f",this->power);
 
-        writeString(20, 440,  "Puissance : ");
-        //Affiche la chaine de caractère
-        writeString(120, 440,  machaine);
+    writeString(20, 440,  "Puissance : ");
+    //Affiche la chaine de caractère
+    writeString(120, 440,  machaine);
 
-        /**** type de la tour ****/
-        glColor4f(255,255,255, 1);
-        char* typeTour = "";
+    /**** type de la tour ****/
+    glColor4f(255,255,255, 1);
+    char* typeTour = "";
 
-        //Choisir le bon monstre dans le sprite
-        if(this->type == oceane) 
-            typeTour = "Océane (Archer)";
-        else if(this->type == jules) 
-            typeTour = "Jules (Multidirectionnelle)";
-        else if(this->type == clara) 
-            typeTour = "Clara (Laser)";
-        else if(this->type == yoann) 
-            typeTour = "Yoann (Rocket)";
+    //Choisir le bon monstre dans le sprite
+    if(this->type == oceane) 
+        typeTour = "Océane (Archer)";
+    else if(this->type == jules) 
+        typeTour = "Jules (Multidirectionnelle)";
+    else if(this->type == clara) 
+        typeTour = "Clara (Laser)";
+    else if(this->type == yoann) 
+        typeTour = "Yoann (Rocket)";
 
-        writeString(20, 465,  "Type : ");
-        //Affiche la chaine de caractère
-        writeString(80, 465,  typeTour);
-
-    }else {
-        fprintf(stderr, "probleme d'allocation memoire pour la chaine de caractere\n");
-        return 0;
-    }
+    writeString(20, 465,  "Type : ");
+    //Affiche la chaine de caractère
+    writeString(80, 465,  typeTour);
 
     return 1;
 
@@ -192,91 +184,83 @@ int Tower::drawProprieteTower(GLuint* tower, GLuint* spriteMenu, GLuint* btPlus,
 int Tower::reach(listShot *shots, listMonster *monsters) {
     if(shots != NULL) {
         if(monsters != NULL){
-            if(this != NULL) {
-                if(this->type != jules) {
+            if(this->type != jules) {
 
-                    Monster* monster = NULL;
+                Monster* monster = NULL;
 
-                    //Variables pour savoir qui est le plus proche
-                    Position pointIntersection, pointProche, point1, point2;
-                    Vector vectorIntersection, vectorProche;
-                    float normeIntersection, normeProche = -1;
+                //Variables pour savoir qui est le plus proche
+                Position pointIntersection, pointProche, point1, point2;
+                Vector vectorIntersection, vectorProche;
+                float normeIntersection, normeProche = -1;
 
-                    //Création d'un monstre temporaire pour parcourir la liste de monstres
-                    Monster* tmp = monsters->getHead();
+                //Création d'un monstre temporaire pour parcourir la liste de monstres
+                Monster* tmp = monsters->getHead();
 
-                    //Parcours la liste de monstres
-                    while(tmp != NULL){
+                //Parcours la liste de monstres
+                while(tmp != NULL){
 
-                        Position point; //centre
-                        point.set(this->getPosition()->getX(), this->getPosition()->getY());
+                    Position point; //centre
+                    point.set(this->getPosition()->getX(), this->getPosition()->getY());
 
-                        point1.set(tmp->getX() + 20, tmp->getY() + 20);
-                        point2.set(tmp->getX() - 20, tmp->getY() - 20);
+                    point1.set(tmp->getX() + 20, tmp->getY() + 20);
+                    point2.set(tmp->getX() - 20, tmp->getY() - 20);
 
-                        //Vérifie s'il y a une intersection
-                        if(intersectionCarreDisque (point1, point2, this->range, point)) {
+                    //Vérifie s'il y a une intersection
+                    if(intersectionCarreDisque (point1, point2, this->range, point)) {
 
-                            pointIntersection.set(tmp->getX(), tmp->getY());
-                            
+                        pointIntersection.set(tmp->getX(), tmp->getY());
+                        
 
-                            Vector vectorIntersection;
-                            vectorIntersection.getVector2D(point, pointIntersection);
-                            normeIntersection = vectorIntersection.getNorm();
-                
-                            //S'il n'y a pas de point d'intersection avant
-                            if(normeProche == -1) {
-                                Vector vectorProche;
-                                vectorProche.getVector2D(point, pointProche);
-                                normeProche = vectorProche.getNorm();
-                                monster = tmp;
-                            }
-                            //Si la distance du nouveau point d'intersection est plus proche que celle stocker
-                            if(normeIntersection < normeProche) {
-                                vectorProche = vectorIntersection;
-                                normeProche = normeIntersection;
-                                monster = tmp;
-                            }
-
+                        Vector vectorIntersection;
+                        vectorIntersection.getVector2D(point, pointIntersection);
+                        normeIntersection = vectorIntersection.getNorm();
+            
+                        //S'il n'y a pas de point d'intersection avant
+                        if(normeProche == -1) {
+                            Vector vectorProche;
+                            vectorProche.getVector2D(point, pointProche);
+                            normeProche = vectorProche.getNorm();
+                            monster = tmp;
                         }
-                        tmp = tmp->getNextM();
+                        //Si la distance du nouveau point d'intersection est plus proche que celle stocker
+                        if(normeIntersection < normeProche) {
+                            vectorProche = vectorIntersection;
+                            normeProche = normeIntersection;
+                            monster = tmp;
+                        }
+
                     }
-
-                    if(monster != NULL)
-                        shots->addShot(monster, this);
-
-                    return 1;
-
+                    tmp = tmp->getNextM();
                 }
-                else {
-                
-                    //Création d'un monstre temporaire pour parcourir la liste de monstres
-                    Monster* tmp = monsters->getHead();
 
-                    //Parcours la liste de monstres
-                    while(tmp != NULL){
+                if(monster != NULL)
+                    shots->addShot(monster, this);
 
-                        Position point, point1, point2;
-                        point.set(this->getPosition()->getX(), this->getPosition()->getY()); //centre
-                        point1.set(this->getPosition()->getX() + 20, this->getPosition()->getY() + 20); //centre
-                        point2.set(this->getPosition()->getX() - 20, this->getPosition()->getY() - 20); //centre
-
-                        //Vérifie s'il y a une intersection
-                        if(intersectionCarreDisque (point1, point2, this->range, point) == 1)
-                            shots->addShot(tmp, this); //Ajout d'un shot à la liste
-
-                        tmp = tmp->getNextM();
-
-                    }   
-                    return 1;
-                }
+                return 1;
 
             }
             else {
-                fprintf(stderr, "Cette tour n'existe pas\n");
-                return 0;
-            }
+            
+                //Création d'un monstre temporaire pour parcourir la liste de monstres
+                Monster* tmp = monsters->getHead();
 
+                //Parcours la liste de monstres
+                while(tmp != NULL){
+
+                    Position point, point1, point2;
+                    point.set(this->getPosition()->getX(), this->getPosition()->getY()); //centre
+                    point1.set(this->getPosition()->getX() + 20, this->getPosition()->getY() + 20); //centre
+                    point2.set(this->getPosition()->getX() - 20, this->getPosition()->getY() - 20); //centre
+
+                    //Vérifie s'il y a une intersection
+                    if(intersectionCarreDisque (point1, point2, this->range, point) == 1)
+                        shots->addShot(tmp, this); //Ajout d'un shot à la liste
+
+                    tmp = tmp->getNextM();
+
+                }   
+                return 1;
+            }    
         }
         else {
             fprintf(stderr, "Cette liste de monstre n'existe pas\n");
@@ -377,8 +361,8 @@ towerType Oceane::getType(){
 
 listTower::listTower(){
     this->length = 0;
-    this->head->set(NULL);
-    this->tail->set(NULL);
+    this->head = NULL;
+    this->tail = NULL;
 }
 
 int listTower::getLength(){
