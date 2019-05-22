@@ -40,16 +40,12 @@ class Vector {
 		float x;
 		float y;
 
-class Vector{
-private: 
-	float x;
-	float y;
-public:
-	Vector();
-	Vector* get();
-	float getX();
-	float getY();
-	float getNorm();
+	public:
+		Vector();
+		Vector* get();
+		float getX();
+		float getY();
+		float getNorm();
 
 		//Get
 		Vector* get();
