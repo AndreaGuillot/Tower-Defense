@@ -104,8 +104,10 @@ class listNode {
 		void setHead(Node* node);
 		void setTail(Node* node);
 		//Fonctions
+		int verificationConstruct(Position point1, Position point2);
 		/* Ajoute noeud */
 		bool addNode(float x, float y);
+		void removeNode(Node* node);
 		void freeAllNode();
 };
 

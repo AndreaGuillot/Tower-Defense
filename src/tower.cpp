@@ -405,98 +405,88 @@ void listTower::setTail(Tower* t){
 
 int listTower::addTower(towerType type, Position* p) {
 
-    if(this !=NULL){
-        Tower* tower;
-        switch(type){
-            case (int)yoann:
-                tower = new Yoann();
-                break;
-            case (int)clara:
-                tower = new Clara();
-                break;
-            case (int)jules:
-                tower = new Jules();
-                break;
-            case (int)oceane:
-                tower = new Oceane();                    
-                break;
-            default: break;
-        }
-
-        tower->setPosition(p);
-        tower->setNext(NULL);
-
-        if(this->tail == NULL){
-            this->head = tower;
-            tower->setPrev(NULL);
-        }else{
-            tower->setPrev(this->tail);
-            this->tail->setNext(tower);
-        }
-
-        this->setTail(tower);
-        this->length++;
-    }else{
-        fprintf(stderr, "Problème dans la creation de la nouvelle tour\n");
-        return 0;
+    Tower* tower;
+    switch(type){
+        case (int)yoann:
+            tower = new Yoann();
+            break;
+        case (int)clara:
+            tower = new Clara();
+            break;
+        case (int)jules:
+            tower = new Jules();
+            break;
+        case (int)oceane:
+            tower = new Oceane();                    
+            break;
+        default: break;
     }
+
+    tower->setPosition(p);
+    tower->setNext(NULL);
+
+    if(this->tail == NULL){
+        this->head = tower;
+        tower->setPrev(NULL);
+    }else{
+        tower->setPrev(this->tail);
+        this->tail->setNext(tower);
+    }
+
+    this->setTail(tower);
+    this->length++;
+
     return 1;
 }
 
 int listTower::moveTower(Tower* tower, listNode* list_node, float x, float y) {
-    if(this != NULL) {
-        if(tower != NULL) {
-            Position* pos;
-            pos->set(x, y);
-            tower->setPosition(pos);
-        
-            Position p1, p2;
+    if(tower != NULL) {
+        Position* pos;
+        pos->set(x, y);
+        tower->setPosition(pos);
+    
+        Position p1, p2;
 
-            p1.set(x+15, y+20);
-            p2.set(x-15, y-20);
+        p1.set(x+15, y+20);
+        p2.set(x-15, y-20);
 
-            if(verificationConstruct(list_node, p1, p2) == 1) {
+        if(list_node->verificationConstruct(p1, p2) == 1) {
 
-                p1.setX(x+20);
-                p1.setY(y+20);
-                p2.setX(x-20);
-                p2.setY(y-20);
+            p1.setX(x+20);
+            p1.setY(y+20);
+            p2.setX(x-20);
+            p2.setY(y-20);
 
-                //Si ce n'est pas le premier de la liste
-                if(tower->getPrev() != NULL){
+            //Si ce n'est pas le premier de la liste
+            if(tower->getPrev() != NULL){
 
-                    Position p3, p4;
-                    //Créer une tour temporaire pour parcourir la liste
-                    Tower* tmp = this->head;
+                Position p3, p4;
+                //Créer une tour temporaire pour parcourir la liste
+                Tower* tmp = this->head;
 
-                    //Parcour de la liste
-                    while(tmp->getNext() != NULL) {
+                //Parcour de la liste
+                while(tmp->getNext() != NULL) {
 
-                        p3.setX(tmp->getPosition()->getX()+20);
-                        p3.setY(tmp->getPosition()->getY()+20);
-                        p4.setX(tmp->getPosition()->getX()-20);
-                        p4.setY(tmp->getPosition()->getY()-20);
+                    p3.setX(tmp->getPosition()->getX()+20);
+                    p3.setY(tmp->getPosition()->getY()+20);
+                    p4.setX(tmp->getPosition()->getX()-20);
+                    p4.setY(tmp->getPosition()->getY()-20);
 
-                        //Vérifie qu'il ne se trouve pas sur une autre tour (pas d'intersection)
-                        if(intersectionCarres (p1, p2, p3, p4) == 0)
-                            tmp = tmp->getNext();
-                        else
-                            return 0;
-                    }
-                    return 1;
+                    //Vérifie qu'il ne se trouve pas sur une autre tour (pas d'intersection)
+                    if(intersectionCarres (p1, p2, p3, p4) == 0)
+                        tmp = tmp->getNext();
+                    else
+                        return 0;
                 }
-                //Sinon pas besoin de faire la vérification pour les collisions de quads
-                else
-                    return 1;       
+                return 1;
             }
-        }
-        else {
-            fprintf(stderr, "Cette tour n'existe pas\n");
-            return 0;
+            //Sinon pas besoin de faire la vérification pour les collisions de quads
+            else
+                return 1;       
         }
     }
     else {
-        fprintf(stderr, "Erreur : il y a un problème avec la liste de tours\n");
+        fprintf(stderr, "Cette tour n'existe pas\n");
         return 0;
     }
 
@@ -505,55 +495,51 @@ int listTower::moveTower(Tower* tower, listNode* list_node, float x, float y) {
 }
 
 void listTower::removeTower(Tower* tower) {
-    if (this != NULL) {
-        if(tower != NULL) {
+    if(tower != NULL) {
 
-            //Si c'est la dernière tour de la liste
-            if (tower->getNext() == NULL) {
+        //Si c'est la dernière tour de la liste
+        if (tower->getNext() == NULL) {
+            
+            //Set la fin de la liste sur la tour précédente
+            this->tail->set(tower->getPrev());
+
+            if(this->tail != NULL) {
+                //Lien de la dernière tour vers la tour suivante est NULL
+                this->tail->setNext(NULL);
+            }
+            else
+                this->head->set(NULL);
                 
-                //Set la fin de la liste sur la tour précédente
-                this->tail->set(tower->getPrev());
+        }
+    
+        //Si c'est la première de la liste
+        else if (tower->getPrev() == NULL) {
+            //Set la tête de la liste sur la tour suivante
+            this->head->set(tower->getNext());
 
-                if(this->tail != NULL) {
-                    //Lien de la dernière tour vers la tour suivante est NULL
-                    this->tail->setNext(NULL);
-                }
-                else
-                    this->head->set(NULL);
-                    
+            if(this->head != NULL) {
+                //Le lien vers de la deuxième tour vers la tour précédente est NULL
+                this->head->setPrev(NULL);
             }
-        
-            //Si c'est la première de la liste
-            else if (tower->getPrev() == NULL) {
-                //Set la tête de la liste sur la tour suivante
-                this->head->set(tower->getNext());
+            else
+                this->tail->set(NULL);
+        }
 
-                if(this->head != NULL) {
-                    //Le lien vers de la deuxième tour vers la tour précédente est NULL
-                    this->head->setPrev(NULL);
-                }
-                else
-                    this->tail->set(NULL);
-            }
-
-            else {
-                //Relie la tour suivante à la tour précédente de la tour que l'on veut supprmer 
-                tower->getNext()->setPrev(tower->getPrev());
-                //Relie la tour précédente à la tour suivante de la tour que l'on veut supprmer 
-                tower->getPrev()->setNext(tower->getNext());
-
-            }
-            //Libère espace mémoire : supprime la tour
-            free(tower);
-            //Décrémente de 1 la taille de la liste
-            this->length--;
+        else {
+            //Relie la tour suivante à la tour précédente de la tour que l'on veut supprmer 
+            tower->getNext()->setPrev(tower->getPrev());
+            //Relie la tour précédente à la tour suivante de la tour que l'on veut supprmer 
+            tower->getPrev()->setNext(tower->getNext());
 
         }
-        else
-            fprintf(stderr, "Cette tour n'existe pas");
+        //Libère espace mémoire : supprime la tour
+        free(tower);
+        //Décrémente de 1 la taille de la liste
+        this->length--;
+
     }
-    else 
-        fprintf(stderr, "Cette liste de tours n'existe pas");
+    else
+        fprintf(stderr, "Cette tour n'existe pas");
 }
 
 

@@ -2,7 +2,9 @@
 #include <stdlib.h>
 #include <math.h>
 
-/** Position **/
+/*************************************************
+					POSITION 
+***!************************************************/
 Position::Position(){
 	this->x = 0;
 	this->y = 0;
@@ -38,6 +40,10 @@ void Position::addVector(Vector V) {
 	this->y += (V.getY());
 }
 
+
+/*************************************************
+					VECTOR 
+***!************************************************/
 
 
 Vector::Vector(){
@@ -84,7 +90,12 @@ void Vector::getVector2D(Position A, Position B) {
 	this->setY(B.getY() - A.getY());
 }
 
-/** Noeud **/
+
+/*************************************************
+					NODE 
+***!************************************************/
+
+
 Node::Node(){
 	this->pos = NULL;
 	this->next = NULL;
@@ -124,7 +135,11 @@ void Node::setNext(Node* node){
 }
 
 
-/** Liste noeuds **/
+/*************************************************
+					LISTNODE 
+***!************************************************/
+
+
 listNode::listNode(){
 	this->length = 0;
 	this->head=NULL;
@@ -155,6 +170,49 @@ void listNode::setTail(Node* node){
 	this->tail = node;
 }
 //Fonction
+
+int listNode::verificationConstruct(Position point1, Position point2) {
+
+	int i, test = 0;
+	Position point;
+
+	for(i = 0; i < 4; i++) {
+
+		//Vérifie avec les quatres points du quad
+		switch(i) {
+			case 0 : 
+				point.setX(point1.getX()); point.setY(point1.getY());
+				break;
+			case 1 : 
+				point.setX(point1.getX()); point.setY(point2.getY());
+				break;
+			case 2 :
+				point.setX(point2.getX()); point.setY(point2.getY());
+				break;
+			case 3 :
+				point.setX(point2.getX()); point.setY(point1.getY());
+				break;
+		}
+
+		//Créer un pointeur temporaire node pour parcourir la liste de noeud
+		Node* tmp = this->head;
+
+		while(tmp != NULL){
+
+			if(point.getX() == tmp->getX() && point.getY() == tmp->getY())
+				test++;
+
+			tmp = tmp->getNext();
+		}
+
+	}
+
+	//Si les 4 extremité sont dans la zone constructible
+	if(test < 4)
+		return 0;
+	return 1;
+
+}
 bool listNode::addNode(float x, float y) {
 
 	//On vérifie si notre liste a été allouée
@@ -189,6 +247,23 @@ bool listNode::addNode(float x, float y) {
 	return 1; 
 }
 
+void listNode::removeNode(Node* node) {
+
+	if(node != NULL) {
+
+		//Pointe la tête de la liste vers le noeud suivante
+		this->setHead(node->getNext());
+
+		if(this->head == NULL) 
+			this->setTail(NULL);
+		
+		free(node);
+		this->length--;
+	}
+	else
+		fprintf(stderr, "Ce noeud n'existe pas");
+}
+
 void listNode::freeAllNode () {
 	//Si la liste n'est pas vide
 	if (this->length != 0) {
@@ -201,6 +276,12 @@ void listNode::freeAllNode () {
 	}
 	free(this);
 }
+
+
+/*************************************************
+					AUTRES FONCTIONS 
+***!************************************************/
+
 bool intersectionCarreDisque (Position point1, Position point2, float rayon, Position origin) {
 
 	int i;
