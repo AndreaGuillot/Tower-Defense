@@ -59,6 +59,8 @@ class Map {
 		int getNbMonstres();
 		listNode* getList_pixels();
 		//Set
+		void setImage(char* a);
+		void setImg(Image* img);
 		void setNbMonstres(int a);
 		void setInColor(Color* color);
 		void setOutColor(Color* color);
@@ -74,6 +76,8 @@ class Map {
 		bool apparitionMonster(listMonster* monsters, int j, Joueur* joueur);
 		/* Vérifie la map */
 		int verifMap(FILE* fileITD);
+		int verificationMap(char* fileITD);
+
 
 		void freeMap();
 };

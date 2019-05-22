@@ -122,7 +122,7 @@ class Image {
 		//Chemin vers l'image
 		char* path;
 		//Numero magic : identifie le type de fichier
-		char magicNumber[2];
+		char* magicNumber;
 		//Les dimensions de l'images
 		unsigned int heightImg;
 		unsigned int widthImg;
@@ -138,6 +138,12 @@ class Image {
 		uint getHeight();
 		uint getWidth();
 		int getMaxValue();
+		//Set
+		void setPath(char* string);
+		void setMagicNumber(char* line);
+		void setHeight(uint nb);
+		void setWidth(uint nb);
+		void setMaxValue(int nb);
 		//Fonctions : gèrent couleurs de l'image
 		int ChangeColor(unsigned char* tabPixels, Map* map);
 		int changeColorRoad(unsigned char* tabPixels, Map* map);
@@ -146,6 +152,7 @@ class Image {
 		int changeColorIn(unsigned char* tabPixels, Map* map);
 		int changeColorOut(unsigned char* tabPixels, Map* map);
 		void freeImage();
+		int openImg(char* nameImg);
 };
 
 #endif

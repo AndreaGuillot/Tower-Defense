@@ -132,7 +132,6 @@ int main(int argc, char** argv) {
 
 	//Initialisation de l'interface
 	Joueur* joueur = new Joueur();
-
 	//Initialisation de la liste de monstre
 	listMonster* monsters = new listMonster();
 	//Initialisation de la liste de tours
@@ -158,26 +157,26 @@ int main(int argc, char** argv) {
 
 	    /* dessin */
 
-			glClear(GL_COLOR_BUFFER_BIT);
-			glMatrixMode(GL_MODELVIEW);
+		glClear(GL_COLOR_BUFFER_BIT);
+		glMatrixMode(GL_MODELVIEW);
 
-			if(nbMenu == gameOver)
-				drawGameOverWin(&fondGameOver, &menuPrincipalButton);
-			else if(nbMenu == gameWin)
-				drawGameOverWin(&fondWin, &menuPrincipalButton);
-			else if(nbMenu == menu) {
+		if(nbMenu == gameOver)
+			drawGameOverWin(&fondGameOver, &menuPrincipalButton);
+		else if(nbMenu == gameWin)
+			drawGameOverWin(&fondWin, &menuPrincipalButton);
+		else if(nbMenu == menu) {
 
-					loadTexture("../images/temp/MenuPrincipal.png", &menuPrincipal, imgMenuPrincipal);
+				loadTexture("./images/temp/MenuPrincipal.png", &menuPrincipal, imgMenuPrincipal);
 
-					loadTexture("../images/temp/sprite_button_menu.png", &menuPrincipalButton, imgMenuPrincipalButton);
+				loadTexture("./images/temp/sprite_button_menu.png", &menuPrincipalButton, imgMenuPrincipalButton);
 
-					//La carte
-					map->loadMap("./data/IDTMap1.idt");
-					//Texture de la carte
+				//La carte
+				map->loadMap("./data/IDTMap1.idt");
+				//Texture de la carte
 
-					loadMapTexture(map, &texture, imgMap);
-					if(nbtexture == 1)
-						loadTexture("../images/temp/map1.ppm", &texture, imgMap);
+				loadMapTexture(map, &texture, imgMap);
+				if(nbtexture == 1)
+					loadTexture("../images/temp/map1.ppm", &texture, imgMap);
 					
 					//Texture des monstres
 					loadTexture("../images/temp/sprite_monster.png", &monsterTxt, imgMonster);
