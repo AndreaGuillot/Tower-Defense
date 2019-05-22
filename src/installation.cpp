@@ -1,5 +1,11 @@
 #include "../include/installation.h"
 
+
+Installation::Installation(){
+    this->p = NULL;
+    this->cost = 0;
+    this->range = 0;
+}
 //Accesseurs
 Position* Installation::getPosition(){
     return this->p;
@@ -39,19 +45,19 @@ void Installation::affects(Tower* tower){
 }
 
 //Types d'installation
-Andrea::Andrea(uint range = 10, uint cost = 80, installationType type = radar){
+Andrea::Andrea(uint range, uint cost, installationType type){
         this->setRange(range);
         this->setCost(cost);
         this->setType(type);
     }
     
-Margaux::Margaux(uint range = 5, uint cost = 150, installationType type = usine){
+Margaux::Margaux(uint range, uint cost, installationType type){
         this->setRange(range);
         this->setCost(cost);
         this->setType(type);
     }
 
-BaptisteEtNicolas::BaptisteEtNicolas(uint range = 20, uint cost = 70, installationType type = stock){
+BaptisteEtNicolas::BaptisteEtNicolas(uint range, uint cost, installationType type){
         this->setRange(range);
         this->setCost(cost);
         this->setType(type);

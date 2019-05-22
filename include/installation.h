@@ -45,15 +45,15 @@ class Installation {
 
 //Type radar
 class Andrea: public Installation{
-    Andrea(uint range, uint cost, installationType type);
+    Andrea(uint range = 10, uint cost = 80, installationType type = radar);
 };
 //Type usine
 class Margaux: public Installation{
-    Margaux(uint range, uint cost, installationType type);
+    Margaux(uint range = 5, uint cost = 150, installationType type = usine);
 };
 //Type stock
 class BaptisteEtNicolas: public Installation{
-    BaptisteEtNicolas(uint range, uint cost, installationType type);
+    BaptisteEtNicolas(uint range = 20, uint cost = 70, installationType type = stock);
 };
 
 #endif

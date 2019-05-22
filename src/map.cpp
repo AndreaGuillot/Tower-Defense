@@ -8,6 +8,20 @@
 #include "../include/map.h"
 #include "../include/draw.h"
 
+Map::Map(){
+    this->image = NULL;
+    this->img = NULL;
+    this->nbNode = 0;
+    this->list_node = NULL;
+    this->inColor = NULL;
+    this->outColor = NULL;
+    this->pathColor = NULL;
+    this->nodeColor = NULL;
+    this->constructColor = NULL;
+    this->listConstruct = NULL;
+    this->list_pixels = NULL;
+    this->nbMonstres = 0;
+}
 //Get
 char* Map::getImage(){
     return this->image;

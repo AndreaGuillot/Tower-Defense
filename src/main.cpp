@@ -74,8 +74,6 @@ int main(int argc, char** argv) {
 
     	SDL_WM_SetCaption("Tower Defense IMAC1", NULL);
 
-    Map map;
-
 	/***** Variables ******/
 
 	//Texture menuPrincipal
@@ -85,6 +83,8 @@ int main(int argc, char** argv) {
 	//Texture menuPrincipal button
 	GLuint menuPrincipalButton;
 	SDL_Surface* imgMenuPrincipalButton = NULL;
+
+	Map* map = NULL;
 
 	//La carte
 	GLuint texture;
@@ -172,10 +172,10 @@ int main(int argc, char** argv) {
 					loadTexture("../images/temp/sprite_button_menu.png", &menuPrincipalButton, imgMenuPrincipalButton);
 
 					//La carte
-					map.loadMap("./data/IDTMap1.idt");
+					map->loadMap("./data/IDTMap1.idt");
 					//Texture de la carte
 
-					loadMapTexture(&map, &texture, imgMap);
+					loadMapTexture(map, &texture, imgMap);
 					if(nbtexture == 1)
 						loadTexture("../images/temp/map1.ppm", &texture, imgMap);
 					
@@ -215,7 +215,7 @@ int main(int argc, char** argv) {
 
 				if(nbtexture == 0) {
 					//Dessin du chemin et noeud
-					map.drawRoad ();
+					map->drawRoad ();
 				}
 
 				//Si on veut voir les propriété d'une tour
@@ -242,7 +242,7 @@ int main(int argc, char** argv) {
 							propriete = aucune;
 				}
 
-				map.apparitionMonster(monsters, j, joueur);
+				map->apparitionMonster(monsters, j, joueur);
 
 				//Si nbVague = 20 vagues et plus de monstre alors gagné
 				if(joueur->getNbVagues() == 20 && monsters->getLength() == 0) {
@@ -251,7 +251,7 @@ int main(int argc, char** argv) {
 					testTower = 0;
 					j = 0;
 					i = 0;
-					map.setNbMonstres(0);
+					map->setNbMonstres(0);
 					propriete = aucune;
 					initAll(monsters, shots, towers, joueur);
 
@@ -293,7 +293,7 @@ int main(int argc, char** argv) {
 				//Dessiner les monstres
 				monsters->drawMonster(&monsterTxt);
 
-				if(monsters->moveMonster(map.getListNode()->getTail(), k) == 2) {
+				if(monsters->moveMonster(map->getListNode()->getTail(), k) == 2) {
 
 					//Pointeur shot temporaire pour parcourir la liste
 					Shot *tmpShot = shots->getHead();
@@ -371,7 +371,7 @@ int main(int argc, char** argv) {
 								}
 
 								//Test click exit
-								loop = clickExit(monsters, shots, towers, &map, joueur, e.button.x, e.button.y);
+								loop = clickExit(monsters, shots, towers, map, joueur, e.button.x, e.button.y);
 								//Test click sur une tower
 								tower = clickTower(towers, e.button.x, e.button.y, &propriete);
 								//Test click sur un monstre
@@ -383,7 +383,7 @@ int main(int argc, char** argv) {
 					case SDL_MOUSEMOTION :
 						if(testMouse == 1) {
 							//Bouger la tour et test si elle est sur une zone constructible ou non
-							if(towers->moveTower(towers->getTail(), map.getList_pixels(), e.button.x, e.button.y) == 1)
+							if(towers->moveTower(towers->getTail(), map->getList_pixels(), e.button.x, e.button.y) == 1)
 								testTower = 1;
 							else
 								testTower = 0;
@@ -395,7 +395,7 @@ int main(int argc, char** argv) {
 							switch(e.key.keysym.sym){
 								case SDLK_ESCAPE : 
 								loop = 0;
-								freeAll(monsters, shots, towers, &map, joueur);
+								freeAll(monsters, shots, towers, map, joueur);
 								break;
 
 								default : break;

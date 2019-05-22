@@ -75,6 +75,9 @@ void Tower::setCost(uint cost){
 void Tower::setPosition(Position* p){
     this->p = p;
 }
+void Tower::setCompteur(int a){
+    this->compteur = a;
+}
 void Tower::setNext(Tower* tower){
     this->next = tower;
 }
