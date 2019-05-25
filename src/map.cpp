@@ -10,19 +10,20 @@
 
 #include "../include/map.h"
 #include "../include/draw.h"
+#include "../include/struct.h"
 
 Map::Map(){
     this->image = "none";
     this->img = NULL;
     this->nbNode = 0;
-    this->list_node = NULL;
+    this->list_node = new listNode();
     this->inColor = Color();
     this->outColor = Color();
     this->pathColor = Color();
     this->nodeColor = Color();
     this->constructColor = Color();
-    this->listConstruct = NULL;
-    this->list_pixels = NULL;
+    this->listConstruct = new listNode();
+    this->list_pixels = new listNode();
     this->nbMonstres = 0;
 }
 //Get
@@ -365,9 +366,10 @@ bool Map::loadMap (std::string path) {
             else if (line.find("noeud") != std::string::npos) { nodeColor = line.substr(6, line.size()); }
             else if (line.find("construct") != std::string::npos) { constructColor = line.substr(10, line.size()); }
             else if (line.find("in") != std::string::npos) { startColor = line.substr(3, line.size()); }
-            else if (line.find("out") != std::string::npos) { endColor = line.substr(3, line.size()); }
+            else if (line.find("out") != std::string::npos) { endColor = line.substr(4, line.size()); }
         }
         file.close();
+        this->img = new Image(imagePath.c_str());
         this->image = imagePath;
         this->pathColor = stringToColor(pathColor);
         this->nodeColor = stringToColor(nodeColor);

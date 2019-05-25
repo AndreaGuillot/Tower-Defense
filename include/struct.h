@@ -131,7 +131,7 @@ class Image {
 
 	public:
 		//Constructeur
-		Image(char* nameImg);
+		Image(const char* nameImg);
 		//Get
 		char* getPath();
 		char* getMagicNumber();
@@ -154,5 +154,7 @@ class Image {
 		void freeImage();
 		int openImg(char* nameImg);
 };
+
+bool openImg(Image* img, std::string nameImg);
 
 #endif

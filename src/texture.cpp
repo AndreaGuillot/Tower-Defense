@@ -13,7 +13,7 @@
 *  surface SDL. Retourne 1 si la carte est chargée.														*/
 int loadMapTexture(Map* map, GLuint* texture, SDL_Surface* image) {
 
-	image = IMG_Load(map->getImg()->getPath());
+	image = IMG_Load(map->getImage().c_str());
 	if(image == NULL) {
 		fprintf(stderr, "impossible de charger l'image %s\n", map->getImg()->getPath());
 		return EXIT_FAILURE;
@@ -59,7 +59,7 @@ int loadMapTexture(Map* map, GLuint* texture, SDL_Surface* image) {
 /* Charge texture, attribue l'image à la texture. Prend en paramètre un pointeur vers le fichier,   		*
 *  un pointeur vers la texture, et un pointeur vers la surface SDL. Retourne 1 si la texture est chargée.	*/
 int loadTexture(char* fileName, GLuint* texture, SDL_Surface* img) {
-	
+
 	img = IMG_Load(fileName);
 	if(img == NULL) {
 		fprintf(stderr, "impossible de charger l'image %s\n", fileName);

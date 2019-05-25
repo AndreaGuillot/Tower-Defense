@@ -1,6 +1,7 @@
 #include"../include/struct.h"
 #include <stdlib.h>
 #include <math.h>
+#include <string.h>
 
 /*************************************************
 					POSITION 
@@ -97,7 +98,7 @@ void Vector::getVector2D(Position A, Position B) {
 
 
 Node::Node(){
-	this->pos = NULL;
+	this->pos = new Position();
 	this->next = NULL;
 }
 //Get
@@ -142,8 +143,8 @@ void Node::setNext(Node* node){
 
 listNode::listNode(){
 	this->length = 0;
-	this->head=NULL;
-	this->tail=NULL;
+	this->head=new Node();
+	this->tail=new Node();
 }
 //Get
 int listNode::getLength(){
@@ -356,11 +357,74 @@ bool intersectionCarres (Position point1, Position point2, Position pointC1, Pos
 	return 0;
 }
 
+bool openImg(Image* img, std::string nameImg) {
+
+	FILE* image = NULL;
+	const char* pathImg = nameImg.c_str();
+	image = fopen(pathImg, "r");
+	int test;	
+
+	if(image == NULL){
+		fprintf(stderr, "Erreur : Impossible d'ouvrir l'image\n");
+		return 0;
+	}
+	else{
+
+		//Récupère le type d'image
+		char magicNumber[2];
+		strcpy(magicNumber, img->getMagicNumber());
+		if(fscanf(image, "%c%c\n", &(magicNumber[0]),  &(magicNumber[1])) == 2){
+
+			//Si ce n'est pas un ppm, arrete la fonction 
+			if(magicNumber[0] != 'P' || magicNumber[1] != '6'){
+				fprintf(stderr, "L'image n'est pas au bon format\n");
+				return 0;
+			}
+			else {
+			
+				//Vérifier s'il y a un commentaire
+				do {
+					//Récupère la hauteur et la largeur && test = 1 s'il trouve une variable sinon retourne 0
+					test = fscanf(image, "%d %d\n", (int)img->getWidth(), (int)img->getHeight());
+				
+					//Si c'est une ligne de commentaire
+					if(test == 0) {
+						char* letter;
+						//Passe la ligne : parcours la ligne jusqu'à qu'il trouve '\n'
+						do {
+							if(fread(&letter,sizeof(char*),1,image)!=1)
+								printf("erreur\n");
+						}while(*letter != '\n');
+					}			
+				}while(test<1);
+
+				//Récupérer la résolution de la couleur
+				if(fscanf(image, "%d\n", img->getMaxValue()) == 1){
+				
+					// On ferme le vide le buffer et on ferme l'image
+					fflush(image);
+					fclose(image);
+
+				}
+				else {
+					fprintf(stderr, "Probleme ce n'est pas la valeur maximal du fichier\n");
+					return 0;
+				}
+
+			}
+		}
+		else {
+			fprintf(stderr, "Probleme ce n'est pas le numéro magique du fichier\n");
+			return 0;
+		}
+	}
+	return 1;
+}
 
 /**************************************************
 						IMAGE 
 ***!************************************************/
-Image::Image(char* nameImg) {
+Image::Image(const char* nameImg) {
 
 		FILE* image = NULL;
 		image = fopen(nameImg, "r");
@@ -494,7 +558,9 @@ int Image::changeColorConstruct(unsigned char* tabPixels, Map* map) {
 					tabPixels[i*(this->widthImg)*3+j*3+2] = ((map->getConstructColor()).getB())*255;
 
 					//Ajoute le noeud à la liste de pixels avec les coordonnées
-					map->getListConstruct()->addNode(j + 200, i + 60);
+					float x = j+200;
+					float y = i + 60;
+					//(map->getListConstruct())->addNode(x, y);
 				}
 			}
 		}

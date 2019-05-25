@@ -176,30 +176,30 @@ int main(int argc, char** argv) {
 
 				loadMapTexture(&map, &texture, imgMap);
 				if(nbtexture == 1)
-					loadTexture("../images/temp/map1.ppm", &texture, imgMap);
+					loadTexture("./images/temp/map1.ppm", &texture, imgMap);
 					
 					//Texture des monstres
-					loadTexture("../images/temp/sprite_monster.png", &monsterTxt, imgMonster);
+					loadTexture("./images/temp/sprite_monster.png", &monsterTxt, imgMonster);
 					//Texture des tours
-					loadTexture("../images/temp/sprite_tour.png", &towerTxt, imgTower);
+					loadTexture("./images/temp/sprite_tour.png", &towerTxt, imgTower);
 
 					//Texture des shots	
-					loadTexture("../images/shot.png", &shot, imgShot);
+					loadTexture("./images/temp/shot.png", &shot, imgShot);
 					//Texture menu
-					loadTexture("../images/temp/sprite_menu1.png", &spriteMenu, imgButtonMenu);
+					loadTexture("./images/temp/sprite_menu1.png", &spriteMenu, imgButtonMenu);
 					//Texture fond menu
-					loadTexture("../images/fondMenu.png", &fondMenu, imgFondMenu);
+					loadTexture("./images/temp/fondMenu.png", &fondMenu, imgFondMenu);
 					//Texture pour les boutons
-					loadTexture("../images/temp/sprite_button1.png", &spriteButton, imgSpriteButton);
+					loadTexture("./images/temp/sprite_button1.png", &spriteButton, imgSpriteButton);
 					//Bouton plus ou upgrate les tours
-					loadTexture("../images/temp/bt_plus.png", &btPlus, imgbtPlus);
+					loadTexture("./images/temp/bt_plus.png", &btPlus, imgbtPlus);
 					//Texture fond menu up
-					loadTexture("../images/temp/fondMenuUp.png", &fondMenuUp, imgFondMenuUp);
+					loadTexture("./images/temp/fondMenuUp.png", &fondMenuUp, imgFondMenuUp);
 
 					//Texture fond Game Over
-					loadTexture("../images/temp/GameOver.png", &fondGameOver, imgFondGameOver);
+					loadTexture("./images/temp/GameOver.png", &fondGameOver, imgFondGameOver);
 					//Texture fond Win
-					loadTexture("../images/temp/YouWin.png", &fondWin, imgFondWin);
+					loadTexture("./images/temp/YouWin.png", &fondWin, imgFondWin);
 
 					drawMenuPrincipal (&menuPrincipal, &menuPrincipalButton);
 			}else {//On joue
