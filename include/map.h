@@ -30,11 +30,11 @@ class Map {
 		int nbNode;
 		listNode* list_node;
 		//Couleurs de la carte
-		Color* inColor;
-		Color* outColor;
-		Color* pathColor;
-		Color* nodeColor;
-		Color* constructColor;
+		Color inColor;
+		Color outColor;
+		Color pathColor;
+		Color nodeColor;
+		Color constructColor;
 		//Liste des zones constructibles
 		listNode* listConstruct;
 		listNode* list_pixels;
@@ -50,11 +50,11 @@ class Map {
 		int getNbNode();
 		listNode* getListNode();
 		//Get : couleurs de la carte
-		Color* getInColor();
-		Color* getOutColor();
-		Color* getPathColor();
-		Color* getNodeColor();
-		Color* getConstructColor();
+		Color getInColor();
+		Color getOutColor();
+		Color getPathColor();
+		Color getNodeColor();
+		Color getConstructColor();
 		listNode* getListConstruct();
 		int getNbMonstres();
 		listNode* getList_pixels();
@@ -62,11 +62,11 @@ class Map {
 		void setImage(std::string a);
 		void setImg(Image* img);
 		void setNbMonstres(int a);
-		void setInColor(Color* color);
-		void setOutColor(Color* color);
-		void setPathColor(Color* color);
-		void setNodeColor(Color* color);
-		void setConstructColor(Color* color);
+		void setInColor(Color color);
+		void setOutColor(Color color);
+		void setPathColor(Color color);
+		void setNodeColor(Color color);
+		void setConstructColor(Color color);
 		//Fonctions
 		/* Dessine chemin */
 		bool drawRoad();
@@ -76,7 +76,7 @@ class Map {
 		bool apparitionMonster(listMonster* monsters, int j, Joueur* joueur);
 		/* Vérifie la map */
 		int verifMap(FILE* fileITD);
-		int verificationMap(std::string fileITD);
+		int verificationMap(char* fileITD);
 
 
 		void freeMap();

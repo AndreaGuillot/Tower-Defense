@@ -12,15 +12,14 @@
 #include "../include/draw.h"
 
 Map::Map(){
-    this->image = NULL;
     this->img = NULL;
     this->nbNode = 0;
     this->list_node = NULL;
-    this->inColor = NULL;
-    this->outColor = NULL;
-    this->pathColor = NULL;
-    this->nodeColor = NULL;
-    this->constructColor = NULL;
+    this->inColor = Color();
+    this->outColor = Color();
+    this->pathColor = Color();
+    this->nodeColor = Color();
+    this->constructColor = Color();
     this->listConstruct = NULL;
     this->list_pixels = NULL;
     this->nbMonstres = 0;
@@ -40,19 +39,19 @@ listNode* Map::getListNode(){
     return this->list_node;
 }
 //Couleurs de la carte
-Color* Map::getInColor(){
+Color Map::getInColor(){
     return this->inColor;
 }
-Color* Map::getOutColor(){
+Color Map::getOutColor(){
     return this->outColor;
 }
-Color* Map::getPathColor(){
+Color Map::getPathColor(){
     return this->pathColor;
 }
-Color* Map::getNodeColor(){
+Color Map::getNodeColor(){
     return this->nodeColor;
 }
-Color* Map::getConstructColor(){
+Color Map::getConstructColor(){
     return this->constructColor;
 }
 listNode* Map::getListConstruct(){
@@ -69,7 +68,7 @@ listNode* Map::getList_pixels(){
 
 //Set
 void Map::setImage(std::string a){
-    strcpy(this->image, a);
+    this->image = a;
 }
 void Map::setImg(Image* img){
     this->img = img;
@@ -77,19 +76,19 @@ void Map::setImg(Image* img){
 void Map::setNbMonstres(int a){
     this->nbMonstres = a;
 }
-void Map::setInColor(Color* color){
+void Map::setInColor(Color color){
     this->inColor = color;
 }
-void Map::setOutColor(Color* color){
+void Map::setOutColor(Color color){
     this->outColor = color;
 }
-void Map::setPathColor(Color* color){
+void Map::setPathColor(Color color){
     this->pathColor = color;
 }
-void Map::setNodeColor(Color* color){
+void Map::setNodeColor(Color color){
     this->nodeColor = color;
 }
-void Map::setConstructColor(Color* color){
+void Map::setConstructColor(Color color){
     this->constructColor = color;
 }
 
@@ -108,7 +107,7 @@ bool Map::drawRoad() {
         glEnd();
 
         glPushMatrix();
-            glColor3ub((this->getNodeColor())->getR(),(this->getNodeColor())->getG(),(this->getNodeColor())->getB());
+            glColor3ub((this->getNodeColor()).getR(),(this->getNodeColor()).getG(),(this->getNodeColor()).getB());
             glTranslatef(tmp->getX(),tmp->getY(), 0.0);
             drawDisque(5);
         glPopMatrix();
@@ -155,7 +154,7 @@ int Map::verifMap(FILE* fileITD)
     int G = 0;
     int B = 0;
     //Carte
-    char* fileName = (std::string)malloc(sizeof(char)*30);
+    char* fileName = (char*)malloc(sizeof(char)*30);
     if(fileName == NULL)
     {
         fprintf(stderr, "Erreur mémoire : fichier.itd\n");
@@ -187,7 +186,7 @@ int Map::verifMap(FILE* fileITD)
         fprintf(stderr, "Erreur fichier.itd : couleur [chemin].\n");
         return 0;
     } else {
-        this->pathColor = new Color(R, G, B);
+        this->pathColor = Color(R, G, B);
     }
     //Noeud
     fgets(line, 20, fileITD);
@@ -203,7 +202,7 @@ int Map::verifMap(FILE* fileITD)
         fprintf(stderr, "Erreur fichier.itd : couleur [noeud].\n");
         return 0;
     } else {
-        this->nodeColor = new Color(R, G, B);
+        this->nodeColor = Color(R, G, B);
     }
     //Construct
     fgets(line, 25, fileITD);
@@ -219,7 +218,7 @@ int Map::verifMap(FILE* fileITD)
         fprintf(stderr, "Erreur fichier.itd : couleur [construct].\n");
         return 0;
     } else {
-        this->constructColor = new Color(R, G, B);
+        this->constructColor = Color(R, G, B);
     }
     //In
     fgets(line, 20, fileITD);
@@ -235,7 +234,7 @@ int Map::verifMap(FILE* fileITD)
         fprintf(stderr, "Erreur fichier.itd : couleur [in].\n");
         return 0;
     } else {
-        this->inColor = new Color(R, G, B);
+        this->inColor = Color(R, G, B);
     }
     //Out
     fgets(line, 20, fileITD);
@@ -251,7 +250,7 @@ int Map::verifMap(FILE* fileITD)
         fprintf(stderr, "Erreur fichier.itd : couleur [out].\n");
         return 0;
     } else {
-        this->outColor = new Color(R, G, B);
+        this->outColor = Color(R, G, B);
     }
 
     /** Neuvième ligne : nombre de noeuds **/
@@ -359,24 +358,24 @@ bool Map::loadMap (std::string path) {
         std::string line, pathColor, nodeColor, constructColor, startColor, endColor;
         while (std::getline(file, line)) {
             if (line.find("#") != std::string::npos) { continue; } // Skip comments
-            else if (line.find("carte") != std::string::npos) { strcpy(this->image, line.substr(6, line.size())); }
+            else if (line.find("carte") != std::string::npos) { this->image = line.substr(6, line.size()); }
             else if (line.find("energie") != std::string::npos) { continue; } //On fait pas l'energie
-            else if (line.find("chemin") != std::string::npos) { strcpy(pathColor, line); }
-            else if (line.find("noeud") != std::string::npos) { strcpy(nodeColor, line); }
-            else if (line.find("construct") != std::string::npos) { strcpy(constructColor, line); }
-            else if (line.find("in") != std::string::npos) { strcpy(startColor, line); }
-            else if (line.find("out") != std::string::npos) { strcpy(endColor, line); }
+            else if (line.find("chemin") != std::string::npos) { pathColor = line; }
+            else if (line.find("noeud") != std::string::npos) { nodeColor = line; }
+            else if (line.find("construct") != std::string::npos) { constructColor = line; }
+            else if (line.find("in") != std::string::npos) { startColor = line; }
+            else if (line.find("out") != std::string::npos) { endColor = line; }
         }
         file.close();
         this->pathColor = stringToColor(pathColor);
         this->nodeColor = stringToColor(nodeColor);
         this->constructColor = stringToColor(constructColor);
-        this->startColor = stringToColor(inColor);
-        this->endColor = stringToColor(outColor);
+        this->inColor = stringToColor(startColor);
+        this->outColor = stringToColor(endColor);
         return 1;
     }
     else {
-        spdlog::critical("[ITD] Unable to open file");
+        fprintf(stderr, "[ITD] Unable to open file\n");
         return 0;
     }
 }
@@ -425,7 +424,7 @@ void Map::freeMap () {
     }
 }
 
-int Map::verificationMap(std::string nameITD){ 
+int Map::verificationMap(char* nameITD){ 
 
     FILE* itd = NULL;
     itd = fopen(nameITD, "r");  
@@ -436,7 +435,7 @@ int Map::verificationMap(std::string nameITD){
     }
     else{
         int testCommentaire;
-        std::string test = (std::string)malloc(20*sizeof(char));
+        char* test = (char*)malloc(20*sizeof(char));
         
         //Récupérer le code du fichier itd
         if(fscanf(itd, "%s %d\n", test,  &testCommentaire) == 2) {
@@ -451,7 +450,7 @@ int Map::verificationMap(std::string nameITD){
 
                         //Alloue de la mémoire pour une image
                         Image* new_img;
-                        std::string path;
+                        char* path;
                 
                         //Récupère le chemin vers l'image ppm
                         if(fscanf(itd, "%s\n", path) == 1){
@@ -474,9 +473,9 @@ int Map::verificationMap(std::string nameITD){
                                                 //Récupère la couleur du chemin
                                                 if(fscanf(itd, "%d %d %d\n", &r, &v, &b) == 3){
 
-                                                    (this->pathColor)->setR(r/255.0);
-                                                    (this->pathColor)->setG(v/255.0);
-                                                    (this->pathColor)->setB(b/255.0);
+                                                    (this->pathColor).setR(r/255.0);
+                                                    (this->pathColor).setG(v/255.0);
+                                                    (this->pathColor).setB(b/255.0);
                                     
                                                     //Récupère "noeud"
                                                     if(fscanf(itd, "%s", test) == 1) {
@@ -487,9 +486,9 @@ int Map::verificationMap(std::string nameITD){
                                                             //Récupère la couleur du chemin
                                                             if(fscanf(itd, "%d %d %d\n", &r, &v, &b) == 3){
 
-                                                                (this->nodeColor)->setR(r/255.0);
-                                                                (this->nodeColor)->setG(v/255.0);
-                                                                (this->nodeColor)->setB(b/255.0);
+                                                                (this->nodeColor).setR(r/255.0);
+                                                                (this->nodeColor).setG(v/255.0);
+                                                                (this->nodeColor).setB(b/255.0);
                                     
                                                                 //Récupère "construct"
                                                                 if(fscanf(itd, "%s", test) == 1) {
@@ -503,9 +502,9 @@ int Map::verificationMap(std::string nameITD){
 //Créer la liste de pixel
 listNode* list_pixels;
 this->list_pixels = list_pixels;
-                                                                            (this->constructColor)->setR(r/255.0);
-                                                                            (this->constructColor)->setG(v/255.0);
-                                                                            (this->constructColor)->setB(b/255.0);
+                                                                            (this->constructColor).setR(r/255.0);
+                                                                            (this->constructColor).setG(v/255.0);
+                                                                            (this->constructColor).setB(b/255.0);
                                     
                                                                             //Récupère "in"
                                                                             if(fscanf(itd, "%s", test) == 1) {
@@ -516,9 +515,9 @@ this->list_pixels = list_pixels;
                                                                                     //Récupère la couleur du chemin
                                                                                     if(fscanf(itd, "%d %d %d\n", &r, &v, &b) == 3){
 
-                                                                                        (this->inColor)->setR(r/255.0);
-                                                                                        (this->inColor)->setG(v/255.0);
-                                                                                        (this->inColor)->setB(b/255.0);
+                                                                                        (this->inColor).setR(r/255.0);
+                                                                                        (this->inColor).setG(v/255.0);
+                                                                                        (this->inColor).setB(b/255.0);
                                     
                                                                                         //Récupère "out"
                                                                                         if(fscanf(itd, "%s", test) == 1) {
@@ -528,9 +527,9 @@ this->list_pixels = list_pixels;
                                 
                                                                                                 //Récupère la couleur du chemin
                                                                                                 if(fscanf(itd, "%d %d %d\n", &r, &v, &b) == 3){
-                                                                                                    (this->outColor)->setR(r/255.0);
-                                                                                                    (this->outColor)->setG(v/255.0);
-                                                                                                    (this->outColor)->setB(b/255.0);
+                                                                                                    (this->outColor).setR(r/255.0);
+                                                                                                    (this->outColor).setG(v/255.0);
+                                                                                                    (this->outColor).setB(b/255.0);
 
                                 //Récupére le nombre de noeuds                                  
                                 if(fscanf(itd, "%d\n", &(this->nbNode)) == 1){

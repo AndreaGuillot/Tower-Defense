@@ -810,12 +810,12 @@ void drawRectangleLine (int x1, int y1, int x2, int y2) {
 /* Action : Ecrire du texte. 									*
  * Prend en paramamètre sa position et la chaine de caractère.	*/
 void writeString(int x, int y, char* s) {
-		char* c;
 
+		char* c;
 		// Positionne le premier caractère de la chaîne
 		glRasterPos2f(x, y);
 		for (c = s; *c != '\0'; c++)
-			glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, *c); // Affiche chaque caractère de la chaîne
+			glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, *c);
 
 		// Réinitialise la position du premier caractère de la chaîne
 		glRasterPos2f(0, 0);

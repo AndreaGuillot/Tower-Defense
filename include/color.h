@@ -19,7 +19,7 @@ class Color {
     
     public:
         //Constructeur  
-        Color(uint r, uint g, uint b);
+        Color(uint r = 0, uint g = 0, uint b = 0);
         //Get
         uint getR();
         uint getG();
