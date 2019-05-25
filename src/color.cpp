@@ -31,3 +31,25 @@ void Color::setG(uint color){
 void Color::setB(uint color){
 	this->b = color;
 }
+
+std::vector<std::string> split(std::string str){
+	std::vector<std::string> myArray;
+	std::stringstream ss(str);
+	std::string couleur;
+
+	while(std::getline(ss, couleur, ' ')){
+		myArray.push_back(couleur);
+	}
+
+	return myArray;
+}
+
+Color stringToColor(std::string str){
+	std::vector<std::string> couleurs = split(str);
+	uint r = std::stoi(couleurs[0]);
+	uint g = std::stoi(couleurs[1]);
+	uint b = std::stoi(couleurs[2]);
+
+	Color couleur = Color(r, g, b);
+	return couleur;
+}

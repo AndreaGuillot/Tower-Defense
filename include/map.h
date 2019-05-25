@@ -24,7 +24,7 @@ class Map {
 
 	private:
 		//Image ppm
-		char* image;
+		std::string image;
 		Image* img;
 		//Noeuds
 		int nbNode;
@@ -44,7 +44,7 @@ class Map {
 	public:
 		Map();
 		//Get : image
-		char* getImage();
+		std::string getImage();
 		Image* getImg();
 		//Get : noeuds
 		int getNbNode();
@@ -59,7 +59,7 @@ class Map {
 		int getNbMonstres();
 		listNode* getList_pixels();
 		//Set
-		void setImage(char* a);
+		void setImage(std::string a);
 		void setImg(Image* img);
 		void setNbMonstres(int a);
 		void setInColor(Color* color);
@@ -71,12 +71,12 @@ class Map {
 		/* Dessine chemin */
 		bool drawRoad();
 		/* Charge la map */
-		bool loadMap(char* fileNameITD);
+		bool loadMap(std::string fileNameITD);
 		/* Affiche monstre */
 		bool apparitionMonster(listMonster* monsters, int j, Joueur* joueur);
 		/* Vérifie la map */
 		int verifMap(FILE* fileITD);
-		int verificationMap(char* fileITD);
+		int verificationMap(std::string fileITD);
 
 
 		void freeMap();

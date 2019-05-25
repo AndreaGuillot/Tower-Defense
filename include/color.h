@@ -2,6 +2,10 @@
 #define COLOR_H__
 
 #include <string.h>
+#include <string>
+#include <vector>
+#include <sstream>
+#include <iostream>
 
 /************* Classe Color : gère les couleurs *************/
 
@@ -25,5 +29,8 @@ class Color {
         void setG(uint color);
         void setB(uint color);
 };
+
+Color stringToColor(std::string);
+std::vector<std::string> split(std::string str);
 
 #endif

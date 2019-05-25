@@ -4,6 +4,9 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <string>
+#include <fstream>
+#include <sstream>
 
 #include "../include/map.h"
 #include "../include/draw.h"
@@ -23,7 +26,7 @@ Map::Map(){
     this->nbMonstres = 0;
 }
 //Get
-char* Map::getImage(){
+std::string Map::getImage(){
     return this->image;
 }
 Image* Map::getImg(){
@@ -65,8 +68,8 @@ listNode* Map::getList_pixels(){
 }
 
 //Set
-void Map::setImage(char* a){
-    this->image = a;
+void Map::setImage(std::string a){
+    strcpy(this->image, a);
 }
 void Map::setImg(Image* img){
     this->img = img;
@@ -152,7 +155,7 @@ int Map::verifMap(FILE* fileITD)
     int G = 0;
     int B = 0;
     //Carte
-    char* fileName = (char*)malloc(sizeof(char)*30);
+    char* fileName = (std::string)malloc(sizeof(char)*30);
     if(fileName == NULL)
     {
         fprintf(stderr, "Erreur mémoire : fichier.itd\n");
@@ -348,16 +351,33 @@ bool Map::loadMap(char* fileNameITD)
     }
 }*/
 
-bool Map::loadMap (char* path) {
+bool Map::loadMap (std::string path) {
 
-    if(path != NULL) {
+    std::ifstream file(path);
+    if (file.is_open()) {
 
-        //Alloue la memoire
-        if(this->verificationMap(path) == 0) {
-                fprintf(stderr, "Erreur au moment de la vérification de la map\n");
-                return 0;
+        std::string line, pathColor, nodeColor, constructColor, startColor, endColor;
+        while (std::getline(file, line)) {
+            if (line.find("#") != std::string::npos) { continue; } // Skip comments
+            else if (line.find("carte") != std::string::npos) { strcpy(this->image, line.substr(6, line.size())); }
+            else if (line.find("energie") != std::string::npos) { continue; } //On fait pas l'energie
+            else if (line.find("chemin") != std::string::npos) { strcpy(pathColor, line); }
+            else if (line.find("noeud") != std::string::npos) { strcpy(nodeColor, line); }
+            else if (line.find("construct") != std::string::npos) { strcpy(constructColor, line); }
+            else if (line.find("in") != std::string::npos) { strcpy(startColor, line); }
+            else if (line.find("out") != std::string::npos) { strcpy(endColor, line); }
         }
-            return 1;  
+        file.close();
+        this->pathColor = stringToColor(pathColor);
+        this->nodeColor = stringToColor(nodeColor);
+        this->constructColor = stringToColor(constructColor);
+        this->startColor = stringToColor(inColor);
+        this->endColor = stringToColor(outColor);
+        return 1;
+    }
+    else {
+        spdlog::critical("[ITD] Unable to open file");
+        return 0;
     }
 }
 
@@ -405,7 +425,7 @@ void Map::freeMap () {
     }
 }
 
-int Map::verificationMap(char* nameITD){ 
+int Map::verificationMap(std::string nameITD){ 
 
     FILE* itd = NULL;
     itd = fopen(nameITD, "r");  
@@ -416,7 +436,7 @@ int Map::verificationMap(char* nameITD){
     }
     else{
         int testCommentaire;
-        char* test = (char*)malloc(20*sizeof(char));
+        std::string test = (std::string)malloc(20*sizeof(char));
         
         //Récupérer le code du fichier itd
         if(fscanf(itd, "%s %d\n", test,  &testCommentaire) == 2) {
@@ -431,7 +451,7 @@ int Map::verificationMap(char* nameITD){
 
                         //Alloue de la mémoire pour une image
                         Image* new_img;
-                        char* path;
+                        std::string path;
                 
                         //Récupère le chemin vers l'image ppm
                         if(fscanf(itd, "%s\n", path) == 1){
