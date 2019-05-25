@@ -468,9 +468,9 @@ int Image::changeColorRoad(unsigned char* tabPixels, Map* map) {
 			if(tabPixels[i*(this->widthImg)*3+j*3] == 255 && tabPixels[i*(this->widthImg)*3+j*3+1] == 0 && tabPixels[i*(this->widthImg)*3+j*3+2] == 0){
 
 				//Change de couleur
-				tabPixels[i*(this->widthImg)*3+j*3] = ((map->getPathColor())->getR())*255;
-				tabPixels[i*(this->widthImg)*3+j*3+1] = ((map->getPathColor())->getG())*255;
-				tabPixels[i*(this->widthImg)*3+j*3+2] = ((map->getPathColor())->getB())*255;
+				tabPixels[i*(this->widthImg)*3+j*3] = ((map->getPathColor()).getR())*255;
+				tabPixels[i*(this->widthImg)*3+j*3+1] = ((map->getPathColor()).getG())*255;
+				tabPixels[i*(this->widthImg)*3+j*3+2] = ((map->getPathColor()).getB())*255;
 			}
 		}
 	}
@@ -489,9 +489,9 @@ int Image::changeColorConstruct(unsigned char* tabPixels, Map* map) {
 				if(tabPixels[i*(this->widthImg)*3+j*3] == 0 && tabPixels[i*(this->widthImg)*3+j*3+1] == 0 && tabPixels[i*(this->widthImg)*3+j*3+2] == 255){
 
 					//Change de couleur
-					tabPixels[i*(this->widthImg)*3+j*3] = ((map->getConstructColor())->getR())*255;
-					tabPixels[i*(this->widthImg)*3+j*3+1] = ((map->getConstructColor())->getG())*255;
-					tabPixels[i*(this->widthImg)*3+j*3+2] = ((map->getConstructColor())->getB())*255;
+					tabPixels[i*(this->widthImg)*3+j*3] = ((map->getConstructColor()).getR())*255;
+					tabPixels[i*(this->widthImg)*3+j*3+1] = ((map->getConstructColor()).getG())*255;
+					tabPixels[i*(this->widthImg)*3+j*3+2] = ((map->getConstructColor()).getB())*255;
 
 					//Ajoute le noeud à la liste de pixels avec les coordonnées
 					map->getListConstruct()->addNode(j + 200, i + 60);
@@ -519,9 +519,9 @@ int Image::changeColorNode(unsigned char* tabPixels, Map* map) {
 			if(tabPixels[i*(this->widthImg)*3+j*3] == 6 && tabPixels[i*(this->widthImg)*3+j*3+1] == 0 && tabPixels[i*(this->widthImg)*3+j*3+2] == 255){
 
 				//Change de couleur
-				tabPixels[i*(this->widthImg)*3+j*3] = ((map->getConstructColor())->getR())*255;
-				tabPixels[i*(this->widthImg)*3+j*3+1] = ((map->getConstructColor())->getG())*255;
-				tabPixels[i*(this->widthImg)*3+j*3+2] = ((map->getConstructColor())->getB())*255;
+				tabPixels[i*(this->widthImg)*3+j*3] = ((map->getConstructColor()).getR())*255;
+				tabPixels[i*(this->widthImg)*3+j*3+1] = ((map->getConstructColor()).getG())*255;
+				tabPixels[i*(this->widthImg)*3+j*3+2] = ((map->getConstructColor()).getB())*255;
 			}
 		}
 	}
@@ -541,9 +541,9 @@ int Image::changeColorIn(unsigned char* tabPixels, Map* map) {
 			if(tabPixels[i*(this->widthImg)*3+j*3] == 255 && tabPixels[i*(this->widthImg)*3+j*3+1] == 0 && tabPixels[i*(this->widthImg)*3+j*3+2] == 67){
 
 				//Change de couleur
-				tabPixels[i*(this->widthImg)*3+j*3] = ((map->getInColor())->getR())*255;
-				tabPixels[i*(this->widthImg)*3+j*3+1] = ((map->getInColor())->getG())*255;
-				tabPixels[i*(this->widthImg)*3+j*3+2] = ((map->getInColor())->getB())*255;
+				tabPixels[i*(this->widthImg)*3+j*3] = ((map->getInColor()).getR())*255;
+				tabPixels[i*(this->widthImg)*3+j*3+1] = ((map->getInColor()).getG())*255;
+				tabPixels[i*(this->widthImg)*3+j*3+2] = ((map->getInColor()).getB())*255;
 			}
 		}
 	}
@@ -563,9 +563,9 @@ int Image::changeColorOut(unsigned char* tabPixels, Map* map) {
 			if(tabPixels[i*(this->widthImg)*3+j*3] == 255 && tabPixels[i*(this->widthImg)*3+j*3+1] == 252 && tabPixels[i*(this->widthImg)*3+j*3+2] == 0){
 
 				//Change de couleur
-				tabPixels[i*(this->widthImg)*3+j*3] = ((map->getOutColor())->getR())*255;
-				tabPixels[i*(this->widthImg)*3+j*3+1] = ((map->getOutColor())->getG())*255;
-				tabPixels[i*(this->widthImg)*3+j*3+2] = ((map->getOutColor())->getB())*255;
+				tabPixels[i*(this->widthImg)*3+j*3] = ((map->getOutColor()).getR())*255;
+				tabPixels[i*(this->widthImg)*3+j*3+1] = ((map->getOutColor()).getG())*255;
+				tabPixels[i*(this->widthImg)*3+j*3+2] = ((map->getOutColor()).getB())*255;
 			}
 		}
 	}

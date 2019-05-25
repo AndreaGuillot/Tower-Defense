@@ -12,6 +12,7 @@
 #include "../include/draw.h"
 
 Map::Map(){
+    this->image = "none";
     this->img = NULL;
     this->nbNode = 0;
     this->list_node = NULL;
@@ -355,18 +356,19 @@ bool Map::loadMap (std::string path) {
     std::ifstream file(path);
     if (file.is_open()) {
 
-        std::string line, pathColor, nodeColor, constructColor, startColor, endColor;
+        std::string line, imagePath, pathColor, nodeColor, constructColor, startColor, endColor;
         while (std::getline(file, line)) {
             if (line.find("#") != std::string::npos) { continue; } // Skip comments
-            else if (line.find("carte") != std::string::npos) { this->image = line.substr(6, line.size()); }
+            else if (line.find("carte") != std::string::npos) { imagePath = line.substr(6, line.size()); }
             else if (line.find("energie") != std::string::npos) { continue; } //On fait pas l'energie
-            else if (line.find("chemin") != std::string::npos) { pathColor = line; }
-            else if (line.find("noeud") != std::string::npos) { nodeColor = line; }
-            else if (line.find("construct") != std::string::npos) { constructColor = line; }
-            else if (line.find("in") != std::string::npos) { startColor = line; }
-            else if (line.find("out") != std::string::npos) { endColor = line; }
+            else if (line.find("chemin") != std::string::npos) { pathColor = line.substr(8, line.size()); }
+            else if (line.find("noeud") != std::string::npos) { nodeColor = line.substr(6, line.size()); }
+            else if (line.find("construct") != std::string::npos) { constructColor = line.substr(10, line.size()); }
+            else if (line.find("in") != std::string::npos) { startColor = line.substr(3, line.size()); }
+            else if (line.find("out") != std::string::npos) { endColor = line.substr(3, line.size()); }
         }
         file.close();
+        this->image = imagePath;
         this->pathColor = stringToColor(pathColor);
         this->nodeColor = stringToColor(nodeColor);
         this->constructColor = stringToColor(constructColor);
