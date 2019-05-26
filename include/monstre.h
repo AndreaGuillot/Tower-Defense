@@ -64,7 +64,6 @@ class Monster {
         float getResistance_TDJ();
         float getResistance_TDB();
         //Set
-        void set(Monster* m);
         void setPosition(float x, float y);
         void setX(float x);
         void setY(float y);
@@ -95,15 +94,15 @@ class Monster {
 //3 types de monstre
 class Lucie: public Monster{
     public:
-        Lucie(uint pv = 200, uint speed = 0.09, uint money = 20, float resistance_TDR = 0.5, float resistance_TDV = 0, float resistance_TDJ = 0.3, float resistance_TDB = 0.2);
+        Lucie(uint pv = 200, uint speed = 9, uint money = 20, float resistance_TDR = 0.5, float resistance_TDV = 0, float resistance_TDJ = 0.3, float resistance_TDB = 0.2);
 };
 class Barbara: public Monster{
     public:
-        Barbara(uint pv = 100, uint speed = 0.11, uint money = 15, float resistance_TDR = 0.1, float resistance_TDV = 0.5, float resistance_TDJ = 0.3, float resistance_TDB = 0.1);
+        Barbara(uint pv = 100, uint speed = 11, uint money = 15, float resistance_TDR = 0.1, float resistance_TDV = 0.5, float resistance_TDJ = 0.3, float resistance_TDB = 0.1);
 };
 class Julien: public Monster{
     public:
-        Julien(uint pv = 50, uint speed = 0.14, uint money = 8, float resistance_TDR = 0.1, float resistance_TDV = 0.8, float resistance_TDJ = 0, float resistance_TDB = 0);
+        Julien(uint pv = 50, uint speed = 14, uint money = 8, float resistance_TDR = 0.1, float resistance_TDV = 0.8, float resistance_TDJ = 0, float resistance_TDB = 0);
 };
 
 //Gère : liste monstres

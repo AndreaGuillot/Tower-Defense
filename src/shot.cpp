@@ -393,7 +393,7 @@ bool collisionMissile(listShot* shots, listMonster* monsters, Joueur* joueur, Mo
 						}
 
 						if(monster->isSame(tmp->getTarget())){
-							monster->set(NULL);
+							monster = NULL;
 							*propriete = aucune;
 						}
 						//Retire le monstre de la liste de monstre

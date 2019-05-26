@@ -455,7 +455,7 @@ int listMonster::moveMonster (Node* node, int k){
         Monster* tmp = this->head;
 
         while(tmp != NULL){
-            if(k%tmp->getSpeed() == 0){
+            if(k%(tmp->getSpeed()) == 0){
                 //S'il avance selon l'axe des y
                 if(tmp->getPrev()->getX() == tmp->getNext()->getX()){
                     if(tmp->getSens() == bas)
@@ -586,27 +586,27 @@ void listMonster::removeMonster(Monster* monster) {
             if (monster->getNextM() == NULL) {
             
                 //Pointe la fin de la liste sur le monstre précédent
-                this->tail->set(monster->getPrevM());
+                this->tail = monster->getPrevM();
             
                 if(this->tail != NULL) {
                     //Lien du dernier monstre vers le monstre suivant est NULL
                     this->tail->setNextMonster(NULL);
                 }
                 else
-                    this->head->set(NULL);
+                    this->head = NULL;
                 
             }
             //Si c'est le premier monstre de la liste
             else if (monster->getPrevM() == NULL) {
                 //Pointe la tête de la liste vers le monstre suivant
-                this->head->set(monster->getNextM());
+                this->head = monster->getNextM();
 
                 if(this->head != NULL) {
                     //Le lien vers du deuxième monstre vers le monstre précédent est NULL
                     this->head->setPrevMonster(NULL);
                 }
                 else
-                    this->tail->set(NULL);
+                    this->tail = NULL;
             }
 
             else {

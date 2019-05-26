@@ -55,7 +55,6 @@ class Tower {
     Tower* getNext();
 
     //Set
-    void set(Tower* t);
 	void setPower(int p);
 	void setRange(float rg);
 	void setRate(int rt);

@@ -146,8 +146,8 @@ int main(int argc, char** argv) {
 	Propriete propriete = aucune;
 
 	//Pour afficher les propriétés
-	Tower* tower;
-	Monster* pMonster;
+	Tower tower = new Tower();
+	Monster pMonster = new Monster();
 
 	bool loop = 1;
 

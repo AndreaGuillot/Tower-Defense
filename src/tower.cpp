@@ -7,7 +7,7 @@
 
 //Constructeur
 Tower::Tower(){
-    this->p = NULL;
+    this->p = new Position();
     this->prev = NULL;
     this->next = NULL;
 }
@@ -50,15 +50,6 @@ Tower* Tower::getPrev(){
 }
 
 //Set
-void Tower::set(Tower* t){
-    this->setPower(t->getPower());
-    this->setRange(t->getRange());
-    this->setRate(t->getRate());
-    this->setPosition(t->getPosition());
-    this->setCompteur(t->getCompteur());
-    this->setPrev(t->getPrev());
-    this->setNext(t->getNext()); 
-}
 
 void Tower::setPower(int p){
 	this->power = p;
