@@ -369,6 +369,7 @@ bool Map::loadMap (std::string path) {
             else if (line.find("out") != std::string::npos) { endColor = line.substr(4, line.size()); }
         }
         file.close();
+
         this->img = new Image(imagePath.c_str());
         this->image = imagePath;
         this->pathColor = stringToColor(pathColor);

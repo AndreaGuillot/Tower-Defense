@@ -56,13 +56,13 @@ bool Joueur::updateMoneyBuildInstallation(Installation* i){
 /* Dessine interface joueur */
 bool Joueur::drawInterface (GLuint* spriteButton) {
     
-    char* machaine;
+    char* machaine = (char*)malloc(20*sizeof(char));
 
     glColor3ub(255,255,255);
     
     /**** Money ****/
     //Convertie un int en un string
-    sprintf(machaine,"%d",this->getArgent());
+    sprintf(machaine,"%u",this->getArgent());
     //Affiche la chaine de caractère
     writeString(180, 40,  machaine);
 

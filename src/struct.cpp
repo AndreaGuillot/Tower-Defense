@@ -143,8 +143,8 @@ void Node::setNext(Node* node){
 
 listNode::listNode(){
 	this->length = 0;
-	this->head=new Node();
-	this->tail=new Node();
+	this->head=NULL;
+	this->tail=NULL;
 }
 //Get
 int listNode::getLength(){
@@ -215,14 +215,13 @@ int listNode::verificationConstruct(Position point1, Position point2) {
 
 }
 bool listNode::addNode(float x, float y) {
-
 	//On vérifie si notre liste a été allouée
 	if (this != NULL) {
 		//Création d'un nouveau noeud
-		Node* tmp;
+		Node* tmp = new Node();
 
-		tmp->setY(x); 
-		tmp->setX(y); 
+		tmp->setX(x); 
+		tmp->setY(y); 
 		//Rajoute à la fin : dernier élement de la liste 
 		tmp->setNext(NULL); 
 
@@ -426,6 +425,8 @@ bool openImg(Image* img, std::string nameImg) {
 ***!************************************************/
 Image::Image(const char* nameImg) {
 
+		strcpy(this->path, nameImg);
+
 		FILE* image = NULL;
 		image = fopen(nameImg, "r");
 		int test;	
@@ -545,7 +546,7 @@ int Image::changeColorRoad(unsigned char* tabPixels, Map* map) {
 
 int Image::changeColorConstruct(unsigned char* tabPixels, Map* map) {
 
-	if(map->getListConstruct() != NULL) {
+	if(map->getList_pixels() != NULL) {
 
 		for(uint i=0; i<(this->heightImg); i++) {
 			for(uint j=0; j<(this->widthImg); j++) {
@@ -560,7 +561,7 @@ int Image::changeColorConstruct(unsigned char* tabPixels, Map* map) {
 					//Ajoute le noeud à la liste de pixels avec les coordonnées
 					float x = j+200;
 					float y = i + 60;
-					//(map->getListConstruct())->addNode(x, y);
+					(map->getList_pixels())->addNode(x, y);
 				}
 			}
 		}
@@ -573,6 +574,41 @@ int Image::changeColorConstruct(unsigned char* tabPixels, Map* map) {
 	return 1;
 
 }
+
+/*int changeColorConstruct(Image* img, unsigned char* tabPixels, Map* map) {
+
+	int i, j;
+	
+	if(map->getList_pixels() != NULL) {
+
+		// On parcourt les lignes du tableau
+		for(i=0; i<(img->getHeight()); i++) {
+
+			// puis on parcourt les colonnes du tableau
+			for(j=0; j<(img->getWidth()); j++) {
+			
+				//On vérifie la couleur
+				if(tabPixels[i*(img->getWidth())*3+j*3] == 0 && tabPixels[i*(img->getWidth())*3+j*3+1] == 0 && tabPixels[i*(img->getWidth())*3+j*3+2] == 255){
+
+					//Change de couleur
+					tabPixels[i*(img->getWidth())*3+j*3] = ((map->getConstructColor()).getR())*255;
+					tabPixels[i*(img->getWidth())*3+j*3+1] = ((map->getConstructColor()).getG())*255;
+					tabPixels[i*(img->getWidth())*3+j*3+2] = ((map->getConstructColor()).getB())*255;
+
+					//Ajoute le noeud à la liste de pixels avec les coordonnées
+					map->getList_pixels()->addNode(j + 200, i + 60);
+				}
+			}
+		}
+	}
+	else {
+		fprintf(stderr, "Erreur : problème au moment de l'allocation pour la liste de pixels de la zone constructible\n");
+		return 0;
+	}
+
+	return 1;
+
+}*/
 
 int Image::changeColorNode(unsigned char* tabPixels, Map* map) {
 

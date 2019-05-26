@@ -156,5 +156,5 @@ class Image {
 };
 
 bool openImg(Image* img, std::string nameImg);
-
+//int changeColorConstruct(Image* img, unsigned char* tabPixels, Map* map);
 #endif
