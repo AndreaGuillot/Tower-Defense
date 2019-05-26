@@ -2,7 +2,7 @@
 #include "../include/draw.h"
 
 Monster::Monster(){
-    this->p = NULL;
+    this->p = new Position();
     this->node_prev = NULL;
     this->node_next = NULL;
     this->monster_prev = NULL;
@@ -67,24 +67,6 @@ float Monster::getResistance_TDB(){
 }
 
 //Set
-void Monster::set(Monster* m){
-    this->setPosition(m->getPosition()->getX(), m->getPosition()->getY());
-    this->setSens(m->getSens());
-    this->setPV(m->getPV());
-    this->setErreur(m->getErreur());
-    this->setNodePrev(m->getPrev());
-    this->setNodeNext(m->getNext());
-    this->setPrevMonster(m->getPrevM());
-    this->setNextMonster(m->getNextM());
-    this->setType(m->getType());
-    this->setPV(m->getPV());
-    this->setSpeed(m->getSpeed());
-    this->setReward(m->getReward());
-    this->setResistance_TDR(m->getResistance_TDR());
-    this->setResistance_TDV(m->getResistance_TDV());
-    this->setResistance_TDJ(m->getResistance_TDJ());
-    this->setResistance_TDB(m->getResistance_TDB());
-}
 
 void Monster::setPosition(float x, float y){
     this->p->setX(x);
@@ -445,7 +427,7 @@ bool listMonster::listMonster::addMonster(monsterType type, Node* node) {
 
             //Si la liste était vide de base, alors elle est composée de seulement ce monstre
             if(this->tail == NULL){
-                this->head->set(monster);
+                this->head = monster;
                 monster->setPrevMonster(NULL);
             }else{
             //On pointe le précédent monstre sur la queue de la liste et on ajoute a la queue le monstre
@@ -453,7 +435,7 @@ bool listMonster::listMonster::addMonster(monsterType type, Node* node) {
                 this->tail->setNextMonster(monster);
             }
 
-            this->tail->set(monster);
+            this->tail = monster;
 
             this->length++;
         }else{

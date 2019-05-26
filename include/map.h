@@ -36,7 +36,6 @@ class Map {
 		Color nodeColor;
 		Color constructColor;
 		//Liste des zones constructibles
-		listNode* listConstruct;
 		listNode* list_pixels;
 		//Nombre de monstres sur le plateau
 		int nbMonstres;
@@ -55,7 +54,6 @@ class Map {
 		Color getPathColor();
 		Color getNodeColor();
 		Color getConstructColor();
-		listNode* getListConstruct();
 		int getNbMonstres();
 		listNode* getList_pixels();
 		//Set

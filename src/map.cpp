@@ -22,7 +22,6 @@ Map::Map(){
     this->pathColor = Color();
     this->nodeColor = Color();
     this->constructColor = Color();
-    this->listConstruct = new listNode();
     this->list_pixels = new listNode();
     this->nbMonstres = 0;
 }
@@ -56,16 +55,12 @@ Color Map::getNodeColor(){
 Color Map::getConstructColor(){
     return this->constructColor;
 }
-listNode* Map::getListConstruct(){
-    return this->listConstruct;
+listNode* Map::getList_pixels(){
+    return this->list_pixels;
 }
 
 int Map::getNbMonstres(){
     return this->nbMonstres;
-}
-
-listNode* Map::getList_pixels(){
-    return this->list_pixels;
 }
 
 //Set
@@ -99,7 +94,7 @@ void Map::setConstructColor(Color color){
 bool Map::drawRoad() {
 
     Node *tmp = this->list_node->getHead();
-
+   
     while(tmp->getNext() != NULL) {
     
         glBegin(GL_LINES);
@@ -116,7 +111,7 @@ bool Map::drawRoad() {
 
         glColor3ub(255,255,255);
 
-        tmp = tmp->getNext();                  
+        tmp = tmp->getNext();
 
     }
 
@@ -357,9 +352,12 @@ bool Map::loadMap (std::string path) {
     std::ifstream file(path);
     if (file.is_open()) {
 
-        std::string line, imagePath, pathColor, nodeColor, constructColor, startColor, endColor;
+        std::string line, imagePath, pathColor, nodeColor, constructColor, startColor, endColor, nombreNoeud;
+        int indice, type, x, y;
+                
         while (std::getline(file, line)) {
             if (line.find("#") != std::string::npos) { continue; } // Skip comments
+            if (line.find("@") != std::string::npos) { continue; } // Skip comments
             else if (line.find("carte") != std::string::npos) { imagePath = line.substr(6, line.size()); }
             else if (line.find("energie") != std::string::npos) { continue; } //On fait pas l'energie
             else if (line.find("chemin") != std::string::npos) { pathColor = line.substr(8, line.size()); }
@@ -367,11 +365,29 @@ bool Map::loadMap (std::string path) {
             else if (line.find("construct") != std::string::npos) { constructColor = line.substr(10, line.size()); }
             else if (line.find("in") != std::string::npos) { startColor = line.substr(3, line.size()); }
             else if (line.find("out") != std::string::npos) { endColor = line.substr(4, line.size()); }
+            else if (line.find("nbNoeud") != std::string::npos) { nombreNoeud = line.substr(8, line.size()); }
+            else {
+                //On est dans les noeuds
+                /*std::string coordonneeX = line.substr(4, 7);
+                std::string coordonneeY = line.substr(8, 11);*/
+                std::string coordonneeX = line.substr(0, 3);
+                std::string coordonneeY = line.substr(4, 7);
+
+                x = std::atof(coordonneeX.c_str());
+                y = std::atof(coordonneeY.c_str());
+
+                float x1 = x + 200.0;
+                float y1 = y + 60.0;
+                //Vérifie que le noeud à bien été ajouté à la liste de noeud
+                this->list_node->addNode(x1, y1);
+                
+            }
         }
         file.close();
 
         this->img = new Image(imagePath.c_str());
         this->image = imagePath;
+        this->nbNode = std::atoi(nombreNoeud.c_str());
         this->pathColor = stringToColor(pathColor);
         this->nodeColor = stringToColor(nodeColor);
         this->constructColor = stringToColor(constructColor);
@@ -424,276 +440,7 @@ void Map::freeMap () {
         this->img->freeImage ();
         this->list_pixels->freeAllNode ();
         this->list_node->freeAllNode ();
-        this->listConstruct->freeAllNode ();
         free(this);
     }
 }
 
-int Map::verificationMap(char* nameITD){ 
-
-    FILE* itd = NULL;
-    itd = fopen(nameITD, "r");  
-
-    if(itd == NULL){
-        fprintf(stderr, "Erreur : Impossible d'ouvrir le fichier\n");
-        return 0;
-    }
-    else{
-        int testCommentaire;
-        char* test = (char*)malloc(20*sizeof(char));
-        
-        //Récupérer le code du fichier itd
-        if(fscanf(itd, "%s %d\n", test,  &testCommentaire) == 2) {
-
-            if(strcmp("@ITD", test) == 0 && 1 == testCommentaire){
-
-                //Récupère "carte"
-                if(fscanf(itd, "%s", test) == 1) {
-            
-                    //Vérifie qu'il s'agit bien de carte
-                    if(strcmp("carte", test) == 0) {
-
-                        //Alloue de la mémoire pour une image
-                        Image* new_img;
-                        char* path;
-                
-                        //Récupère le chemin vers l'image ppm
-                        if(fscanf(itd, "%s\n", path) == 1){
-                            new_img->setPath(path);
-                            new_img->openImg(new_img->getPath());
-                            this->setImg(new_img);         
-
-                            //Récupère "énergie"
-                            if(fscanf(itd, "%s", test) == 1) {
-
-
-                                        //Récupère "chemin"
-                                        if(fscanf(itd, "%s", test) == 1) {
-
-                                            //Vérifie qu'il s'agit bien du chemin
-                                            if(strcmp("chemin", test) == 0) {
-                                
-                                                int r, v, b;
-                                
-                                                //Récupère la couleur du chemin
-                                                if(fscanf(itd, "%d %d %d\n", &r, &v, &b) == 3){
-
-                                                    (this->pathColor).setR(r/255.0);
-                                                    (this->pathColor).setG(v/255.0);
-                                                    (this->pathColor).setB(b/255.0);
-                                    
-                                                    //Récupère "noeud"
-                                                    if(fscanf(itd, "%s", test) == 1) {
-
-                                                        //Vérifie qu'il s'agit bien du chemin
-                                                        if(strcmp("noeud", test) == 0) {
-                                
-                                                            //Récupère la couleur du chemin
-                                                            if(fscanf(itd, "%d %d %d\n", &r, &v, &b) == 3){
-
-                                                                (this->nodeColor).setR(r/255.0);
-                                                                (this->nodeColor).setG(v/255.0);
-                                                                (this->nodeColor).setB(b/255.0);
-                                    
-                                                                //Récupère "construct"
-                                                                if(fscanf(itd, "%s", test) == 1) {
-
-                                                                    //Vérifie qu'il s'agit bien du chemin
-                                                                    if(strcmp("construct", test) == 0) {
-                                
-                                                                        //Récupère la couleur du chemin
-                                                                        if(fscanf(itd, "%d %d %d\n", &r, &v, &b) == 3){
-
-//Créer la liste de pixel
-listNode* list_pixels;
-this->list_pixels = list_pixels;
-                                                                            (this->constructColor).setR(r/255.0);
-                                                                            (this->constructColor).setG(v/255.0);
-                                                                            (this->constructColor).setB(b/255.0);
-                                    
-                                                                            //Récupère "in"
-                                                                            if(fscanf(itd, "%s", test) == 1) {
-
-                                                                                //Vérifie qu'il s'agit bien du chemin
-                                                                                if(strcmp("in", test) == 0) {
-                                
-                                                                                    //Récupère la couleur du chemin
-                                                                                    if(fscanf(itd, "%d %d %d\n", &r, &v, &b) == 3){
-
-                                                                                        (this->inColor).setR(r/255.0);
-                                                                                        (this->inColor).setG(v/255.0);
-                                                                                        (this->inColor).setB(b/255.0);
-                                    
-                                                                                        //Récupère "out"
-                                                                                        if(fscanf(itd, "%s", test) == 1) {
-
-                                                                                            //Vérifie qu'il s'agit bien du chemin
-                                                                                            if(strcmp("out", test) == 0) {
-                                
-                                                                                                //Récupère la couleur du chemin
-                                                                                                if(fscanf(itd, "%d %d %d\n", &r, &v, &b) == 3){
-                                                                                                    (this->outColor).setR(r/255.0);
-                                                                                                    (this->outColor).setG(v/255.0);
-                                                                                                    (this->outColor).setB(b/255.0);
-
-                                //Récupére le nombre de noeuds                                  
-                                if(fscanf(itd, "%d\n", &(this->nbNode)) == 1){
-                                    int i, x, y;
-
-                                    //Création d'une nouvelle liste de noeuds
-                                    this->list_node;
-                                    if(this->list_node != NULL){
-
-                                        //Pour chaque noeud (on fait la boucle, le nombre de fois qu'il y a de nombre de noeuds)
-                                        for(i=0; i < (this->nbNode); i++){
-
-                                            //Récupére les coordonnées
-                                            if(fscanf(itd, "%d %d\n", &x, &y) == 2){
-
-                                                //Vérifie que le noeud se trouve dans l'image
-                                                if(x <= this->img->getWidth() && x >= 0 && y <= this->img->getHeight() && y >= 0){
-                                                    float x1 = x + 200.0;
-                                                    float y1 = y + 60.0;
-                                                    //Vérifie que le noeud à bien été ajouté à la liste de noeud
-                                                    if(this->list_node->addNode(x1, y1) != 1) {
-                                                        fprintf(stderr, "Erreur, ce n'est pas les coordonées d'un noeud");
-                                                        return 0;
-                                                    }
-                                                }
-                                                else{
-                                                    fprintf(stderr, "Erreur, le noeud ne se trouve pas sur la carte");
-                                                    return 0;
-                                                }
-                                            }
-                                            else {
-                                                fprintf(stderr, "Erreur, ce n'est pas les coordonées d'un noeud");
-                                                return 0;
-                                            }
-                                        }
-                                        if(fscanf(itd, "%d %d\n", &x, &y) == 2){
-                                            fprintf(stderr, "Erreur, il y a trop de noeuds");
-                                            return 0;
-                                        }
-                                    }
-                                }
-                                else {
-                                    fprintf(stderr, "Erreur, ce n'est pas un nombre de noeud");
-                                    return 0;
-                                }                                                   
-
-                                                                                                }
-                                                                                                else {
-                                                                                                    fprintf(stderr, "Erreur, Ce ne sont pas les valeurs de couleurs\n");
-                                                                                                    return 0;
-                                                                                                }
-                                                                                            }
-                                                                                            else {
-                                                                                                fprintf(stderr, "Erreur, la huitième ligne ne correspond pas à la sortie\n");
-                                                                                                return 0;
-                                                                                            }
-                                                                                                                        }
-                                                                                            else {
-                                                                                                fprintf(stderr, "Erreur, la huitième ligne ne correspond pas à la sortie\n");
-                                                                                                return 0;
-                                                                                            }
-
-                                                                                    }
-                                                                                    else {
-                                                                                        fprintf(stderr, "Erreur, Ce ne sont pas les valeurs de couleurs\n");
-                                                                                        return 0;
-                                                                                    }
-                                                                                }
-                                                                                else {
-                                                                                    fprintf(stderr, "Erreur, la septième ligne ne correspond pas à l'entrée\n");
-                                                                                    return 0;
-                                                                                }
-                                                                            }
-                                                                                                                                                        else {
-                                                                                fprintf(stderr, "Erreur, la septième ligne ne correspond pas à l'entrée\n");
-                                                                                return 0;
-                                                                            }
-
-                                                                        }
-                                                                        else {
-                                                                            fprintf(stderr, "Erreur, Ce ne sont pas les valeurs de couleurs\n");
-                                                                            return 0;
-                                                                        }
-                                                                    }
-                                                                    else {
-                                                                        fprintf(stderr, "Erreur, la sixième ligne ne correspond pas à la zone constructible\n");
-                                                                        return 0;
-                                                                    }
-                                                                }
-                                                                else {
-                                                                    fprintf(stderr, "Erreur, la sixième ligne ne correspond pas à la zone constructible\n");
-                                                                    return 0;
-                                                                }
-
-                                                            }
-                                                            else {
-                                                                fprintf(stderr, "Erreur, Ce ne sont pas les valeurs de couleurs\n");
-                                                                return 0;
-                                                            }
-                                                        }
-                                                        else {
-                                                            fprintf(stderr, "Erreur, la cinquième ligne ne correspond pas au noeud\n");
-                                                            return 0;
-                                                        }
-                                                    }
-                                                    else {
-                                                        fprintf(stderr, "Erreur, la cinquième ligne ne correspond pas au noeud\n");
-                                                        return 0;
-                                                    }
-
-                                                }
-                                                else {
-                                                    fprintf(stderr, "Erreur, Ce ne sont pas les valeurs de couleurs\n");
-                                                    return 0;
-                                                }
-                                            }
-                                            else {
-                                                fprintf(stderr, "Erreur, la quatrième ligne ne correspond pas au chemin\n");
-                                                return 0;
-                                            }
-                                        }
-                                        else {
-                                            fprintf(stderr, "Erreur, la quatrième ligne ne correspond pas au chemin\n");
-                                            return 0;
-                                        }
-                                }
-                            else {
-                                fprintf(stderr, "Erreur, la troisième ligne ne correspond pas à l'énergie\n");
-                                return 0;
-                            }
-                        }
-                        else {
-                            fprintf(stderr, "Erreur, ce n'est pas le chemin vers la carte\n");
-                            return 0;
-                        }
-                    }
-                    else {
-                        fprintf(stderr, "Erreur, la deuxième ligne ne correspond pas au chemin vers la carte\n");
-                        return 0;
-                    }
-                }
-                else {
-                    fprintf(stderr, "Erreur, la deuxième ligne ne correspond pas au chemin vers la carte\n");
-                    return 0;
-                }
-            }
-            else {
-                fprintf(stderr, "Ce n'est pas un fichier ITD\n");
-                return 0;
-            }
-        }
-        else {
-            fprintf(stderr, "Ce n'est pas un fichier ITD\n");
-            return 0;
-        }
-                
-        // On ferme le vide le buffer et on ferme le fichier itd
-        fflush(itd);
-        fclose(itd);
-    }
-    return 1;
-}

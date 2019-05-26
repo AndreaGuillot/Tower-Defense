@@ -222,20 +222,18 @@ bool listNode::addNode(float x, float y) {
 
 		tmp->setX(x); 
 		tmp->setY(y); 
-		//Rajoute à la fin : dernier élement de la liste 
-		tmp->setNext(NULL); 
+		tmp->setNext(NULL);
 
 		//Cas où notre liste est vide (pointeur vers fin de liste à  NULL)
-		if (this->getHead() == NULL) 
-			this->setHead(NULL); // Pointe la tête de la liste sur le nouveau noeud
+		if (this->getTail() == NULL)
+			this->setHead(tmp); // Pointe la tête de la liste sur le nouveau noeud
 
 		//Cas où des éléments sont déjà présents dans la  liste
 		else 
-			this->getHead()->setNext(tmp);  // Relie le dernier calque de la liste au nouveau noeud
+			this->getTail()->setNext(tmp);  // Relie le dernier calque de la liste au nouveau noeud
 
 		//Pointe la fin de la liste sur le nouveau noeud
 		this->setTail(tmp); 
-
 		//On augmente de 1 la taille de la liste
 		this->setLength(this->getLength()+1); 
 	}
@@ -243,7 +241,6 @@ bool listNode::addNode(float x, float y) {
 		printf("Cette liste de noeuds n'existe pas\n");
 		return 0;
 	}
-
 	return 1; 
 }
 
