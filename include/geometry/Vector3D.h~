@@ -1,0 +1,22 @@
+#ifndef ITD_VECTOR_2D___
+#define ITD_VECTOR_2D___
+
+#include "geometry/Point2D.h"
+
+typedef struct struct_vector {
+	float x;
+	float y;
+}Vector3D;
+
+Vector3D VectorXYZ(float, float);
+Vector3D Vector(Point3D, Point3D);
+Vector3D AddVectors(Vector3D, Vector3D);
+Vector3D SubVectors(Vector3D, Vector3D);
+Vector3D MultVector(float, Vector3D);
+Vector3D DivVector(float, Vector3D);
+double DotProduct(Vector3D, Vector3D);
+float Norm(Vector3D);
+Vector3D Normalize(Vector3D);
+Point3D PointPlusVector(Point3D, Vector3D);
+
+#endif

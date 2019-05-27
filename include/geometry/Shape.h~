@@ -1,0 +1,8 @@
+#ifndef LDR_SHAPE_3D___
+#define LDR_SHAPE_3D___
+
+typedef enum {
+	SPHERE_SHAPE, CUBE_SHAPE
+} ShapeType;
+
+#endif

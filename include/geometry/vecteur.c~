@@ -1,0 +1,9 @@
+Implantez le concept de vecteur 3d `
+a travers la structure Vector3D. Cette ci doit contenir 3
+flottant x, y et z.
+
+typedef struct struct_vector {
+	float x;
+	float y;
+	float z;
+}Vector3D;

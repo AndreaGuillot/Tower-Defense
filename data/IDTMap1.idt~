@@ -2,7 +2,7 @@
 carte images/map1/map1t.ppm
 energie 100
 chemin 222 185 108
-noeud 255 255 255
+noeud 0 0 0
 construct 114 176 65
 in 194 14 13
 out 194 14 13

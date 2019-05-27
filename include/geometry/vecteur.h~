@@ -1,0 +1,10 @@
+#ifndef VECTOR_3D___
+#define VECTOR_3D___
+
+typedef struct struct_vector {
+	float x;
+	float y;
+	float z;
+}Vector3D;
+
+#endif

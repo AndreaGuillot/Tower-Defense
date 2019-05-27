@@ -1,0 +1,24 @@
+#include <stdlib.h>
+#include <stdio.h>
+#include <math.h>
+
+#include "geometry/Point3D.h"
+#include "geometry/Color3f.h"
+#include "geometry/Vector3D.h"
+#include "geometry/Ray3D.h"
+#include "geometry/Sphere.h"
+#include "geometry/Union.h"
+#include "geometry/Intersection.h"
+
+/* Sphere */
+/*Sphere SphereInit(Point3D O, float radius, Color3f color) {
+
+	Sphere new_sphere;
+
+	new_sphere.type = SPHERE_SHAPE;
+	new_sphere.center = O;
+	new_sphere.radius = radius;
+	new_sphere.color = color;
+
+	return new_sphere;
+}*/
