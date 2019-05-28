@@ -265,8 +265,8 @@ int main(int argc, char** argv) {
 
 					apparitionMonster(listMonsters, joueur, map, &apparition, j, &nb_monster);
 
-					//Si lvl 19 (20 vagues) et plus de monstre alors gagner
-					if(joueur->lvl == 20 && listMonsters->length == 0) {
+					//Si lvl 49 (50 vagues) et plus de monstre alors gagner
+					if(joueur->lvl == 50 && listMonsters->length == 0) {
 
 						testMouse = 0;
 						testTower = 0;
@@ -396,8 +396,6 @@ int main(int argc, char** argv) {
 							if(tower != NULL && propriete == 1) {
 								//Test click pour supprimer une tour
 								clickTourDelete(listTowers, listShots, tower, joueur, e.button.x, e.button.y, &propriete);
-								//Test click pour upgrade une tour
-								clickTourUpgrate(tower, joueur, e.button.x, e.button.y, &propriete);
 							}
 
 							//Test click exit
@@ -426,22 +424,13 @@ int main(int argc, char** argv) {
 				case SDL_KEYDOWN:
 			  		switch(e.key.keysym.sym){
 
-						case 't' :
-							tower = listTowers->p_tail;
-							propriete = 1;
-							break;
+		    			case 'q' : 
+		    			case SDLK_ESCAPE : 
+						loop = 0;
+						freeAll(listMonsters, listShots, listTowers, p_lfileTower, map, joueur);
+						break;
 
-						case 'h' :
-							aide = 1;
-							break;
-
-			    			case 'q' : 
-			    			case SDLK_ESCAPE : 
-							loop = 0;
-							freeAll(listMonsters, listShots, listTowers, p_lfileTower, map, joueur);
-							break;
-
-			    			default : break;
+		    			default : break;
 			 		}
 			  		break;
 			  

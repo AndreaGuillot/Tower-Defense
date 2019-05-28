@@ -36,10 +36,10 @@ ListMonsters* new_ListMonsters(void) {
 *  un type de tour et la vitesse de déplacement, les points gagnés et le gain d'argent si le monstre	*
 *  est tué. Retourne 0 en cas d'erreur et 1 sinon.							*/
 
-int addMonster(ListMonsters* p_lmonster, int lvl, char* type, int pvMax, int resistance, char* type_tower, int pace, int points, int gain, Node* p_head) {
+int addMonster(ListMonsters* list_monster, int lvl, char* type, int pvMax, int resistance, char* type_tower, int pace, int points, int gain, Node* p_head) {
 
 	// On vérifie si notre liste a été allouée
-	if (p_lmonster != NULL) {
+	if (list_monster != NULL) {
 
 		//Création d'un nouveau monstre
 		Monster* new_monster = malloc(sizeof(Monster)); 
@@ -61,9 +61,6 @@ int addMonster(ListMonsters* p_lmonster, int lvl, char* type, int pvMax, int res
 			new_monster->node_prev = p_head; //Pointeur vers le premier noeud
 			new_monster->node_next = p_head->p_next; //Pointeur vers le second noeud
 
-			//Monte de niveau le monstre
-			upgrateMonster (new_monster, lvl);
-
 			//Vérifie le déplacement pour savoir dans quelle sens il se déplace et pour donner l'erreur
 			calculErreur(new_monster);
 	
@@ -71,10 +68,10 @@ int addMonster(ListMonsters* p_lmonster, int lvl, char* type, int pvMax, int res
 			new_monster->p_next = NULL; 
 
 			// Cas où notre liste est vide (pointeur vers fin de liste à  NULL)
-			if (p_lmonster->p_tail == NULL) {
+			if (list_monster->p_tail == NULL) {
 
 				// Pointe la tête de la liste sur le nouveau monstre
-				p_lmonster->p_head = new_monster; 
+				list_monster->p_head = new_monster; 
 
 				//Pointe p_prev du nouveau monstre à NULL
 				new_monster->p_prev = NULL;
@@ -82,17 +79,17 @@ int addMonster(ListMonsters* p_lmonster, int lvl, char* type, int pvMax, int res
 			// Cas où des éléments sont déjà présents dans la  liste
 			else {
 				// Pointe p_prev du nouveau monstre sur le dernier monstre de la liste
-				new_monster->p_prev = p_lmonster->p_tail; 
+				new_monster->p_prev = list_monster->p_tail; 
 
 				// Relie le dernier monstre de la liste au nouveau monstre
-				p_lmonster->p_tail->p_next = new_monster;  
+				list_monster->p_tail->p_next = new_monster;  
 			}
 			
 			// Pointe la fin de la liste sur le nouveau monstre
-			p_lmonster->p_tail = new_monster; 
+			list_monster->p_tail = new_monster; 
 
 			// On augmente de 1 la taille de la liste
-			p_lmonster->length++; 
+			list_monster->length++; 
 		}
 		else {
 			fprintf(stderr, "Problème dans la creation du nouveau monstre\n");
@@ -111,7 +108,7 @@ int addMonster(ListMonsters* p_lmonster, int lvl, char* type, int pvMax, int res
 /************* Monste de niveau le monstre **************/
 /* Monte de niveau le monstre (vitesse, pvMax, resistance, points, gain). Prend en paramètre 		*
 *  un pointeur vers le monstre et un pointeur vers l'interface. Retourne 0 en cas d'erreur et 1 sinon.	 */
-int upgrateMonster (Monster* monster, int lvl) {
+/*int upgrateMonster (Monster* monster, int lvl) {
 
 	if(monster != NULL) {
 
@@ -127,7 +124,7 @@ int upgrateMonster (Monster* monster, int lvl) {
 	}
 	return 1;
 }
-
+*/
 /************* Deplacer les monstres *************/
 /* Deplace les monstre : Vérifie s'il se déplace à l'horizontal, vertical ou autrement puis le déplace. Prend en paramètre la liste de	*
 *  monstres et et le dernier noeud de la carte.	Retourne 0 en cas d'erreur et 1 sinon et 2 s'il est arrivé à la fin. 			*/

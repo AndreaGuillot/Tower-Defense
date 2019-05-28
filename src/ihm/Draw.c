@@ -812,7 +812,7 @@ int drawInterface (GLuint* spriteButton, Joueur* joueur) {
 			//Convertie un int en un string
 			sprintf(machaine,"%d",joueur->lvl);
 
-			writeString(40, 40,  "Vagues de monstres passées : ");
+			writeString(40, 40,  "Vagues de monstres passees : ");
 			//Affiche la chaine de caractère
 			writeString(285, 40,  machaine);
 
