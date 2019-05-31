@@ -2,34 +2,32 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "file/FileTower.h"
+#include "file/FileInstallation.h"
 
 /************* Initialisation de la liste de tour (file) *************/
-/* Alloue de la mémoire pour la liste puis vérifie le fichier à l'aide de la fonction loadInfoTour	*
+/* Alloue de la mémoire pour la liste puis vérifie le fichier à l'aide de la fonction verificationFileInstallation	*
 *  Prend en paramère le chemin vers le fichier. Retourne le pointeur vers la liste.				*/
-LFileTower* newFileTower () {
-
+LFileInstallation* newFileInstallation () {
 
 		//Alloue la memoire
-		LFileTower* p_lfileTower = malloc(sizeof(LFileTower));
-		if(p_lfileTower != NULL) {
+		LFileInstallation* p_lfileInstallation = malloc(sizeof(LFileInstallation));
+		if(p_lfileInstallation != NULL) {
 
-			p_lfileTower->length = 0;
-			p_lfileTower->p_head = NULL;
-			p_lfileTower->p_tail = NULL;
+			p_lfileInstallation->length = 0;
+			p_lfileInstallation->p_head = NULL;
+			p_lfileInstallation->p_tail = NULL;
 
-			if(loadInfoTour(p_lfileTower) == 0) {
+			if(loadInfoInstallation(p_lfileInstallation) == 0) {
 				fprintf(stderr, "Erreur au moment de la vérification du fichier pour les tours\n");
 				return NULL;
 			}
-			return p_lfileTower;
+			return p_lfileInstallation;
 
 		}
 		else {
 			fprintf(stderr, "Erreur au moment de l'allocation mémoire de la liste\n");
 			return NULL;
 		}
-
 	
 	return NULL;	
 	
@@ -41,9 +39,9 @@ LFileTower* newFileTower () {
 *  Prend en paramètre un pointeur vers une la liste et le chemin vers le fichier ITD.			*
 *  Retourne 0 en cas d'erreur sinon retourne 1								*/
 
-int loadInfoTour(LFileTower* p_lfileTower) {
+int loadInfoInstallation(LFileInstallation* p_lfileInstallation) {
 
-	if(p_lfileTower != NULL) {
+	if(p_lfileInstallation != NULL) {
 
 			int testCommentaire, i;
 			int power, rate, range, cost;
@@ -59,7 +57,7 @@ int loadInfoTour(LFileTower* p_lfileTower) {
 						range = 40;
 						cost = 120;
 
-						addFileTower(p_lfileTower, power, rate, "R", range, cost);
+						addFileInstallation(p_lfileInstallation, power, rate, "R", range, cost);
 									
 						break;
 
@@ -69,7 +67,7 @@ int loadInfoTour(LFileTower* p_lfileTower) {
 						range = 60;
 						cost = 80;									
 						
-						addFileTower(p_lfileTower, power, rate, "L", range, cost);
+						addFileInstallation(p_lfileInstallation, power, rate, "L", range, cost);
 									
 						break;
 
@@ -80,7 +78,7 @@ int loadInfoTour(LFileTower* p_lfileTower) {
 						range = 50;
 						cost = 60;	
 						
-						addFileTower(p_lfileTower, power, rate, "M", range, cost);
+						addFileInstallation(p_lfileInstallation, power, rate, "M", range, cost);
 									
 						break;
 
@@ -91,7 +89,7 @@ int loadInfoTour(LFileTower* p_lfileTower) {
 						range = 70;
 						cost = 50;
 
-						addFileTower(p_lfileTower, power, rate, "H", range, cost);
+						addFileInstallation(p_lfileInstallation, power, rate, "H", range, cost);
 						
 
 						break;
@@ -104,7 +102,7 @@ int loadInfoTour(LFileTower* p_lfileTower) {
 
 	}
 	else {
-		fprintf(stderr,"Erreur avec la liste de fileTower\n");
+		fprintf(stderr,"Erreur avec la liste de fileInstallation\n");
 		return 0;
 	}
 	
@@ -116,48 +114,48 @@ int loadInfoTour(LFileTower* p_lfileTower) {
 *  Prend en paramètre la liste de tours, la puissance d'attaque, la vitesse d'attaque, le type 	*
 *  le périmétre d'action et le cout. Retourne 0 en cas d'erreur et 1 sinon			*/
 
-int addFileTower(LFileTower* p_lfileTower, int power, int rate, char* type_tower, int range, int cost) {
+int addFileInstallation(LFileInstallation* p_lfileInstallation, int power, int rate, char* type_tower, int range, int cost) {
 
 	// On vérifie si notre liste a été allouée
-	if (p_lfileTower != NULL) {
+	if (p_lfileInstallation != NULL) {
 		//Création d'une nouvelle tour
-		FileTower* new_fileTower = malloc(sizeof(FileTower)); 
+		FileInstallation* new_fileInstallation = malloc(sizeof(FileInstallation)); 
 		
 		// On vérifie si le malloc n'a pas échoué
-		if (new_fileTower !=  NULL) {
+		if (new_fileInstallation !=  NULL) {
 
-			new_fileTower->rate = rate;
-			new_fileTower->range = range;
-			new_fileTower->type_tower = type_tower;
-			new_fileTower->cost = cost;
-			new_fileTower->power = power;
+			new_fileInstallation->rate = rate;
+			new_fileInstallation->range = range;
+			new_fileInstallation->type_tower = type_tower;
+			new_fileInstallation->cost = cost;
+			new_fileInstallation->power = power;
 	
 			//Pointer vers la tour suivant à NULL car on rajoute à la fin de la liste	
-			new_fileTower->p_next = NULL; 
+			new_fileInstallation->p_next = NULL; 
 
 			// Cas où notre liste est vide (pointeur vers fin de liste à  NULL)
-			if (p_lfileTower->p_tail == NULL) {
+			if (p_lfileInstallation->p_tail == NULL) {
 
 				// Pointe la tête de la liste sur la nouvelle tour
-				p_lfileTower->p_head = new_fileTower; 
+				p_lfileInstallation->p_head = new_fileInstallation; 
 
 				//Pointe p_prev de la nouvelle tour à NULL
-				new_fileTower->p_prev = NULL;
+				new_fileInstallation->p_prev = NULL;
 			}
 			// Cas où des éléments sont déjà présents dans la  liste
 			else {
 				// Pointe p_prev de la nouvelle tour sur la dernière tour de la liste
-				new_fileTower->p_prev = p_lfileTower->p_tail; 
+				new_fileInstallation->p_prev = p_lfileInstallation->p_tail; 
 
 				// Relie la dernière tour de la liste à la nouvelle tour
-				p_lfileTower->p_tail->p_next = new_fileTower;  
+				p_lfileInstallation->p_tail->p_next = new_fileInstallation;  
 			}
 
 			// Pointe la fin de la liste sur la nouvelle tour
-			p_lfileTower->p_tail = new_fileTower; 
+			p_lfileInstallation->p_tail = new_fileInstallation; 
 
 			// On augmente de 1 la taille de la liste
-			p_lfileTower->length++; 
+			p_lfileInstallation->length++; 
 		}
 		else {
 			fprintf(stderr, "Problème dans la creation de la nouvelle tour\n");
@@ -177,10 +175,10 @@ int addFileTower(LFileTower* p_lfileTower, int power, int rate, char* type_tower
 /* Supprime une tour selon sa position, vérifie si c'est le premier, le dernier ou une tour dans la liste puis la supprime 	*
 *  Prend en paramètre la liste de tours et la tour à supprimer et retourne la liste de tours.					*/
 
-LFileTower* removeFileTower(LFileTower* p_lfileTower, FileTower* p_courant) {
+LFileInstallation* removeFileInstallation(LFileInstallation* p_lfileInstallation, FileInstallation* p_courant) {
 
 	// On vérifie si notre liste a été allouée
-	if (p_lfileTower != NULL) {
+	if (p_lfileInstallation != NULL) {
 
 		if(p_courant != NULL) {
 
@@ -188,28 +186,28 @@ LFileTower* removeFileTower(LFileTower* p_lfileTower, FileTower* p_courant) {
 			if (p_courant->p_next == NULL) {
 				
 				//Pointe la fin de la liste sur la tour précédente
-				p_lfileTower->p_tail = p_courant->p_prev;
+				p_lfileInstallation->p_tail = p_courant->p_prev;
 
-				if(p_lfileTower->p_tail != NULL) {
+				if(p_lfileInstallation->p_tail != NULL) {
 					//Lien de la dernière tour vers la tour suivante est NULL
-					p_lfileTower->p_tail->p_next = NULL;
+					p_lfileInstallation->p_tail->p_next = NULL;
 				}
 				else
-					p_lfileTower->p_head = NULL;
+					p_lfileInstallation->p_head = NULL;
 					
 			}
 		
 			//Si c'est la première de la liste
 			else if (p_courant->p_prev == NULL) {
 				//Pointe la tête de la liste vers la tour suivante
-				p_lfileTower->p_head = p_courant->p_next;
+				p_lfileInstallation->p_head = p_courant->p_next;
 
-				if(p_lfileTower->p_head != NULL) {
+				if(p_lfileInstallation->p_head != NULL) {
 					//Le lien vers de la deuxième tour vers la tour précédente est NULL
-			 		p_lfileTower->p_head->p_prev = NULL;
+			 		p_lfileInstallation->p_head->p_prev = NULL;
 				}
 				else
-					p_lfileTower->p_tail = NULL;
+					p_lfileInstallation->p_tail = NULL;
 			}
 
 			else {
@@ -222,7 +220,7 @@ LFileTower* removeFileTower(LFileTower* p_lfileTower, FileTower* p_courant) {
 			//Libère espace mémoire : supprime la tour
 			free(p_courant);
 			//Décrémente de un la taille de la liste
-			p_lfileTower->length--;
+			p_lfileInstallation->length--;
 
 		}
 		else
@@ -232,22 +230,22 @@ LFileTower* removeFileTower(LFileTower* p_lfileTower, FileTower* p_courant) {
 		fprintf(stderr, "Cette liste de tours n'existe pas");
 
 	// on retourne notre nouvelle liste
-	return p_lfileTower; 
+	return p_lfileInstallation; 
 }
 
 
-/************* Supprimer la liste de fileTower *************/
+/************* Supprimer la liste de fileInstallation *************/
 /* Supprime la liste de missiles. Prend en paramètre un pointeur vers la liste de missiles 	*/
 
-void freeAllFileTower (LFileTower* p_lfileTower) {
+void freeAllFileInstallation (LFileInstallation* p_lfileInstallation) {
 	//Si la liste n'est pas vide
-	if (p_lfileTower->length != 0) {
+	if (p_lfileInstallation->length != 0) {
 
 		//Tant que la liste n'est pas vide
-		while (p_lfileTower->p_head != NULL) {
-			p_lfileTower = removeFileTower(p_lfileTower, p_lfileTower->p_head);
+		while (p_lfileInstallation->p_head != NULL) {
+			p_lfileInstallation = removeFileInstallation(p_lfileInstallation, p_lfileInstallation->p_head);
 		}
 		
 	}
-	free(p_lfileTower);
+	free(p_lfileInstallation);
 }

@@ -1,10 +1,10 @@
-#ifndef ITD_FILE_TOWER_H_
-#define ITD_FILE_TOWER_H_
+#ifndef ITD_FILE_INSTALLATION_H_
+#define ITD_FILE_INSTALLATION_H_
 
 /************* STRUCTURE DU FICHIER TOUR *************/
 /* Liste doublement chainée pour pouvoir naviger dans la liste de tours	*
 *  et récupérer facile n'importe quelle tour dans la liste 		*/
-typedef struct struct_fileTower {
+typedef struct struct_fileInstallation {
 
 	//Type de la tour : R (rocket) L (laser), M (mitraillette) et H (hybride)
 	char* type_tower;
@@ -22,33 +22,33 @@ typedef struct struct_fileTower {
 	int power;
 
 	//Pointer vers l'élément précédent
-	struct struct_fileTower* p_prev;
+	struct struct_fileInstallation* p_prev;
 
 	//Pointeur vers l'élément suivant
-	struct struct_fileTower* p_next;
+	struct struct_fileInstallation* p_next;
 
-}FileTower;
+}FileInstallation;
 
 /************* STRUCTURE DE LA LISTE DE TOURS *************/
-typedef struct struct_lfileTower {
+typedef struct struct_lfileInstallation {
 
 	//Taille de la liste
 	size_t length;
 
 	//Pointeur
-	FileTower *p_head; //pointeur vers le premier element
-	FileTower *p_tail; //pointeur vers le dernier element
-}LFileTower;
+	FileInstallation *p_head; //pointeur vers le premier element
+	FileInstallation *p_tail; //pointeur vers le dernier element
+}LFileInstallation;
 
 /************* Prtotypes de fonctions *************/
 //Initialisation de la liste de tours
-LFileTower* newFileTower ();
+LFileInstallation* newFileInstallation ();
 //Ajout d'une tour à la liste
-int addFileTower(LFileTower*, int, int, char*, int, int);
+int addFileInstallation(LFileInstallation*, int, int, char*, int, int);
 //Supprimer une tour de la liste
-LFileTower* removeFileTower(LFileTower*, FileTower*);
+LFileInstallation* removeFileInstallation(LFileInstallation*, FileInstallation*);
 //Supprimer la liste de tour
-void freeAllFileTower (LFileTower*);
-int loadInfoTour(LFileTower* p_lfileTower);
+void freeAllFileInstallation (LFileInstallation*);
+int loadInfoInstallation(LFileInstallation* p_lfileInstallation);
 
 #endif

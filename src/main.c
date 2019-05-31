@@ -11,6 +11,7 @@
 #include "geometry/Color3f.h"
 #include "element/Monster.h"
 #include "element/Tower.h"
+#include "element/Installation.h"
 #include "element/Shot.h"
 #include "file/Map.h"
 #include "file/Texture.h"
@@ -140,7 +141,7 @@ int main(int argc, char** argv) {
 	LShot* listShots = new_LShot();
 
 	//Initialisation de la liste de tours (file)
-	LFileTower* p_lfileTower =  newFileTower ("./data/IDTtower.idt");
+	LFileTower* p_lfileTower =  newFileTower ();
 
 	int i = 0;
 	int nb_monster = 0, j = 0;
@@ -152,6 +153,7 @@ int main(int argc, char** argv) {
 	//Pour afficher les propriétés
 	Tower* tower = NULL;
 	Monster* monster = NULL;
+	Installation* installation = NULL;
 
 	int loop = 1;
 
@@ -377,6 +379,8 @@ int main(int argc, char** argv) {
 								//test click sur le menu de la tour
 								if(clickMenuTour(listTowers, p_lfileTower, joueur, e.button.x, e.button.y) == 1)
 									testMouse = 1;
+								/*if(clickMenuInstallation(listInstallations, p_lfileInstallation, joueur, e.button.x, e.button.y) == 1)
+									testMouse = 1;*/
 							}
 							else {
 								if(testTower != 0)
@@ -440,8 +444,6 @@ int main(int argc, char** argv) {
 	glBindTexture(GL_TEXTURE_2D, 0);
 
 	//Free toutes les textures
-	freeTexture(&menuMap, imgMenuMap);
-	freeTexture(&menuMapButton, imgMenuMapButton);
 	freeTexture(&menuPrincipal, imgMenuPrincipal);
 	freeTexture(&menuPrincipalButton, imgMenuPrincipalButton);
 	freeTexture(&texture, imgMap);
