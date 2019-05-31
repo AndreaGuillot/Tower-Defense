@@ -645,7 +645,9 @@ int drawMenuLeft (GLuint* spriteMenu, GLuint* fondMenu, Joueur* joueur) {
 		//Désactive le texturage 2D
 		glDisable(GL_TEXTURE_2D);
 
-		/*** Première tour ***/
+		/*** PREMIERE TOUR
+			OCEANE
+			PRIX 50 ***/
 
 		//Active le texturage 2D
 		glEnable(GL_TEXTURE_2D);
@@ -679,7 +681,9 @@ int drawMenuLeft (GLuint* spriteMenu, GLuint* fondMenu, Joueur* joueur) {
 		//Désactive le texturage 2D
 		glDisable(GL_TEXTURE_2D);
 
-		/*** Deuxième tour ***/
+		/*** DEUXIEME TOUR
+			JULES
+			PRIX 60 ***/
 
 		//Active le texturage 2D
 		glEnable(GL_TEXTURE_2D);
@@ -714,7 +718,46 @@ int drawMenuLeft (GLuint* spriteMenu, GLuint* fondMenu, Joueur* joueur) {
 		glDisable(GL_TEXTURE_2D);
 
 
-		/*** Deuxième tour ***/
+		/*** TROISIEME TOUR
+			CLARA
+			PRIX 80 ***/
+
+		//Active le texturage 2D
+		glEnable(GL_TEXTURE_2D);
+		//appel de la texture
+		glBindTexture(GL_TEXTURE_2D, *spriteMenu);
+
+			if(joueur->money >= 80)
+				glColor4f(255,255,255, 1);
+			else 
+				glColor4f(255,255,255, 0.5);
+
+
+			glBegin(GL_QUADS);
+			//coordonée de la texture
+			glTexCoord2f(0.5, 0.3);
+			//Cordonnée du quadrilatère 
+			glVertex2f(100, 175);
+
+			glTexCoord2f(0.5, 0.15);
+			glVertex2f(100, 125);
+
+			glTexCoord2f(0, 0.15);
+			glVertex2f(10, 125);
+
+			glTexCoord2f(0, 0.3);
+			glVertex2f(10, 175);
+
+			glEnd();
+
+		//Déblinder la texture
+		glBindTexture(GL_TEXTURE_2D, 0);
+		//Désactive le texturage 2D
+		glDisable(GL_TEXTURE_2D);
+
+		/*** QUATRIEME TOUR
+			YOANN
+			PRIX 100 ***/
 
 		//Active le texturage 2D
 		glEnable(GL_TEXTURE_2D);
@@ -729,18 +772,18 @@ int drawMenuLeft (GLuint* spriteMenu, GLuint* fondMenu, Joueur* joueur) {
 
 			glBegin(GL_QUADS);
 			//coordonée de la texture
-			glTexCoord2f(1, 0.285);
+			glTexCoord2f(1, 0.3);
 			//Cordonnée du quadrilatère 
 			glVertex2f(190, 175);
 
-			glTexCoord2f(1, 0.142);
+			glTexCoord2f(1, 0.15);
 			glVertex2f(190, 125);
 
-			glTexCoord2f(0, 0.142);
-			glVertex2f(10, 125);
+			glTexCoord2f(0.5, 0.15);
+			glVertex2f(100, 125);
 
-			glTexCoord2f(0, 0.285);
-			glVertex2f(10, 175);
+			glTexCoord2f(0.5, 0.3);
+			glVertex2f(100, 175);
 
 			glEnd();
 
@@ -749,9 +792,11 @@ int drawMenuLeft (GLuint* spriteMenu, GLuint* fondMenu, Joueur* joueur) {
 		//Désactive le texturage 2D
 		glDisable(GL_TEXTURE_2D);
 
-		/**Troisieme tour**/
+		/** PREMIERE INSTALLATION
+			ANDREA
+			PRIX 80***/
 
-			if(joueur->money >= 200)
+			if(joueur->money >= 80)
 				glColor4f(255,255,255, 1);
 			else 
 				glColor4f(255,255,255, 0.5);
@@ -763,17 +808,17 @@ int drawMenuLeft (GLuint* spriteMenu, GLuint* fondMenu, Joueur* joueur) {
 
 				glBegin(GL_QUADS);
 				//coordonée de la texture
-				glTexCoord2f(1, 0.428);
+				glTexCoord2f(0.5, 0.5);
 				//Cordonnée du quadrilatère 
-				glVertex2f(190, 230);
+				glVertex2f(100, 230);
 
-				glTexCoord2f(1, 0.285);
-				glVertex2f(190, 180);
+				glTexCoord2f(0.5, 0.35);
+				glVertex2f(100, 180);
 
-				glTexCoord2f(0, 0.285);
+				glTexCoord2f(0, 0.35);
 				glVertex2f(10, 180);
 
-				glTexCoord2f(0, 0.428);
+				glTexCoord2f(0, 0.5);
 				glVertex2f(10, 230);
 
 				glEnd();
@@ -783,10 +828,11 @@ int drawMenuLeft (GLuint* spriteMenu, GLuint* fondMenu, Joueur* joueur) {
 			//Désactive le texturage 2D
 			glDisable(GL_TEXTURE_2D);
 
-		
-		/*Quatrieme tour */
+		/** PREMIERE INSTALLATION
+			MARGAUX
+			PRIX 150***/
 
-			if(joueur->money >= 300)
+			if(joueur->money >= 150)
 				glColor4f(255,255,255, 1);
 			else 
 				glColor4f(255,255,255, 0.5);
@@ -798,18 +844,54 @@ int drawMenuLeft (GLuint* spriteMenu, GLuint* fondMenu, Joueur* joueur) {
 
 				glBegin(GL_QUADS);
 				//coordonée de la texture
-				glTexCoord2f(1, 0.571);
+				glTexCoord2f(1, 0.5);
 				//Cordonnée du quadrilatère 
-				glVertex2f(190, 285);
+				glVertex2f(190, 230);
 
-				glTexCoord2f(1, 0.428);
-				glVertex2f(190, 235);
+				glTexCoord2f(1, 0.35);
+				glVertex2f(190, 180);
 
-				glTexCoord2f(0, 0.428);
-				glVertex2f(10, 235);
+				glTexCoord2f(0.5, 0.35);
+				glVertex2f(100, 180);
 
-				glTexCoord2f(0, 0.571);
-				glVertex2f(10, 285);
+				glTexCoord2f(0.5, 0.5);
+				glVertex2f(100, 230);
+
+				glEnd();
+
+			//Déblinder la texture
+			glBindTexture(GL_TEXTURE_2D, 0);
+			//Désactive le texturage 2D
+			glDisable(GL_TEXTURE_2D);
+
+		/*** TROISIEME INSTALLATION
+			BAPTISTE
+			PRIX 70***/
+
+			if(joueur->money >= 70)
+				glColor4f(255,255,255, 1);
+			else 
+				glColor4f(255,255,255, 0.5);
+
+			//Active le texturage 2D
+			glEnable(GL_TEXTURE_2D);
+			//appel de la texture
+			glBindTexture(GL_TEXTURE_2D, *spriteMenu);
+
+				glBegin(GL_QUADS);
+				//coordonée de la texture
+				glTexCoord2f(0.5, 0.67);
+				//Cordonnée du quadrilatère 
+				glVertex2f(145, 285);
+
+				glTexCoord2f(0.5, 0.52);
+				glVertex2f(145, 235);
+
+				glTexCoord2f(0, 0.52);
+				glVertex2f(55, 235);
+
+				glTexCoord2f(0, 0.67);
+				glVertex2f(55, 285);
 
 				glEnd();
 
@@ -915,9 +997,9 @@ int drawProprieteTower (GLuint* tower, GLuint* spriteMenu, GLuint* btPlus, Tower
 		else if(strcmp("M", p_courant->type_tower) == 0) 
 			towerNumber = 1;
 		else if(strcmp("L", p_courant->type_tower) == 0) 
-			towerNumber = 3;
-		else if(strcmp("R", p_courant->type_tower) == 0) 
 			towerNumber = 2;
+		else if(strcmp("R", p_courant->type_tower) == 0) 
+			towerNumber = 3;
 
 		float x1 = 0, x2 = 1, y1 = (towerNumber * (1.0/4.0)) + 0;
 		float y2 = (towerNumber * (1.0/4.0)) + 0.25;
@@ -1251,9 +1333,9 @@ int drawTower (GLuint* tower, LTower* p_ltower, ListMonsters* p_lmonster, Tower*
 					else if(strcmp("M", p_temp->type_tower) == 0) 
 						towerNumber = 1;
 					else if(strcmp("L", p_temp->type_tower) == 0) 
-						towerNumber = 3;
-					else if(strcmp("R", p_temp->type_tower) == 0) 
 						towerNumber = 2;
+					else if(strcmp("R", p_temp->type_tower) == 0) 
+						towerNumber = 3;
 
 					float x1 = 0, x2 = 1, y1 = (towerNumber * (1.0/4.0)) + 0;
 					float y2 = (towerNumber * (1.0/4.0)) + 0.25;
