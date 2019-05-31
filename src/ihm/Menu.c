@@ -59,6 +59,8 @@ int clickMenuTour(LTower* p_ltower, LFileTower* p_lfileTower, Joueur* joueur, fl
 		if(x <= 190 && x >= 100 && y <= 120 && y >= 70)
 			type = "M";
 
+		//Si le niveau est suppérieur à 3
+
 		if(x <= 100 && x >= 10 && y <= 175 && y >= 125)
 				type = "L";
 		
@@ -81,7 +83,7 @@ int clickMenuTour(LTower* p_ltower, LFileTower* p_lfileTower, Joueur* joueur, fl
 
 				tmp = tmp->p_next;
 			}
-
+			
 			//S'il le joueur a assez d'argent
 			if((joueur->money) >= tmp->cost) {
 				//Ajoute une tour
@@ -208,108 +210,6 @@ int clickTourDelete(LTower* p_ltower, LShot* p_lshot, Tower* p_courant, Joueur* 
 
 }
 
-/*********************** Clique sur le menu : monter de lvl une tour ***********************/
-/* monter de lvl une tour lorsqu'on clique sur le bouton upgrate. Prend en paramètre 			*
-*  la tour courant, la position et un pointeur vers propriete. Retourne 0 en cas d'erreur sinon 1. 	*/
-
-int clickTourUpgrate(Tower* p_courant, Joueur* joueur, float x, float y, int* propriete) {
-
-	if(joueur != NULL) {
-
-		if(p_courant != NULL) {
-
-			if(*propriete == 1) {
-
-				//Monter de niveau la tour
-				if(x <= 190 && x >= 10 && y <= 595 && y >= 545)
-					upgrateTower(p_courant, joueur);
-				//Monter la cadence de la tour
-				else if(x <= 190 && x >= 165 && y <= 395 && y >= 372)
-					upgradeRateT(p_courant, joueur);
-				//Monter le périmètre d'action de la tour
-				else if(x <= 190 && x >= 165 && y <= 420 && y >= 397)
-					upgradeRangeT(p_courant, joueur);
-				//Monter la puissance de la tour
-				else if(x <= 190 && x >= 165 && y <= 445 && y >= 422)
-					upgradePowerT(p_courant, joueur);					
-
-				*propriete = 1;
-			}
-
-		}
-		else {
-			fprintf(stderr, "Erreur la tour courante\n");
-			return 0;
-		}
-
-	}
-	else {
-		fprintf(stderr, "Erreur avec l'joueur\n");
-		return 0;
-	}
-
-	return 1;
-
-}
-
-/*********************** Clique sur le menu : pause/play/avanceRapide ***********************/
-/* Pause : retourne 2 si on a cliqué sur le bouton avance rapide, 0 sur play ou 1 sur pause sinon retourne 0 	*/
-int clickTime(float x, float y, int play, int* nbMonster, int* j) {
-	
-	if(*nbMonster > 10) {
-
-		//Si clique sur play
-		if(play == 0) {
-			//Si clique sur pause	
-			if(x <= 720 && x >= 690 && y <= 45 && y >= 15)
-				return 1;
-		}
-		else {
-			if(x <= 720 && x >= 690 && y <= 45 && y >= 15) {
-				*nbMonster = 0;
-				*j = 0;
-				return 0;
-			}
-		}
-
-	}
-	else {
-
-		//si c'est play
-		if(play == 0) {
-			//Si clique sur pause	
-			if(x <= 720 && x >= 690 && y <= 45 && y >= 15)
-				return 1;
-			//Si clique sur avance rapide
-			else if(x <= 685 && x >= 655 && y <= 45 && y >= 15)
-				return 2;
-
-		}
-		//si c'est en pause
-		else if(play == 1) {
-
-			//Si clique sur play
-			if(x <= 720 && x >= 690 && y <= 45 && y >= 15) 
-				return 0;
-			//Si clique sur avance rapide
-			else if(x <= 685 && x >= 655 && y <= 45 && y >= 15)
-				return 2;
-			else
-				return 1;
-		}
-		//sinon avance rapide
-		else {
-			//Si clique sur play
-			if(x <= 720 && x >= 690 && y <= 45 && y >= 15) 
-				return 0;
-			else
-				return 2;
-		}
-	}
-
-	return 0;
-}
-
 /*********************** Clique sur le menu : fermer ***********************/
 /* fermer : retourne 0 si on a cliqué sur le bouton avance rapide sinon retourne 1 	*/
 int clickExit(ListMonsters* p_lmonster, LShot* p_lshot, LTower* p_ltower, LFileTower* p_lfileTower, Map* map, Joueur* joueur, float x, float y, int aide) {
@@ -407,82 +307,6 @@ Monster* clickMonster(ListMonsters* p_lmonster, float x, float y, int* propriete
 	}
 
 	return NULL;
-
-}
-
-/*********************** Click tuto ***********************/
-/* Click tutorial. Prend en paramètre un pointeur sur une tour, la position du click, et 3 int (tuto, testMouse et testTower.	*
-*  Retourne un valeur pour le tutoriel (avancement dans le tutoriel) et 0 si c'est fini.					*/
-int clickTuto(Tower* p_courant, float x, float y, int tuto, int testMouse, int testTower, int* tutoend) {
-
-	if(tuto != 6) {
-		//Passer le tutoriel
-		if(x <= 780 && x >= 680 && y <= 141 && y >= 80) {
-			*tutoend = 1;
-			return 0;
-		}
-	}
-
-	if(tuto == 1) {
-			return 2;
-	}
-	else if(tuto == 2) {
-		if(testMouse == 1) 
-			return 3;
-		else
-			return 2;
-	}
-	else if(tuto == 3) {
-		if(testTower == 1)
-			return 4;
-		else
-			return 3;
-	}
-	else if(tuto == 4) {
-		if(p_courant == NULL)
-			return 5;
-		else
-			return 4;
-	}
-	else if(tuto == 5){
-		if(p_courant == NULL)
-			return 6;
-		else
-			return 5;
-	}
-	else if(tuto == 6) {
-		*tutoend = 1;
-		return 0;
-	}
-
-	return 0;
-
-}
-
-/*********************** Mouvement de la souris ***********************/
-/* Au mouvement de la souris regarde si se trouve sur l'un des boutons upgrade, si oui retourne un chiffre.	*/
-int mouseInfo(float x, float y, int testMouse, int propriete) {
-
-	if(propriete == 1) {
-	
-		if(testMouse == 0) {
-			//Améliorer power
-			if(x <= 190 && x >= 165 && y <= 445 && y >= 422)
-				return 1;
-			//Améliorer range
-			else if(x <= 190 && x >= 165 && y <= 420 && y >= 397) 
-				return 2;
-			//Améliorer cadence
-			else if(x <= 190 && x >= 165 && y <= 395 && y >= 372)
-				return 3;
-			//Tout améliorer
-			else if(x <= 190 && x >= 10 && y <= 595 && y >= 545)
-				return 4;
-		
-		}
-	}
-
-	return 0;
 
 }
 

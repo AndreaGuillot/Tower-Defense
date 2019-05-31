@@ -70,16 +70,6 @@ int main(int argc, char** argv) {
     	SDL_WM_SetCaption("Tower Defense IMAC1", NULL);
 
 	/***** Variables ******/
-	//Texture menuMap
-	GLuint menuMap;
-	SDL_Surface* imgMenuMap = NULL;
-	loadTexture("./images/menu-map.png", &menuMap, imgMenuMap);
-
-	//Texture menuMap button
-	GLuint menuMapButton;
-	SDL_Surface* imgMenuMapButton = NULL;
-	loadTexture("./images/sprite_bt-texture.png", &menuMapButton, imgMenuMapButton);
-
 
 	//Texture menuPrincipal
 	GLuint menuPrincipal;
