@@ -133,7 +133,7 @@ int drawMenuMap (GLuint* texture, GLuint* bt_texture, int nbTexture) {
 /*********************** Dessiner le menu principale ***********************/
 /* Dessine le menu principale. Prend en paramètre les textures.	*/
 
-int drawMenuPrincipale (GLuint* texture, GLuint* spriteButton) {
+int drawMenuPrincipal (GLuint* texture, GLuint* spriteButton) {
 
 	if(texture != NULL) {
 
@@ -659,18 +659,52 @@ int drawMenuLeft (GLuint* spriteMenu, GLuint* fondMenu, Joueur* joueur) {
 
 			glBegin(GL_QUADS);
 			//coordonée de la texture
-			glTexCoord2f(1, 0.142);
+			glTexCoord2f(0.5, 0.14);
+			//Cordonnée du quadrilatère 
+			glVertex2f(100, 120);
+
+			glTexCoord2f(0.5, 0);
+			glVertex2f(100, 70);
+
+			glTexCoord2f(0, 0);
+			glVertex2f(10, 70);
+
+			glTexCoord2f(0, 0.14);
+			glVertex2f(10, 120);
+
+			glEnd();
+
+		//Déblinder la texture
+		glBindTexture(GL_TEXTURE_2D, 0);
+		//Désactive le texturage 2D
+		glDisable(GL_TEXTURE_2D);
+
+		/*** Deuxième tour ***/
+
+		//Active le texturage 2D
+		glEnable(GL_TEXTURE_2D);
+		//appel de la texture
+		glBindTexture(GL_TEXTURE_2D, *spriteMenu);
+
+			if(joueur->money >= 60)
+				glColor4f(255,255,255, 1);
+			else 
+				glColor4f(255,255,255, 0.5);
+
+			glBegin(GL_QUADS);
+			//coordonée de la texture
+			glTexCoord2f(1, 0.14);
 			//Cordonnée du quadrilatère 
 			glVertex2f(190, 120);
 
 			glTexCoord2f(1, 0);
 			glVertex2f(190, 70);
 
-			glTexCoord2f(0, 0);
-			glVertex2f(10, 70);
+			glTexCoord2f(0.5, 0);
+			glVertex2f(100, 70);
 
-			glTexCoord2f(0, 0.142);
-			glVertex2f(10, 120);
+			glTexCoord2f(0.5, 0.14);
+			glVertex2f(100, 120);
 
 			glEnd();
 

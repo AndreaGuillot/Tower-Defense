@@ -215,7 +215,7 @@ int main(int argc, char** argv) {
 				//Texture fond Win
 				loadTexture("./images/win.png", &fondWin, imgFondWin);
 				
-			drawMenuPrincipale (&menuPrincipal, &menuPrincipalButton);
+			drawMenuPrincipal (&menuPrincipal, &menuPrincipalButton);
 		}
 		else if(nbMenu == 2) 
 			drawHelp (&help, &Boutons, &menuPrincipalButton, nbMenu);

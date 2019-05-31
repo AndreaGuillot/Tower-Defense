@@ -15,7 +15,7 @@
 //Dessin menu Map
 int drawMenuMap (GLuint*, GLuint*, int);
 //Dessin du menu principal
-int drawMenuPrincipale (GLuint*, GLuint*);
+int drawMenuPrincipal (GLuint*, GLuint*);
 //Dessine la carte
 int drawMap (GLuint*);
 //Dessin de l'aide

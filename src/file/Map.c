@@ -83,7 +83,7 @@ int verificationMap(Map* map, char* nameITD){
 							map->img = new_img;			
 
 							//Récupère "énergie"
-							if(fscanf(itd, "%s", test) == 1) {
+							if(fscanf(itd, "%s", test) == 1) {                                                          
 
 								//Vérifie qu'il s'agit bien de l'énergie
 								if(strcmp("energie", test) == 0) {
@@ -162,7 +162,7 @@ map->list_pixels = list_pixels;
 
 								//Récupére le nombre de noeuds									
 								if(fscanf(itd, "%d\n", &(map->number_node)) == 1){
-									int i, x, y;
+									int i, x, y, nbNoeud, typeNoeud, noeudSuiv;
 
 									//Création d'une nouvelle liste de noeuds
 									map->list_node = new_LNode();
@@ -172,7 +172,7 @@ map->list_pixels = list_pixels;
 										for(i=0; i < (map->number_node); i++){
 
 											//Récupére les coordonnées
-											if(fscanf(itd, "%d %d\n", &x, &y) == 2){
+											if(fscanf(itd, "%d %d %d %d %d\n", &nbNoeud, &typeNoeud, &x, &y, &noeudSuiv) == 5){
 
 												//Vérifie que le noeud se trouve dans l'image
 												if(x <= map->img->widthImg && x >= 0 && y <= map->img->heightImg && y >= 0){
