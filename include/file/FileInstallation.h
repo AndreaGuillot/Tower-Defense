@@ -6,20 +6,14 @@
 *  et récupérer facile n'importe quelle tour dans la liste 		*/
 typedef struct struct_fileInstallation {
 
-	//Type de la tour : R (rocket) L (laser), M (mitraillette) et H (hybride)
+	//Type de la tour : R (radar) S (stock) et U (Usine)
 	char* type_tower;
-
-	//cadence 
-	int rate;
 
 	//porté de la tour
 	int range;
 
 	//cout de la tour
 	int cost;
-
-	//puissance de tir de la tour
-	int power;
 
 	//Pointer vers l'élément précédent
 	struct struct_fileInstallation* p_prev;
@@ -44,7 +38,7 @@ typedef struct struct_lfileInstallation {
 //Initialisation de la liste de tours
 LFileInstallation* newFileInstallation ();
 //Ajout d'une tour à la liste
-int addFileInstallation(LFileInstallation*, int, int, char*, int, int);
+int addFileInstallation(LFileInstallation*, char*, int, int);
 //Supprimer une tour de la liste
 LFileInstallation* removeFileInstallation(LFileInstallation*, FileInstallation*);
 //Supprimer la liste de tour

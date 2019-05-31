@@ -32,7 +32,7 @@ LInstallation* new_LInstallation(void) {
 *  Prend en paramètre la liste de tours, la puissance d'attaque, la vitesse d'attaque, le type 	*
 *  le périmétre d'action, le cout et la position. Retourne 0 en cas d'erreur et 1 sinon		*/
 
-int addInstallation(LInstallation* p_linstallation, int power, int rate, char* type_installation, int range, int cost, float x, float y) {
+int addInstallation(LInstallation* p_linstallation, char* type_installation, int range, int cost, float x, float y) {
 
 	// On vérifie si notre liste a été allouée
 	if (p_linstallation != NULL) {
@@ -42,13 +42,10 @@ int addInstallation(LInstallation* p_linstallation, int power, int rate, char* t
 		// On vérifie si le malloc n'a pas échoué
 		if (new_installation !=  NULL) {
 
-			new_installation->rate = rate;
 			new_installation->compteur = 0;
 			new_installation->range = range;
 			new_installation->type_installation = type_installation;
 			new_installation->cost = cost;
-			new_installation->power = power;
-			new_installation->lvl = 1;
 			new_installation->x = x;
 			new_installation->y = y;
 	

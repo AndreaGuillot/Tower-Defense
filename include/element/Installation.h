@@ -15,14 +15,8 @@ typedef struct struct_installation {
 	float x;
 	float y;
 
-	//Type de la tour : R (radar) S (stock) et U (Usine)
+	//Type de l'installation : R (radar) S (stock) et U (Usine)
 	char* type_installation;
-
-	//niveau de la tour
-	int lvl;
-
-	//cadence 
-	int rate;
 
 	//compteur
 	int compteur;
@@ -32,9 +26,6 @@ typedef struct struct_installation {
 
 	//cout de la tour
 	int cost;
-
-	//puissance de tir de la tour
-	int power;
 
 	//Pointer vers l'élément précédent
 	struct struct_installation* p_prev;
@@ -59,7 +50,7 @@ typedef struct struct_linstallation {
 //Initialisation de la liste de tours
 LInstallation* new_LInstallation(void);
 //Ajout d'une tour à la liste
-int addInstallation(LInstallation*, int, int, char*, int, int, float, float);
+int addInstallation(LInstallation*, char*, int, int, float, float);
 //Vérifie si la tour se trouve sur une zone constructible
 int verificationConstructInstallation(LNode*, Point2D, Point2D);
 //Déplacer une tour

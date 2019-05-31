@@ -44,56 +44,37 @@ int loadInfoInstallation(LFileInstallation* p_lfileInstallation) {
 	if(p_lfileInstallation != NULL) {
 
 			int testCommentaire, i;
-			int power, rate, range, cost;
+			int range, cost;
 			char* test = (char*)malloc(20*sizeof(char));
 
-			for(i = 0; i < 4; i++) {
+			for(i = 0; i < 3; i++) {
 
 				switch(i) {
 
-					case 0 : //La tour Rocket : Yoann
-						power = 70;
-						rate = 5;
+					case 0 : //L'installation Radar : Andrea
 						range = 40;
-						cost = 120;
+						cost = 80;
 
-						addFileInstallation(p_lfileInstallation, power, rate, "R", range, cost);
+						addFileInstallation(p_lfileInstallation, "R", range, cost);
 									
 						break;
 
-					case 1 : //La tour Laser : Clara
-						power = 60;
-						rate = 10;
-						range = 60;
-						cost = 80;									
+					case 1 : //L'installation Usine : Margaux
+						range = 20;
+						cost = 150;									
 						
-						addFileInstallation(p_lfileInstallation, power, rate, "L", range, cost);
-									
-						break;
-
-
-					case 2 : // La tour multidirectionnelle : Jules
-						power = 30;
-						rate = 15;
-						range = 50;
-						cost = 60;	
-						
-						addFileInstallation(p_lfileInstallation, power, rate, "M", range, cost);
+						addFileInstallation(p_lfileInstallation, "U", range, cost);
 									
 						break;
 
 
-					case 3 : //La tour hybride : Océane
-						power = 10;
-						rate = 20;
-						range = 70;
-						cost = 50;
-
-						addFileInstallation(p_lfileInstallation, power, rate, "H", range, cost);
+					case 2 : // L'installation Stock : Baptiste
+						range = 80;
+						cost = 70;	
 						
-
+						addFileInstallation(p_lfileInstallation, "S", range, cost);
+									
 						break;
-
 
 				}//End switch
 
@@ -114,7 +95,7 @@ int loadInfoInstallation(LFileInstallation* p_lfileInstallation) {
 *  Prend en paramètre la liste de tours, la puissance d'attaque, la vitesse d'attaque, le type 	*
 *  le périmétre d'action et le cout. Retourne 0 en cas d'erreur et 1 sinon			*/
 
-int addFileInstallation(LFileInstallation* p_lfileInstallation, int power, int rate, char* type_tower, int range, int cost) {
+int addFileInstallation(LFileInstallation* p_lfileInstallation, char* type_tower, int range, int cost) {
 
 	// On vérifie si notre liste a été allouée
 	if (p_lfileInstallation != NULL) {
@@ -124,12 +105,9 @@ int addFileInstallation(LFileInstallation* p_lfileInstallation, int power, int r
 		// On vérifie si le malloc n'a pas échoué
 		if (new_fileInstallation !=  NULL) {
 
-			new_fileInstallation->rate = rate;
-			new_fileInstallation->range = range;
 			new_fileInstallation->type_tower = type_tower;
 			new_fileInstallation->cost = cost;
-			new_fileInstallation->power = power;
-	
+
 			//Pointer vers la tour suivant à NULL car on rajoute à la fin de la liste	
 			new_fileInstallation->p_next = NULL; 
 
