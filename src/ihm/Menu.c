@@ -52,20 +52,79 @@ int clickMenuTour(LTower* p_ltower, LFileTower* p_lfileTower, Joueur* joueur, fl
 		char* type = "None";
 
 		//Vérifie qu'on clique sur le bon bouton : tour hybride
-		if(x <= 190 && x >= 10 && y <= 120 && y >= 70)
+		if(x <= 100 && x >= 10 && y <= 120 && y >= 70)
 			type = "H";
 
 		// Tour rocket
-		else if(x <= 190 && x >= 10 && y <= 175 && y >= 125)
+		if(x <= 190 && x >= 100 && y <= 120 && y >= 70)
 			type = "M";
+
+		if(x <= 100 && x >= 10 && y <= 175 && y >= 125)
+				type = "L";
+		
+		if(x <= 190 && x >= 100 && y <= 175 && y >= 125)
+				type = "R";
+
+
+
+		//Vérifie qu'il y a un type, sinon pas de clique sur l'un des boutons
+		if(strcmp("None", type) != 0) {
+
+			//Pointeur temporaire pour parcourir la liste
+			FileTower* tmp = p_lfileTower->p_head;
+	
+			//Parcours la liste
+			while(tmp != NULL) {
+				//Si c'est l'hybride 
+				if(strcmp(type, tmp->type_tower) == 0)
+					break;
+
+				tmp = tmp->p_next;
+			}
+
+			//S'il le joueur a assez d'argent
+			if((joueur->money) >= tmp->cost) {
+				//Ajoute une tour
+				addTower(p_ltower, tmp->power, tmp->rate, tmp->type_tower, tmp->range, tmp->cost, x, y);
+				//Met a jour l'agent
+				updateMoney(joueur, tmp->cost);
+				return 1;
+			}
+		}
+		
+	}
+	else {
+		fprintf(stderr, "Erreur : liste de tour, liste de fileTour ou joueur non alloué\n");
+		return 0;
+	}
+
+	return 0;
+
+}
+
+/*********************** Clique sur le menu : achat d'installation ***********************/
+/* Achat d'une installation losqu'on clique sur le menu puis affiche l'installation. 	*/
+
+int clickMenuInstallation(LTower* p_ltower, LFileTower* p_lfileTower, Joueur* joueur, float x, float y) {
+
+	//Vérifie si les elements ont été alloué
+	if(p_ltower != NULL && p_lfileTower != NULL && joueur != NULL) {
+
+		char* type = "None";
+
+		//Vérifie qu'on clique sur le bon bouton : tour hybride
+		if(x <= 100 && x >= 10 && y <= 230 && y >= 180)
+			type = "R";
+
+		// Tour rocket
+		if(x <= 190 && x >= 100 && y <= 230 && y >= 180)
+			type = "U";
 
 		//Si le niveau est suppérieur à 3
 
-			if(x <= 190 && x >= 10 && y <= 230 && y >= 180)
-				type = "R";
+		if(x <= 145 && x >= 55 && y <= 285 && y >= 235)
+				type = "S";
 		
-			if(x <= 190 && x >= 10 && y <= 285 && y >= 235)
-				type = "L";
 
 
 
