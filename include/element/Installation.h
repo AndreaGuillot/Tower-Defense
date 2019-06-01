@@ -15,7 +15,7 @@ typedef struct struct_installation {
 	float x;
 	float y;
 
-	//Type de l'installation : R (radar) S (stock) et U (Usine)
+	//Type de l'installation : U (Usine) R (radar) S (stock)
 	char* type_installation;
 
 	//compteur

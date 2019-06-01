@@ -51,19 +51,19 @@ int loadInfoInstallation(LFileInstallation* p_lfileInstallation) {
 
 				switch(i) {
 
-					case 0 : //L'installation Radar : Andrea
-						range = 40;
-						cost = 80;
-
-						addFileInstallation(p_lfileInstallation, "R", range, cost);
-									
-						break;
-
-					case 1 : //L'installation Usine : Margaux
+					case 0 : //L'installation Usine : Margaux
 						range = 20;
 						cost = 150;									
 						
 						addFileInstallation(p_lfileInstallation, "U", range, cost);
+									
+						break;
+
+					case 1 : //L'installation Radar : Andrea
+						range = 40;
+						cost = 80;
+
+						addFileInstallation(p_lfileInstallation, "R", range, cost);
 									
 						break;
 
@@ -95,7 +95,7 @@ int loadInfoInstallation(LFileInstallation* p_lfileInstallation) {
 *  Prend en paramètre la liste de tours, la puissance d'attaque, la vitesse d'attaque, le type 	*
 *  le périmétre d'action et le cout. Retourne 0 en cas d'erreur et 1 sinon			*/
 
-int addFileInstallation(LFileInstallation* p_lfileInstallation, char* type_tower, int range, int cost) {
+int addFileInstallation(LFileInstallation* p_lfileInstallation, char* type_installation, int range, int cost) {
 
 	// On vérifie si notre liste a été allouée
 	if (p_lfileInstallation != NULL) {
@@ -105,7 +105,7 @@ int addFileInstallation(LFileInstallation* p_lfileInstallation, char* type_tower
 		// On vérifie si le malloc n'a pas échoué
 		if (new_fileInstallation !=  NULL) {
 
-			new_fileInstallation->type_tower = type_tower;
+			new_fileInstallation->type_installation = type_installation;
 			new_fileInstallation->cost = cost;
 
 			//Pointer vers la tour suivant à NULL car on rajoute à la fin de la liste	

@@ -7,7 +7,7 @@
 typedef struct struct_fileInstallation {
 
 	//Type de la tour : R (radar) S (stock) et U (Usine)
-	char* type_tower;
+	char* type_installation;
 
 	//porté de la tour
 	int range;
