@@ -1505,9 +1505,9 @@ int drawTower (GLuint* tower, LTower* p_ltower, ListMonsters* p_lmonster, Tower*
 /* Dessine les installations. Prend en paramètre la texture de l'installation, la liste d'installations, la liste de monstres, l'installation courant	*
 *  et les variables xt1, xt2, testMouse et propriete. Retourne 0 en cas d'erreur, 1 sinon. 					*/
 
-int drawInstallation (GLuint* installation, LInstallation* p_linstallation, ListMonsters* p_lmonster, Installation* p_courant, int testMouse, int testInstallation) {
+int drawInstallation (GLuint* installation, LInstallation* p_linstallation, Installation* p_courant, int testMouse, int testInstallation) {
 
-	if(installation != NULL && p_linstallation != NULL && p_lmonster != NULL) {
+	if(installation != NULL && p_linstallation != NULL ) {
 
 		//Création d'un pointeur installation temporaire pour parcourir la liste de tours
 		Installation *p_temp = p_linstallation->p_tail;

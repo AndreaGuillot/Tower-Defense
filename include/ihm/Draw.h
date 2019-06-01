@@ -38,7 +38,7 @@ int drawGameOverWin (GLuint*, GLuint*);
 
 //Dessin des tours
 int drawTower (GLuint*, LTower*, ListMonsters*, Tower*, int, int);
-int drawInstallation (GLuint* installation, LInstallation* p_linstallation, ListMonsters* p_lmonster, Installation* p_courant, int testMouse, int testInstallation);
+int drawInstallation (GLuint* installation, LInstallation* p_linstallation, Installation* p_courant, int testMouse, int testInstallation);
 //Dessin des missiles
 int drawShot (GLuint*, LShot*);
 //Dessine les monstres

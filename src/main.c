@@ -320,8 +320,14 @@ int main(int argc, char** argv) {
 						p_temp = p_temp->p_next;
 					}
 
+
+					//Création d'un pointeur tour temporaire pour parcourir la liste d'installations
+					Installation *p_tmp = listInstallations->p_head;
+
 				//Dessiner les tours
 				drawTower(&towerText, listTowers, listMonsters, tower, testMouse, testTower);
+				//Dessiner les installations
+				drawInstallation(&installationText, listInstallations, installation, testMouse, testInstallation);
 				//Dessiner les monstres
 				drawMonster(&monsterText, listMonsters);
 
@@ -411,6 +417,11 @@ int main(int argc, char** argv) {
 							if(tower != NULL && propriete == 1) {
 								//Test click pour supprimer une tour
 								clickTourDelete(listTowers, listShots, tower, joueur, e.button.x, e.button.y, &propriete);
+							}
+
+							if(installation != NULL && propriete == 3) {
+								//Test click pour supprimer une tour
+								clickInstallationDelete(listInstallations, installation, joueur, e.button.x, e.button.y, &propriete);
 							}
 
 							//Test click exit

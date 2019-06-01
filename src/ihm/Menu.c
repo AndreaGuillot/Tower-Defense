@@ -211,6 +211,43 @@ int clickTourDelete(LTower* p_ltower, LShot* p_lshot, Tower* p_courant, Joueur* 
 
 }
 
+/*********************** Clique sur le menu : supprimer tour ***********************/
+/* supprimer tour lorsqu'on clique sur le bouton supprimer. Prend en paramètre un pointeur vers la liste de tour, un pointeur	*
+*  vers la liste de shot, la tour courant, la position et un pointeur vers propriete. Retourne 0 en cas d'erreur sinon 1. 	*/
+
+int clickInstallationDelete(LInstallation* p_linstallation, Installation* p_courant, Joueur* joueur, float x, float y, int* propriete) {
+
+	if(p_linstallation != NULL) {
+
+		if(p_courant != NULL) {
+
+			if(*propriete == 3) {
+
+				if(x <= 190 && x >= 10 && y <= 540 && y >= 490) {
+
+					joueur->money += p_courant->cost;
+					p_linstallation = removeInstallation(p_linstallation, p_courant);
+					*propriete = 0;
+				}
+			}
+
+		}
+		else {
+			fprintf(stderr, "Erreur la installation courante\n");
+			return 0;
+		}
+
+	}
+	else {
+		fprintf(stderr, "Erreur avec la liste de installations\n");
+		return 0;
+	}
+
+	return 1;
+
+}
+
+
 /*********************** Clique sur le menu : fermer ***********************/
 /* fermer : retourne 0 si on a cliqué sur le bouton avance rapide sinon retourne 1 	*/
 int clickExit(ListMonsters* p_lmonster, LShot* p_lshot, LTower* p_ltower, LFileTower* p_lfileTower, Map* map, Joueur* joueur, float x, float y, int aide) {
