@@ -19,7 +19,7 @@ int clickMenuInstallation(LInstallation* p_linstallation, LFileInstallation* p_l
 int clickTourDelete(LTower*, LShot*, Tower*, Joueur*, float, float, int*);
 int clickInstallationDelete(LInstallation*, Installation*, Joueur*, float x, float y, int*);
 //click fermer
-int clickExit(ListMonsters*, LShot*, LTower*, LFileTower*, Map*, Joueur*, float, float, int);
+int clickExit(ListMonsters*, LShot*, LTower*, LInstallation*, LFileTower*, LFileInstallation*, Map*, Joueur*, float, float, int);
 //click aide
 int clickAide(float, float, int);
 //click sur une tours : afficher les propriétés
@@ -31,6 +31,6 @@ Installation* clickInstallation(LInstallation* p_linstallation, float x, float y
 //Supprime les monstres, tours et missiles de leurs liste et réinitialise la l'interface
 void initAll (ListMonsters*, LShot*, LTower*, LInstallation*, Joueur*);
 //Free tous les élements
-void freeAll (ListMonsters*, LShot*, LTower*, LFileTower*, Map*, Joueur*);
+void freeAll (ListMonsters*, LShot*, LTower*, LInstallation*, LFileTower*, LFileInstallation*, Map*, Joueur*);
 
 #endif

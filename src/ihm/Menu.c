@@ -250,11 +250,11 @@ int clickInstallationDelete(LInstallation* p_linstallation, Installation* p_cour
 
 /*********************** Clique sur le menu : fermer ***********************/
 /* fermer : retourne 0 si on a cliqué sur le bouton avance rapide sinon retourne 1 	*/
-int clickExit(ListMonsters* p_lmonster, LShot* p_lshot, LTower* p_ltower, LFileTower* p_lfileTower, Map* map, Joueur* joueur, float x, float y, int aide) {
+int clickExit(ListMonsters* p_lmonster, LShot* p_lshot, LTower* p_ltower, LInstallation* p_linstallation, LFileTower* p_lfileTower, LFileInstallation* p_lfileInstallation, Map* map, Joueur* joueur, float x, float y, int aide) {
 	
 	if(aide == 0) {
 		if(x <= 790 && x >= 760 && y <= 45 && y >= 15) {
-			freeAll (p_lmonster, p_lshot, p_ltower, p_lfileTower, map, joueur);
+			freeAll (p_lmonster, p_lshot, p_ltower, p_linstallation, p_lfileTower, p_lfileInstallation, map, joueur);
 			return 0;
 		}
 	}
@@ -402,7 +402,7 @@ void initAll (ListMonsters* p_lmonster, LShot* p_lshot, LTower* p_ltower, LInsta
 /*********************** Supprime tous ***********************/
 /* Supprime tous. Prend en paramètre 	*/
 
-void freeAll (ListMonsters* p_lmonster, LShot* p_lshot, LTower* p_ltower, LFileTower* p_lfileTower, Map* map, Joueur* joueur) {
+void freeAll (ListMonsters* p_lmonster, LShot* p_lshot, LTower* p_ltower, LInstallation* p_linstallation, LFileTower* p_lfileTower, LFileInstallation* p_lfileInstallation, Map* map, Joueur* joueur) {
 
 	//Liblère la liste de missiles
 	freeAllShot (p_lshot);
@@ -412,6 +412,10 @@ void freeAll (ListMonsters* p_lmonster, LShot* p_lshot, LTower* p_ltower, LFileT
 	freeAllTower (p_ltower);
 	//Libère la liste de fileTower
 	freeAllFileTower(p_lfileTower);
+	//Libère la liste de installation
+	freeAllInstallation (p_linstallation);
+	//Libère la liste de fileInstalation
+	freeAllFileInstallation(p_lfileInstallation);
 	//Libère la map
 	freeMap(map);
 	//Libère l'joueur
