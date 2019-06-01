@@ -18,9 +18,6 @@ typedef struct struct_tower {
 	//Type de la tour : R (rocket) L (laser), M (mitraillette) et H (hybride)
 	char* type_tower;
 
-	//niveau de la tour
-	int lvl;
-
 	//cadence 
 	int rate;
 
@@ -35,6 +32,8 @@ typedef struct struct_tower {
 
 	//puissance de tir de la tour
 	int power;
+
+	int affectedByRadar, affectedByUsine, affectedByStock;
 
 	//Pointer vers l'élément précédent
 	struct struct_tower* p_prev;
@@ -60,14 +59,6 @@ typedef struct struct_ltower {
 LTower* new_LTower(void);
 //Ajout d'une tour à la liste
 int addTower(LTower*, int, int, char*, int, int, float, float);
-//Augmenter le niveau d'une tour
-int upgrateTower(Tower*, Joueur*);
-//Augmenter l'attaque d'une tour
-int upgradePowerT(Tower*, Joueur*);
-//Augmenter la vitesse de tir d'une tour
-int upgradeRateT(Tower*, Joueur*);
-//Augmenter le périmètre d'action d'une tour
-int upgradeRangeT(Tower*, Joueur*);
 //Vérifie si la tour se trouve sur une zone constructible
 int verificationConstruct(LNode*, Point2D, Point2D);
 //Déplacer une tour

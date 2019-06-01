@@ -48,7 +48,9 @@ int addTower(LTower* p_ltower, int power, int rate, char* type_tower, int range,
 			new_tower->type_tower = type_tower;
 			new_tower->cost = cost;
 			new_tower->power = power;
-			new_tower->lvl = 1;
+			new_tower->affectedByUsine = 0;
+			new_tower->affectedByRadar = 0;
+			new_tower->affectedByStock = 0;
 			new_tower->x = x;
 			new_tower->y = y;
 	
