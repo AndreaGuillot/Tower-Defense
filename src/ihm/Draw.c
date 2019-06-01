@@ -8,6 +8,7 @@
 #include <math.h>
 
 #include "element/Monster.h"
+#include "element/Installation.h"
 #include "element/Tower.h"
 #include "element/Shot.h"
 
@@ -986,7 +987,7 @@ int drawInterface (GLuint* spriteButton, Joueur* joueur) {
 /* Dessine les propriétés des tours. Prend en paramètre un pointeur vers la tour courante 		*
 *  Retourne 0 en cas d'erreur, 1 sinon. 								*/
 
-int drawProprieteTower (GLuint* tower, GLuint* spriteMenu, GLuint* btPlus, Tower* p_courant, Joueur* joueur) {
+int drawProprieteTower (GLuint* tower, GLuint* spriteMenu, Tower* p_courant, Joueur* joueur) {
 
 	if(p_courant != NULL) {
 
@@ -1098,6 +1099,132 @@ int drawProprieteTower (GLuint* tower, GLuint* spriteMenu, GLuint* btPlus, Tower
 			writeString(20, 465,  "Type : ");
 			//Affiche la chaine de caractère
 			writeString(80, 465,  typeTour);
+
+	
+			/*** Bouton supprimer ****/
+			glColor4f(255,255,255, 1);			
+
+			//Active le texturage 2D
+			glEnable(GL_TEXTURE_2D);
+			//appel de la texture
+			glBindTexture(GL_TEXTURE_2D, *spriteMenu);
+
+				glBegin(GL_QUADS);
+				//coordonée de la texture
+				glTexCoord2f(1, 0.857);
+				//Cordonnée du quadrilatère 
+				glVertex2f(190, 540);
+
+				glTexCoord2f(1, 0.714);
+				glVertex2f(190, 490);
+
+				glTexCoord2f(0, 0.714);
+				glVertex2f(10, 490);
+
+				glTexCoord2f(0, 0.857);
+				glVertex2f(10, 540);
+
+				glEnd();
+
+			//Déblinder la texture
+			glBindTexture(GL_TEXTURE_2D, 0);
+			//Désactive le texturage 2D
+			glDisable(GL_TEXTURE_2D);
+
+		}
+		else {
+			fprintf(stderr, "probleme d'allocation memoire pour la chaine de caractere\n");
+			return 0;
+		}	
+	}
+
+	return 1;
+
+}
+
+/*********************** Dessiner les propriétés des installations ***********************/
+/* Dessine les propriétés des installations. Prend en paramètre un pointeur vers la installation courante 		*
+*  Retourne 0 en cas d'erreur, 1 sinon. 								*/
+
+int drawProprieteInstallation (GLuint* installation, GLuint* spriteMenu, Installation* p_courant, Joueur* joueur) {
+
+	if(p_courant != NULL) {
+
+		int installationNumber = 0;
+		//Choisir le bon monstre dans le sprite
+		if(strcmp("U", p_courant->type_installation) == 0) 
+			installationNumber = 0;
+		else if(strcmp("R", p_courant->type_installation) == 0) 
+			installationNumber = 1;
+		else if(strcmp("S", p_courant->type_installation) == 0) 
+			installationNumber = 2;
+
+		float x1 = 0, x2 = 1, y1 = (installationNumber * (1.0/4.0)) + 0;
+		float y2 = (installationNumber * (1.0/4.0)) + 0.25;
+
+		//Active le texturage 2D
+		glEnable(GL_TEXTURE_2D);
+		//appel de la texture
+		glBindTexture(GL_TEXTURE_2D, *installation);
+
+			glBegin(GL_QUADS);
+			//couleur neutre
+			glColor3ub(255,255,255);
+			//coordonée de la texture
+			glTexCoord2f(x2, y1);
+			//Cordonnée du quadrilatère 
+			glVertex2f(20, 300);
+
+			glTexCoord2f(x2, y2);
+			glVertex2f(20, 340);
+
+			glTexCoord2f(x1, y2);
+			glVertex2f(60, 340);
+
+			glTexCoord2f(x1, y1);
+			glVertex2f(60, 300);
+
+
+			glEnd();
+
+		//Déblinder la texture
+		glBindTexture(GL_TEXTURE_2D, 0);
+		//Désactive le texturage 2D
+		glDisable(GL_TEXTURE_2D);
+
+
+		//Alloue de la mémoire pour une chaine de caractère
+		char* machaine = malloc(20*sizeof(char));
+
+		//Si la chaine de caracteres à bien été alloué
+		if(machaine != NULL) {
+
+			int money = 0;
+			
+			/**** Périmètre d'action ****/
+			glColor4f(255,255,255, 1);
+			//Convertie un int en un string
+			sprintf(machaine,"%d",p_courant->range);
+
+			writeString(20, 415,  "Range : ");
+			//Affiche la chaine de caractère
+			writeString(120, 415,  machaine);
+
+			/**** type de l'installation ****/
+			glColor4f(255,255,255, 1);
+			char* typeInstallation = "";
+
+			//Choisir le bon monstre dans le sprite
+			if(strcmp("U", p_courant->type_installation) == 0) 
+				typeInstallation = "Usine";
+			else if(strcmp("R", p_courant->type_installation) == 0) 
+				typeInstallation = "Radar";
+			else if(strcmp("S", p_courant->type_installation) == 0) 
+				typeInstallation = "Stock";
+
+			writeString(20, 465,  "Type : ");
+			//Affiche la chaine de caractère
+			writeString(80, 465,  typeInstallation);
 
 	
 			/*** Bouton supprimer ****/
@@ -1339,6 +1466,108 @@ int drawTower (GLuint* tower, LTower* p_ltower, ListMonsters* p_lmonster, Tower*
 
 					float x1 = 0, x2 = 1, y1 = (towerNumber * (1.0/4.0)) + 0;
 					float y2 = (towerNumber * (1.0/4.0)) + 0.25;
+
+					glBegin(GL_QUADS);
+					//coordonée de la texture
+					glTexCoord2f(x2, y2);
+					//Cordonnée du quadrilatère 
+					glVertex2f(xm1, ym1);
+
+					glTexCoord2f(x2, y1);
+					glVertex2f(xm1, ym2);
+
+					glTexCoord2f(x1, y1);
+					glVertex2f(xm2, ym2);
+
+					glTexCoord2f(x1, y2);
+					glVertex2f(xm2, ym1);
+
+					glEnd();
+
+				//Déblinder la texture
+				glBindTexture(GL_TEXTURE_2D, 0);
+				//Désactive le texturage 2D
+				glDisable(GL_TEXTURE_2D);
+				glPopMatrix();
+
+				p_temp = p_temp->p_prev;
+			}
+		}
+		else {
+			fprintf(stderr, "Erreur un des élements n'est pas alloué\n");
+			return 0;
+		}
+
+		return 1;
+}
+
+/*********************** Dessiner les installations ***********************/
+/* Dessine les installations. Prend en paramètre la texture de l'installation, la liste d'installations, la liste de monstres, l'installation courant	*
+*  et les variables xt1, xt2, testMouse et propriete. Retourne 0 en cas d'erreur, 1 sinon. 					*/
+
+int drawInstallation (GLuint* installation, LInstallation* p_linstallation, ListMonsters* p_lmonster, Installation* p_courant, int testMouse, int testInstallation) {
+
+	if(installation != NULL && p_linstallation != NULL && p_lmonster != NULL) {
+
+		//Création d'un pointeur installation temporaire pour parcourir la liste de tours
+		Installation *p_temp = p_linstallation->p_tail;
+
+			//Parcours la liste de tours
+			while(p_temp != NULL){
+
+				if(testMouse == 1) {
+					glPushMatrix();
+					glTranslatef(p_temp->x,p_temp->y, 0.0);
+
+						//Choisie la couleur
+						if(p_temp == p_linstallation->p_tail) {
+							if(testInstallation == 1) 
+								glColor4f(0,255,0, 0.2);
+							else
+								glColor4f(255,0,0, 0.2);
+						}
+						else
+							glColor4f(255,255,255, 0.2);
+						//Affiche le périmètre d'action
+						drawDisque(p_temp->range);
+				
+					glPopMatrix();
+				}
+
+				if(p_courant != NULL && testMouse != 1) {
+					if(p_courant == p_temp) {
+						glPushMatrix();
+							glTranslatef(p_temp->x,p_temp->y, 0.0);
+							glColor4f(255,255,255, 0.2);
+							drawDisque(p_temp->range);
+						glPopMatrix();
+					}
+				}
+				
+				glColor3ub(255,255,255);
+				glPushMatrix();
+				//Active le texturage 2D
+				glEnable(GL_TEXTURE_2D);
+				//appel de la texture
+				glBindTexture(GL_TEXTURE_2D, *installation);
+
+					int xm1, xm2, ym1, ym2;
+					xm1 = p_temp->x + 20;
+					xm2 = p_temp->x - 20;
+					ym1 = p_temp->y + 20;
+					ym2 = p_temp->y - 20;
+
+					int installationNumber = 0;
+					//Choisir le bon monstre dans le sprite
+					if(strcmp("U", p_temp->type_installation) == 0) 
+						installationNumber = 0;
+					else if(strcmp("R", p_temp->type_installation) == 0) 
+						installationNumber = 1;
+					else if(strcmp("S", p_temp->type_installation) == 0) 
+						installationNumber = 2;
+
+					float x1 = 0, x2 = 1, y1 = (installationNumber * (1.0/4.0)) + 0;
+					float y2 = (installationNumber * (1.0/4.0)) + 0.25;
 
 					glBegin(GL_QUADS);
 					//coordonée de la texture

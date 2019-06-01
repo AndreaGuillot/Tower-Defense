@@ -29,7 +29,8 @@ int drawMenuLeft(GLuint*, GLuint*, Joueur*);
 //Dessiner l'interface (score, argent, vie, nb de monstre tués
 int drawInterface (GLuint*, Joueur*);
 //Affiche propriete d'une tour
-int drawProprieteTower (GLuint*, GLuint*, GLuint* , Tower*, Joueur*);
+int drawProprieteTower (GLuint*, GLuint* , Tower*, Joueur*);
+int drawProprieteInstallation (GLuint* installation, GLuint* spriteMenu, Installation* p_courant, Joueur* joueur);
 //Affiche les propriétés du monstre
 int drawProprieteMonster (GLuint*, Monster*);
 //Affiche GameOver / Win
@@ -37,6 +38,7 @@ int drawGameOverWin (GLuint*, GLuint*);
 
 //Dessin des tours
 int drawTower (GLuint*, LTower*, ListMonsters*, Tower*, int, int);
+int drawInstallation (GLuint* installation, LInstallation* p_linstallation, ListMonsters* p_lmonster, Installation* p_courant, int testMouse, int testInstallation);
 //Dessin des missiles
 int drawShot (GLuint*, LShot*);
 //Dessine les monstres
