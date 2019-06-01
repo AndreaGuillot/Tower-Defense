@@ -107,6 +107,7 @@ int addFileInstallation(LFileInstallation* p_lfileInstallation, char* type_insta
 
 			new_fileInstallation->type_installation = type_installation;
 			new_fileInstallation->cost = cost;
+			new_fileInstallation->range = range;
 
 			//Pointer vers la tour suivant à NULL car on rajoute à la fin de la liste	
 			new_fileInstallation->p_next = NULL; 
