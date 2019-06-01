@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <math.h>
 
 #include "element/Installation.h"
 #include "element/Monster.h"
@@ -442,7 +443,6 @@ int notaffect(Tower* tmp, Installation* installation){
 
 	if(strcmp(installation->type_installation, "U") == 0){
 		i=0;
-		printf("Usine\n");
 	}
 	if(strcmp(installation->type_installation, "R") == 0){
 		i=1;
@@ -453,17 +453,17 @@ int notaffect(Tower* tmp, Installation* installation){
 
 	switch(i){
 		case 0: if(tmp->affectedByUsine){
-					tmp->power = (int)(tmp->power/1.25);
+					tmp->power = round(tmp->power/1.25);
 					tmp->affectedByUsine = 0;
 				}
 			break;
 		case 1: if(tmp->affectedByRadar){
-					tmp->range = (int)(tmp->range/1.25);
+					tmp->range = round(tmp->range/1.25);
 					tmp->affectedByRadar = 0;
 				}
 			break;
 		case 2: if(tmp->affectedByStock){
-					tmp->rate = (int)(tmp->rate/1.25);
+					tmp->rate = round(tmp->rate/1.25);
 					tmp->affectedByStock = 0;
 				}
 			break;
