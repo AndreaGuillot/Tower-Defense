@@ -453,17 +453,17 @@ int notaffect(Tower* tmp, Installation* installation){
 
 	switch(i){
 		case 0: if(tmp->affectedByUsine){
-					tmp->power = (int)(tmp->power*1.25);
+					tmp->power = (int)(tmp->power/1.25);
 					tmp->affectedByUsine = 0;
 				}
 			break;
 		case 1: if(tmp->affectedByRadar){
-					tmp->range = (int)(tmp->range*1.25);
+					tmp->range = (int)(tmp->range/1.25);
 					tmp->affectedByRadar = 0;
 				}
 			break;
 		case 2: if(tmp->affectedByStock){
-					tmp->rate = (int)(tmp->rate*1.25);
+					tmp->rate = (int)(tmp->rate/1.25);
 					tmp->affectedByStock = 0;
 				}
 			break;
