@@ -2,6 +2,7 @@
 #define ITD_INSTALLATION_H_
 
 #include "element/Monster.h"
+#include "element/Tower.h"
 #include "geometry/Point2D.h"
 #include "ihm/Node.h"
 #include "ihm/Interface.h"
@@ -56,10 +57,13 @@ int verificationConstructInstallation(LNode*, Point2D, Point2D);
 //Déplacer une tour
 int moveInstallation(LInstallation*, Installation*, LNode*, float, float);
 //Supprimer une tour de la liste
-LInstallation* removeInstallation(LInstallation*, Installation*);
+LInstallation* removeInstallation(LInstallation*, Installation*, LTower*);
 //Supprime toutes les tours de la liste
 void removeAllInstallation (LInstallation*);
 //Suprime la liste de tours
 void freeAllInstallation (LInstallation*);
-
+int reach (LInstallation* , LTower* , Installation*);
+int affects(Tower*, Installation*);
+int wontreach (LInstallation* , LTower* , Installation*);
+int notaffect(Tower*, Installation*);
 #endif

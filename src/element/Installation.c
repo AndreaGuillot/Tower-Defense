@@ -212,10 +212,13 @@ int moveInstallation(LInstallation* p_linstallation, Installation* p_courant, LN
 /* Supprime une tour selon sa position, vérifie si c'est le premier, le dernier ou une tour dans la liste puis la supprime 	*
 *  Prend en paramètre la liste de tours et la tour à supprimer et retourne la liste de tours.					*/
 
-LInstallation* removeInstallation(LInstallation* p_linstallation, Installation* p_courant) {
+LInstallation* removeInstallation(LInstallation* p_linstallation, Installation* p_courant, LTower* list_towers) {
 
 	// On vérifie si notre liste a été allouée
 	if (p_linstallation != NULL) {
+
+		if(list_towers !=NULL)
+			wontreach (p_linstallation, list_towers, p_courant);
 
 		if(p_courant != NULL) {
 
@@ -279,7 +282,7 @@ void removeAllInstallation (LInstallation* p_linstallation) {
 
 		//Tant que la liste n'est pas vide
 		while (p_linstallation->p_head != NULL) {
-			p_linstallation = removeInstallation(p_linstallation, p_linstallation->p_head);
+			p_linstallation = removeInstallation(p_linstallation, p_linstallation->p_head, NULL);
 		}
 		
 	}
@@ -294,9 +297,175 @@ void freeAllInstallation (LInstallation* p_linstallation) {
 
 		//Tant que la liste n'est pas vide
 		while (p_linstallation->p_head != NULL) {
-			p_linstallation = removeInstallation(p_linstallation, p_linstallation->p_head);
+			p_linstallation = removeInstallation(p_linstallation, p_linstallation->p_head, NULL);
 		}
 		
 	}
 	free(p_linstallation);
+}
+
+
+int reach (LInstallation* list_installation, LTower* list_towers, Installation* installation) {
+
+	if(list_installation != NULL) {
+
+		if(list_towers != NULL){
+
+			if(installation != NULL) {
+				
+					//Création d'un monstre temporaire pour parcourir la liste de monstres
+					Tower *tmp = list_towers->p_head;
+
+					//Parcours la liste de monstres
+					while(tmp != NULL){
+
+						Point2D point, point1, point2;
+						point.x = installation->x; point.y = installation->y; //centre
+
+						point1.x = tmp->x + 20; point1.y = tmp->y + 20;
+						point2.x = tmp->x - 20; point2.y = tmp->y - 20;
+
+						//Vérifie s'il y a une intersection
+						if(intersectionCarreDisque (point1, point2, installation->range, point) == 1)
+							affects(tmp, installation); //Ajout d'un shot à la liste
+
+						tmp = tmp->p_next;
+
+					}	
+					return 1;
+			}
+			else {
+				fprintf(stderr, "Cette tour n'existe pas\n");
+				return 0;
+			}
+
+		}
+		else {
+			fprintf(stderr, "Cette liste de monstre n'existe pas\n");
+			return 0;
+		}
+	}
+	else {
+		fprintf(stderr, "Cette liste de missiles n'existe pas\n");
+		return 0;
+	}
+
+	return 0;
+
+}
+
+int affects(Tower* tmp, Installation* installation){
+
+	int i; 
+
+	if(strcmp(installation->type_installation, "U") == 0){
+		i=0;
+	}
+	if(strcmp(installation->type_installation, "R") == 0){
+		i=1;
+	}
+	if(strcmp(installation->type_installation, "S") == 0){
+		i=2;
+	}
+
+	switch(i){
+		case 0: if(!tmp->affectedByUsine){
+					tmp->power = (int)(tmp->power*1.25);
+					tmp->affectedByUsine = 1;
+				}
+			break;
+		case 1: if(!tmp->affectedByRadar){
+					tmp->range = (int)(tmp->range*1.25);
+					tmp->affectedByRadar = 1;
+				}
+			break;
+		case 2: if(!tmp->affectedByStock){
+					tmp->rate = (int)(tmp->rate*1.25);
+					tmp->affectedByStock = 1;
+				}
+			break;
+	}
+}
+
+int wontreach (LInstallation* list_installation, LTower* list_towers, Installation* installation) {
+
+	if(list_installation != NULL) {
+
+		if(list_towers != NULL){
+
+			if(installation != NULL) {
+				
+					//Création d'un monstre temporaire pour parcourir la liste de monstres
+					Tower *tmp = list_towers->p_head;
+
+					//Parcours la liste de monstres
+					while(tmp != NULL){
+
+						Point2D point, point1, point2;
+						point.x = installation->x; point.y = installation->y; //centre
+
+						point1.x = tmp->x + 20; point1.y = tmp->y + 20;
+						point2.x = tmp->x - 20; point2.y = tmp->y - 20;
+
+						//Vérifie s'il y a une intersection
+						if(intersectionCarreDisque (point1, point2, installation->range, point) == 1)
+							notaffect(tmp, installation); //Ajout d'un shot à la liste
+
+						tmp = tmp->p_next;
+
+					}	
+					return 1;
+			}
+			else {
+				fprintf(stderr, "Cette tour n'existe pas\n");
+				return 0;
+			}
+
+		}
+		else {
+			fprintf(stderr, "Cette liste de monstre n'existe pas\n");
+			return 0;
+		}
+	}
+	else {
+		fprintf(stderr, "Cette liste de missiles n'existe pas\n");
+		return 0;
+	}
+
+	return 0;
+
+}
+
+int notaffect(Tower* tmp, Installation* installation){
+
+	int i; 
+
+	if(strcmp(installation->type_installation, "U") == 0){
+		i=0;
+		printf("Usine\n");
+	}
+	if(strcmp(installation->type_installation, "R") == 0){
+		i=1;
+	}
+	if(strcmp(installation->type_installation, "S") == 0){
+		i=2;
+	}
+
+	switch(i){
+		case 0: if(tmp->affectedByUsine){
+					tmp->power = (int)(tmp->power*1.25);
+					tmp->affectedByUsine = 0;
+				}
+			break;
+		case 1: if(tmp->affectedByRadar){
+					tmp->range = (int)(tmp->range*1.25);
+					tmp->affectedByRadar = 0;
+				}
+			break;
+		case 2: if(tmp->affectedByStock){
+					tmp->rate = (int)(tmp->rate*1.25);
+					tmp->affectedByStock = 0;
+				}
+			break;
+	}
 }
