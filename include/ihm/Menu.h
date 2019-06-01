@@ -17,7 +17,7 @@ int clickMenuTour(LTower*, LFileTower*, Joueur*, float, float);
 int clickMenuInstallation(LInstallation* p_linstallation, LFileInstallation* p_lfileInstallation, Joueur* joueur, float x, float y);
 //click supprimer une tour
 int clickTourDelete(LTower*, LShot*, Tower*, Joueur*, float, float, int*);
-int clickInstallationDelete(LInstallation*, Installation*, Joueur*, float x, float y, int*);
+int clickInstallationDelete(LInstallation*, Installation*, Joueur*, float x, float y, int*, LTower*);
 //click fermer
 int clickExit(ListMonsters*, LShot*, LTower*, LInstallation*, LFileTower*, LFileInstallation*, Map*, Joueur*, float, float, int);
 //click aide

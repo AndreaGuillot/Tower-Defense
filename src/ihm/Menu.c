@@ -215,7 +215,7 @@ int clickTourDelete(LTower* p_ltower, LShot* p_lshot, Tower* p_courant, Joueur* 
 /* supprimer tour lorsqu'on clique sur le bouton supprimer. Prend en paramètre un pointeur vers la liste de tour, un pointeur	*
 *  vers la liste de shot, la tour courant, la position et un pointeur vers propriete. Retourne 0 en cas d'erreur sinon 1. 	*/
 
-int clickInstallationDelete(LInstallation* p_linstallation, Installation* p_courant, Joueur* joueur, float x, float y, int* propriete) {
+int clickInstallationDelete(LInstallation* p_linstallation, Installation* p_courant, Joueur* joueur, float x, float y, int* propriete, LTower* listTower) {
 
 	if(p_linstallation != NULL) {
 
@@ -226,7 +226,7 @@ int clickInstallationDelete(LInstallation* p_linstallation, Installation* p_cour
 				if(x <= 190 && x >= 10 && y <= 540 && y >= 490) {
 
 					joueur->money += p_courant->cost;
-					p_linstallation = removeInstallation(p_linstallation, p_courant);
+					p_linstallation = removeInstallation(p_linstallation, p_courant, listTower);
 					*propriete = 0;
 				}
 			}
