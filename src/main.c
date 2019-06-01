@@ -21,11 +21,13 @@
 #include "ihm/Menu.h"
 #include "ihm/Interface.h"
 #include "file/FileTower.h"
+#include "file/FileInstallation.h"
 
 static unsigned int WINDOW_WIDTH = 800;
 static unsigned int WINDOW_HEIGHT = 660;
 static const unsigned int BIT_PER_PIXEL = 32;
 static const Uint32 FRAMERATE_MILLISECONDS = 1000 / 50;
+static const unsigned int NBVAGUES = 50;
 float pi = 3.14;
 
 void reshape() {
@@ -52,6 +54,7 @@ int main(int argc, char** argv) {
 
 	int testMouse = 0;
 	int testTower = 0;
+	int testInstallation = 0;
 	int nbMenu = 1;
 	int nbtexture = 0;
 
@@ -98,6 +101,10 @@ int main(int argc, char** argv) {
 	GLuint towerText;
 	SDL_Surface* imgTower = NULL;
 
+	//Texture des tours
+	GLuint installationText;
+	SDL_Surface* imgInstallation = NULL;
+
 	//Texture des shots	
 	GLuint shotText;
 	SDL_Surface* imgShot = NULL;
@@ -113,10 +120,6 @@ int main(int argc, char** argv) {
 	//Texture pour les boutons
 	GLuint Boutons;
 	SDL_Surface* imgBoutons = NULL;
-	
-	//Bouton plus ou upgrate les tours
-	GLuint btPlus;
-	SDL_Surface* imgbtPlus = NULL;
 
 	//Texture fond menu up
 	GLuint fondHaut;
@@ -137,11 +140,14 @@ int main(int argc, char** argv) {
 	ListMonsters* listMonsters = new_ListMonsters();
 	//Initialisation de la liste de tours
 	LTower* listTowers = new_LTower();
+	//Initialisation de la liste de tours
+	LInstallation* listInstallations = new_LInstallation();
 	//Initialisation de la liste de shots
 	LShot* listShots = new_LShot();
 
 	//Initialisation de la liste de tours (file)
 	LFileTower* p_lfileTower =  newFileTower ();
+	LFileInstallation* p_lfileInstallation =  newFileInstallation ();
 
 	int i = 0;
 	int nb_monster = 0, j = 0;
@@ -190,6 +196,8 @@ int main(int argc, char** argv) {
 				loadTexture("./images/monsters.png", &monsterText, imgMonster);
 				//Texture des tours
 				loadTexture("./images/tours.png", &towerText, imgTower);
+				//Texture des installations
+				loadTexture("./images/installations.png", &installationText, imgInstallation);
 
 				//Texture des shots	
 				loadTexture("./images/shot.png", &shotText, imgShot);
@@ -231,16 +239,18 @@ int main(int argc, char** argv) {
 					drawRoad (map);
 				}
 
-				//Si proprité = 1
+				//Si on veut voir les propriétés de la tour                                                                                                
 				if(propriete == 1) {
 					//Affiche les propriétés de la tours
-					drawProprieteTower(&towerText, &menu_tour, &btPlus, tower, joueur);
+					drawProprieteTower(&towerText, &menu_tour, tower, joueur);
 					monster = NULL;
+					installation = NULL;
 				}
-				//Si propriété = 2
+				//Si on veut voir propriété monstre
 				else if(propriete == 2) {
 
 					tower = NULL;
+					installation = NULL;
 					if(monster != NULL) {
 						if(monster->pv > 0) {
 							//Affiche les propriété du monstre
@@ -253,21 +263,29 @@ int main(int argc, char** argv) {
 					}
 					else
 						propriete = 0;
+
+				//Si on veut voir propriété installation
+				}else if(propriete == 3) {
+
+					drawProprieteInstallation(&installationText, &menu_tour, installation, joueur);
+					monster = NULL;
+					tower = NULL;
 				}
 
 					apparitionMonster(listMonsters, joueur, map, &apparition, j, &nb_monster);
 
 					//Si lvl 49 (50 vagues) et plus de monstre alors gagner
-					if(joueur->lvl == 50 && listMonsters->length == 0) {
+					if(joueur->lvl == NBVAGUES && listMonsters->length == 0) {
 
 						testMouse = 0;
 						testTower = 0;
+						testInstallation = 0;
 						j = 0;
 						i = 0;
 						nb_monster = 0;
 						propriete = 0;
 						aide = 0;
-						initAll(listMonsters, listShots, listTowers, joueur);
+						initAll(listMonsters, listShots, listTowers, listInstallations, joueur);
 
 						nbMenu = 5;
 					}
@@ -324,13 +342,14 @@ int main(int argc, char** argv) {
 
 							testMouse = 0;
 							testTower = 0;
+							testInstallation = 0;
 							j = 0;
 							i = 0;
 							nb_monster = 0;
 							propriete = 0;
 							aide = 0;
 
-							initAll(listMonsters, listShots, listTowers, joueur);
+							initAll(listMonsters, listShots, listTowers, listInstallations, joueur);
 	
 							nbMenu = 4;
 						
@@ -379,11 +398,13 @@ int main(int argc, char** argv) {
 								//test click sur le menu de la tour
 								if(clickMenuTour(listTowers, p_lfileTower, joueur, e.button.x, e.button.y) == 1)
 									testMouse = 1;
-								/*if(clickMenuInstallation(listInstallations, p_lfileInstallation, joueur, e.button.x, e.button.y) == 1)
-									testMouse = 1;*/
+								if(clickMenuInstallation(listInstallations, p_lfileInstallation, joueur, e.button.x, e.button.y) == 1)
+									testMouse = 1;
 							}
 							else {
 								if(testTower != 0)
+									testMouse = 0;
+								if(testInstallation != 0)
 									testMouse = 0;
 							}
 
@@ -411,6 +432,11 @@ int main(int argc, char** argv) {
 							testTower = 1;
 						else
 							testTower = 0;
+
+						if(moveInstallation(listInstallations, listInstallations->p_tail, map->list_pixels, e.button.x, e.button.y) == 1)
+							testInstallation = 1;
+						else
+							testInstallation = 0;
 					}
 
 					break;
@@ -450,11 +476,11 @@ int main(int argc, char** argv) {
 	freeTexture(&help, imgHelp);
 	freeTexture(&monsterText, imgMonster);
 	freeTexture(&towerText, imgTower);
+	freeTexture(&installationText, imgInstallation);
 	freeTexture(&shotText, imgShot);
 	freeTexture(&menu_tour, imgButtonMenu);
 	freeTexture(&fondMenu, imgFondMenu);
 	freeTexture(&Boutons, imgBoutons);
-	freeTexture(&btPlus, imgbtPlus);
 	freeTexture(&fondHaut, imgfondHaut);
 	freeTexture(&fondGameOver, imgFondGameOver);
 	freeTexture(&fondWin, imgFondWin);

@@ -9,6 +9,7 @@
 
 #include "element/Monster.h"
 #include "element/Tower.h"
+#include "element/Installation.h"
 #include "element/Shot.h"
 #include "ihm/Interface.h"
 #include "file/FileTower.h"
@@ -107,10 +108,10 @@ int clickMenuTour(LTower* p_ltower, LFileTower* p_lfileTower, Joueur* joueur, fl
 /*********************** Clique sur le menu : achat d'installation ***********************/
 /* Achat d'une installation losqu'on clique sur le menu puis affiche l'installation. 	*/
 
-int clickMenuInstallation(LTower* p_ltower, LFileTower* p_lfileTower, Joueur* joueur, float x, float y) {
+int clickMenuInstallation(LInstallation* p_linstallation, LFileInstallation* p_lfileInstallation, Joueur* joueur, float x, float y) {
 
 	//Vérifie si les elements ont été alloué
-	if(p_ltower != NULL && p_lfileTower != NULL && joueur != NULL) {
+	if(p_linstallation != NULL && p_lfileInstallation != NULL && joueur != NULL) {
 
 		char* type = "None";
 
@@ -134,12 +135,12 @@ int clickMenuInstallation(LTower* p_ltower, LFileTower* p_lfileTower, Joueur* jo
 		if(strcmp("None", type) != 0) {
 
 			//Pointeur temporaire pour parcourir la liste
-			FileTower* tmp = p_lfileTower->p_head;
+			FileInstallation* tmp = p_lfileInstallation->p_head;
 	
 			//Parcours la liste
 			while(tmp != NULL) {
 				//Si c'est l'hybride 
-				if(strcmp(type, tmp->type_tower) == 0)
+				if(strcmp(type, tmp->type_installation) == 0)
 					break;
 
 				tmp = tmp->p_next;
@@ -148,7 +149,7 @@ int clickMenuInstallation(LTower* p_ltower, LFileTower* p_lfileTower, Joueur* jo
 			//S'il le joueur a assez d'argent
 			if((joueur->money) >= tmp->cost) {
 				//Ajoute une tour
-				addTower(p_ltower, tmp->power, tmp->rate, tmp->type_tower, tmp->range, tmp->cost, x, y);
+				addInstallation(p_linstallation, tmp->type_installation, tmp->range, tmp->cost, x, y);
 				//Met a jour l'agent
 				updateMoney(joueur, tmp->cost);
 				return 1;
@@ -157,7 +158,7 @@ int clickMenuInstallation(LTower* p_ltower, LFileTower* p_lfileTower, Joueur* jo
 		
 	}
 	else {
-		fprintf(stderr, "Erreur : liste de tour, liste de fileTour ou joueur non alloué\n");
+		fprintf(stderr, "Erreur : liste d'installations, liste de fileTour ou joueur non alloué\n");
 		return 0;
 	}
 
@@ -276,6 +277,40 @@ Tower* clickTower(LTower* p_ltower, float x, float y, int* propriete) {
 
 }
 
+/*********************** Clique : pour afficher les propriétés d'une installation ***********************/
+/* click retour une installation pour afficher ces propriétés. Prend en paramètre la liste de installations,  la 	*
+*  position du clique et un pointeur int qui permet de savoir si on affiche ou non des propriétés.	*
+*  Retourne NULL s'il y a une erreur, ou si on n'a pas cliquer sur une installation. Sinon retourne l'installation.	*/
+
+Installation* clickInstallation(LInstallation* p_linstallation, float x, float y, int* propriete) {
+	
+	//Vérifie que la liste de tours existe
+	if(p_linstallation != NULL) {
+
+		//Tour temporaire pour parcourir la liste de tour
+		Installation* p_tmp = p_linstallation->p_head;
+		
+		while(p_tmp != NULL) {
+
+			//Si on a cliqué sur une tour
+			if(x <= (p_tmp->x + 20) && x >= (p_tmp->x - 20) && y <= (p_tmp->y + 20) && y >= (p_tmp->y - 20)) {
+				*propriete = 3;
+				return p_tmp;	
+			}
+
+			p_tmp = p_tmp->p_next;
+
+		}
+	}
+	else {
+		fprintf(stderr, "Erreur : cette liste d'installation n'existe pas\n");
+		return NULL;
+	}
+
+	return NULL;
+
+}
+
 /*********************** Clique : pour afficher les propriétés d'un monstre ***********************/
 /* click retour un monstre pour afficher ces propriétés. Prend en paramètre la liste de monstres,  la 	*
 *  position du clique et un pointeur int qui permet de savoir si on affiche ou non des propriétés.	*
@@ -313,7 +348,7 @@ Monster* clickMonster(ListMonsters* p_lmonster, float x, float y, int* propriete
 /*********************** Réinitialise l'joueur ***********************/
 /* Supprime tous. Prend en paramètre 	*/
 
-void initAll (ListMonsters* p_lmonster, LShot* p_lshot, LTower* p_ltower, Joueur* joueur) {
+void initAll (ListMonsters* p_lmonster, LShot* p_lshot, LTower* p_ltower, LInstallation* p_linstallation, Joueur* joueur) {
 
 	//Retire les missiles de la liste
 	removeAllShot(p_lshot);
@@ -321,6 +356,8 @@ void initAll (ListMonsters* p_lmonster, LShot* p_lshot, LTower* p_ltower, Joueur
 	removeAllMonsters(p_lmonster);
 	//Retire les tours de la liste
 	removeAllTower(p_ltower);
+	//Retire les tours de la liste
+	removeAllInstallation(p_linstallation);
 	//Réinitialise l'joueur
 	initInterface(joueur);
 }
