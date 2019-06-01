@@ -1566,8 +1566,8 @@ int drawInstallation (GLuint* installation, LInstallation* p_linstallation, Inst
 					else if(strcmp("S", p_temp->type_installation) == 0) 
 						installationNumber = 2;
 
-					float x1 = 0, x2 = 1, y1 = (installationNumber * (1.0/4.0)) + 0;
-					float y2 = (installationNumber * (1.0/4.0)) + 0.25;
+					float x1 = 0, x2 = 1, y1 = (installationNumber * (1.0/3.0)) + 0;
+					float y2 = (installationNumber * (1.0/3.0)) + 0.33;
 
 					glBegin(GL_QUADS);
 					//coordonée de la texture

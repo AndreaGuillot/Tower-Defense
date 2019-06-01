@@ -52,7 +52,8 @@ void setVideoMode() {
 
 int main(int argc, char** argv) {
 
-	int testMouse = 0;
+	int testMouse = 0; //Voir si on a cliqué sur une tour avant, si c'est 1, on l'a en main
+	int testMouseInstallation = 0; //Voir si on a cliqué sur une installation avant, si c'est 1, on l'a en main
 	int testTower = 0;
 	int testInstallation = 0;
 	int nbMenu = 1;
@@ -278,6 +279,7 @@ int main(int argc, char** argv) {
 					if(joueur->lvl == NBVAGUES && listMonsters->length == 0) {
 
 						testMouse = 0;
+						testMouseInstallation = 0;
 						testTower = 0;
 						testInstallation = 0;
 						j = 0;
@@ -327,7 +329,7 @@ int main(int argc, char** argv) {
 				//Dessiner les tours
 				drawTower(&towerText, listTowers, listMonsters, tower, testMouse, testTower);
 				//Dessiner les installations
-				drawInstallation(&installationText, listInstallations, installation, testMouse, testInstallation);
+				drawInstallation(&installationText, listInstallations, installation, testMouseInstallation, testInstallation);
 				//Dessiner les monstres
 				drawMonster(&monsterText, listMonsters);
 
@@ -347,6 +349,7 @@ int main(int argc, char** argv) {
 						listMonsters = removeMonster(listMonsters, listMonsters->p_head);
 
 							testMouse = 0;
+							testMouseInstallation = 0;
 							testTower = 0;
 							testInstallation = 0;
 							j = 0;
@@ -404,14 +407,20 @@ int main(int argc, char** argv) {
 								//test click sur le menu de la tour
 								if(clickMenuTour(listTowers, p_lfileTower, joueur, e.button.x, e.button.y) == 1)
 									testMouse = 1;
-								if(clickMenuInstallation(listInstallations, p_lfileInstallation, joueur, e.button.x, e.button.y) == 1)
-									testMouse = 1;
 							}
 							else {
 								if(testTower != 0)
 									testMouse = 0;
+							}
+
+							if(testMouseInstallation == 0) {
+								//test click sur le menu de la installation
+								if(clickMenuInstallation(listInstallations, p_lfileInstallation, joueur, e.button.x, e.button.y) == 1)
+									testMouseInstallation = 1;
+							}
+							else {
 								if(testInstallation != 0)
-									testMouse = 0;
+									testMouseInstallation = 0;
 							}
 
 							if(tower != NULL && propriete == 1) {
@@ -425,9 +434,11 @@ int main(int argc, char** argv) {
 							}
 
 							//Test click exit
-							loop = clickExit(listMonsters, listShots, listTowers, p_lfileTower, map, joueur, e.button.x, e.button.y, aide);
+							loop = clickExit(listMonsters, listShots, listTowers, listInstallations, p_lfileTower, p_lfileInstallation, map, joueur, e.button.x, e.button.y, aide);
 							//Test click sur une tower
 							tower = clickTower(listTowers, e.button.x, e.button.y, &propriete);
+							//Test click sur une tower
+							installation = clickInstallation(listInstallations, e.button.x, e.button.y, &propriete);
 							//Test click sur un monstre
 							monster = clickMonster(listMonsters, e.button.x, e.button.y, &propriete);
 							//Test click aide
@@ -443,7 +454,9 @@ int main(int argc, char** argv) {
 							testTower = 1;
 						else
 							testTower = 0;
+					}
 
+					if(testMouseInstallation == 1){
 						if(moveInstallation(listInstallations, listInstallations->p_tail, map->list_pixels, e.button.x, e.button.y) == 1)
 							testInstallation = 1;
 						else
@@ -458,7 +471,7 @@ int main(int argc, char** argv) {
 		    			case 'q' : 
 		    			case SDLK_ESCAPE : 
 						loop = 0;
-						freeAll(listMonsters, listShots, listTowers, p_lfileTower, map, joueur);
+						freeAll(listMonsters, listShots, listTowers, listInstallations, p_lfileTower, p_lfileInstallation, map, joueur);
 						break;
 
 		    			default : break;
