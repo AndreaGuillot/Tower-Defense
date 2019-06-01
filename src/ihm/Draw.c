@@ -1270,16 +1270,14 @@ int drawProprieteMonster (GLuint* monster, Monster* p_courant) {
 
 		int monsterNumber = 0;
 			//Choisir le bon monstre dans le sprite
-			if(strcmp("C1", p_courant->type) == 0) 
+			if(strcmp("J", p_courant->type) == 0) 
 				monsterNumber = 0;
-			else if(strcmp("C2", p_courant->type) == 0) 
+			else if(strcmp("B", p_courant->type) == 0) 
 				monsterNumber = 1;
-			else if(strcmp("P", p_courant->type) == 0) 
+			else if(strcmp("L", p_courant->type) == 0) 
 				monsterNumber = 2;
-			else if(strcmp("F", p_courant->type) == 0) 
-				monsterNumber = 3;
 
-		float x1 = (monsterNumber * (3.0/12.0)) + (2.0/12.0), x2 = (monsterNumber * (3.0/12.0)) + (3.0/12.0), y1 = 0, y2 = 0.25;
+		float x1 = (monsterNumber * (1./3.)) + (2.0/12.0), x2 = (monsterNumber * (1./3.)) + (1./3.), y1 = 0, y2 = 0.25;
 
 		//Active le texturage 2D
 		glEnable(GL_TEXTURE_2D);
@@ -1353,7 +1351,7 @@ int drawProprieteMonster (GLuint* monster, Monster* p_courant) {
 
 			/**** Resistance ****/
 			//Convertie un int en un string
-			sprintf(machaine,"%d",p_courant->resistance);
+			sprintf(machaine,"%d",p_courant->resistanceO);
 
 			writeString(20, 440,  "Resistance : ");
 			//Affiche la chaine de caractère
@@ -1364,14 +1362,12 @@ int drawProprieteMonster (GLuint* monster, Monster* p_courant) {
 			char* type = "";
 
 			//Choisir le bon monstre dans le sprite
-			if(strcmp("C1", p_courant->type) == 0) 
-				type = "Champi";
-			else if(strcmp("C2", p_courant->type) == 0) 
-				type = "Champi";
-			else if(strcmp("P", p_courant->type) == 0) 
-				type = "Puse";
-			else if(strcmp("F", p_courant->type) == 0) 
-				type = "Fourmi";
+			if(strcmp("J", p_courant->type) == 0) 
+				type = "Julien";
+			else if(strcmp("B", p_courant->type) == 0) 
+				type = "Barbara";
+			else if(strcmp("L", p_courant->type) == 0) 
+				type = "Lucie";
 
 			writeString(20, 465,  "Type : ");
 			//Affiche la chaine de caractère
@@ -1668,20 +1664,16 @@ int drawMonster(GLuint* monster, ListMonsters* p_lmonster) {
 
 			float y1, y2;
 			//Choisir le bon monstre dans le sprite
-			if(strcmp("C1", tmp_monster->type) == 0){ 
+			if(strcmp("J", tmp_monster->type) == 0){ 
 				y1 = 0;
 				y2 = 1./3.0;
 			}
-			else if(strcmp("C2", tmp_monster->type) == 0){ 
+			else if(strcmp("B", tmp_monster->type) == 0){ 
 				y1 = 1./3.;
 				y2 = 2./3.0;
 			}				
-			else if(strcmp("P", tmp_monster->type) == 0){ 
+			else if(strcmp("L", tmp_monster->type) == 0){ 
 				y1 = 2./3.;
-				y2 = 1;
-			}
-			else if(strcmp("F", tmp_monster->type) == 0){ 
-				y1 = 0;
 				y2 = 1;
 			}
 		
@@ -1951,16 +1943,46 @@ int apparitionMonster(ListMonsters* p_lmonster, Joueur* joueur, Map* map, int* a
 
 			int random;
 
+			/*Caractéristiques Julien*/
+			char* typeJ = "J";
+			int pvMaxJ = 50;
+			int resistanceYJ = 0.1;
+			int resistanceCJ = 0.8;
+			int resistanceJJ = 0;
+			int resistanceOJ = 0;
+			int paceJ = 5;
+			int gainJ = 8;
+
+			/*Caractéristiques Barbara*/
+			char* typeB = "B";
+			int pvMaxB = 100;
+			int resistanceYB = 0.1;
+			int resistanceCB = 0.5;
+			int resistanceJB = 0.3;
+			int resistanceOB = 0.1;
+			int paceB = 3;
+			int gainB = 15;
+
+			/*Caractéristiques Lucie*/
+			char* typeL = "L";
+			int pvMaxL = 200;
+			int resistanceYL = 0.5;
+			int resistanceCL = 0;
+			int resistanceJL = 0.3;
+			int resistanceOL = 0.2;
+			int paceL = 1;
+			int gainL = 20;
+
 			//ajoute un monstre à chaque fois que j est un muliple de 50
 			if(j%(*apparition) == 0){
 
 				//S'il y a moins ou 10 monstres
 				if((*nb_monster) < 10) {
 
-					//Si le joueur est au niveau 0
+					//Si c'est
 					if(joueur->lvl == 0)
-						//Ajoute un monstre c1 (champignon)
-						addMonster(p_lmonster, "C1", 50, 5, "M", 3, 10, 5, map->list_node->p_head);
+						//Ajoute un Julien
+						addMonster(p_lmonster, typeJ, pvMaxJ, resistanceYJ, resistanceCJ, resistanceJJ, resistanceOJ, "M", paceJ, 10, gainJ, map->list_node->p_head);
 					//Si le joueur est à un niveau entre 1 et 3
 					else if(joueur->lvl > 0 && joueur->lvl <= 3) {
 
@@ -1968,11 +1990,11 @@ int apparitionMonster(ListMonsters* p_lmonster, Joueur* joueur, Map* map, int* a
 						random = rand()%(3-1) +1;
 
 						if(random == 1)
-							//Ajoute un monstre c1 (champignon)
-							addMonster(p_lmonster, "C1", 100, 5, "M", 3, 10, 5, map->list_node->p_head);
+							//Ajoute un Julien
+							addMonster(p_lmonster, typeJ, pvMaxJ, resistanceYJ, resistanceCJ, resistanceJJ, resistanceOJ, "M", paceJ, 10, gainJ, map->list_node->p_head);
 						else
-							//Ajoute un monstre c2 (champignon)
-							addMonster(p_lmonster, "C2", 120, 3, "H", 2, 15, 5, map->list_node->p_head);
+							//Ajoute une Barbara
+							addMonster(p_lmonster, typeB, pvMaxB, resistanceYB, resistanceCB, resistanceJB, resistanceOB, "H", paceB, 15, gainB, map->list_node->p_head);
 					
 					}
 					//Si le joueur est à un niveau entre 4 et 5
@@ -1983,14 +2005,14 @@ int apparitionMonster(ListMonsters* p_lmonster, Joueur* joueur, Map* map, int* a
 						random = rand()%(4-1) +1;
 
 						if(random == 1)
-							//Ajoute un monstre c1 (champignon)
-							addMonster(p_lmonster, "C1", 250, 8, "M", 3, 10, 5, map->list_node->p_head);
+							//Ajoute un Julien
+							addMonster(p_lmonster, typeJ, pvMaxJ, resistanceYJ, resistanceCJ, resistanceJJ, resistanceOJ, "M", paceJ, 10, gainJ, map->list_node->p_head);
 						else if(random == 2)
-							//Ajoute un monstre c2 (champignon)
-							addMonster(p_lmonster, "C2", 200, 8, "H", 2, 15, 5, map->list_node->p_head);
+							//Ajoute une Barbara
+							addMonster(p_lmonster, typeB, pvMaxB, resistanceYB, resistanceCB, resistanceJB, resistanceOB, "H", paceB, 15, gainB, map->list_node->p_head);
 						else
-							//Ajoute un monstre P (puce)
-							addMonster(p_lmonster, "P", 250, 8, "L", 1, 20, 5, map->list_node->p_head);
+							//Ajoute une Lucie
+							addMonster(p_lmonster, typeL, pvMaxL, resistanceYL, resistanceCL, resistanceJL, resistanceOL, "L", paceL, 20, gainL, map->list_node->p_head);
 
 					}
 					//Si le joueur est à un niveau suppérieur à 6 à 8
@@ -2001,17 +2023,14 @@ int apparitionMonster(ListMonsters* p_lmonster, Joueur* joueur, Map* map, int* a
 						random = rand()%(5-1) +1;
 
 						if(random == 1)
-							//Ajoute un monstre c1 (champignon)
-							addMonster(p_lmonster, "C1", 150, 8, "M", 2, 10, 5, map->list_node->p_head);
+							//Ajoute un Julien
+							addMonster(p_lmonster, typeJ, pvMaxJ, resistanceYJ, resistanceCJ, resistanceJJ, resistanceOJ, "M", paceJ, 10, gainJ, map->list_node->p_head);
 						else if(random == 2)
-							//Ajoute un monstre c2 (champignon)
-							addMonster(p_lmonster, "C2", 200, 5, "H", 1, 15, 5, map->list_node->p_head);
-						else if(random == 3)
-							//Ajoute un monstre P (puce)
-							addMonster(p_lmonster, "P", 250, 10, "L", 1, 20, 5, map->list_node->p_head);
-						else 
-							//Ajoute un monstre F (fourmi)
-							addMonster(p_lmonster, "F", 300, 10, "R", 1, 30, 5, map->list_node->p_head);
+							//Ajoute une Barbara
+							addMonster(p_lmonster, typeB, pvMaxB, resistanceYB, resistanceCB, resistanceJB, resistanceOB, "H", paceB, 15, gainB, map->list_node->p_head);
+						else
+							//Ajoute une Lucie
+							addMonster(p_lmonster, typeL, pvMaxL, resistanceYL, resistanceCL, resistanceJL, resistanceOL, "L", paceL, 20, gainL,  map->list_node->p_head);
 
 					}
 					//Si le joueur est à un niveau suppérieur à 9 à 12
@@ -2022,17 +2041,14 @@ int apparitionMonster(ListMonsters* p_lmonster, Joueur* joueur, Map* map, int* a
 						random = rand()%(6-1) +1;
 
 						if(random == 1)
-							//Ajoute un monstre c1 (champignon)
-							addMonster(p_lmonster, "C1",200, 10, "M", 1, 10, 5, map->list_node->p_head);
+							//Ajoute un Julien
+							addMonster(p_lmonster, typeJ, pvMaxJ, resistanceYJ, resistanceCJ, resistanceJJ, resistanceOJ, "M", paceJ, 10, gainJ, map->list_node->p_head);
 						else if(random == 2  || random == 4)
-							//Ajoute un monstre c2 (champignon)
-							addMonster(p_lmonster, "C2", 250, 10, "H", 1, 15, 5, map->list_node->p_head);
-						else if(random == 3)
-							//Ajoute un monstre P (puce)
-							addMonster(p_lmonster, "P", 300, 10, "L", 1, 20, 5, map->list_node->p_head);
-						else 
-							//Ajoute un monstre F (fourmi)
-							addMonster(p_lmonster, "F", 350, 10, "R", 1, 30, 5, map->list_node->p_head);
+							//Ajoute une Barbara
+							addMonster(p_lmonster, typeB, pvMaxB, resistanceYB, resistanceCB, resistanceJB, resistanceOB, "H", paceB, 15, gainB,  map->list_node->p_head);
+						else
+							//Ajoute une Lucie
+							addMonster(p_lmonster, typeL, pvMaxL, resistanceYL, resistanceCL, resistanceJL, resistanceOL, "L", paceL, 20, gainL,  map->list_node->p_head);
 
 					}
 					//Si le joueur est à un niveau suppérieur à 9 à 12
@@ -2043,17 +2059,14 @@ int apparitionMonster(ListMonsters* p_lmonster, Joueur* joueur, Map* map, int* a
 						random = rand()%(7-1) +1;
 
 						if(random == 1)
-							//Ajoute un monstre c1 (champignon)
-							addMonster(p_lmonster, "C1", 250, 10, "M", 1, 10, 5, map->list_node->p_head);
+							//Ajoute un Julien
+							addMonster(p_lmonster, typeJ, pvMaxJ, resistanceYJ, resistanceCJ, resistanceJJ, resistanceOJ, "M", paceJ, 10, gainJ, map->list_node->p_head);
 						else if(random == 2 || random == 4)
-							//Ajoute un monstre c2 (champignon)
-							addMonster(p_lmonster, "C2", 300, 15, "H", 1, 15, 5, map->list_node->p_head);
-						else if(random == 3  || random == 5)
-							//Ajoute un monstre P (puce)
-							addMonster(p_lmonster, "P", 350, 15, "L", 1, 20, 5, map->list_node->p_head);
-						else 
-							//Ajoute un monstre F (fourmi)
-							addMonster(p_lmonster, "F", 400, 15, "R", 1, 30, 5, map->list_node->p_head);
+							//Ajoute une Barbara
+							addMonster(p_lmonster, typeB, pvMaxB, resistanceYB, resistanceCB, resistanceJB, resistanceOB, "H", paceB, 15, gainB,  map->list_node->p_head);
+						else
+							//Ajoute une Lucie
+							addMonster(p_lmonster, typeL, pvMaxL, resistanceYL, resistanceCL, resistanceJL, resistanceOL, "L", paceL, 20, gainL,  map->list_node->p_head);
 
 					}
 					//Si le joueur est à un niveau suppérieur à 13 à 15
@@ -2064,17 +2077,14 @@ int apparitionMonster(ListMonsters* p_lmonster, Joueur* joueur, Map* map, int* a
 						random = rand()%(8-1) +1;
 
 						if(random == 1)
-							//Ajoute un monstre c1 (champignon)
-							addMonster(p_lmonster, "C1", 300, 10, "M", 1, 10, 5, map->list_node->p_head);
+							//Ajoute un Julien
+							addMonster(p_lmonster, typeJ, pvMaxJ, resistanceYJ, resistanceCJ, resistanceJJ, resistanceOJ, "M", paceJ, 10, gainJ, map->list_node->p_head);
 						else if(random == 2 || random == 4)
-							//Ajoute un monstre c2 (champignon)
-							addMonster(p_lmonster, "C2", 350, 20, "H", 1, 15, 5, map->list_node->p_head);
-						else if(random == 3 || random == 5)
-							//Ajoute un monstre P (puce)
-							addMonster(p_lmonster, "P", 400, 20, "L", 1, 20, 5, map->list_node->p_head);
-						else 
-							//Ajoute un monstre F (fourmi)
-							addMonster(p_lmonster, "F", 450, 20, "R", 1, 30, 5, map->list_node->p_head);
+							//Ajoute une Barbara
+							addMonster(p_lmonster, typeB, pvMaxB, resistanceYB, resistanceCB, resistanceJB, resistanceOB, "H", paceB, 15, gainB,  map->list_node->p_head);
+						else
+							//Ajoute une Lucie
+							addMonster(p_lmonster, typeL, pvMaxL, resistanceYL, resistanceCL, resistanceJL, resistanceOL, "L", paceL, 20, gainL,  map->list_node->p_head);
 
 					}
 					//Si le joueur est à un niveau suppérieur à 13 à 15
@@ -2085,17 +2095,14 @@ int apparitionMonster(ListMonsters* p_lmonster, Joueur* joueur, Map* map, int* a
 						random = rand()%(9-1) +1;
 
 						if(random == 1)
-							//Ajoute un monstre c1 (champignon)
-							addMonster(p_lmonster, "C1", 350, 15, "M", 1, 10, 5, map->list_node->p_head);
+							//Ajoute un Julien
+							addMonster(p_lmonster, typeJ, pvMaxJ, resistanceYJ, resistanceCJ, resistanceJJ, resistanceOJ, "M", paceJ, 10, gainJ, map->list_node->p_head);
 						else if(random == 2 || random == 4)
-							//Ajoute un monstre c2 (champignon)
-							addMonster(p_lmonster, "C2", 400, 25, "H", 1, 15, 5, map->list_node->p_head);
-						else if(random == 3 || random == 5)
-							//Ajoute un monstre P (puce)
-							addMonster(p_lmonster, "P", 450, 25, "L", 1, 20, 5, map->list_node->p_head);
-						else 
-							//Ajoute un monstre F (fourmi)
-							addMonster(p_lmonster, "F", 500, 25, "R", 1, 30, 5, map->list_node->p_head);
+							//Ajoute une Barbara
+							addMonster(p_lmonster, typeB, pvMaxB, resistanceYB, resistanceCB, resistanceJB, resistanceOB, "H", paceB, 15, gainB,  map->list_node->p_head);
+						else
+							//Ajoute une Lucie
+							addMonster(p_lmonster, typeL, pvMaxL, resistanceYL, resistanceCL, resistanceJL, resistanceOL, "L", paceL, 20, gainL,  map->list_node->p_head);
 
 					}
 					

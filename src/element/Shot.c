@@ -317,8 +317,8 @@ int collisionMissile(LShot* list_shot, ListMonsters* list_monster, Joueur* joueu
 
 					//Vériie s'il est plus résistant à ce type de tour
 					if(strcmp(tmp->type_tower, tmp->target->type_tower) == 0) {
-						if((tmp->power) > (tmp->target->resistance))
-							tmp->target->pv -= ((tmp->power) - (tmp->target->resistance)); //retire des points de vie en fonction de la résistance
+						if((tmp->power) > (tmp->target->resistanceO))
+							tmp->target->pv -= ((tmp->power) - (tmp->target->resistanceO)); //retire des points de vie en fonction de la résistance
 						else 
 							tmp->target->pv -= ((tmp->power) - ((tmp->power) - 1));
 
