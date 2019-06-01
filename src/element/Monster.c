@@ -36,7 +36,7 @@ ListMonsters* new_ListMonsters(void) {
 *  un type de tour et la vitesse de déplacement, les points gagnés et le gain d'argent si le monstre	*
 *  est tué. Retourne 0 en cas d'erreur et 1 sinon.							*/
 
-int addMonster(ListMonsters* list_monster, int lvl, char* type, int pvMax, int resistance, char* type_tower, int pace, int points, int gain, Node* p_head) {
+int addMonster(ListMonsters* list_monster, char* type, int pvMax, int resistance, char* type_tower, int pace, int points, int gain, Node* p_head) {
 
 	// On vérifie si notre liste a été allouée
 	if (list_monster != NULL) {
@@ -105,26 +105,6 @@ int addMonster(ListMonsters* list_monster, int lvl, char* type, int pvMax, int r
 	return 1; 
 }
 
-/************* Monste de niveau le monstre **************/
-/* Monte de niveau le monstre (vitesse, pvMax, resistance, points, gain). Prend en paramètre 		*
-*  un pointeur vers le monstre et un pointeur vers l'interface. Retourne 0 en cas d'erreur et 1 sinon.	 */
-/*int upgrateMonster (Monster* monster, int lvl) {
-
-	if(monster != NULL) {
-
-		monster->pvMax += lvl * 50;
-		monster->pv += lvl * 50;
-		monster->resistance += lvl * 10;
-		monster->points += lvl * 2;
-
-	}
-	else {
-		fprintf(stderr, "Erreur ce monstre n'existe pas\n");
-		return 0;
-	}
-	return 1;
-}
-*/
 /************* Deplacer les monstres *************/
 /* Deplace les monstre : Vérifie s'il se déplace à l'horizontal, vertical ou autrement puis le déplace. Prend en paramètre la liste de	*
 *  monstres et et le dernier noeud de la carte.	Retourne 0 en cas d'erreur et 1 sinon et 2 s'il est arrivé à la fin. 			*/

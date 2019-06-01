@@ -75,9 +75,7 @@ typedef struct struct_lmonster {
 //Initialisation de la liste de monstre
 ListMonsters* new_ListMonsters(void);
 //Ajouter un monstre en fin de liste
-int addMonster(ListMonsters* , int, char* , int , int , char* , int , int, int, Node*);
-//Monte de niveau le monstre
-int upgrateMonster (Monster*, int);
+int addMonster(ListMonsters* , char* , int , int , char* , int , int, int, Node*);
 //Fait bouger le monstre
 int moveMonster(ListMonsters* , Node*, int);
 //Calcule l'erreur de déplacement
