@@ -322,9 +322,29 @@ int main(int argc, char** argv) {
 						p_temp = p_temp->p_next;
 					}
 
-
-					//Création d'un pointeur tour temporaire pour parcourir la liste d'installations
+					//Création d'un pointeur tour temporaire pour parcourir la liste de tours
 					Installation *p_tmp = listInstallations->p_head;
+
+					//Parcours la liste de tours
+					while(p_tmp != NULL){
+
+						// Si p_tmp = au pointeur du dernier de la liste
+						if(p_tmp == listInstallations->p_tail) {
+							if(testMouseInstallation == 0) {
+									if(reach (listInstallations, listTowers, p_tmp) != 0) {
+										(p_tmp->compteur)=0;
+									}
+							}
+						}
+						else {
+							if(reach (listInstallations, listTowers, p_tmp) != 0) {
+								(p_tmp->compteur)=0;
+							}
+						}
+
+						(p_tmp->compteur)++;
+						p_tmp = p_tmp->p_next;
+					}
 
 				//Dessiner les tours
 				drawTower(&towerText, listTowers, listMonsters, tower, testMouse, testTower);
@@ -430,7 +450,7 @@ int main(int argc, char** argv) {
 
 							if(installation != NULL && propriete == 3) {
 								//Test click pour supprimer une tour
-								clickInstallationDelete(listInstallations, installation, joueur, e.button.x, e.button.y, &propriete);
+								clickInstallationDelete(listInstallations, installation, joueur, e.button.x, e.button.y, &propriete, listTowers);
 							}
 
 							//Test click exit

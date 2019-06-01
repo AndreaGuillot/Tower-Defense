@@ -1044,14 +1044,6 @@ int drawProprieteTower (GLuint* tower, GLuint* spriteMenu, Tower* p_courant, Jou
 
 			int money = 0;
 
-			/**** Niveau ****/
-			//Convertie un int en un string
-			sprintf(machaine,"%d",p_courant->lvl);
-
-			writeString(20, 365,  "Niveau : ");
-			//Affiche la chaine de caractère
-			writeString(120, 365,  machaine);
-
 			/**** Cadence ****/
 			glColor4f(255,255,255, 1);
 			//Convertie un int en un string
@@ -1968,7 +1960,7 @@ int apparitionMonster(ListMonsters* p_lmonster, Joueur* joueur, Map* map, int* a
 					//Si le joueur est au niveau 0
 					if(joueur->lvl == 0)
 						//Ajoute un monstre c1 (champignon)
-						addMonster(p_lmonster, joueur->lvl, "C1", 50, 5, "M", 3, 10, 5, map->list_node->p_head);
+						addMonster(p_lmonster, "C1", 50, 5, "M", 3, 10, 5, map->list_node->p_head);
 					//Si le joueur est à un niveau entre 1 et 3
 					else if(joueur->lvl > 0 && joueur->lvl <= 3) {
 
@@ -1977,10 +1969,10 @@ int apparitionMonster(ListMonsters* p_lmonster, Joueur* joueur, Map* map, int* a
 
 						if(random == 1)
 							//Ajoute un monstre c1 (champignon)
-							addMonster(p_lmonster, joueur->lvl, "C1", 100, 5, "M", 3, 10, 5, map->list_node->p_head);
+							addMonster(p_lmonster, "C1", 100, 5, "M", 3, 10, 5, map->list_node->p_head);
 						else
 							//Ajoute un monstre c2 (champignon)
-							addMonster(p_lmonster, joueur->lvl, "C2", 120, 3, "H", 2, 15, 5, map->list_node->p_head);
+							addMonster(p_lmonster, "C2", 120, 3, "H", 2, 15, 5, map->list_node->p_head);
 					
 					}
 					//Si le joueur est à un niveau entre 4 et 5
@@ -1992,13 +1984,13 @@ int apparitionMonster(ListMonsters* p_lmonster, Joueur* joueur, Map* map, int* a
 
 						if(random == 1)
 							//Ajoute un monstre c1 (champignon)
-							addMonster(p_lmonster, joueur->lvl, "C1", 250, 8, "M", 3, 10, 5, map->list_node->p_head);
+							addMonster(p_lmonster, "C1", 250, 8, "M", 3, 10, 5, map->list_node->p_head);
 						else if(random == 2)
 							//Ajoute un monstre c2 (champignon)
-							addMonster(p_lmonster, joueur->lvl, "C2", 200, 8, "H", 2, 15, 5, map->list_node->p_head);
+							addMonster(p_lmonster, "C2", 200, 8, "H", 2, 15, 5, map->list_node->p_head);
 						else
 							//Ajoute un monstre P (puce)
-							addMonster(p_lmonster, joueur->lvl, "P", 250, 8, "L", 1, 20, 5, map->list_node->p_head);
+							addMonster(p_lmonster, "P", 250, 8, "L", 1, 20, 5, map->list_node->p_head);
 
 					}
 					//Si le joueur est à un niveau suppérieur à 6 à 8
@@ -2010,16 +2002,16 @@ int apparitionMonster(ListMonsters* p_lmonster, Joueur* joueur, Map* map, int* a
 
 						if(random == 1)
 							//Ajoute un monstre c1 (champignon)
-							addMonster(p_lmonster, joueur->lvl, "C1", 150, 8, "M", 2, 10, 5, map->list_node->p_head);
+							addMonster(p_lmonster, "C1", 150, 8, "M", 2, 10, 5, map->list_node->p_head);
 						else if(random == 2)
 							//Ajoute un monstre c2 (champignon)
-							addMonster(p_lmonster, joueur->lvl, "C2", 200, 5, "H", 1, 15, 5, map->list_node->p_head);
+							addMonster(p_lmonster, "C2", 200, 5, "H", 1, 15, 5, map->list_node->p_head);
 						else if(random == 3)
 							//Ajoute un monstre P (puce)
-							addMonster(p_lmonster, joueur->lvl, "P", 250, 10, "L", 1, 20, 5, map->list_node->p_head);
+							addMonster(p_lmonster, "P", 250, 10, "L", 1, 20, 5, map->list_node->p_head);
 						else 
 							//Ajoute un monstre F (fourmi)
-							addMonster(p_lmonster, joueur->lvl, "F", 300, 10, "R", 1, 30, 5, map->list_node->p_head);
+							addMonster(p_lmonster, "F", 300, 10, "R", 1, 30, 5, map->list_node->p_head);
 
 					}
 					//Si le joueur est à un niveau suppérieur à 9 à 12
@@ -2031,16 +2023,16 @@ int apparitionMonster(ListMonsters* p_lmonster, Joueur* joueur, Map* map, int* a
 
 						if(random == 1)
 							//Ajoute un monstre c1 (champignon)
-							addMonster(p_lmonster, joueur->lvl, "C1",200, 10, "M", 1, 10, 5, map->list_node->p_head);
+							addMonster(p_lmonster, "C1",200, 10, "M", 1, 10, 5, map->list_node->p_head);
 						else if(random == 2  || random == 4)
 							//Ajoute un monstre c2 (champignon)
-							addMonster(p_lmonster, joueur->lvl, "C2", 250, 10, "H", 1, 15, 5, map->list_node->p_head);
+							addMonster(p_lmonster, "C2", 250, 10, "H", 1, 15, 5, map->list_node->p_head);
 						else if(random == 3)
 							//Ajoute un monstre P (puce)
-							addMonster(p_lmonster, joueur->lvl, "P", 300, 10, "L", 1, 20, 5, map->list_node->p_head);
+							addMonster(p_lmonster, "P", 300, 10, "L", 1, 20, 5, map->list_node->p_head);
 						else 
 							//Ajoute un monstre F (fourmi)
-							addMonster(p_lmonster, joueur->lvl, "F", 350, 10, "R", 1, 30, 5, map->list_node->p_head);
+							addMonster(p_lmonster, "F", 350, 10, "R", 1, 30, 5, map->list_node->p_head);
 
 					}
 					//Si le joueur est à un niveau suppérieur à 9 à 12
@@ -2052,16 +2044,16 @@ int apparitionMonster(ListMonsters* p_lmonster, Joueur* joueur, Map* map, int* a
 
 						if(random == 1)
 							//Ajoute un monstre c1 (champignon)
-							addMonster(p_lmonster, joueur->lvl, "C1", 250, 10, "M", 1, 10, 5, map->list_node->p_head);
+							addMonster(p_lmonster, "C1", 250, 10, "M", 1, 10, 5, map->list_node->p_head);
 						else if(random == 2 || random == 4)
 							//Ajoute un monstre c2 (champignon)
-							addMonster(p_lmonster, joueur->lvl, "C2", 300, 15, "H", 1, 15, 5, map->list_node->p_head);
+							addMonster(p_lmonster, "C2", 300, 15, "H", 1, 15, 5, map->list_node->p_head);
 						else if(random == 3  || random == 5)
 							//Ajoute un monstre P (puce)
-							addMonster(p_lmonster, joueur->lvl, "P", 350, 15, "L", 1, 20, 5, map->list_node->p_head);
+							addMonster(p_lmonster, "P", 350, 15, "L", 1, 20, 5, map->list_node->p_head);
 						else 
 							//Ajoute un monstre F (fourmi)
-							addMonster(p_lmonster, joueur->lvl, "F", 400, 15, "R", 1, 30, 5, map->list_node->p_head);
+							addMonster(p_lmonster, "F", 400, 15, "R", 1, 30, 5, map->list_node->p_head);
 
 					}
 					//Si le joueur est à un niveau suppérieur à 13 à 15
@@ -2073,16 +2065,16 @@ int apparitionMonster(ListMonsters* p_lmonster, Joueur* joueur, Map* map, int* a
 
 						if(random == 1)
 							//Ajoute un monstre c1 (champignon)
-							addMonster(p_lmonster, joueur->lvl, "C1", 300, 10, "M", 1, 10, 5, map->list_node->p_head);
+							addMonster(p_lmonster, "C1", 300, 10, "M", 1, 10, 5, map->list_node->p_head);
 						else if(random == 2 || random == 4)
 							//Ajoute un monstre c2 (champignon)
-							addMonster(p_lmonster, joueur->lvl, "C2", 350, 20, "H", 1, 15, 5, map->list_node->p_head);
+							addMonster(p_lmonster, "C2", 350, 20, "H", 1, 15, 5, map->list_node->p_head);
 						else if(random == 3 || random == 5)
 							//Ajoute un monstre P (puce)
-							addMonster(p_lmonster, joueur->lvl, "P", 400, 20, "L", 1, 20, 5, map->list_node->p_head);
+							addMonster(p_lmonster, "P", 400, 20, "L", 1, 20, 5, map->list_node->p_head);
 						else 
 							//Ajoute un monstre F (fourmi)
-							addMonster(p_lmonster, joueur->lvl, "F", 450, 20, "R", 1, 30, 5, map->list_node->p_head);
+							addMonster(p_lmonster, "F", 450, 20, "R", 1, 30, 5, map->list_node->p_head);
 
 					}
 					//Si le joueur est à un niveau suppérieur à 13 à 15
@@ -2094,16 +2086,16 @@ int apparitionMonster(ListMonsters* p_lmonster, Joueur* joueur, Map* map, int* a
 
 						if(random == 1)
 							//Ajoute un monstre c1 (champignon)
-							addMonster(p_lmonster, joueur->lvl, "C1", 350, 15, "M", 1, 10, 5, map->list_node->p_head);
+							addMonster(p_lmonster, "C1", 350, 15, "M", 1, 10, 5, map->list_node->p_head);
 						else if(random == 2 || random == 4)
 							//Ajoute un monstre c2 (champignon)
-							addMonster(p_lmonster, joueur->lvl, "C2", 400, 25, "H", 1, 15, 5, map->list_node->p_head);
+							addMonster(p_lmonster, "C2", 400, 25, "H", 1, 15, 5, map->list_node->p_head);
 						else if(random == 3 || random == 5)
 							//Ajoute un monstre P (puce)
-							addMonster(p_lmonster, joueur->lvl, "P", 450, 25, "L", 1, 20, 5, map->list_node->p_head);
+							addMonster(p_lmonster, "P", 450, 25, "L", 1, 20, 5, map->list_node->p_head);
 						else 
 							//Ajoute un monstre F (fourmi)
-							addMonster(p_lmonster, joueur->lvl, "F", 500, 25, "R", 1, 30, 5, map->list_node->p_head);
+							addMonster(p_lmonster, "F", 500, 25, "R", 1, 30, 5, map->list_node->p_head);
 
 					}
 					
