@@ -48,9 +48,6 @@ typedef struct struct_monster {
 	//Le gain (monnaie)
 	int gain;
 
-	//résistance plus élevé pour un type de tour
-	char* type_tower;
-
 	//vitesse de déplacement
 	int pace;
 
@@ -78,7 +75,7 @@ typedef struct struct_lmonster {
 //Initialisation de la liste de monstre
 ListMonsters* new_ListMonsters(void);
 //Ajouter un monstre en fin de liste
-int addMonster(ListMonsters* , char* , int , int, int, int, int, char* , int , int, int, Node*);
+int addMonster(ListMonsters* , char* , int , int, int, int, int, int , int, int, Node*);
 //Fait bouger le monstre
 int moveMonster(ListMonsters* , Node*, int);
 //Calcule l'erreur de déplacement

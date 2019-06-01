@@ -315,7 +315,7 @@ int collisionMissile(LShot* list_shot, ListMonsters* list_monster, Joueur* joueu
 				//Vérifie s'il y a une intersection
 				if(intersectionCarres(point1, point2, pointC1, pointC2) == 1) {
 
-					//Vériie s'il est plus résistant à ce type de tour
+					/*Vériie s'il est plus résistant à ce type de tour
 					if(strcmp(tmp->type_tower, tmp->target->type_tower) == 0) {
 						if((tmp->power) > (tmp->target->resistanceO))
 							tmp->target->pv -= ((tmp->power) - (tmp->target->resistanceO)); //retire des points de vie en fonction de la résistance
@@ -323,9 +323,9 @@ int collisionMissile(LShot* list_shot, ListMonsters* list_monster, Joueur* joueu
 							tmp->target->pv -= ((tmp->power) - ((tmp->power) - 1));
 
 					}
-					else
+					else*/
 						tmp->target->pv -= tmp->power; //retire des points de vie
-
+	
 					if(tmp->target->pv <= 0){
 					
 						tmp->target->pv = 0;
