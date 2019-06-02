@@ -1313,7 +1313,8 @@ int drawProprieteMonster (GLuint* monster, Monster* p_courant) {
 			else if(strcmp("L", p_courant->type) == 0) 
 				monsterNumber = 2;
 
-		float x1 = (monsterNumber * (1./3.)) + (2.0/12.0), x2 = (monsterNumber * (1./3.)) + (1./3.), y1 = 0, y2 = 0.25;
+		float x1 = 0, x2 = 1, y1 = (monsterNumber * (1./3.)) + 0;
+		float y2 = (monsterNumber * (1./3.)) + 0.33;
 
 		//Active le texturage 2D
 		glEnable(GL_TEXTURE_2D);
@@ -1324,18 +1325,18 @@ int drawProprieteMonster (GLuint* monster, Monster* p_courant) {
 			//couleur neutre
 			glColor3ub(255,255,255);
 			//coordonée de la texture
-			glTexCoord2f(x2, y1);
+			glTexCoord2f(x1, y1);
 			//Cordonnée du quadrilatère 
-			glVertex2f(20, 300);
-
-			glTexCoord2f(x2, y2);
-			glVertex2f(20, 340);
+			glVertex2f(80, 300);
 
 			glTexCoord2f(x1, y2);
-			glVertex2f(60, 340);
+			glVertex2f(80, 340);
 
-			glTexCoord2f(x1, y1);
-			glVertex2f(60, 300);
+			glTexCoord2f(x2, y2);
+			glVertex2f(120, 340);
+
+			glTexCoord2f(x2, y1);
+			glVertex2f(120, 300);
 
 
 			glEnd();
@@ -1351,63 +1352,68 @@ int drawProprieteMonster (GLuint* monster, Monster* p_courant) {
 		//Si la chaine de caracteres à bien été alloué
 		if(machaine != NULL) {
 
+			char* titreMonster;
+
+			/*Choisir le bon monstre dans le sprite*/
+			if(strcmp("J", p_courant->type) == 0) {
+				titreMonster = "JULIEN";
+			}
+			else if(strcmp("B", p_courant->type) == 0) {
+				titreMonster = "BARBARA";
+			}
+			else if(strcmp("L", p_courant->type) == 0) {
+				titreMonster = "LUCIE";
+			}
+
+			//Affiche la chaine de caractère
+			writeString(60, 360,  titreMonster);
+
 			/**** points de vie ****/
 			//Convertie un int en un string
 			sprintf(machaine,"%d",p_courant->pv);
 
-			writeString(20, 365,  "pv : ");
+			writeString(20, 385,  "PV : ");
 			//Affiche la chaine de caractère
-			writeString(120, 365,  machaine);
+			writeString(120, 385,  machaine);
 
 			/**** vitesse ****/
 			//Convertie un int en un string
 			sprintf(machaine,"%d",p_courant->pace);
 
-			writeString(20, 390,  "Vitesse : ");
+			writeString(20, 410,  "Vitesse : ");
 			//Affiche la chaine de caractère
-			writeString(120, 390,  machaine);
-
-			/**** Resistant à tel type de tour ****/
-			char* typeTour = "";
-
-			/*Choisir le bon monstre dans le sprite
-			if(strcmp("H", p_courant->type_tower) == 0) 
-				typeTour = "Hybride";
-			else if(strcmp("M", p_courant->type_tower) == 0) 
-				typeTour = "Mitraillette";
-			else if(strcmp("L", p_courant->type_tower) == 0) 
-				typeTour = "Laser";
-			else if(strcmp("R", p_courant->type_tower) == 0) 
-				typeTour = "Rocket";*/
-
-			//Convertie un int en un string
-			writeString(20, 415,  "Resiste : ");
-			//Affiche la chaine de caractère
-			writeString(100, 415,  typeTour);
+			writeString(120, 410,  machaine);
 
 			/**** Resistance ****/
+
+			//Affiche resistance Oceane
+			sprintf(machaine,"%.2f",p_courant->resistanceO);
 			//Convertie un int en un string
-			sprintf(machaine,"%d",p_courant->resistanceO);
-
-			writeString(20, 440,  "Resistance : ");
+			writeString(20, 435,  "Resistance Oceane : ");
 			//Affiche la chaine de caractère
-			writeString(120, 440,  machaine);
+			writeString(90, 455,  machaine);
 
+			
+			//Convertie un int en un string
+			sprintf(machaine,"%.2f",p_courant->resistanceJ);
 
-			/**** nombre de monstre ****/
-			char* type = "";
-
-			//Choisir le bon monstre dans le sprite
-			if(strcmp("J", p_courant->type) == 0) 
-				type = "Julien";
-			else if(strcmp("B", p_courant->type) == 0) 
-				type = "Barbara";
-			else if(strcmp("L", p_courant->type) == 0) 
-				type = "Lucie";
-
-			writeString(20, 465,  "Type : ");
+			writeString(20, 480,  "Resistance Jules: ");
 			//Affiche la chaine de caractère
-			writeString(120, 465,  type);
+			writeString(90, 500,  machaine);
+
+			//Convertie un int en un string
+			sprintf(machaine,"%.2f",p_courant->resistanceC);
+
+			writeString(20, 525,  "Resistance Clara: ");
+			//Affiche la chaine de caractère
+			writeString(90, 545,  machaine);
+
+			//Convertie un int en un string
+			sprintf(machaine,"%.2f",p_courant->resistanceY);
+
+			writeString(20, 570,  "Resistance Yoann: ");
+			//Affiche la chaine de caractère
+			writeString(90, 590,  machaine);
 
 		}
 		else {
@@ -1982,30 +1988,30 @@ int apparitionMonster(ListMonsters* p_lmonster, Joueur* joueur, Map* map, int* a
 			/*Caractéristiques Julien*/
 			char* typeJ = "J";
 			int pvMaxJ = 50;
-			int resistanceYJ = 0.1;
-			int resistanceCJ = 0.8;
-			int resistanceJJ = 0;
-			int resistanceOJ = 0;
+			float resistanceYJ = 0.1;
+			float resistanceCJ = 0.8;
+			float resistanceJJ = 0;
+			float resistanceOJ = 0;
 			int paceJ = 5;
 			int gainJ = 8;
 
 			/*Caractéristiques Barbara*/
 			char* typeB = "B";
 			int pvMaxB = 100;
-			int resistanceYB = 0.1;
-			int resistanceCB = 0.5;
-			int resistanceJB = 0.3;
-			int resistanceOB = 0.1;
+			float resistanceYB = 0.1;
+			float resistanceCB = 0.5;
+			float resistanceJB = 0.3;
+			float resistanceOB = 0.1;
 			int paceB = 3;
 			int gainB = 15;
 
 			/*Caractéristiques Lucie*/
 			char* typeL = "L";
 			int pvMaxL = 200;
-			int resistanceYL = 0.5;
-			int resistanceCL = 0;
-			int resistanceJL = 0.3;
-			int resistanceOL = 0.2;
+			float resistanceYL = 0.5;
+			float resistanceCL = 0;
+			float resistanceJL = 0.3;
+			float resistanceOL = 0.2;
 			int paceL = 1;
 			int gainL = 20;
 
