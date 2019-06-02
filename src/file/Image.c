@@ -10,7 +10,7 @@
 *  vérifie si l'image existe et s'il possède un commentaire. S'il y a un 	*
 *  commentaire alors il passe la ligne. Ferme l'image à la fin.			*
 *  Prend en paramètre une Image (pour stocker les informations dans la structure*
-*  et l'adresse de l'image							*/
+*  et l'adresse de l'image						*/
 
 int openImg(Image* img, char* nameImg) {
 

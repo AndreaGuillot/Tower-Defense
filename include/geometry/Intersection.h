@@ -4,7 +4,7 @@
 #include "geometry/Point2D.h"
 #include "geometry/Vector2D.h"
 
-/************* Prototypes des fonctions *************/
+/************* Prototypes des fonctions  *************/
 //Vérifie s'il y a une intersection entre un point et un segment
 int intersectionPointSegment (Point2D, Point2D, Point2D);
 //Vérifie s'il y a une intersection entre deux segments

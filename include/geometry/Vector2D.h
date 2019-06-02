@@ -3,6 +3,7 @@
 
 #include "geometry/Point2D.h"
 
+/*Vecteur 2D*/
 typedef struct struct_vector {
 	float x;
 	float y;

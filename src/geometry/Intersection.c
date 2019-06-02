@@ -7,7 +7,7 @@
 #include "geometry/Vector2D.h"
 #include "geometry/Intersection.h"
 
-/************* Intersection d'un segment avec un point *************/
+/************* Intersection d'un segment avec un point  *************/
 /* Vérifie s'il y a une intersection entre un segment et un point. Calcule l'équation de le droite. Vérifie 	*
 *  s'il y a une intersection. Si oui vérifie s'il appartient au segment. Si oui retourne 1 sinon retourne 0. 	*
 *  Prend en paramètre 3 points dont 2 qui constituent le segment.							*/

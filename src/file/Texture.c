@@ -12,7 +12,7 @@
 /************* Chargement de la texture de la map *************/
 /* Charge l'image, attribut l'image à la texture, change les couleurs de la map (fonction ChangeColor)	*
 *  Prend en paramètre un pointeur vers la carte, un pointeur vers la texture, et un pointeur vers la 	*
-*  surface SDLRetourne 1 si la carte et charger.							*/
+*  surface SDLRetourne 1 si la carte et charger.*/
 
 int loadMapTexture(Map* map, GLuint* texture, SDL_Surface* image) {
 

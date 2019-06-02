@@ -1,6 +1,7 @@
 #ifndef LDR_COLOR_3F___
 #define LDR_COLOR_3F___
 
+/*Couleur RGB*/
 typedef struct struct_color {
 	float r;
 	float g;

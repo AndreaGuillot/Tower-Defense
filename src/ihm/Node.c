@@ -25,7 +25,7 @@ LNode* new_LNode(void) {
 /************* Ajouter un noeud à la liste de noeuds *************/
 /* Ajoute un noeud à la liste. Alloue la place mémoire pour le noeuds et attribue les valeurs	*
 *  Vérifie si la liste est vide ou non pour attribuer les pointeurs. Prend en paramètre la 	*
-*  liste de noeud, les coordonées du noeud. Retourne 0 en cas d'erreur sinon retourne 1		*/
+*  liste de noeud, les coordonées du noeud. Retourne 0 en cas d'erreur sinon retourne 1	*/
 
 int addNode(LNode* p_lnode, float x, float y) {
 

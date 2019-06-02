@@ -5,7 +5,7 @@
 #include "geometry/Vector2D.h"
 #include "geometry/Point2D.h"
 
-/* Vector XYZ : Contruit un vecteur à partir de x, y */
+/* Vector : Contruit un vecteur à partir de x, y */
 Vector2D VectorXY(float x, float y) {
 
 	Vector2D new_vector;

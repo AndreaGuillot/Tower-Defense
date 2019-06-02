@@ -19,6 +19,7 @@ typedef struct struct_node {
 }Node;
 
 /************* STRUCTURE DE LA LISTE DE NOEUDS *************/
+/*Il a une taille avec une tete et une queue*/
 typedef struct struct_lnode {
 
 	//Taille de la liste

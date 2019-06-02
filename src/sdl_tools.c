@@ -1,5 +1,6 @@
 #include "sdl_tools.h"
 
+/*Prototype*/
 void PutPixel(SDL_Surface* surface, int x, int y, Uint32 pixel) {
     int bpp = surface->format->BytesPerPixel;
     

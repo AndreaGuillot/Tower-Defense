@@ -1,6 +1,7 @@
 #ifndef IDT_POINT_2D___
 #define IDT_POINT_2D___
 
+/*Point*/
 typedef struct struct_point {
 	float x;
 	float y;

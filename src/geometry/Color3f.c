@@ -7,7 +7,7 @@
 /*#define max(a,b) (a>=b?a:b)
 #define min(a,b) (a<=b?a:b)*/
 
-/* Color RGB : Couleur à partir des valeurs r, g, b */
+/* Color RGB : Couleur à partir des valeurs r, g, b  */
 Color3f ColorRGB(float r, float g, float b) {
 
 	Color3f new_color;
