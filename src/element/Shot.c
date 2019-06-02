@@ -324,7 +324,18 @@ int collisionMissile(LShot* list_shot, ListMonsters* list_monster, Joueur* joueu
 
 					}
 					else*/
-						tmp->target->pv -= tmp->power; //retire des points de vie
+					if(strcmp(tmp->type_tower, "O") == 0) {
+						tmp->target->pv -= tmp->power*(1-tmp->target->resistanceO); //retire des points de vie
+					}
+					if(strcmp(tmp->type_tower, "J") == 0) {
+						tmp->target->pv -= tmp->power*(1-tmp->target->resistanceJ); //retire des points de vie
+					}
+					if(strcmp(tmp->type_tower, "C") == 0) {
+						tmp->target->pv -= tmp->power*(1-tmp->target->resistanceC); //retire des points de vie
+					}
+					if(strcmp(tmp->type_tower, "Y") == 0) {
+						tmp->target->pv -= tmp->power*(1-tmp->target->resistanceY); //retire des points de vie
+					}
 	
 					if(tmp->target->pv <= 0){
 					

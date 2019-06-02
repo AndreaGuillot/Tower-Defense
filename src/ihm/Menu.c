@@ -54,19 +54,19 @@ int clickMenuTour(LTower* p_ltower, LFileTower* p_lfileTower, Joueur* joueur, fl
 
 		//Vérifie qu'on clique sur le bon bouton : tour hybride
 		if(x <= 100 && x >= 10 && y <= 120 && y >= 70)
-			type = "H";
+			type = "O";
 
 		// Tour rocket
 		if(x <= 190 && x >= 100 && y <= 120 && y >= 70)
-			type = "M";
+			type = "J";
 
 		//Si le niveau est suppérieur à 3
 
 		if(x <= 100 && x >= 10 && y <= 175 && y >= 125)
-				type = "L";
+				type = "C";
 		
 		if(x <= 190 && x >= 100 && y <= 175 && y >= 125)
-				type = "R";
+				type = "Y";
 
 
 

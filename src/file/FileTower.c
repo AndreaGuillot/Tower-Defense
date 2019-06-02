@@ -59,7 +59,7 @@ int loadInfoTour(LFileTower* p_lfileTower) {
 						range = 40;
 						cost = 120;
 
-						addFileTower(p_lfileTower, power, rate, "R", range, cost);
+						addFileTower(p_lfileTower, power, rate, "Y", range, cost);
 									
 						break;
 
@@ -69,7 +69,7 @@ int loadInfoTour(LFileTower* p_lfileTower) {
 						range = 60;
 						cost = 80;									
 						
-						addFileTower(p_lfileTower, power, rate, "L", range, cost);
+						addFileTower(p_lfileTower, power, rate, "C", range, cost);
 									
 						break;
 
@@ -80,7 +80,7 @@ int loadInfoTour(LFileTower* p_lfileTower) {
 						range = 50;
 						cost = 60;	
 						
-						addFileTower(p_lfileTower, power, rate, "M", range, cost);
+						addFileTower(p_lfileTower, power, rate, "J", range, cost);
 									
 						break;
 
@@ -91,7 +91,7 @@ int loadInfoTour(LFileTower* p_lfileTower) {
 						range = 70;
 						cost = 50;
 
-						addFileTower(p_lfileTower, power, rate, "H", range, cost);
+						addFileTower(p_lfileTower, power, rate, "O", range, cost);
 						
 
 						break;
