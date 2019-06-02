@@ -42,9 +42,6 @@ typedef struct struct_monster {
 	int resistanceJ;
 	int resistanceO;
 
-	//Nombre de point gagner à chaque fois q'un monstre meurt
-	int points;
-
 	//Le gain (monnaie)
 	int gain;
 
@@ -75,7 +72,7 @@ typedef struct struct_lmonster {
 //Initialisation de la liste de monstre
 ListMonsters* new_ListMonsters(void);
 //Ajouter un monstre en fin de liste
-int addMonster(ListMonsters* , char* , int , int, int, int, int, int , int, int, Node*);
+int addMonster(ListMonsters* , char* , int , int, int, int, int, int, int, Node*);
 //Fait bouger le monstre
 int moveMonster(ListMonsters* , Node*, int);
 //Calcule l'erreur de déplacement
