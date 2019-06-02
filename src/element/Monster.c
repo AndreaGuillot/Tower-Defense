@@ -7,6 +7,7 @@
 #include <math.h>
 
 #include "element/Monster.h"
+#include "file/Sound.h"
 #include "ihm/Node.h"
 
 /************* Création d'une nouvelle liste de monstres *************/
@@ -420,6 +421,7 @@ ListMonsters* removeMonster(ListMonsters* p_lmonster, Monster* p_courant) {
 				p_courant->p_prev->p_next = p_courant->p_next;
 			}
 			//Libère espace mémoire : supprime le monstre
+			playMusic(SFXCANAL, 1, 0.5);
 			free(p_courant);
 			//Décrémente de un la taille de la liste
 			p_lmonster->length--;

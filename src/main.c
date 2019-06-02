@@ -13,6 +13,7 @@
 #include "element/Tower.h"
 #include "element/Installation.h"
 #include "element/Shot.h"
+#include "file/Sound.h"
 #include "file/Map.h"
 #include "file/Texture.h"
 #include "file/Image.h"
@@ -164,16 +165,19 @@ int main(int argc, char** argv) {
 
 	int loop = 1;
 
+	    initSounds();
+	    loadMusics(); 
+   		playMusic(MUSICCANAL,0,1);
+
 	/**** Main loop ***/
   	while(loop) {
    		Uint32 startTime = SDL_GetTicks();
-
 	    	/* dessin */
-
 		glClear(GL_COLOR_BUFFER_BIT);
 		glMatrixMode(GL_MODELVIEW);
 
 		if(nbMenu == 4)
+
 			drawGameOverWin(&fondGameOver, &menuPrincipalButton);
 		else if(nbMenu == 5)
 			drawGameOverWin(&fondWin, &menuPrincipalButton);
@@ -386,7 +390,7 @@ int main(int argc, char** argv) {
 
 					while(i < 3) {
 						drawShot(&shotText, listShots); //dessin du shot
-						moveShot(listShots); //Bouger le shot
+				   		moveShot(listShots); //Bouger le shot
 						collisionMissile(listShots, listMonsters, joueur, monster, &propriete); //test de collision
 						i++;
 					}
@@ -394,7 +398,7 @@ int main(int argc, char** argv) {
 					k++;
 			}
 		}
-		
+
 
 		glFlush();
 		SDL_GL_SwapBuffers();
@@ -529,6 +533,7 @@ int main(int argc, char** argv) {
 	freeTexture(&fondGameOver, imgFondGameOver);
 	freeTexture(&fondWin, imgFondWin);
 
+    Mix_CloseAudio(); //Close Audiol'API 
 	SDL_Quit();
 	return EXIT_SUCCESS;
 }

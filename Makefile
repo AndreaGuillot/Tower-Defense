@@ -5,7 +5,7 @@ BIN = itd
 BIN_PATH = bin
 # FLAG
 CFLAGS = -Wall -O2 -g
-LDFLAGS= -lglut -lGL -lGLU -lm -lSDL -lSDL_image
+LDFLAGS= -lglut -lGL -lGLU -lm -lSDL -lSDL_image -lSDL_mixer
 # INCLUDES
 INC_PATH = -I include
 # LIB
