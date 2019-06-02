@@ -102,63 +102,82 @@ int verificationMap(Map* map, char* nameITD){
 												//Récupère la couleur du chemin
 												if(fscanf(itd, "%d %d %d\n", &r, &v, &b) == 3){
 
-													(map->road).r = r/255.0;
-													(map->road).g = v/255.0;
-													(map->road).b = b/255.0;
-									
+													if((0<r && r<256) && (0<v && v<256) &&(0<b && b<256)){
+														(map->road).r = r/255.0;
+														(map->road).g = v/255.0;
+														(map->road).b = b/255.0;
+													}else{
+														printf("Les couleurs du chemin ne sont pas des couleurs\n");
+													}
 													//Récupère "noeud"
 													if(fscanf(itd, "%s", test) == 1) {
 
 														//Vérifie qu'il s'agit bien du chemin
 														if(strcmp("noeud", test) == 0) {
 								
-															//Récupère la couleur du chemin
+															//Récupère la couleur du noeud
 															if(fscanf(itd, "%d %d %d\n", &r, &v, &b) == 3){
 
-																(map->node).r = r/255.0;
-																(map->node).g = v/255.0;
-																(map->node).b = b/255.0;
-									
+																if((0<r && r<256) && (0<v && v<256) &&(0<b && b<256)){
+																	(map->node).r = r/255.0;
+																	(map->node).g = v/255.0;
+																	(map->node).b = b/255.0;
+																}else{
+																	printf("Les couleurs du noeud ne sont pas des couleurs\n");
+																}
+
 																//Récupère "construct"
 																if(fscanf(itd, "%s", test) == 1) {
 
-																	//Vérifie qu'il s'agit bien du chemin
+																	//Vérifie qu'il s'agit bien du constructible
 																	if(strcmp("construct", test) == 0) {
 								
-																		//Récupère la couleur du chemin
+																		//Récupère la couleur du constructible
 																		if(fscanf(itd, "%d %d %d\n", &r, &v, &b) == 3){
 
 //Créer la liste de pixel
 LNode* list_pixels = new_LNode();
 map->list_pixels = list_pixels;
+																	if((0<r && r<256) && (0<v && v<256) &&(0<b && b<256)){
 																			(map->construct).r = r/255.0;
 																			(map->construct).g = v/255.0;
 																			(map->construct).b = b/255.0;
-									
+																	}else{
+																		printf("Les couleurs du constructible ne sont pas des couleurs\n");
+																	}
 																			//Récupère "in"
 																			if(fscanf(itd, "%s", test) == 1) {
 
-																				//Vérifie qu'il s'agit bien du chemin
+																				//Vérifie qu'il s'agit bien de l'entree
 																				if(strcmp("in", test) == 0) {
 								
-																					//Récupère la couleur du chemin
+																					//Récupère la couleur de l'entree
 																					if(fscanf(itd, "%d %d %d\n", &r, &v, &b) == 3){
 
+																					if((0<r && r<256) && (0<v && v<256) &&(0<b && b<256)){
 																						(map->in).r = r/255.0;
 																						(map->in.g) = v/255.0;
 																						(map->in.b) = b/255.0;
+																					}else{
+																						printf("Les couleurs de l'entree ne sont pas des couleurs\n");
+																					}
 									
 																						//Récupère "out"
 																						if(fscanf(itd, "%s", test) == 1) {
 
-																							//Vérifie qu'il s'agit bien du chemin
+																							//Vérifie qu'il s'agit bien de la sortie
 																							if(strcmp("out", test) == 0) {
 								
-																								//Récupère la couleur du chemin
+																								//Récupère la couleur de la sortie
 																								if(fscanf(itd, "%d %d %d\n", &r, &v, &b) == 3){
+
+																								if((0<r && r<256) && (0<v && v<256) &&(0<b && b<256)){
 																									(map->out).r = r/255.0;
 																									(map->out).g = v/255.0;
 																									(map->out).b = b/255.0;
+																								}else{
+																									printf("Les couleurs de la sortie ne sont pas des couleurs\n");
+																								}
 
 								//Récupére le nombre de noeuds									
 								if(fscanf(itd, "%d\n", &(map->number_node)) == 1){
@@ -180,7 +199,7 @@ map->list_pixels = list_pixels;
 													float y1 = y + 60.0;
 													//Vérifie que le noeud à bien été ajouté à la liste de noeud
 													if(addNode(map->list_node, x1, y1) != 1) {
-														fprintf(stderr, "Erreur, ce n'est pas les coordonées d'un noeud");
+														fprintf(stderr, "Erreur, ce n'est pas les coordonnées d'un noeud");
 														return 0;
 													}
 												}
