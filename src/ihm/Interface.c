@@ -15,7 +15,7 @@ Joueur* newGame (void) {
 
 	//Vérifie que l'joueur a été alloué
 	if(joueur != NULL) {
-		joueur->money = 200;
+		joueur->money = 100;
 		joueur->lvl = 0;
 	}
 	else {
@@ -67,7 +67,6 @@ int updateLvl(Joueur* joueur) {
 	if(joueur != NULL) {
 	
 		joueur->lvl ++;
-		joueur->money += (joueur->lvl) * 20;
 		
 	}
 	else {
@@ -104,7 +103,7 @@ int updateMoney(Joueur* joueur, int price) {
 void initInterface (Joueur* joueur) {
 	//Si l'joueur existe
 	if (joueur != NULL) {
-		joueur->money = 200;
+		joueur->money = 100;
 		joueur->lvl = 0;
 	}
 }

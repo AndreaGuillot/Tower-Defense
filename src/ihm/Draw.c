@@ -758,14 +758,14 @@ int drawMenuLeft (GLuint* spriteMenu, GLuint* fondMenu, Joueur* joueur) {
 
 		/*** QUATRIEME TOUR
 			YOANN
-			PRIX 100 ***/
+			PRIX 120 ***/
 
 		//Active le texturage 2D
 		glEnable(GL_TEXTURE_2D);
 		//appel de la texture
 		glBindTexture(GL_TEXTURE_2D, *spriteMenu);
 
-			if(joueur->money >= 100)
+			if(joueur->money >= 120)
 				glColor4f(255,255,255, 1);
 			else 
 				glColor4f(255,255,255, 0.5);
