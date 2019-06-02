@@ -1042,8 +1042,6 @@ int drawProprieteTower (GLuint* tower, GLuint* spriteMenu, Tower* p_courant, Jou
 		//Si la chaine de caracteres à bien été alloué
 		if(machaine != NULL) {
 
-			//int money = 0;
-
 			/**** Titre de la tour ****/
 			glColor4f(255,255,255, 1);
 			char* titreTour = "";
@@ -1168,8 +1166,8 @@ int drawProprieteInstallation (GLuint* installation, GLuint* spriteMenu, Install
 		else if(strcmp("S", p_courant->type_installation) == 0) 
 			installationNumber = 2;
 
-		float x1 = 0, x2 = 1, y1 = (installationNumber * (1.0/4.0)) + 0;
-		float y2 = (installationNumber * (1.0/4.0)) + 0.25;
+		float x1 = 0, x2 = 1, y1 = (installationNumber * (1./3.)) + 0;
+		float y2 = (installationNumber * (1./3.)) + 0.33;
 
 		//Active le texturage 2D
 		glEnable(GL_TEXTURE_2D);
@@ -1180,18 +1178,18 @@ int drawProprieteInstallation (GLuint* installation, GLuint* spriteMenu, Install
 			//couleur neutre
 			glColor3ub(255,255,255);
 			//coordonée de la texture
-			glTexCoord2f(x2, y1);
+			glTexCoord2f(x1, y1);
 			//Cordonnée du quadrilatère 
-			glVertex2f(20, 300);
-
-			glTexCoord2f(x2, y2);
-			glVertex2f(20, 340);
+			glVertex2f(80, 300);
 
 			glTexCoord2f(x1, y2);
-			glVertex2f(60, 340);
+			glVertex2f(80, 340);
 
-			glTexCoord2f(x1, y1);
-			glVertex2f(60, 300);
+			glTexCoord2f(x2, y2);
+			glVertex2f(120, 340);
+
+			glTexCoord2f(x2, y1);
+			glVertex2f(120, 300);
 
 
 			glEnd();
@@ -1207,33 +1205,54 @@ int drawProprieteInstallation (GLuint* installation, GLuint* spriteMenu, Install
 
 		//Si la chaine de caracteres à bien été alloué
 		if(machaine != NULL) {
-
-			int money = 0;
 			
+			/**** Titre de la tour ****/
+			glColor4f(255,255,255, 1);
+			char* titreTour = "";
+			char* typeInstallation = "";
+			char* description = "";
+
+			//Choisir le bon monstre dans le sprite
+			if(strcmp("U", p_courant->type_installation) == 0) {
+				titreTour = "MARGAUX";
+				typeInstallation = "Usine";
+				description = "Ajoute 25% de force";
+			}
+			else if(strcmp("R", p_courant->type_installation) == 0) {
+				titreTour = "ANDREA";
+				typeInstallation = "Radar";
+				description = "Ajoute 25% de portee";
+			}
+			else if(strcmp("S", p_courant->type_installation) == 0) {
+				titreTour = "BAPTISTE";
+				typeInstallation = "Stock";
+				description = "Ajoute 25% de cadence";
+			}
+
+			//Affiche la chaine de caractère
+			writeString(60, 360,  titreTour);
+
 			/**** Périmètre d'action ****/
 			glColor4f(255,255,255, 1);
 			//Convertie un int en un string
 			sprintf(machaine,"%d",p_courant->range);
 
-			writeString(20, 415,  "Range : ");
+			writeString(20, 390,  "Range : ");
 			//Affiche la chaine de caractère
-			writeString(120, 415,  machaine);
+			writeString(90, 390,  machaine);
 
 			/**** type de l'installation ****/
 			glColor4f(255,255,255, 1);
-			char* typeInstallation = "";
 
-			//Choisir le bon monstre dans le sprite
-			if(strcmp("U", p_courant->type_installation) == 0) 
-				typeInstallation = "Usine";
-			else if(strcmp("R", p_courant->type_installation) == 0) 
-				typeInstallation = "Radar";
-			else if(strcmp("S", p_courant->type_installation) == 0) 
-				typeInstallation = "Stock";
-
-			writeString(20, 465,  "Type : ");
+			writeString(20, 415,  "Type : ");
 			//Affiche la chaine de caractère
-			writeString(80, 465,  typeInstallation);
+			writeString(80, 415,  typeInstallation);
+
+			/**** description de l'installation ****/
+			glColor4f(255,255,255, 1);
+
+			//Affiche la chaine de caractère
+			writeString(5, 440,  description);
 
 	
 			/*** Bouton supprimer ****/
