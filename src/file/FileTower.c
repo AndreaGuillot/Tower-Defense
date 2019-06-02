@@ -45,16 +45,15 @@ int loadInfoTour(LFileTower* p_lfileTower) {
 
 	if(p_lfileTower != NULL) {
 
-			int testCommentaire, i;
+			int i;
 			int power, rate, range, cost;
-			char* test = (char*)malloc(20*sizeof(char));
 
 			for(i = 0; i < 4; i++) {
 
 				switch(i) {
 
 					case 0 : //La tour Rocket : Yoann
-						power = 70;
+						power = 35;
 						rate = 5;
 						range = 40;
 						cost = 120;
@@ -64,7 +63,7 @@ int loadInfoTour(LFileTower* p_lfileTower) {
 						break;
 
 					case 1 : //La tour Laser : Clara
-						power = 60;
+						power = 30;
 						rate = 10;
 						range = 60;
 						cost = 80;									
@@ -75,7 +74,7 @@ int loadInfoTour(LFileTower* p_lfileTower) {
 
 
 					case 2 : // La tour multidirectionnelle : Jules
-						power = 30;
+						power = 15;
 						rate = 15;
 						range = 50;
 						cost = 60;	
@@ -86,7 +85,7 @@ int loadInfoTour(LFileTower* p_lfileTower) {
 
 
 					case 3 : //La tour hybride : Océane
-						power = 10;
+						power = 5;
 						rate = 20;
 						range = 70;
 						cost = 50;

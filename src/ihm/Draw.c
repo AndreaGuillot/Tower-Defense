@@ -931,7 +931,7 @@ int drawInterface (GLuint* spriteButton, Joueur* joueur) {
 
 			writeString(40, 40,  "Vagues de monstres passees : ");
 			//Affiche la chaine de caractère
-			writeString(285, 40,  machaine);
+			writeString(300, 40,  machaine);
 
 			/**** Money ****/
 			//Convertie un int en un string
@@ -1309,9 +1309,9 @@ int drawProprieteMonster (GLuint* monster, Monster* p_courant) {
 			if(strcmp("J", p_courant->type) == 0) 
 				monsterNumber = 0;
 			else if(strcmp("B", p_courant->type) == 0) 
-				monsterNumber = 1;
-			else if(strcmp("L", p_courant->type) == 0) 
 				monsterNumber = 2;
+			else if(strcmp("L", p_courant->type) == 0) 
+				monsterNumber = 1;
 
 		float x1 = 0, x2 = 1, y1 = (monsterNumber * (1./3.)) + 0;
 		float y2 = (monsterNumber * (1./3.)) + 0.33;
@@ -1352,7 +1352,7 @@ int drawProprieteMonster (GLuint* monster, Monster* p_courant) {
 		//Si la chaine de caracteres à bien été alloué
 		if(machaine != NULL) {
 
-			char* titreMonster;
+			char* titreMonster="";
 
 			/*Choisir le bon monstre dans le sprite*/
 			if(strcmp("J", p_courant->type) == 0) {
@@ -1378,42 +1378,56 @@ int drawProprieteMonster (GLuint* monster, Monster* p_courant) {
 
 			/**** vitesse ****/
 			//Convertie un int en un string
-			sprintf(machaine,"%d",p_courant->pace);
+			sprintf(machaine,"%d",(10-p_courant->pace)*10);
 
 			writeString(20, 410,  "Vitesse : ");
 			//Affiche la chaine de caractère
 			writeString(120, 410,  machaine);
+			writeString(150, 410,  "km/h");
 
 			/**** Resistance ****/
 
 			//Affiche resistance Oceane
-			sprintf(machaine,"%.2f",p_courant->resistanceO);
+			sprintf(machaine,"%1.f",100*p_courant->resistanceO);
 			//Convertie un int en un string
 			writeString(20, 435,  "Resistance Oceane : ");
 			//Affiche la chaine de caractère
 			writeString(90, 455,  machaine);
+			writeString(110, 455,  "%");
 
 			
 			//Convertie un int en un string
-			sprintf(machaine,"%.2f",p_courant->resistanceJ);
+			sprintf(machaine,"%1.f",100*p_courant->resistanceJ);
 
 			writeString(20, 480,  "Resistance Jules: ");
 			//Affiche la chaine de caractère
 			writeString(90, 500,  machaine);
+			writeString(110, 500,  "%");
 
 			//Convertie un int en un string
-			sprintf(machaine,"%.2f",p_courant->resistanceC);
+			sprintf(machaine,"%1.f",100*p_courant->resistanceC);
 
 			writeString(20, 525,  "Resistance Clara: ");
 			//Affiche la chaine de caractère
 			writeString(90, 545,  machaine);
+			writeString(110, 545,  "%");
 
 			//Convertie un int en un string
-			sprintf(machaine,"%.2f",p_courant->resistanceY);
+			sprintf(machaine,"%1.f",100*p_courant->resistanceY);
 
 			writeString(20, 570,  "Resistance Yoann: ");
 			//Affiche la chaine de caractère
 			writeString(90, 590,  machaine);
+			writeString(110, 590,  "%");
+
+			/*GAIN*/
+
+			//Convertie un int en un string
+			sprintf(machaine,"%d",p_courant->gain);
+
+			writeString(20, 615,  "Score: ");
+			//Affiche la chaine de caractère
+			writeString(90, 615,  machaine);
 
 		}
 		else {
@@ -1704,19 +1718,19 @@ int drawMonster(GLuint* monster, ListMonsters* p_lmonster) {
 
 		while(tmp_monster != NULL) {
 
-			float y1, y2;
+			float y1=0, y2=0;
 			//Choisir le bon monstre dans le sprite
 			if(strcmp("J", tmp_monster->type) == 0){ 
 				y1 = 0;
 				y2 = 1./3.0;
 			}
 			else if(strcmp("B", tmp_monster->type) == 0){ 
-				y1 = 1./3.;
-				y2 = 2./3.0;
-			}				
-			else if(strcmp("L", tmp_monster->type) == 0){ 
 				y1 = 2./3.;
 				y2 = 1;
+			}				
+			else if(strcmp("L", tmp_monster->type) == 0){ 
+				y1 = 1./3.;
+				y2 = 2./3.;
 			}
 		
 			//Active le texturage 2D
@@ -1993,7 +2007,7 @@ int apparitionMonster(ListMonsters* p_lmonster, Joueur* joueur, Map* map, int* a
 			float resistanceJJ = 0;
 			float resistanceOJ = 0;
 			int paceJ = 5;
-			int gainJ = 8;
+			int gainJ = 4;
 
 			/*Caractéristiques Barbara*/
 			char* typeB = "B";
@@ -2003,7 +2017,7 @@ int apparitionMonster(ListMonsters* p_lmonster, Joueur* joueur, Map* map, int* a
 			float resistanceJB = 0.3;
 			float resistanceOB = 0.1;
 			int paceB = 3;
-			int gainB = 15;
+			int gainB = 6;
 
 			/*Caractéristiques Lucie*/
 			char* typeL = "L";
@@ -2013,7 +2027,7 @@ int apparitionMonster(ListMonsters* p_lmonster, Joueur* joueur, Map* map, int* a
 			float resistanceJL = 0.3;
 			float resistanceOL = 0.2;
 			int paceL = 1;
-			int gainL = 20;
+			int gainL = 10;
 
 			//ajoute un monstre à chaque fois que j est un muliple de 50
 			if(j%(*apparition) == 0){

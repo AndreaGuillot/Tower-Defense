@@ -356,35 +356,41 @@ int reach (LInstallation* list_installation, LTower* list_towers, Installation* 
 }
 
 int affects(Tower* tmp, Installation* installation){
+	if(tmp != NULL && installation != NULL){
 
-	int i; 
+		int i; 
 
-	if(strcmp(installation->type_installation, "U") == 0){
-		i=0;
-	}
-	if(strcmp(installation->type_installation, "R") == 0){
-		i=1;
-	}
-	if(strcmp(installation->type_installation, "S") == 0){
-		i=2;
-	}
+		if(strcmp(installation->type_installation, "U") == 0){
+			i=0;
+		}
+		if(strcmp(installation->type_installation, "R") == 0){
+			i=1;
+		}
+		if(strcmp(installation->type_installation, "S") == 0){
+			i=2;
+		}
 
-	switch(i){
-		case 0: if(!tmp->affectedByUsine){
-					tmp->power = (int)(tmp->power*1.25);
-					tmp->affectedByUsine = 1;
-				}
-			break;
-		case 1: if(!tmp->affectedByRadar){
-					tmp->range = (int)(tmp->range*1.25);
-					tmp->affectedByRadar = 1;
-				}
-			break;
-		case 2: if(!tmp->affectedByStock){
-					tmp->rate = (int)(tmp->rate*1.25);
-					tmp->affectedByStock = 1;
-				}
-			break;
+		switch(i){
+			case 0: if(!tmp->affectedByUsine){
+						tmp->power = (int)(tmp->power*1.25);
+						tmp->affectedByUsine = 1;
+					}
+				break;
+			case 1: if(!tmp->affectedByRadar){
+						tmp->range = (int)(tmp->range*1.25);
+						tmp->affectedByRadar = 1;
+					}
+				break;
+			case 2: if(!tmp->affectedByStock){
+						tmp->rate = (int)(tmp->rate*1.25);
+						tmp->affectedByStock = 1;
+					}
+				break;
+		}
+		return 1;
+	}else{
+		printf("Parametre nul\n");
+		return 0;
 	}
 }
 
@@ -439,33 +445,39 @@ int wontreach (LInstallation* list_installation, LTower* list_towers, Installati
 
 int notaffect(Tower* tmp, Installation* installation){
 
-	int i; 
+	if(tmp != NULL && installation !=NULL){
+		int i; 
 
-	if(strcmp(installation->type_installation, "U") == 0){
-		i=0;
-	}
-	if(strcmp(installation->type_installation, "R") == 0){
-		i=1;
-	}
-	if(strcmp(installation->type_installation, "S") == 0){
-		i=2;
-	}
+		if(strcmp(installation->type_installation, "U") == 0){
+			i=0;
+		}
+		if(strcmp(installation->type_installation, "R") == 0){
+			i=1;
+		}
+		if(strcmp(installation->type_installation, "S") == 0){
+			i=2;
+		}
 
-	switch(i){
-		case 0: if(tmp->affectedByUsine){
-					tmp->power = round(tmp->power/1.25);
-					tmp->affectedByUsine = 0;
-				}
-			break;
-		case 1: if(tmp->affectedByRadar){
-					tmp->range = round(tmp->range/1.25);
-					tmp->affectedByRadar = 0;
-				}
-			break;
-		case 2: if(tmp->affectedByStock){
-					tmp->rate = round(tmp->rate/1.25);
-					tmp->affectedByStock = 0;
-				}
-			break;
+		switch(i){
+			case 0: if(tmp->affectedByUsine){
+						tmp->power = round(tmp->power/1.25);
+						tmp->affectedByUsine = 0;
+					}
+				break;
+			case 1: if(tmp->affectedByRadar){
+						tmp->range = round(tmp->range/1.25);
+						tmp->affectedByRadar = 0;
+					}
+				break;
+			case 2: if(tmp->affectedByStock){
+						tmp->rate = round(tmp->rate/1.25);
+						tmp->affectedByStock = 0;
+					}
+				break;
+		}
+		return 1;
+	}else{
+		printf("Parametre nul\n");
+		return 0;
 	}
 }

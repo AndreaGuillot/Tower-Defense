@@ -27,7 +27,7 @@
 static unsigned int WINDOW_WIDTH = 800;
 static unsigned int WINDOW_HEIGHT = 660;
 static const unsigned int BIT_PER_PIXEL = 32;
-static const Uint32 FRAMERATE_MILLISECONDS = 1000 / 50;
+static const Uint32 FRAMERATE_MILLISECONDS = 1000 / 80;
 static const unsigned int NBVAGUES = 50;
 float pi = 3.14;
 

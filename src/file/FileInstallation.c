@@ -43,9 +43,8 @@ int loadInfoInstallation(LFileInstallation* p_lfileInstallation) {
 
 	if(p_lfileInstallation != NULL) {
 
-			int testCommentaire, i;
+			int i;
 			int range, cost;
-			char* test = (char*)malloc(20*sizeof(char));
 
 			for(i = 0; i < 3; i++) {
 
