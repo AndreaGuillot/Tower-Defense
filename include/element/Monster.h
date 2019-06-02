@@ -37,10 +37,10 @@ typedef struct struct_monster {
 	int pvMax;
 
 	//résistance
-	int resistanceY;
-	int resistanceC;
-	int resistanceJ;
-	int resistanceO;
+	float resistanceY;
+	float resistanceC;
+	float resistanceJ;
+	float resistanceO;
 
 	//Le gain (monnaie)
 	int gain;
@@ -72,7 +72,7 @@ typedef struct struct_lmonster {
 //Initialisation de la liste de monstre
 ListMonsters* new_ListMonsters(void);
 //Ajouter un monstre en fin de liste
-int addMonster(ListMonsters* , char* , int , int, int, int, int, int, int, Node*);
+int addMonster(ListMonsters* , char* , int , float, float, float, float, int, int, Node*);
 //Fait bouger le monstre
 int moveMonster(ListMonsters* , Node*, int);
 //Calcule l'erreur de déplacement

@@ -36,7 +36,7 @@ ListMonsters* new_ListMonsters(void) {
 *  un type de tour et la vitesse de déplacement, les points gagnés et le gain d'argent si le monstre	*
 *  est tué. Retourne 0 en cas d'erreur et 1 sinon.							*/
 
-int addMonster(ListMonsters* list_monster, char* type, int pvMax, int resistanceY, int resistanceC, int resistanceJ, int resistanceO, int pace, int gain, Node* p_head) {
+int addMonster(ListMonsters* list_monster, char* type, int pvMax, float resistanceY, float resistanceC, float resistanceJ, float resistanceO, int pace, int gain, Node* p_head) {
 
 	// On vérifie si notre liste a été allouée
 	if (list_monster != NULL) {
