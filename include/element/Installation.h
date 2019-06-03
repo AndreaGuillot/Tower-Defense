@@ -55,7 +55,9 @@ int addInstallation(LInstallation*, char*, int, int, float, float);
 //Vérifie si la tour se trouve sur une zone constructible
 int verificationConstructInstallation(LNode*, Point2D, Point2D);
 //Déplacer une tour
-int moveInstallation(LInstallation*, Installation*, LNode*, float, float);
+int moveInstallation(LInstallation*, LTower*, Installation*, LNode*, float, float);
+//Déplacer une tour
+int moveTower(LTower*, LInstallation*, Tower*, LNode*, float, float);
 //Supprimer une tour de la liste
 LInstallation* removeInstallation(LInstallation*, Installation*, LTower*);
 //Supprime toutes les tours de la liste

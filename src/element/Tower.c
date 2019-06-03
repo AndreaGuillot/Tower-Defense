@@ -152,67 +152,6 @@ int verificationConstruct(LNode* l_node, Point2D point1, Point2D point2) {
 
 }
 
-/****************** Faire bouger la tour ***********************/
-/* Fait bouger la tour en fonction des positions passé en paramètre. Passe en paramètre la liste de tours, 	*
-*  la tour que l'on souhaite bouger, la nouvelle position : x et y. Retourne 0 en cas d'erreur et & sinon	*/
-int moveTower(LTower* p_ltower, Tower* p_courant, LNode* l_node, float x, float y) {
-
-	if(p_ltower != NULL) {
-
-		if(p_courant != NULL) {
-
-			p_courant->x = x;
-			p_courant->y = y;
-		
-			Point2D point1, point2;
-			point1.x = x + 15; point1.y = y + 15;
-			point2.x = x - 15; point2.y = y - 15;
-
-			if(verificationConstruct(l_node, point1, point2) == 1) {
-
-				point1.x = x + 20; point1.y = y + 20;
-				point2.x = x - 20; point2.y = y - 20;
-
-				//Si ce n'est pas le premier de la liste
-				if(p_courant->p_prev != NULL){
-
-					Point2D point3, point4;
-					//Créer un pointeur tour temporaire pour parcourir la liste
-					Tower* p_tmp = p_ltower->p_head;
-
-					//Parcour de la liste
-					while(p_tmp->p_next != NULL) {
-
-						point3.x = (p_tmp->x) + 20; point3.y = (p_tmp->y) + 20;
-						point4.x = (p_tmp->x) - 20; point4.y = (p_tmp->y) - 20;
-
-						//Vérifie qu'il ne se trouve pas sur une autre tour (pas d'intersection)
-						if(intersectionCarres (point1, point2, point3, point4) == 0)
-							p_tmp = p_tmp->p_next;
-						else
-							return 0;
-					}
-					return 1;
-				}
-				//Sinon pas besoin de faire la vérification pour les collisions de quads
-				else
-					return 1;		
-			}
-		}
-		else {
-			fprintf(stderr, "Cette tour n'existe pas\n");
-			return 0;
-		}
-	}
-	else {
-		fprintf(stderr, "Erreur : il y a un problème avec la liste de tours\n");
-		return 0;
-	}
-
-	return 0;
-
-}
-
 /************* Supprimer une tour selon sa position *************/
 /* Supprime une tour selon sa position, vérifie si c'est le premier, le dernier ou une tour dans la liste puis la supprime 	*
 *  Prend en paramètre la liste de tours et la tour à supprimer et retourne la liste de tours.					*/

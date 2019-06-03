@@ -55,8 +55,8 @@ int main(int argc, char** argv) {
 
 	int testMouse = 0; //Voir si on a cliqué sur une tour avant, si c'est 1, on l'a en main
 	int testMouseInstallation = 0; //Voir si on a cliqué sur une installation avant, si c'est 1, on l'a en main
-	int testTower = 0;
-	int testInstallation = 0;
+	int testTower = 0;//Savoir si on est en zone constructible
+	int testInstallation = 0;//Savoir si on est en zone constructible
 	int nbMenu = 1;
 	int isPlaying = 1;
 
@@ -239,8 +239,8 @@ int main(int argc, char** argv) {
 				//Dessin de l'joueur (données du joueur)
 				drawInterface (&Boutons, joueur);
 
-				//Si on veut voir les propriétés de la tour                                                                                                
-				if(propriete == 1) {
+				//Si on veut voir les propriétés de la tour et qu'on ne l'a pas en main                                                                                                
+				if(propriete == 1 && testMouse != 1) {
 					//Affiche les propriétés de la tours
 					drawProprieteTower(&towerText, &menu_tour, tower, joueur);
 					monster = NULL;
@@ -264,8 +264,8 @@ int main(int argc, char** argv) {
 					else
 						propriete = 0;
 
-				//Si on veut voir propriété installation
-				}else if(propriete == 3) {
+				//Si on veut voir propriété installation et qu'on ne l'a pas en main
+				}else if(propriete == 3 && testMouseInstallation != 1) {
 
 					drawProprieteInstallation(&installationText, &menu_tour, installation, joueur);
 					monster = NULL;
@@ -278,6 +278,7 @@ int main(int argc, char** argv) {
 					//Si lvl 49 (50 vagues) et plus de monstre alors gagner
 					if(joueur->lvl == NBVAGUES && listMonsters->length == 0) {
 
+						isPlaying = 1;
 						testMouse = 0;
 						testMouseInstallation = 0;
 						testTower = 0;
@@ -369,6 +370,7 @@ int main(int argc, char** argv) {
 						}
 						listMonsters = removeMonster(listMonsters, listMonsters->p_head);
 
+							isPlaying = 1;
 							testMouse = 0;
 							testMouseInstallation = 0;
 							testTower = 0;
@@ -429,8 +431,10 @@ int main(int argc, char** argv) {
 
 							if(testMouse == 0) {
 								//test click sur le menu de la tour
-								if(clickMenuTour(listTowers, p_lfileTower, joueur, e.button.x, e.button.y) == 1)
+								if(clickMenuTour(listTowers, p_lfileTower, joueur, e.button.x, e.button.y) == 1){
 									testMouse = 1;
+									testTower = 0;
+								}
 							}
 							else {
 								if(testTower != 0)
@@ -439,8 +443,10 @@ int main(int argc, char** argv) {
 
 							if(testMouseInstallation == 0) {
 								//test click sur le menu de la installation
-								if(clickMenuInstallation(listInstallations, p_lfileInstallation, joueur, e.button.x, e.button.y) == 1)
+								if(clickMenuInstallation(listInstallations, p_lfileInstallation, joueur, e.button.x, e.button.y) == 1){
 									testMouseInstallation = 1;
+									testInstallation = 0;
+								}
 							}
 							else {
 								if(testInstallation != 0)
@@ -453,7 +459,7 @@ int main(int argc, char** argv) {
 							}
 
 							if(installation != NULL && propriete == 3) {
-								//Test click pour supprimer une tour
+								//Test click pour supprimer une installation
 								clickInstallationDelete(listInstallations, installation, joueur, e.button.x, e.button.y, &propriete, listTowers);
 							}
 
@@ -461,7 +467,7 @@ int main(int argc, char** argv) {
 							loop = clickExit(listMonsters, listShots, listTowers, listInstallations, p_lfileTower, p_lfileInstallation, map, joueur, e.button.x, e.button.y, aide);
 							//Test click sur une tower
 							tower = clickTower(listTowers, e.button.x, e.button.y, &propriete);
-							//Test click sur une tower
+							//Test click sur une installation
 							installation = clickInstallation(listInstallations, e.button.x, e.button.y, &propriete);
 							//Test click sur un monstre
 							monster = clickMonster(listMonsters, e.button.x, e.button.y, &propriete);
@@ -474,14 +480,14 @@ int main(int argc, char** argv) {
 				case SDL_MOUSEMOTION :
 					if(testMouse == 1) {
 						//Bouger la tour et test si elle est sur une zone constructible ou non
-						if(moveTower(listTowers, listTowers->p_tail, map->list_pixels, e.button.x, e.button.y) == 1)
+						if(moveTower(listTowers, listInstallations, listTowers->p_tail, map->list_pixels, e.button.x, e.button.y) == 1)
 							testTower = 1;
 						else
 							testTower = 0;
 					}
 
 					if(testMouseInstallation == 1){
-						if(moveInstallation(listInstallations, listInstallations->p_tail, map->list_pixels, e.button.x, e.button.y) == 1)
+						if(moveInstallation(listInstallations, listTowers, listInstallations->p_tail, map->list_pixels, e.button.x, e.button.y) == 1)
 							testInstallation = 1;
 						else
 							testInstallation = 0;

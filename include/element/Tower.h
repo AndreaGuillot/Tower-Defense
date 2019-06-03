@@ -61,8 +61,6 @@ LTower* new_LTower(void);
 int addTower(LTower*, int, int, char*, int, int, float, float);
 //Vérifie si la tour se trouve sur une zone constructible
 int verificationConstruct(LNode*, Point2D, Point2D);
-//Déplacer une tour
-int moveTower(LTower*, Tower*, LNode*, float, float);
 //Supprimer une tour de la liste
 LTower* removeTower(LTower*, Tower*);
 //Supprime toutes les tours de la liste
