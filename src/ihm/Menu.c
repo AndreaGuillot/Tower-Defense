@@ -225,7 +225,7 @@ int clickInstallationDelete(LInstallation* p_linstallation, Installation* p_cour
 
 				if(x <= 190 && x >= 10 && y <= 540 && y >= 490) {
 
-					joueur->money += p_courant->cost;
+					joueur->money += round(0.6*p_courant->cost);
 					p_linstallation = removeInstallation(p_linstallation, p_courant, listTower);
 					*propriete = 0;
 				}
