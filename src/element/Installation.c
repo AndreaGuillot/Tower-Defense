@@ -180,10 +180,11 @@ int moveTower(LTower* p_ltower, LInstallation* p_linstallation, Tower* p_courant
 					//Intersection tour
 					while(t_tmp->p_next != NULL) {
 
-						point3.x = (t_tmp->x); point3.y = (t_tmp->y);
+						point3.x = (t_tmp->x)+20; point3.y = (t_tmp->y)+20;
+						point4.x = (t_tmp->x)-20; point4.y = (t_tmp->y)-20;
 
 						//Vérifie qu'il ne se trouve pas sur une autre tour (pas d'intersection)
-						if(intersectionCarreDisque (point1, point2, 20, point3) == 0)
+						if(intersectionCarres (point1, point2, point4, point3) == 0)
 							t_tmp = t_tmp->p_next;
 						else
 							return 0;
