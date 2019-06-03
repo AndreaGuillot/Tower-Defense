@@ -19,9 +19,6 @@ typedef struct struct_installation {
 	//Type de l'installation : U (Usine) R (radar) S (stock)
 	char* type_installation;
 
-	//compteur
-	int compteur;
-
 	//porté de la tour
 	int range;
 

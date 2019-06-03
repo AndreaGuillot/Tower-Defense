@@ -43,7 +43,6 @@ int addInstallation(LInstallation* p_linstallation, char* type_installation, int
 		// On vérifie si le malloc n'a pas échoué
 		if (new_installation !=  NULL) {
 
-			new_installation->compteur = 0;
 			new_installation->range = range;
 			new_installation->type_installation = type_installation;
 			new_installation->cost = cost;
@@ -467,17 +466,17 @@ int affects(Tower* tmp, Installation* installation){
 
 		switch(i){
 			case 0: if(!tmp->affectedByUsine){
-						tmp->power = (int)(tmp->power*1.25);
+						tmp->power = round(tmp->power*1.25);
 						tmp->affectedByUsine = 1;
 					}
 				break;
 			case 1: if(!tmp->affectedByRadar){
-						tmp->range = (int)(tmp->range*1.25);
+						tmp->range = round(tmp->range*1.25);
 						tmp->affectedByRadar = 1;
 					}
 				break;
 			case 2: if(!tmp->affectedByStock){
-						tmp->rate = (int)(tmp->rate*1.25);
+						tmp->rate = round(tmp->rate*1.25);
 						tmp->affectedByStock = 1;
 					}
 				break;
@@ -554,17 +553,17 @@ int notaffect(Tower* tmp, Installation* installation){
 		}
 
 		switch(i){
-			case 0: if(tmp->affectedByUsine){
+			case 0: if(tmp->affectedByUsine == 1){
 						tmp->power = round(tmp->power/1.25);
 						tmp->affectedByUsine = 0;
 					}
 				break;
-			case 1: if(tmp->affectedByRadar){
+			case 1: if(tmp->affectedByRadar == 1){
 						tmp->range = round(tmp->range/1.25);
 						tmp->affectedByRadar = 0;
 					}
 				break;
-			case 2: if(tmp->affectedByStock){
+			case 2: if(tmp->affectedByStock == 1){
 						tmp->rate = round(tmp->rate/1.25);
 						tmp->affectedByStock = 0;
 					}

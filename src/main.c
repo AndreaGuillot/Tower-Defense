@@ -332,18 +332,17 @@ int main(int argc, char** argv) {
 						// Si p_tmp = au pointeur du dernier de la liste
 						if(p_tmp == listInstallations->p_tail) {
 							if(testMouseInstallation == 0) {
-									if(reach (listInstallations, listTowers, p_tmp) != 0) {
-										(p_tmp->compteur)=0;
-									}
+								//Si on n'a pas la tour encore en main
+								if(testMouse != 1)
+									reach(listInstallations, listTowers, p_tmp);
 							}
 						}
 						else {
-							if(reach (listInstallations, listTowers, p_tmp) != 0) {
-								(p_tmp->compteur)=0;
-							}
+							//Si on n'a pas la tour encore en main
+							if(testMouse != 1)
+								reach (listInstallations, listTowers, p_tmp);
 						}
 
-						(p_tmp->compteur)++;
 						p_tmp = p_tmp->p_next;
 					}
 				}
