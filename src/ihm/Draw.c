@@ -460,45 +460,6 @@ int drawHelp (GLuint* texture, GLuint* spriteButton, GLuint* spriteButtonMenu, i
 
 }
 
-/*********************** Dessiner du chemin et des noeuds ***********************/
-/* Dessine du chemin et des noeuds. Prend en paramètre la liste de noeud et la map.	*
-*  Retourne 0 en cas d'erreur et 1 sinon.						*/
-
-int drawRoad (Map* map) {
-
-	if(map != NULL) {
-
-		Node* p_tmp = map->list_node->p_head;
-
-		while(p_tmp->p_next != NULL) {
-		
-			glBegin(GL_LINES);
-				glColor3ub(29,168,194);
-				glVertex2d(p_tmp->x, p_tmp->y);
-				glVertex2d(p_tmp->p_next->x, p_tmp->p_next->y);
-			glEnd();
-
-			glPushMatrix();
-				glColor3ub((map->node).r,(map->node).g,(map->node).b);
-				glTranslatef(p_tmp->x,p_tmp->y, 0.0);
-				drawDisque(5);
-			glPopMatrix();
-
-			glColor3ub(255,255,255);
-
-			p_tmp = p_tmp->p_next;					
-
-		}
-	}
-	else {
-		fprintf(stderr, "Erreur la carte n'existe pas\n");
-		return 0;
-	}
-
-	return 1;
-
-}
-
 /*********************** Dessiner le menu haut ***********************/
 /* Dessine le menu. Prend en paramètre la texture pour le menu et la variable play. Retourne 0 en cas d'erreur 1 sinon.	*/
 
@@ -932,12 +893,13 @@ int drawInterface (GLuint* spriteButton, Joueur* joueur) {
 			writeString(40, 40,  "Vagues de monstres passees : ");
 			//Affiche la chaine de caractère
 			writeString(300, 40,  machaine);
+			writeString(320, 40,  "/ 50");
 
 			/**** Money ****/
 			//Convertie un int en un string
 			sprintf(machaine,"%d",joueur->money);
 			//Affiche la chaine de caractère
-			writeString(355, 40,  machaine);
+			writeString(410, 40,  machaine);
 
 			//Active le texturage 2D
 			glEnable(GL_TEXTURE_2D);
@@ -950,16 +912,16 @@ int drawInterface (GLuint* spriteButton, Joueur* joueur) {
 				//coordonée de la texture
 				glTexCoord2f(0.125, 1);
 				//Cordonnée du quadrilatère 
-				glVertex2f(315, 45);
+				glVertex2f(375, 45);
 
 				glTexCoord2f(0.125, 0);
-				glVertex2f(315, 15);
+				glVertex2f(375, 15);
 
 				glTexCoord2f(0, 0);
-				glVertex2f(345, 15);
+				glVertex2f(405, 15);
 
 				glTexCoord2f(0, 1);
-				glVertex2f(345, 45);
+				glVertex2f(405, 45);
 
 				glEnd();
 

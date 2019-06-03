@@ -239,11 +239,6 @@ int main(int argc, char** argv) {
 				//Dessin de l'joueur (données du joueur)
 				drawInterface (&Boutons, joueur);
 
-				if(nbtexture == 0) {
-					//Dessin du chemin et noeud
-					drawRoad (map);
-				}
-
 				//Si on veut voir les propriétés de la tour                                                                                                
 				if(propriete == 1) {
 					//Affiche les propriétés de la tours

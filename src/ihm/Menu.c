@@ -189,7 +189,7 @@ int clickTourDelete(LTower* p_ltower, LShot* p_lshot, Tower* p_courant, Joueur* 
 						p_tmp = p_tmp->p_next;
 
 					}
-					joueur->money += p_courant->cost;
+					joueur->money += round(0.6*p_courant->cost);
 					p_ltower = removeTower(p_ltower, p_courant);
 					*propriete = 0;
 				}

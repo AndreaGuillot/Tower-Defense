@@ -20,8 +20,6 @@ int drawMenuPrincipal (GLuint*, GLuint*);
 int drawMap (GLuint*);
 //Dessin de l'aide
 int drawHelp (GLuint*, GLuint*, GLuint*, int);
-//Dessin du chemin et des noeuds
-int drawRoad (Map*);
 //Dessin le menu du haut
 int drawMenuUp (GLuint*, GLuint*);
 //Dessin du menu de gauche

@@ -54,7 +54,7 @@ int loadInfoTour(LFileTower* p_lfileTower) {
 
 					case 0 : //La tour Rocket : Yoann
 						power = 35;
-						rate = 5;
+						rate = 50;
 						range = 40;
 						cost = 120;
 
@@ -64,7 +64,7 @@ int loadInfoTour(LFileTower* p_lfileTower) {
 
 					case 1 : //La tour Laser : Clara
 						power = 30;
-						rate = 10;
+						rate = 40;
 						range = 60;
 						cost = 80;									
 						
@@ -75,7 +75,7 @@ int loadInfoTour(LFileTower* p_lfileTower) {
 
 					case 2 : // La tour multidirectionnelle : Jules
 						power = 15;
-						rate = 15;
+						rate = 35;
 						range = 50;
 						cost = 60;	
 						
@@ -86,7 +86,7 @@ int loadInfoTour(LFileTower* p_lfileTower) {
 
 					case 3 : //La tour hybride : Océane
 						power = 5;
-						rate = 20;
+						rate = 25;
 						range = 70;
 						cost = 50;
 
