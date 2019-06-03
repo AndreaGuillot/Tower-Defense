@@ -233,7 +233,7 @@ int main(int argc, char** argv) {
 				//Dessin de la carte
 				drawMap(&texture);
 				//Dessin du menu du dessus
-/*Ajouter play pour que ca dessine soit play soit pause*/				drawMenuUp(&Boutons, &fondHaut);
+				drawMenuUp(&Boutons, &fondHaut);
 				//Dessin du menu de gauche (les tours)
 				drawMenuLeft(&menu_tour, &fondMenu, joueur);
 				//Dessin de l'joueur (données du joueur)

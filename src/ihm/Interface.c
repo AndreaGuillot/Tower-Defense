@@ -15,7 +15,7 @@ Joueur* newGame (void) {
 
 	//Vérifie que l'joueur a été alloué
 	if(joueur != NULL) {
-		joueur->money = 500000;
+		joueur->money = 100;
 		joueur->lvl = 0;
 	}
 	else {
