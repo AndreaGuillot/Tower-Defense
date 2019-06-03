@@ -11,7 +11,7 @@
 
 /************* Appel de fonction *************/
 //click menu principal
-void clickMenuPrincipal(float, float, int*, int*);
+void clickMenuPrincipal(float, float, int*);
 //click pour l'achat d'une tour
 int clickMenuTour(LTower*, LFileTower*, Joueur*, float, float);
 int clickMenuInstallation(LInstallation* p_linstallation, LFileInstallation* p_lfileInstallation, Joueur* joueur, float x, float y);

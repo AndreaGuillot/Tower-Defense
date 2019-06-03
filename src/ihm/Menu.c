@@ -18,7 +18,7 @@
 /*********************** Clique sur le menuPrincipale  ***********************/
 /* action clique menu Principale. Prend en paramètre la position et un pointeur vers nbMenu. Retourne 0 en cas d'erreur et 1 sinon	*/
 
-void clickMenuPrincipal(float x, float y, int* nbMenu, int* nbTexture) {
+void clickMenuPrincipal(float x, float y, int* nbMenu) {
 
 	if(*nbMenu == 1 || *nbMenu == 4 || *nbMenu == 5) {
 

@@ -58,7 +58,7 @@ int main(int argc, char** argv) {
 	int testTower = 0;
 	int testInstallation = 0;
 	int nbMenu = 1;
-	int nbtexture = 0;
+	int isPlaying = 1;
 
 	/* Initialisation */
 	if(-1 == SDL_Init(SDL_INIT_VIDEO)) {
@@ -233,7 +233,7 @@ int main(int argc, char** argv) {
 				//Dessin de la carte
 				drawMap(&texture);
 				//Dessin du menu du dessus
-				drawMenuUp(&Boutons, &fondHaut);
+/*Ajouter play pour que ca dessine soit play soit pause*/				drawMenuUp(&Boutons, &fondHaut);
 				//Dessin du menu de gauche (les tours)
 				drawMenuLeft(&menu_tour, &fondMenu, joueur);
 				//Dessin de l'joueur (données du joueur)
@@ -272,6 +272,7 @@ int main(int argc, char** argv) {
 					tower = NULL;
 				}
 
+				if(isPlaying){
 					apparitionMonster(listMonsters, joueur, map, &apparition, j, &nb_monster);
 
 					//Si lvl 49 (50 vagues) et plus de monstre alors gagner
@@ -344,6 +345,7 @@ int main(int argc, char** argv) {
 						(p_tmp->compteur)++;
 						p_tmp = p_tmp->p_next;
 					}
+				}
 
 				//Dessiner les tours
 				drawTower(&towerText, listTowers, listMonsters, tower, testMouse, testTower);
@@ -352,7 +354,7 @@ int main(int argc, char** argv) {
 				//Dessiner les monstres
 				drawMonster(&monsterText, listMonsters);
 
-
+				if(isPlaying){
 					//Bouger le monstre
 					if(moveMonster(listMonsters, map->list_node->p_tail, k) == 2) {
 
@@ -391,6 +393,9 @@ int main(int argc, char** argv) {
 					}
 					i = 0;
 					k++;
+				}else{
+					drawShot(&shotText, listShots);
+				}
 			}
 		}
 
@@ -418,7 +423,7 @@ int main(int argc, char** argv) {
 					if(e.button.button == SDL_BUTTON_LEFT) {
 						if(nbMenu != 3) {
 							//test click menu principal
-							clickMenuPrincipal(e.button.x, e.button.y, &nbMenu, &nbtexture); 
+							clickMenuPrincipal(e.button.x, e.button.y, &nbMenu); 
 						}
 						else {
 
@@ -486,6 +491,12 @@ int main(int argc, char** argv) {
 
 				case SDL_KEYDOWN:
 			  		switch(e.key.keysym.sym){
+						case 'p' :
+							if(isPlaying == 0)
+								isPlaying = 1;
+							else
+								isPlaying = 0;
+							break;
 
 		    			case 'q' : 
 		    			case SDLK_ESCAPE : 
