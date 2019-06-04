@@ -21,7 +21,7 @@ int drawMap (GLuint*);
 //Dessin de l'aide
 int drawHelp (GLuint*, GLuint*, GLuint*, int);
 //Dessin le menu du haut
-int drawMenuUp (GLuint*, GLuint*);
+int drawMenuUp (GLuint*, GLuint*, int);
 //Dessin du menu de gauche
 int drawMenuLeft(GLuint*, GLuint*, Joueur*);
 //Dessiner l'interface (score, argent, vie, nb de monstre tués

@@ -463,7 +463,7 @@ int drawHelp (GLuint* texture, GLuint* spriteButton, GLuint* spriteButtonMenu, i
 /*********************** Dessiner le menu haut ***********************/
 /* Dessine le menu. Prend en paramètre la texture pour le menu et la variable play. Retourne 0 en cas d'erreur 1 sinon.	*/
 
-int drawMenuUp (GLuint* spriteButton, GLuint* fondMenuUp) {
+int drawMenuUp (GLuint* spriteButton, GLuint* fondMenuUp, int isPlaying) {
 
 	if(spriteButton != NULL) {
 
@@ -560,6 +560,77 @@ int drawMenuUp (GLuint* spriteButton, GLuint* fondMenuUp) {
 		glBindTexture(GL_TEXTURE_2D, 0);
 		//Désactive le texturage 2D
 		glDisable(GL_TEXTURE_2D);
+
+		if(isPlaying) {
+
+			/** Bouton pause **/
+
+			//Active le texturage 2D
+			glEnable(GL_TEXTURE_2D);
+			//appel de la texture
+			glBindTexture(GL_TEXTURE_2D, *spriteButton);
+
+				
+				glBegin(GL_QUADS);
+				//couleur neutre
+				glColor3ub(255,255,255);
+				//coordonée de la texture
+				glTexCoord2f(0.625, 1);
+				//Cordonnée du quadrilatère 
+				glVertex2f(720, 45);
+
+				glTexCoord2f(0.625, 0);
+				glVertex2f(720, 15);
+
+				glTexCoord2f(0.75, 0);
+				glVertex2f(690, 15);
+
+				glTexCoord2f(0.75, 1);
+				glVertex2f(690, 45);
+
+				glEnd();
+
+			//Déblinder la texture
+			glBindTexture(GL_TEXTURE_2D, 0);
+			//Désactive le texturage 2D
+			glDisable(GL_TEXTURE_2D);
+
+		}
+		else {
+
+			/** Bouton play **/
+
+			//Active le texturage 2D
+			glEnable(GL_TEXTURE_2D);
+			//appel de la texture
+			glBindTexture(GL_TEXTURE_2D, *spriteButton);
+
+				glBegin(GL_QUADS);
+				//couleur neutre
+				glColor3ub(255,255,255);
+				//coordonée de la texture
+				glTexCoord2f(0.625, 1);
+				//Cordonnée du quadrilatère 
+				glVertex2f(720, 45);
+
+				glTexCoord2f(0.625, 0);
+				glVertex2f(720, 15);
+
+				glTexCoord2f(0.5, 0);
+				glVertex2f(690, 15);
+
+				glTexCoord2f(0.5, 1);
+				glVertex2f(690, 45);
+
+				glEnd();
+
+			//Déblinder la texture
+			glBindTexture(GL_TEXTURE_2D, 0);
+			//Désactive le texturage 2D
+			glDisable(GL_TEXTURE_2D);
+
+		}
+
 
 	}
 	else {
@@ -2136,7 +2207,6 @@ int apparitionMonster(ListMonsters* p_lmonster, Joueur* joueur, Map* map, int* a
 					(*nb_monster)++;
 				else if(*nb_monster == 16) 
 					*nb_monster = 0;
-
 			}
 
 		}

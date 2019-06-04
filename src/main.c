@@ -233,7 +233,7 @@ int main(int argc, char** argv) {
 				//Dessin de la carte
 				drawMap(&texture);
 				//Dessin du menu du dessus
-				drawMenuUp(&Boutons, &fondHaut);
+				drawMenuUp(&Boutons, &fondHaut, isPlaying);
 				//Dessin du menu de gauche (les tours)
 				drawMenuLeft(&menu_tour, &fondMenu, joueur);
 				//Dessin de l'joueur (données du joueur)
@@ -462,6 +462,7 @@ int main(int argc, char** argv) {
 								clickInstallationDelete(listInstallations, installation, joueur, e.button.x, e.button.y, &propriete, listTowers);
 							}
 
+							isPlaying = clickPlay(e.button.x, e.button.y, isPlaying, &nb_monster, &j);
 							//Test click exit
 							loop = clickExit(listMonsters, listShots, listTowers, listInstallations, p_lfileTower, p_lfileInstallation, map, joueur, e.button.x, e.button.y, aide);
 							//Test click sur une tower

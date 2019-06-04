@@ -42,6 +42,48 @@ void clickMenuPrincipal(float x, float y, int* nbMenu) {
 
 }
 
+int clickPlay(float x, float y, int isPlaying, int* nbMonster, int* j) {
+	
+	if(*nbMonster > 10) {
+
+		//Si clique sur play
+		if(isPlaying) {
+			//Si clique sur pause	
+			if(x <= 720 && x >= 690 && y <= 45 && y >= 15)
+				return 0;
+		}
+		else {
+			if(x <= 720 && x >= 690 && y <= 45 && y >= 15) {
+				*nbMonster = 0;
+				*j = 0;
+				return 1;
+			}
+		}
+
+	}
+	else {
+
+		//si c'est play
+		if(isPlaying) {
+			//Si clique sur pause	
+			if(x <= 720 && x >= 690 && y <= 45 && y >= 15)
+				return 0;
+
+		}
+		//si c'est en pause
+		else if(isPlaying == 0) {
+
+			//Si clique sur play
+			if(x <= 720 && x >= 690 && y <= 45 && y >= 15) 
+				return 1;
+			else 
+				return 0;
+		}
+	}
+
+	return 1;
+}
+
 /*********************** Clique sur le menu : achat de tour ***********************/
 /* Achat d'une tour losqu'on clique sur le menu puis affiche la tour. 	*/
 
