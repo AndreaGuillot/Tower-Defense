@@ -156,7 +156,7 @@ int main(int argc, char** argv) {
 	int k = 0;
 	int propriete = 0;
 	int aide = 0;
-	int apparition = 130;
+	int apparition = 100;
 
 	//Pour afficher les propriétés
 	Tower* tower = NULL;
@@ -497,14 +497,15 @@ int main(int argc, char** argv) {
 
 				case SDL_KEYDOWN:
 			  		switch(e.key.keysym.sym){
-						case 'p' :
+						case SDLK_p :
+						case SDLK_SPACE: 
 							if(isPlaying == 0)
 								isPlaying = 1;
 							else
 								isPlaying = 0;
 							break;
 
-		    			case 'q' : 
+		    			case SDLK_q : 
 		    			case SDLK_ESCAPE : 
 						loop = 0;
 						freeAll(listMonsters, listShots, listTowers, listInstallations, p_lfileTower, p_lfileInstallation, map, joueur);

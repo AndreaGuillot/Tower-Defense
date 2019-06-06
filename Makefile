@@ -25,7 +25,7 @@ $(BIN):$(OBJ)
 	$(CC) -o $(BIN_PATH)/$(BIN) $(OBJ) $(LDFLAGS)
 	@echo "******* Compilation OK *******\n"
 	@echo "*******************************************************************\n"
-	@echo "Commandes :\n - Pour mettre en pause, taper sur p\n - Pour quitter, taper sur q ou echap"
+	@echo "Commandes :\n - Pour mettre en pause, taper sur p ou la barre espace\n - Pour quitter, taper sur q ou echap"
 	@echo "\n*******************************************************************\n"
 	@echo "*******************************************************************\n"
 	@echo "******* Pour ouvrir le fichier taper : ./$(BIN_PATH)/$(BIN) *******\n"

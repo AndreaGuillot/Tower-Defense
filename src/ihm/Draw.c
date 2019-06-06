@@ -2088,7 +2088,7 @@ int apparitionMonster(ListMonsters* p_lmonster, Joueur* joueur, Map* map, int* a
 					}
 					//Si le joueur est à un niveau entre 4 et 5
 					else if(joueur->lvl > 3 && joueur->lvl <= 5) {
-						(*apparition) = 100;
+						(*apparition) = 50;
 
 						//Random entre 1 et 3
 						random = rand()%(4-1) +1;
