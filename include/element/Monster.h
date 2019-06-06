@@ -20,8 +20,6 @@ typedef struct struct_monster {
 	*  3 = bas	*
 	*  4 = gauche	*/
 	int sens;
-	//un chiffre pour l'animation du monstre
-	int animation;
 
 	//Noeud précédent (carte)
 	Node* node_prev;

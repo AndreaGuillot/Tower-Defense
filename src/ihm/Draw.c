@@ -2095,7 +2095,7 @@ int apparitionMonster(ListMonsters* p_lmonster, Joueur* joueur, Map* map, int* a
 
 						if(random == 1)
 							//Ajoute un Julien
-							addMonster(p_lmonster, typeJ, pvMaxJ, resistanceYJ, resistanceCJ, resistanceJJ, resistanceOJ, paceJ, gainJ, map->list_node->p_head);
+							addMonster(p_lmonster, typeJ, pvMaxJ+20, resistanceYJ, resistanceCJ, resistanceJJ, resistanceOJ, paceJ, gainJ, map->list_node->p_head);
 						else if(random == 2)
 							//Ajoute une Barbara
 							addMonster(p_lmonster, typeB, pvMaxB, resistanceYB, resistanceCB, resistanceJB, resistanceOB, paceB, gainB, map->list_node->p_head);
@@ -2113,10 +2113,10 @@ int apparitionMonster(ListMonsters* p_lmonster, Joueur* joueur, Map* map, int* a
 
 						if(random == 1)
 							//Ajoute un Julien
-							addMonster(p_lmonster, typeJ, pvMaxJ, resistanceYJ, resistanceCJ, resistanceJJ, resistanceOJ, paceJ, gainJ, map->list_node->p_head);
+							addMonster(p_lmonster, typeJ, pvMaxJ+20, resistanceYJ, resistanceCJ, resistanceJJ, resistanceOJ, paceJ, gainJ, map->list_node->p_head);
 						else if(random == 2)
 							//Ajoute une Barbara
-							addMonster(p_lmonster, typeB, pvMaxB, resistanceYB, resistanceCB, resistanceJB, resistanceOB, paceB, gainB, map->list_node->p_head);
+							addMonster(p_lmonster, typeB, pvMaxB+20, resistanceYB, resistanceCB, resistanceJB, resistanceOB, paceB, gainB, map->list_node->p_head);
 						else
 							//Ajoute une Lucie
 							addMonster(p_lmonster, typeL, pvMaxL, resistanceYL, resistanceCL, resistanceJL, resistanceOL, paceL, gainL,  map->list_node->p_head);
@@ -2131,10 +2131,10 @@ int apparitionMonster(ListMonsters* p_lmonster, Joueur* joueur, Map* map, int* a
 
 						if(random == 1)
 							//Ajoute un Julien
-							addMonster(p_lmonster, typeJ, pvMaxJ, resistanceYJ, resistanceCJ, resistanceJJ, resistanceOJ, paceJ, gainJ, map->list_node->p_head);
+							addMonster(p_lmonster, typeJ, pvMaxJ+20, resistanceYJ, resistanceCJ, resistanceJJ, resistanceOJ, paceJ, gainJ, map->list_node->p_head);
 						else if(random == 2  || random == 4)
 							//Ajoute une Barbara
-							addMonster(p_lmonster, typeB, pvMaxB, resistanceYB, resistanceCB, resistanceJB, resistanceOB, paceB, gainB,  map->list_node->p_head);
+							addMonster(p_lmonster, typeB, pvMaxB+20, resistanceYB, resistanceCB, resistanceJB, resistanceOB, paceB, gainB,  map->list_node->p_head);
 						else
 							//Ajoute une Lucie
 							addMonster(p_lmonster, typeL, pvMaxL, resistanceYL, resistanceCL, resistanceJL, resistanceOL, paceL, gainL,  map->list_node->p_head);
@@ -2149,13 +2149,13 @@ int apparitionMonster(ListMonsters* p_lmonster, Joueur* joueur, Map* map, int* a
 
 						if(random == 1)
 							//Ajoute un Julien
-							addMonster(p_lmonster, typeJ, pvMaxJ, resistanceYJ, resistanceCJ, resistanceJJ, resistanceOJ, paceJ, gainJ, map->list_node->p_head);
+							addMonster(p_lmonster, typeJ, pvMaxJ+20, resistanceYJ, resistanceCJ, resistanceJJ, resistanceOJ, paceJ, gainJ, map->list_node->p_head);
 						else if(random == 2 || random == 4)
 							//Ajoute une Barbara
-							addMonster(p_lmonster, typeB, pvMaxB, resistanceYB, resistanceCB, resistanceJB, resistanceOB, paceB, gainB,  map->list_node->p_head);
+							addMonster(p_lmonster, typeB, pvMaxB+20, resistanceYB, resistanceCB, resistanceJB, resistanceOB, paceB, gainB,  map->list_node->p_head);
 						else
 							//Ajoute une Lucie
-							addMonster(p_lmonster, typeL, pvMaxL, resistanceYL, resistanceCL, resistanceJL, resistanceOL, paceL, gainL,  map->list_node->p_head);
+							addMonster(p_lmonster, typeL, pvMaxL+10, resistanceYL, resistanceCL, resistanceJL, resistanceOL, paceL, gainL,  map->list_node->p_head);
 
 					}
 					//Si le joueur est à un niveau suppérieur à 13 à 15
@@ -2167,13 +2167,13 @@ int apparitionMonster(ListMonsters* p_lmonster, Joueur* joueur, Map* map, int* a
 
 						if(random == 1)
 							//Ajoute un Julien
-							addMonster(p_lmonster, typeJ, pvMaxJ, resistanceYJ, resistanceCJ, resistanceJJ, resistanceOJ, paceJ, gainJ, map->list_node->p_head);
+							addMonster(p_lmonster, typeJ, pvMaxJ+20, resistanceYJ, resistanceCJ, resistanceJJ, resistanceOJ, paceJ, gainJ, map->list_node->p_head);
 						else if(random == 2 || random == 4)
 							//Ajoute une Barbara
-							addMonster(p_lmonster, typeB, pvMaxB, resistanceYB, resistanceCB, resistanceJB, resistanceOB, paceB, gainB,  map->list_node->p_head);
+							addMonster(p_lmonster, typeB, pvMaxB+20, resistanceYB, resistanceCB, resistanceJB, resistanceOB, paceB, gainB,  map->list_node->p_head);
 						else
 							//Ajoute une Lucie
-							addMonster(p_lmonster, typeL, pvMaxL, resistanceYL, resistanceCL, resistanceJL, resistanceOL, paceL, gainL,  map->list_node->p_head);
+							addMonster(p_lmonster, typeL, pvMaxL+10, resistanceYL, resistanceCL, resistanceJL, resistanceOL, paceL, gainL,  map->list_node->p_head);
 
 					}
 					//Si le joueur est à un niveau suppérieur à 13 à 15
@@ -2185,13 +2185,13 @@ int apparitionMonster(ListMonsters* p_lmonster, Joueur* joueur, Map* map, int* a
 
 						if(random == 1)
 							//Ajoute un Julien
-							addMonster(p_lmonster, typeJ, pvMaxJ, resistanceYJ, resistanceCJ, resistanceJJ, resistanceOJ, paceJ, gainJ, map->list_node->p_head);
+							addMonster(p_lmonster, typeJ, pvMaxJ+20, resistanceYJ, resistanceCJ, resistanceJJ, resistanceOJ, paceJ, gainJ, map->list_node->p_head);
 						else if(random == 2 || random == 4)
 							//Ajoute une Barbara
-							addMonster(p_lmonster, typeB, pvMaxB, resistanceYB, resistanceCB, resistanceJB, resistanceOB, paceB, gainB,  map->list_node->p_head);
+							addMonster(p_lmonster, typeB, pvMaxB+20, resistanceYB, resistanceCB, resistanceJB, resistanceOB, paceB, gainB,  map->list_node->p_head);
 						else
 							//Ajoute une Lucie
-							addMonster(p_lmonster, typeL, pvMaxL, resistanceYL, resistanceCL, resistanceJL, resistanceOL, paceL, gainL,  map->list_node->p_head);
+							addMonster(p_lmonster, typeL, pvMaxL+10, resistanceYL, resistanceCL, resistanceJL, resistanceOL, paceL, gainL,  map->list_node->p_head);
 
 					}
 					
