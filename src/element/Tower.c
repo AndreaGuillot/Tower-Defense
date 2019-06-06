@@ -9,8 +9,7 @@
 
 /************* Création d'une nouvelle liste de tours *************/
 /* Initialisation de la liste de tours et allocation de mémoire pour la liste de tours		*
-*  Retourne la liste de tours									*/
-
+ * Retourne la liste de tours																*/
 LTower* new_LTower(void) {
 	
 	//Alloue de la mémoire 
@@ -28,10 +27,9 @@ LTower* new_LTower(void) {
 }
 
 /************* Ajouter une tour en fin de liste *************/
-/* Ajoute une tour à la liste. Alloue la place mémoire pour la tour et attribue les valeurs	*
-*  Prend en paramètre la liste de tours, la puissance d'attaque, la vitesse d'attaque, le type 	*
-*  le périmétre d'action, le cout et la position. Retourne 0 en cas d'erreur et 1 sinon		*/
-
+/* Ajoute une tour à la liste. Alloue la place mémoire pour la tour et attribue les valeurs			*
+ * Prend en paramètre la liste de tours, la puissance d'attaque, la vitesse d'attaque, le type 	*
+ * le périmétre d'action, le cout et la position. Retourne 0 en cas d'erreur et 1 sinon			*/
 int addTower(LTower* p_ltower, int power, int rate, char* type_tower, int range, int cost, float x, float y) {
 
 	// On vérifie si notre liste a été allouée
@@ -97,9 +95,8 @@ int addTower(LTower* p_ltower, int power, int rate, char* type_tower, int range,
 
 /****************** Vérifier si la tour est sur un zone constructible ***********************/
 /* Vérifie si la tour est sur une zone constructible : Vérifie si les coordonnées de chaque 	*
-*  extremité fait partie de la liste de point. Prend en paramètre la liste de pixel et les deux	*
-*  extremités (deux points). Retourne 1 si c'est valide, sinon 0.		*/
-
+ * extremité fait partie de la liste de point. Prend en paramètre la liste de pixel et les deux	*
+ * extremités (deux points). Retourne 1 si c'est valide, sinon 0.								*/
 int verificationConstruct(LNode* l_node, Point2D point1, Point2D point2) {
 
 	if(l_node != NULL) {
@@ -154,8 +151,7 @@ int verificationConstruct(LNode* l_node, Point2D point1, Point2D point2) {
 
 /************* Supprimer une tour selon sa position *************/
 /* Supprime une tour selon sa position, vérifie si c'est le premier, le dernier ou une tour dans la liste puis la supprime 	*
-*  Prend en paramètre la liste de tours et la tour à supprimer et retourne la liste de tours.					*/
-
+ * Prend en paramètre la liste de tours et la tour à supprimer et retourne la liste de tours.								*/
 LTower* removeTower(LTower* p_ltower, Tower* p_courant) {
 
 	// On vérifie si notre liste a été allouée
@@ -216,7 +212,6 @@ LTower* removeTower(LTower* p_ltower, Tower* p_courant) {
 
 /************* Supprimer toutes les tours de la liste  *************/
 /* Supprime la liste de tours. Prend en paramètre un pointeur vers la liste de tours 	*/
-
 void removeAllTower (LTower* p_ltower) {
 	//Si la liste n'est pas vide
 	if (p_ltower->length != 0) {
@@ -231,7 +226,6 @@ void removeAllTower (LTower* p_ltower) {
 
 /************* Supprimer la liste de tours *************/
 /* Supprime la liste de tours. Prend en paramètre un pointeur vers la liste de tours 	*/
-
 void freeAllTower (LTower* p_ltower) {
 	//Si la liste n'est pas vide
 	if (p_ltower->length != 0) {

@@ -8,8 +8,7 @@
 
 /************* Création d'une nouvelle liste de noeuds *************/
 /* Initialisation de la liste de noeuds et allocation de mémoire pour la liste de noeuds	*
-*  Retourne la liste de noeuds									*/
-
+*  Retourne la liste de noeuds																*/
 LNode* new_LNode(void) {
 	
 	//Alloue de la mémoire 
@@ -24,9 +23,8 @@ LNode* new_LNode(void) {
 
 /************* Ajouter un noeud à la liste de noeuds *************/
 /* Ajoute un noeud à la liste. Alloue la place mémoire pour le noeuds et attribue les valeurs	*
-*  Vérifie si la liste est vide ou non pour attribuer les pointeurs. Prend en paramètre la 	*
-*  liste de noeud, les coordonées du noeud. Retourne 0 en cas d'erreur sinon retourne 1	*/
-
+*  Vérifie si la liste est vide ou non pour attribuer les pointeurs. Prend en paramètre la 		*
+*  liste de noeud, les coordonées du noeud. Retourne 0 en cas d'erreur sinon retourne 1			*/
 int addNode(LNode* p_lnode, float x, float y) {
 
 	// On vérifie si notre liste a été allouée
@@ -70,9 +68,8 @@ int addNode(LNode* p_lnode, float x, float y) {
 }
 
 /************* Supprimer un noeud selon sa position *************/
-/* Supprime un noeud selon sa position, supprime à partir du premier noeud 				*
+/* Supprime un noeud selon sa position, supprime à partir du premier noeud 							*
 *  Prend en paramètre la liste de noeuds et le noeud à supprimer et retourne la liste de noeuds.	*/
-
 LNode* removeNode(LNode* p_lnode, Node* p_courant) {
 
 	// On vérifie si notre liste a été allouée
@@ -105,7 +102,6 @@ LNode* removeNode(LNode* p_lnode, Node* p_courant) {
 
 /************* Supprimer la liste de noeuds *************/
 /* Supprime la liste de noeuds. Prend en paramètre un pointeur vers la liste de noeuds 	*/
-
 void freeAllNode (LNode* p_lnode) {
 	//Si la liste n'est pas vide
 	if (p_lnode->length != 0) {

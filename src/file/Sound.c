@@ -2,7 +2,7 @@
 
 
 void initSounds() {
-	 // Import Library 
+	// Import Library 
     if(Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 1024) == -1) { //Initialize API Mixer
         printf("%s", Mix_GetError());
    }

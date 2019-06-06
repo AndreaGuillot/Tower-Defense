@@ -8,10 +8,9 @@
 #include "geometry/Intersection.h"
 #include "ihm/Interface.h"
 
-/************* Création d'une nouvelle liste de tours *************/
-/* Initialisation de la liste de tours et allocation de mémoire pour la liste de tours		*
-*  Retourne la liste de tours									*/
-
+/************* Création d'une nouvelle liste d'installations *************/
+/* Initialisation de la liste d'installations et allocation de mémoire pour la liste d'installations	*
+ * Retourne la liste d'installations																	*/
 LInstallation* new_LInstallation(void) {
 	
 	//Alloue de la mémoire 
@@ -28,11 +27,10 @@ LInstallation* new_LInstallation(void) {
 	return p_linstallation;
 }
 
-/************* Ajouter une tour en fin de liste *************/
-/* Ajoute une tour à la liste. Alloue la place mémoire pour la tour et attribue les valeurs	*
-*  Prend en paramètre la liste de tours, la puissance d'attaque, la vitesse d'attaque, le type 	*
-*  le périmétre d'action, le cout et la position. Retourne 0 en cas d'erreur et 1 sinon		*/
-
+/************* Ajouter une installation en fin de liste *************/
+/* Ajoute une installation à la liste. Alloue la place mémoire pour l'installation et attribue les valeurs	*
+ * Prend en paramètre la liste d'installations, le type, le périmétre d'action, le cout et la position.		*
+ * Retourne 0 en cas d'erreur et 1 sinon																	*/
 int addInstallation(LInstallation* p_linstallation, char* type_installation, int range, int cost, float x, float y) {
 
 	// On vérifie si notre liste a été allouée
@@ -40,7 +38,7 @@ int addInstallation(LInstallation* p_linstallation, char* type_installation, int
 		//Création d'une nouvelle tour
 		Installation* new_installation = malloc(sizeof(Installation)); 
 		
-		// On vérifie si le malloc n'a pas échoué
+		//On vérifie si le malloc n'a pas échoué
 		if (new_installation !=  NULL) {
 
 			new_installation->range = range;
@@ -49,31 +47,31 @@ int addInstallation(LInstallation* p_linstallation, char* type_installation, int
 			new_installation->x = x;
 			new_installation->y = y;
 	
-			//Pointer vers la tour suivant à NULL car on rajoute à la fin de la liste	
+			//Pointeur vers la tour suivant à NULL car on rajoute à la fin de la liste	
 			new_installation->p_next = NULL; 
 
-			// Cas où notre liste est vide (pointeur vers fin de liste à  NULL)
+			//Cas où notre liste est vide (pointeur vers fin de liste à  NULL)
 			if (p_linstallation->p_tail == NULL) {
 
-				// Pointe la tête de la liste sur la nouvelle tour
+				//Pointe la tête de la liste sur la nouvelle tour
 				p_linstallation->p_head = new_installation; 
 
 				//Pointe p_prev de la nouvelle tour à NULL
 				new_installation->p_prev = NULL;
 			}
-			// Cas où des éléments sont déjà présents dans la  liste
+			//Cas où des éléments sont déjà présents dans la  liste
 			else {
-				// Pointe p_prev de la nouvelle tour sur la dernière tour de la liste
+				//Pointe p_prev de la nouvelle tour sur la dernière tour de la liste
 				new_installation->p_prev = p_linstallation->p_tail; 
 
-				// Relie la dernière tour de la liste à la nouvelle tour
+				//Relie la dernière tour de la liste à la nouvelle tour
 				p_linstallation->p_tail->p_next = new_installation;  
 			}
 
-			// Pointe la fin de la liste sur la nouvelle tour
+			//Pointe la fin de la liste sur la nouvelle tour
 			p_linstallation->p_tail = new_installation; 
 
-			// On augmente de 1 la taille de la liste
+			//On augmente de 1 la taille de la liste
 			p_linstallation->length++; 
 		}
 		else {
@@ -90,11 +88,10 @@ int addInstallation(LInstallation* p_linstallation, char* type_installation, int
 	return 1; 
 }
 
-/****************** Vérifier si la tour est sur un zone constructible ***********************/
-/* Vérifie si la tour est sur une zone constructible : Vérifie si les coordonnées de chaque 	*
-*  extremité fait partie de la liste de point. Prend en paramètre la liste de pixel et les deux	*
-*  extremités (deux points). Retourne 1 si c'est valide, sinon 0.		*/
-
+/****************** Vérifier si l'installation est sur un zone constructible ***********************/
+/* Vérifie si l'installation est sur une zone constructible : Vérifie si les coordonnées de chaque 	*
+ * extremité fait partie de la liste de point. Prend en paramètre la liste de pixel et les deux 	*
+ * extremités (deux points). Retourne 1 si c'est valide, sinon 0.									*/
 int verificationConstructInstallation(LNode* l_node, Point2D point1, Point2D point2) {
 
 	if(l_node != NULL) {
@@ -148,8 +145,8 @@ int verificationConstructInstallation(LNode* l_node, Point2D point1, Point2D poi
 }
 
 /****************** Faire bouger la tour ***********************/
-/* Fait bouger la tour en fonction des positions passé en paramètre. Passe en paramètre la liste de tours, 	*
-*  la tour que l'on souhaite bouger, la nouvelle position : x et y. Retourne 0 en cas d'erreur et & sinon	*/
+/* Fait bouger la tour en fonction des positions passées en paramètre. Passe en paramètre la liste de tours, 	*
+ * la tour que l'on souhaite bouger, la nouvelle position : x et y. Retourne 0 en cas d'erreur et & sinon		*/
 int moveTower(LTower* p_ltower, LInstallation* p_linstallation, Tower* p_courant, LNode* l_node, float x, float y) {
 
 	if(p_ltower != NULL && p_linstallation!=NULL) {
@@ -224,9 +221,9 @@ int moveTower(LTower* p_ltower, LInstallation* p_linstallation, Tower* p_courant
 
 }
 
-/****************** Faire bouger la tour ***********************/
-/* Fait bouger la tour en fonction des positions passé en paramètre. Passe en paramètre la liste de tours, 	*
-*  la tour que l'on souhaite bouger, la nouvelle position : x et y. Retourne 0 en cas d'erreur et & sinon	*/
+/****************** Faire bouger l'installation ***********************/
+/* Fait bouger l'installation en fonction des positions passées en paramètre. Passe en paramètre la liste d'installations, 	*
+ * l'installation que l'on souhaite bouger, la nouvelle position : x et y. Retourne 0 en cas d'erreur et & sinon			*/
 int moveInstallation(LInstallation* p_linstallation, LTower* p_ltower, Installation* p_courant, LNode* l_node, float x, float y) {
 
 	if(p_linstallation != NULL && p_ltower != NULL) {
@@ -304,10 +301,9 @@ int moveInstallation(LInstallation* p_linstallation, LTower* p_ltower, Installat
 
 }
 
-/************* Supprimer une tour selon sa position *************/
-/* Supprime une tour selon sa position, vérifie si c'est le premier, le dernier ou une tour dans la liste puis la supprime 	*
-*  Prend en paramètre la liste de tours et la tour à supprimer et retourne la liste de tours.					*/
-
+/************* Supprimer une installation selon sa position *************/
+/* Supprime une installation selon sa position, vérifie si c'est le premier, le dernier ou une installation dans la liste puis la supprime 	*
+ * Prend en paramètre la liste de tours et l'installation à supprimer et retourne la liste de tours.										*/
 LInstallation* removeInstallation(LInstallation* p_linstallation, Installation* p_courant, LTower* list_towers) {
 
 	// On vérifie si notre liste a été allouée
@@ -369,9 +365,8 @@ LInstallation* removeInstallation(LInstallation* p_linstallation, Installation* 
 	return p_linstallation; 
 }
 
-/************* Supprimer toutes les tours de la liste  *************/
-/* Supprime la liste de tours. Prend en paramètre un pointeur vers la liste de tours 	*/
-
+/************* Supprimer toutes les installations de la liste  *************/
+/* Supprime la liste des installations. Prend en paramètre un pointeur vers la liste d'installations 	*/
 void removeAllInstallation (LInstallation* p_linstallation) {
 	//Si la liste n'est pas vide
 	if (p_linstallation->length != 0) {
@@ -384,9 +379,8 @@ void removeAllInstallation (LInstallation* p_linstallation) {
 	}
 }
 
-/************* Supprimer la liste de tours *************/
-/* Supprime la liste de tours. Prend en paramètre un pointeur vers la liste de tours 	*/
-
+/************* Supprimer la liste d'installations *************/
+/* Supprime la liste d'installations. Prend en paramètre un pointeur vers la liste d'installations 	*/
 void freeAllInstallation (LInstallation* p_linstallation) {
 	//Si la liste n'est pas vide
 	if (p_linstallation->length != 0) {
@@ -400,7 +394,7 @@ void freeAllInstallation (LInstallation* p_linstallation) {
 	free(p_linstallation);
 }
 
-
+/************* Parcourt les listes *************/
 int reach (LInstallation* list_installation, LTower* list_towers, Installation* installation) {
 
 	if(list_installation != NULL) {
@@ -412,7 +406,7 @@ int reach (LInstallation* list_installation, LTower* list_towers, Installation* 
 					//Création d'un monstre temporaire pour parcourir la liste de monstres
 					Tower *tmp = list_towers->p_head;
 
-					//Parcours la liste de monstres
+					//Parcourt la liste de monstres
 					while(tmp != NULL){
 
 						Point2D point, point1, point2;
@@ -450,6 +444,7 @@ int reach (LInstallation* list_installation, LTower* list_towers, Installation* 
 
 }
 
+/************* Gèrent les effets des installations *************/
 int affects(Tower* tmp, Installation* installation){
 	if(tmp != NULL && installation != NULL){
 

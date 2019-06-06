@@ -4,8 +4,7 @@
 #include <stdlib.h>
 
 /************* STRUCTURE DU NOEUD *************/
-/* Liste chainée pour pouvoir naviger dans la liste de noeuds	*/
-
+/* Liste chainée pour pouvoir naviguer dans la liste de noeuds	*/
 typedef struct struct_node {
 
 	//Coordonée x du noeud
@@ -19,7 +18,7 @@ typedef struct struct_node {
 }Node;
 
 /************* STRUCTURE DE LA LISTE DE NOEUDS *************/
-/*Il a une taille avec une tete et une queue*/
+/* Il a une taille avec une tete et une queue */
 typedef struct struct_lnode {
 
 	//Taille de la liste
@@ -28,9 +27,11 @@ typedef struct struct_lnode {
 	//Pointeur
 	Node *p_head; //pointeur vers le premier element
 	Node *p_tail; //pointeur vers le dernier element
+
 }LNode;
 
-/************* Appel de fonction *************/
+
+/************* Prototypes des fonctions *************/
 //Initialisation de la liste de noeuds
 LNode* new_LNode(void);
 //Ajouter un noeud à la liste de noeuds

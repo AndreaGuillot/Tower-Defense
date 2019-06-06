@@ -12,8 +12,7 @@
 
 /************* Création d'une nouvelle liste de monstres *************/
 /* Initialisation de la liste de monstres et allocation de mémoire pour la liste de monstres	*
-*  Retourne le pointeur sur la liste de monstres						*/
-
+ * Retourne le pointeur sur la liste de monstres												*/
 ListMonsters* new_ListMonsters(void) {
 	
 	//Alloue de la mémoire 
@@ -32,11 +31,10 @@ ListMonsters* new_ListMonsters(void) {
 }
 
 /************* Ajouter un monstre en fin de liste *************/
-/* Ajoute un monstre à la liste. Alloue la place mémoire pour le monstre et attribue les valeurs	*
-*  Prend en paramètre la liste de monstres, le type de monstre, les points de vie, la résistance	*
-*  un type de tour et la vitesse de déplacement, les points gagnés et le gain d'argent si le monstre	*
-*  est tué. Retourne 0 en cas d'erreur et 1 sinon.							*/
-
+/* Ajoute un monstre à la liste. Alloue la place mémoire pour le monstre et attribue les valeurs		*
+ * Prend en paramètre la liste de monstres, le type de monstre, les points de vie, la résistance		*
+ * un type de tour et la vitesse de déplacement, les points gagnés et le gain d'argent si le monstre	*
+ * est tué. Retourne 0 en cas d'erreur et 1 sinon.														*/
 int addMonster(ListMonsters* list_monster, char* type, int pvMax, float resistanceY, float resistanceC, float resistanceJ, float resistanceO, int pace, int gain, Node* p_head) {
 
 	// On vérifie si notre liste a été allouée
@@ -109,8 +107,7 @@ int addMonster(ListMonsters* list_monster, char* type, int pvMax, float resistan
 
 /************* Deplacer les monstres *************/
 /* Deplace les monstre : Vérifie s'il se déplace à l'horizontal, vertical ou autrement puis le déplace. Prend en paramètre la liste de	*
-*  monstres et et le dernier noeud de la carte.	Retourne 0 en cas d'erreur et 1 sinon et 2 s'il est arrivé à la fin. 			*/
-
+ * monstres et et le dernier noeud de la carte.	Retourne 0 en cas d'erreur et 1 sinon et 2 s'il est arrivé à la fin. 					*/
 int moveMonster(ListMonsters* p_lmonster, Node* p_tail, int k){
 
 	// On vérifie si notre liste a été allouée
@@ -291,7 +288,7 @@ int moveMonster(ListMonsters* p_lmonster, Node* p_tail, int k){
 
 /************* Calcule de l'erreur en fonction du noeud précédent et du noeud suivant ******************/
 /* Calcule de l'erreur de déplacement en fonction du noeud précédent et du noeud suivant.	*
-*  Prend en paramètre un pointeur vers un monstre. Ne retourne rien 				*/
+ * Prend en paramètre un pointeur vers un monstre. Ne retourne rien 						*/
 void calculErreur(Monster* monster) {
 
 	if(monster->node_prev != NULL && monster->node_next != NULL) {
@@ -373,8 +370,7 @@ void calculErreur(Monster* monster) {
 
 /************* Supprimer un monstre selon sa position *************/
 /* Supprime un monstre selon sa position, vérifie si c'est le premier, le dernier ou un monstre dans la liste puis le supprime	 	*
-*  Prend en paramètre la liste de monstres et le monstre à supprimer et retourne la liste de monstres.					*/
-
+ * Prend en paramètre la liste de monstres et le monstre à supprimer et retourne la liste de monstres.								*/
 ListMonsters* removeMonster(ListMonsters* p_lmonster, Monster* p_courant) {
 
 	// On vérifie si notre liste a été allouée
@@ -442,8 +438,7 @@ ListMonsters* removeMonster(ListMonsters* p_lmonster, Monster* p_courant) {
 }
 
 /************* Supprimer tous les monstres de la liste *************/
-/* Supprime la liste de monstre et les monstre. Prend en paramètre la liste de monstre.	 	*/
-
+/* Supprime la liste de monstre et les monstre. Prend en paramètre la liste de monstre.	*/
 void removeAllMonsters (ListMonsters* p_lmonster) {
 	//Si la liste n'est pas vide
 	if (p_lmonster->length != 0) {
@@ -457,8 +452,7 @@ void removeAllMonsters (ListMonsters* p_lmonster) {
 }
 
 /************* Supprimer la liste de monstres *************/
-/* Supprime la liste de monstre et les monstre. Prend en paramètre la liste de monstre.	 	*/
-
+/* Supprime la liste de monstre et les monstre. Prend en paramètre la liste de monstre.	*/
 void freeAllMonsters (ListMonsters* p_lmonster) {
 	//Si la liste n'est pas vide
 	if (p_lmonster->length != 0) {
@@ -471,4 +465,3 @@ void freeAllMonsters (ListMonsters* p_lmonster) {
 	}
 	free(p_lmonster);
 }
-

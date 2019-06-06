@@ -6,7 +6,7 @@
 
 /************* Initialisation de la liste de tour (file) *************/
 /* Alloue de la mémoire pour la liste puis vérifie le fichier à l'aide de la fonction loadInfoTour	*
-*  Prend en paramère le chemin vers le fichier. Retourne le pointeur vers la liste.				*/
+ * Prend en paramère le chemin vers le fichier. Retourne le pointeur vers la liste.					*/
 LFileTower* newFileTower () {
 
 
@@ -35,12 +35,7 @@ LFileTower* newFileTower () {
 	
 }
 
-/************* Vérification du fichier *************/
-/* Vérifie si le fichier est valide : Présence du bon code (@ITD 2) sur la première ligne 		*
-*  Présence de chacun de paramètres et de leurs valeurs, vérifie si ces dernières sont correctes	*
-*  Prend en paramètre un pointeur vers une la liste et le chemin vers le fichier ITD.			*
-*  Retourne 0 en cas d'erreur sinon retourne 1								*/
-
+/************* Charger propriétés *************/
 int loadInfoTour(LFileTower* p_lfileTower) {
 
 	if(p_lfileTower != NULL) {
@@ -111,10 +106,9 @@ int loadInfoTour(LFileTower* p_lfileTower) {
 }
 
 /************* Ajouter une tour en fin de liste tour (file) *************/
-/* Ajoute une tour à la liste. Alloue la place mémoire pour la tour et attribue les valeurs	*
-*  Prend en paramètre la liste de tours, la puissance d'attaque, la vitesse d'attaque, le type 	*
-*  le périmétre d'action et le cout. Retourne 0 en cas d'erreur et 1 sinon			*/
-
+/* Ajoute une tour à la liste. Alloue la place mémoire pour la tour et attribue les valeurs		*
+ * Prend en paramètre la liste de tours, la puissance d'attaque, la vitesse d'attaque, le type 	*
+ * le périmétre d'action et le cout. Retourne 0 en cas d'erreur et 1 sinon						*/
 int addFileTower(LFileTower* p_lfileTower, int power, int rate, char* type_tower, int range, int cost) {
 
 	// On vérifie si notre liste a été allouée
@@ -174,8 +168,7 @@ int addFileTower(LFileTower* p_lfileTower, int power, int rate, char* type_tower
 
 /************* Supprimer une tour selon sa position *************/
 /* Supprime une tour selon sa position, vérifie si c'est le premier, le dernier ou une tour dans la liste puis la supprime 	*
-*  Prend en paramètre la liste de tours et la tour à supprimer et retourne la liste de tours.					*/
-
+*  Prend en paramètre la liste de tours et la tour à supprimer et retourne la liste de tours.								*/
 LFileTower* removeFileTower(LFileTower* p_lfileTower, FileTower* p_courant) {
 
 	// On vérifie si notre liste a été allouée
@@ -236,8 +229,7 @@ LFileTower* removeFileTower(LFileTower* p_lfileTower, FileTower* p_courant) {
 
 
 /************* Supprimer la liste de fileTower *************/
-/* Supprime la liste de missiles. Prend en paramètre un pointeur vers la liste de missiles 	*/
-
+/* Supprime la liste de tours. Prend en paramètre un pointeur vers la liste de tours */
 void freeAllFileTower (LFileTower* p_lfileTower) {
 	//Si la liste n'est pas vide
 	if (p_lfileTower->length != 0) {

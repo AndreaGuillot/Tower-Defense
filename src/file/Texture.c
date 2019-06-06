@@ -12,8 +12,7 @@
 /************* Chargement de la texture de la map *************/
 /* Charge l'image, attribut l'image à la texture, change les couleurs de la map (fonction ChangeColor)	*
 *  Prend en paramètre un pointeur vers la carte, un pointeur vers la texture, et un pointeur vers la 	*
-*  surface SDLRetourne 1 si la carte et charger.*/
-
+*  surface SDLRetourne 1 si la carte et charger.														*/
 int loadMapTexture(Map* map, GLuint* texture, SDL_Surface* image) {
 
 	image = IMG_Load(map->img->path);
@@ -59,9 +58,8 @@ int loadMapTexture(Map* map, GLuint* texture, SDL_Surface* image) {
 }
 
 /************* Chargement de textures *************/
-/* Charge l'image, attribut l'image à la texture. Prend en paramètre un pointeur vers la carte, 	*
+/* Charge l'image, attribut l'image à la texture. Prend en paramètre un pointeur vers la carte, 		*
 *  un pointeur vers la texture, et un pointeur vers la surface SDLRetourne 1 si la carte et charger.	*/
-
 int loadTexture(char* fileName, GLuint* texture, SDL_Surface* img) {
 	
 	img = IMG_Load(fileName);
@@ -103,7 +101,7 @@ int loadTexture(char* fileName, GLuint* texture, SDL_Surface* img) {
 
 /************* Supprimer une texture *************/
 /* Supprime une texture. Prend en paramètre un pointeur vers la texture et un pointeur vers une  	*
-*  surface SDL.												*/
+*  surface SDL.																						*/
 
 void freeTexture(GLuint* texture, SDL_Surface* img) {
 	SDL_FreeSurface(img);

@@ -4,21 +4,20 @@
 #include "ihm/Node.h"
 
 /************* STRUCTURE DU MONSTRE *************/
-/* Liste doublement chainée pour pouvoir naviger dans la liste de monstres	*
-*  et récupérer facile n'importe quel monstre dans la liste 			*/
-
+/* Liste doublement chainée pour pouvoir naviguer dans la liste de monstres	*
+ * et récupérer facilement n'importe quel monstre dans la liste 			*/
 typedef struct struct_monster {
 
-	//position du monstre
+	//Position du monstre
 	float x;
 	float y;
 	float e; //erreur : calcul dans le cas où il n'avance pas tout droit
 
-	//nombre pour savoir dans quelle sens il avance pour les sprites
-	/* 1 = haut 	*
-	*  2 = droite 	*
-	*  3 = bas	*
-	*  4 = gauche	*/
+	//Nombre pour savoir dans quelle sens il avance pour les sprites
+	/*  1 = haut 	*
+	 *  2 = droite 	*
+	 *  3 = bas		*
+	 *  4 = gauche	*/
 	int sens;
 
 	//Noeud précédent (carte)
@@ -27,14 +26,14 @@ typedef struct struct_monster {
 	//Noeud suivant (carte)
 	Node* node_next;
 
-	//type de monstre
+	//Type de monstre
 	char* type;
 
-	//point de vie
+	//Point de vie
 	int pv;
 	int pvMax;
 
-	//résistance
+	//Résistance
 	float resistanceY;
 	float resistanceC;
 	float resistanceJ;
@@ -43,10 +42,10 @@ typedef struct struct_monster {
 	//Le gain (monnaie)
 	int gain;
 
-	//vitesse de déplacement
+	//Vitesse de déplacement
 	int pace;
 
-	//Pointer vers l'élément précédent
+	//Pointeur vers l'élément précédent
 	struct struct_monster* p_prev;
 
 	//Pointeur vers l'élément suivant
@@ -66,8 +65,9 @@ typedef struct struct_lmonster {
 
 }ListMonsters;
 
+
 /************* Prototypes des fonctions *************/
-//Initialisation de la liste de monstre
+//Initialisation de la liste de monstres
 ListMonsters* new_ListMonsters(void);
 //Ajouter un monstre en fin de liste
 int addMonster(ListMonsters* , char* , int , float, float, float, float, int, int, Node*);

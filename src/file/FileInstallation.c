@@ -4,9 +4,9 @@
 
 #include "file/FileInstallation.h"
 
-/************* Initialisation de la liste de tour (file) *************/
+/************* Initialisation de la liste d'installations (file) *************/
 /* Alloue de la mémoire pour la liste puis vérifie le fichier à l'aide de la fonction verificationFileInstallation	*
-*  Prend en paramère le chemin vers le fichier. Retourne le pointeur vers la liste.				*/
+ * Prend en paramère le chemin vers le fichier. Retourne le pointeur vers la liste.									*/
 LFileInstallation* newFileInstallation () {
 
 		//Alloue la memoire
@@ -33,12 +33,7 @@ LFileInstallation* newFileInstallation () {
 	
 }
 
-/************* Vérification du fichier *************/
-/* Vérifie si le fichier est valide : Présence du bon code (@ITD 2) sur la première ligne 		*
-*  Présence de chacun de paramètres et de leurs valeurs, vérifie si ces dernières sont correctes	*
-*  Prend en paramètre un pointeur vers une la liste et le chemin vers le fichier ITD.			*
-*  Retourne 0 en cas d'erreur sinon retourne 1								*/
-
+/************* Charge les informations des installations *************/
 int loadInfoInstallation(LFileInstallation* p_lfileInstallation) {
 
 	if(p_lfileInstallation != NULL) {
@@ -89,16 +84,15 @@ int loadInfoInstallation(LFileInstallation* p_lfileInstallation) {
 	return 1;
 }
 
-/************* Ajouter une tour en fin de liste tour (file) *************/
-/* Ajoute une tour à la liste. Alloue la place mémoire pour la tour et attribue les valeurs	*
-*  Prend en paramètre la liste de tours, la puissance d'attaque, la vitesse d'attaque, le type 	*
-*  le périmétre d'action et le cout. Retourne 0 en cas d'erreur et 1 sinon			*/
-
+/************* Ajouter une installation en fin de liste installation (file) *************/
+/* Ajoute une installation à la liste. Alloue la place mémoire pour l'installation et attribue les valeurs	*
+ * Prend en paramètre la liste d'installation, le type, le périmétre d'action et le cout. 					*
+ * Retourne 0 en cas d'erreur et 1 sinon																	*/
 int addFileInstallation(LFileInstallation* p_lfileInstallation, char* type_installation, int range, int cost) {
 
 	// On vérifie si notre liste a été allouée
 	if (p_lfileInstallation != NULL) {
-		//Création d'une nouvelle tour
+		//Création d'une nouvelle installation
 		FileInstallation* new_fileInstallation = malloc(sizeof(FileInstallation)); 
 		
 		// On vérifie si le malloc n'a pas échoué
@@ -108,28 +102,28 @@ int addFileInstallation(LFileInstallation* p_lfileInstallation, char* type_insta
 			new_fileInstallation->cost = cost;
 			new_fileInstallation->range = range;
 
-			//Pointer vers la tour suivant à NULL car on rajoute à la fin de la liste	
+			//Pointer vers l'installation suivant à NULL car on rajoute à la fin de la liste	
 			new_fileInstallation->p_next = NULL; 
 
 			// Cas où notre liste est vide (pointeur vers fin de liste à  NULL)
 			if (p_lfileInstallation->p_tail == NULL) {
 
-				// Pointe la tête de la liste sur la nouvelle tour
+				// Pointe la tête de la liste sur la nouvelle installation
 				p_lfileInstallation->p_head = new_fileInstallation; 
 
-				//Pointe p_prev de la nouvelle tour à NULL
+				//Pointe p_prev de la nouvelle installation à NULL
 				new_fileInstallation->p_prev = NULL;
 			}
 			// Cas où des éléments sont déjà présents dans la  liste
 			else {
-				// Pointe p_prev de la nouvelle tour sur la dernière tour de la liste
+				// Pointe p_prev de la nouvelle installation sur la dernière installation de la liste
 				new_fileInstallation->p_prev = p_lfileInstallation->p_tail; 
 
-				// Relie la dernière tour de la liste à la nouvelle tour
+				// Relie la dernière installation de la liste à la nouvelle installation
 				p_lfileInstallation->p_tail->p_next = new_fileInstallation;  
 			}
 
-			// Pointe la fin de la liste sur la nouvelle tour
+			// Pointe la fin de la liste sur la nouvelle installation
 			p_lfileInstallation->p_tail = new_fileInstallation; 
 
 			// On augmente de 1 la taille de la liste
@@ -149,10 +143,9 @@ int addFileInstallation(LFileInstallation* p_lfileInstallation, char* type_insta
 	return 1; 
 }
 
-/************* Supprimer une tour selon sa position *************/
-/* Supprime une tour selon sa position, vérifie si c'est le premier, le dernier ou une tour dans la liste puis la supprime 	*
-*  Prend en paramètre la liste de tours et la tour à supprimer et retourne la liste de tours.					*/
-
+/************* Supprimer une installation selon sa position *************/
+/* Supprime une installation selon sa position, vérifie si c'est le premier, le dernier ou une installation dans la liste puis la supprime 	*
+ * Prend en paramètre la liste d'installation et l'installation à supprimer et retourne la liste d'installations. 							*/
 LFileInstallation* removeFileInstallation(LFileInstallation* p_lfileInstallation, FileInstallation* p_courant) {
 
 	// On vérifie si notre liste a été allouée
@@ -160,14 +153,14 @@ LFileInstallation* removeFileInstallation(LFileInstallation* p_lfileInstallation
 
 		if(p_courant != NULL) {
 
-			//Si c'est la dernière tour de la liste
+			//Si c'est la dernière installation de la liste
 			if (p_courant->p_next == NULL) {
 				
-				//Pointe la fin de la liste sur la tour précédente
+				//Pointe la fin de la liste sur la installation précédente
 				p_lfileInstallation->p_tail = p_courant->p_prev;
 
 				if(p_lfileInstallation->p_tail != NULL) {
-					//Lien de la dernière tour vers la tour suivante est NULL
+					//Lien de la dernière installation vers l'installation suivante est NULL
 					p_lfileInstallation->p_tail->p_next = NULL;
 				}
 				else
@@ -177,11 +170,11 @@ LFileInstallation* removeFileInstallation(LFileInstallation* p_lfileInstallation
 		
 			//Si c'est la première de la liste
 			else if (p_courant->p_prev == NULL) {
-				//Pointe la tête de la liste vers la tour suivante
+				//Pointe la tête de la liste vers l'installation suivante
 				p_lfileInstallation->p_head = p_courant->p_next;
 
 				if(p_lfileInstallation->p_head != NULL) {
-					//Le lien vers de la deuxième tour vers la tour précédente est NULL
+					//Le lien vers de la deuxième installation vers l'installation précédente est NULL
 			 		p_lfileInstallation->p_head->p_prev = NULL;
 				}
 				else
@@ -189,13 +182,13 @@ LFileInstallation* removeFileInstallation(LFileInstallation* p_lfileInstallation
 			}
 
 			else {
-				//Relie la tour suivante à la tour précédente de la tour que l'on veut supprmer 
+				//Relie l'installation suivante à l'installation précédente de l'installation que l'on veut supprimer 
 				p_courant->p_next->p_prev = p_courant->p_prev;
-				//Relie la tour précédente à la tour suivante de la tour que l'on veut supprmer 
+				//Relie l'installation précédente à l'installation suivante de l'installation que l'on veut supprimer 
 				p_courant->p_prev->p_next = p_courant->p_next;
 
 			}
-			//Libère espace mémoire : supprime la tour
+			//Libère espace mémoire : supprime l'installation
 			free(p_courant);
 			//Décrémente de un la taille de la liste
 			p_lfileInstallation->length--;
@@ -213,8 +206,7 @@ LFileInstallation* removeFileInstallation(LFileInstallation* p_lfileInstallation
 
 
 /************* Supprimer la liste de fileInstallation *************/
-/* Supprime la liste de missiles. Prend en paramètre un pointeur vers la liste de missiles 	*/
-
+/* Supprime la liste d'installations. Prend en paramètre un pointeur vers la liste d'installations 	*/
 void freeAllFileInstallation (LFileInstallation* p_lfileInstallation) {
 	//Si la liste n'est pas vide
 	if (p_lfileInstallation->length != 0) {

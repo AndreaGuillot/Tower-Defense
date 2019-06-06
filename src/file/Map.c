@@ -10,7 +10,7 @@
 
 /************* Initialisation de la carte *************/
 /* Alloue de la mémoire pour la carte puis vérifie la carte à l'aide de la fonction verifarificationMap	*
-*  Prend en paramère le chemin vers la carte. Retourne le pointeur vers la map.				*/
+*  Prend en paramère le chemin vers la carte. Retourne le pointeur vers la map.							*/
 Map* newMap (char* path) {
 
 	if(path != NULL) {
@@ -42,12 +42,11 @@ Map* newMap (char* path) {
 }
 
 /************* Vérification de la carte *************/
-/* Vérifie si la carte est valide : Présence du bon commentaire (@ITD 1) sur la première ligne 		*
-*  Présence de chacun de 8 paramètres et de leurs valeurs, vérifie si ces dernières sont correctes	*
+/* Vérifie si la carte est valide : Présence du bon commentaire (@ITD 1) sur la première ligne 			*
+*  Présence de chacun de 8 paramètres et de leurs valeurs, vérifie si ces dernières sont correctes		*
 *  nombre de noeud correspondant au nombre de lignes restantes. Vérifie que les noeuds sont bien dans   *
 *  un pixel de l'image. Prend en paramètre un pointeur vers une map et le chemin vers le fichier ITD.	*
-*  Retourne 0 en cas d'erreur sinon retourne 1								*/
-
+*  Retourne 0 en cas d'erreur sinon retourne 1															*/
 int verificationMap(Map* map, char* nameITD){ 
 
 	FILE* itd = NULL;
@@ -354,15 +353,15 @@ map->list_pixels = list_pixels;
 
 /************* Change la couleur du chemin, des zones constructibles, des noeuds, de l'entrée et de la sortie *************/
 /* Change la couleur du chemin, des zones constructibles, des noeuds, de l'entrée et de la sortie de la map : 	*
-*  Appelle les différentes fonctions qui permettent le changement de couleurs : 				*
-*  -  changeColorRoad : change la couleur du chemin							 	*
-*  -  changeColorConstruct : change la couleur des zones constructibles						*
-*  -  changeColorNode : change la couleur des noeuds							 	*
-*  -  changeColorIn : change la couleur de l'entrée							 	*
-*  -  changeColorOut : change la couleur de la sortie							 	*
+*  Appelle les différentes fonctions qui permettent le changement de couleurs : 								*
+*  -  changeColorRoad : change la couleur du chemin							 									*
+*  -  changeColorConstruct : change la couleur des zones constructibles											*
+*  -  changeColorNode : change la couleur des noeuds														 	*
+*  -  changeColorIn : change la couleur de l'entrée							 									*
+*  -  changeColorOut : change la couleur de la sortie														 	*
 *  Prend en paramètre l'image pour connaitre la taille de cette dernière, le tableau de pixel et la map pour	*
-*  savoir en quelle couleur il faut changer pour les différents élements. Retourne 0 en cas d'erreur sinon 	*
-*  retourne 1													*/
+*  savoir en quelle couleur il faut changer pour les différents élements. Retourne 0 en cas d'erreur sinon 		*
+*  Retourne 1																									*/
 int ChangeColor(Image* img, unsigned char* tabPixels, Map* map) {
 
 	changeColorRoad(img, tabPixels, map);
@@ -378,8 +377,7 @@ int ChangeColor(Image* img, unsigned char* tabPixels, Map* map) {
 /* Change la couleur du chemin : parcours le tableau de pixel et vérifie la couleur. SI c'est du rose 	*
 *  alors change la couleur en la couleur définie dans le fichier IDT. Prend en paramètre l'image pour	*
 *  connaitre la taille de cette dernière, le tableau de pixel et la map pour savoir en quelle couleur	*
-*  il faut changer pour le chemin. Retourne 0 en cas d'erreur sinon retourne 1				*/
-							
+*  il faut changer pour le chemin. Retourne 0 en cas d'erreur sinon retourne 1							*/						
 int changeColorRoad(Image* img, unsigned char* tabPixels, Map* map) {
 
 	int i, j;
@@ -411,8 +409,7 @@ int changeColorRoad(Image* img, unsigned char* tabPixels, Map* map) {
 *  connaitre la taille de cette dernière, le tableau de pixel et la map pour savoir en quelle couleur	*
 *  Il faut changer pour les zones constructibles. Il prend également les coordonnées de chaque pixel 	*
 *  bleu et les ajoute dans la liste des pixels des zones constructibles de la map. Retourne 0 en cas 	*
-*  d'erreur sinon retourne 1										*/
-							
+*  d'erreur sinon retourne 1																			*/	
 int changeColorConstruct(Image* img, unsigned char* tabPixels, Map* map) {
 
 	int i, j;
@@ -453,8 +450,7 @@ int changeColorConstruct(Image* img, unsigned char* tabPixels, Map* map) {
 /* Change la couleur du chemin : parcours le tableau de pixel et vérifie la couleur. SI c'est du bleu 	*
 *  alors change la couleur en la couleur définie dans le fichier IDT. Prend en paramètre l'image pour	*
 *  connaitre la taille de cette dernière, le tableau de pixel et la map pour savoir en quelle couleur	*
-*  Il faut changer pour des noeuds. Retourne 0 en cas d'erreur sinon retourne 1				*/
-							
+*  Il faut changer pour des noeuds. Retourne 0 en cas d'erreur sinon retourne 1							*/		
 int changeColorNode(Image* img, unsigned char* tabPixels, Map* map) {
 
 	int i, j;
@@ -484,8 +480,7 @@ int changeColorNode(Image* img, unsigned char* tabPixels, Map* map) {
 /* Change la couleur du chemin : parcours le tableau de pixel et vérifie la couleur. Si c'est du jaune 	*
 *  alors change la couleur en la couleur définie dans le fichier IDT. Prend en paramètre l'image pour	*
 *  connaitre la taille de cette dernière, le tableau de pixel et la map pour savoir en quelle couleur	*
-*  Il faut changer pour l'entrée. Retourne 0 en cas d'erreur sinon retourne 1				*/
-							
+*  Il faut changer pour l'entrée. Retourne 0 en cas d'erreur sinon retourne 1							*/
 int changeColorIn(Image* img, unsigned char* tabPixels, Map* map) {
 
 	int i, j;
@@ -515,8 +510,7 @@ int changeColorIn(Image* img, unsigned char* tabPixels, Map* map) {
 /* Change la couleur du chemin : parcours le tableau de pixel et vérifie la couleur. Si c'est du rouge 	*
 *  alors change la couleur en la couleur définie dans le fichier IDT. Prend en paramètre l'image pour	*
 *  connaitre la taille de cette dernière, le tableau de pixel et la map pour savoir en quelle couleur	*
-*  Il faut changer pour la sortie. Retourne 0 en cas d'erreur sinon retourne 1				*/
-							
+*  Il faut changer pour la sortie. Retourne 0 en cas d'erreur sinon retourne 1							*/
 int changeColorOut(Image* img, unsigned char* tabPixels, Map* map) {
 
 	int i, j;
@@ -544,7 +538,6 @@ int changeColorOut(Image* img, unsigned char* tabPixels, Map* map) {
 
 /************* Supprimer l'interface  ***********/
 /* Supprime l'interface. Prend en paramètre un pointeur vers la map  	*/
-
 void freeMap (Map* map) {
 	//Si la map existe
 	if (map != NULL) {

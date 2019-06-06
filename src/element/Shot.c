@@ -9,9 +9,8 @@
 #include "ihm/Interface.h"
 
 /************* Création d'une nouvelle liste de missiles *************/
-/* Initialisation de la liste de missiles et allocation de mémoire pour la liste de missiles		*
-*  Retourne la liste de missiles									*/
-
+/* Initialisation de la liste de missiles et allocation de mémoire pour la liste de missiles	*
+ * Retourne la liste de missiles																*/
 LShot* new_LShot(void) {
 	
 	//Alloue de la mémoire 
@@ -31,9 +30,8 @@ LShot* new_LShot(void) {
 
 /************* Ajouter un missile en fin de liste *************/
 /* Ajoute un missile à la liste. Alloue la place mémoire pour le missile et attribue les valeurs	*
-*  Prend en paramètre la liste de missiles, le monstre visé, la tour qui envoie le missile. 		*
-*  Retourne 0 en cas d'erreur et 1 sinon								*/
-
+ * Prend en paramètre la liste de missiles, le monstre visé, la tour qui envoie le missile. 		*
+ * Retourne 0 en cas d'erreur et 1 sinon															*/
 int addShot(LShot* list_shot, Monster* target, Tower* tower) {
 
 	// On vérifie si notre liste a été allouée
@@ -109,12 +107,11 @@ int addShot(LShot* list_shot, Monster* target, Tower* tower) {
 }
 
 /************* Vérification si un monstre entre dans le périmètre d'action de la tour *************/
-/* Vérifie si un monstre entre dans le périmètre d'action => vérifie l'équation :		*
-*  (x - x1)² + (y - y1)² <= R² avec (x1, y1) pour centre du cercle et R son rayon	 	*
-*  x et y sont les coordonées des 4 points du quadrilatère qui contient le monstre.		*
-*  Prend en paramètre la liste de shot, la liste de monstre, la tour. Retourne 0 s'il n'y a 	*
-*  pas d'intersection, ou en cas d'erreur et retourne 1 sinon					*/
-
+/* Vérifie si un monstre entre dans le périmètre d'action => vérifie l'équation :				*
+ * (x - x1)² + (y - y1)² <= R² avec (x1, y1) pour centre du cercle et R son rayon	 			*
+ * x et y sont les coordonées des 4 points du quadrilatère qui contient le monstre.				*
+ * Prend en paramètre la liste de shot, la liste de monstre, la tour. Retourne 0 s'il n'y a 	*
+ * pas d'intersection, ou en cas d'erreur et retourne 1 sinon									*/
 int inSight (LShot* list_shot, ListMonsters* list_monster, Tower* tower) {
 
 	if(list_shot != NULL) {
@@ -225,8 +222,7 @@ int inSight (LShot* list_shot, ListMonsters* list_monster, Tower* tower) {
 
 /************* Bouger les missiles en direction de l'ennemi *************/
 /* Change la position des missiles pour qu'ils bouge vers l'ennemi. Prend en paramètre la liste de  	*
-*  missiles. Retourne 0 en cas d'erreur et 1 sinon.						 	*/
-
+ * missiles. Retourne 0 en cas d'erreur et 1 sinon.													 	*/
 int moveShot(LShot* list_shot) {
 
 	//Vérifie que la liste est allouée
@@ -278,9 +274,8 @@ int moveShot(LShot* list_shot) {
 
 /************* Collision entre le missile et l'ennemie *************/
 /* Vérifie si le missile entre en collision avec le missile. Si oui supprime le missile et   	*
-*  déduit les points de vie du monstre. Prend en paramètre la liste de monstre et le monstre.   *
-*  Retourne 0 en cas d'erreur et 1 sinon.							*/
-
+ * déduit les points de vie du monstre. Prend en paramètre la liste de monstre et le monstre.   *
+ * Retourne 0 en cas d'erreur et 1 sinon.														*/
 int collisionMissile(LShot* list_shot, ListMonsters* list_monster, Joueur* joueur, Monster* monster, int* propriete) {
 
 	//On vérifie si notre liste a été allouée
@@ -394,8 +389,7 @@ int collisionMissile(LShot* list_shot, ListMonsters* list_monster, Joueur* joueu
 
 /************* Supprimer un missile selon sa position *************/
 /* Supprime une missile selon sa position, vérifie si c'est le premier, le dernier ou un missile dans la liste puis le supprime *
-*  Prend en paramètre la liste de missiles et le missile à supprimer et retourne la liste de missiles.				*/
-
+ * Prend en paramètre la liste de missiles et le missile à supprimer et retourne la liste de missiles.							*/
 LShot* removeShot(LShot* list_shot, Shot* shot) {
 
 	// On vérifie si notre liste a été allouée
@@ -452,7 +446,6 @@ LShot* removeShot(LShot* list_shot, Shot* shot) {
 
 /************* Supprimer tous les missiles de la liste *************/
 /* Supprime la liste de missiles. Prend en paramètre un pointeur vers la liste de missiles 	*/
-
 void removeAllShot (LShot* list_shot) {
 	//Si la liste n'est pas vide
 	if (list_shot->length != 0) {
@@ -467,7 +460,6 @@ void removeAllShot (LShot* list_shot) {
 
 /************* Supprimer la liste de missiles *************/
 /* Supprime la liste de missiles. Prend en paramètre un pointeur vers la liste de missiles 	*/
-
 void freeAllShot (LShot* list_shot) {
 	//Si la liste n'est pas vide
 	if (list_shot->length != 0) {

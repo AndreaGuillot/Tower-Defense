@@ -16,17 +16,17 @@
 int drawMenuMap (GLuint*, GLuint*, int);
 //Dessin du menu principal
 int drawMenuPrincipal (GLuint*, GLuint*);
-//Dessine la carte
+//Dessin de la carte
 int drawMap (GLuint*);
 //Dessin de l'aide
 int drawHelp (GLuint*, GLuint*, GLuint*, int);
-//Dessin le menu du haut
+//Dessin du menu du haut
 int drawMenuUp (GLuint*, GLuint*, int);
 //Dessin du menu de gauche
 int drawMenuLeft(GLuint*, GLuint*, Joueur*);
-//Dessiner l'interface (score, argent, vie, nb de monstre tués
+//Dessin de l'interface (score, argent, vie, nb de monstre tués
 int drawInterface (GLuint*, Joueur*);
-//Affiche propriete d'une tour
+//Affiche les proprietes d'une tour / d'une installation
 int drawProprieteTower (GLuint*, GLuint* , Tower*, Joueur*);
 int drawProprieteInstallation (GLuint* installation, GLuint* spriteMenu, Installation* p_courant, Joueur* joueur);
 //Affiche les propriétés du monstre
@@ -39,15 +39,15 @@ int drawTower (GLuint*, LTower*, ListMonsters*, Tower*, int, int);
 int drawInstallation (GLuint* installation, LInstallation* p_linstallation, Installation* p_courant, int testMouse, int testInstallation);
 //Dessin des missiles
 int drawShot (GLuint*, LShot*);
-//Dessine les monstres
+//Dessin des monstres
 int drawMonster(GLuint*, ListMonsters*);
-//Dessine la barre de pv des monstres
+//Dessin de la barre de pv des monstres
 int drawPVMonster(ListMonsters*);
 
 //Dessin du tutorial
 int drawTutorial(GLuint*, int);
 
-//Dessiner un rectangle avec nombre d'argent besoin pour upgrade une tour
+//Dessiner un rectangle avec nombre d'argent nécessaire pour upgrade une tour
 int drawMoney(Tower*, int);
 
 //Apparition des monstres
@@ -61,6 +61,7 @@ void drawCercle(float);
 void drawRectangle (int, int, int, int);
 //Dessiner le contour d'un rectangle
 void drawRectangleLine (int, int, int, int);
+
 //Ecrire du texte
 void writeString(int, int,  char*);
 

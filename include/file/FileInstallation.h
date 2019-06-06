@@ -1,21 +1,21 @@
 #ifndef ITD_FILE_INSTALLATION_H_
 #define ITD_FILE_INSTALLATION_H_
 
-/************* STRUCTURE DU FICHIER TOUR *************/
-/* Liste doublement chainée pour pouvoir naviger dans la liste de tours	*
-*  et récupérer facile n'importe quelle tour dans la liste 		*/
+/************* STRUCTURE DU FICHIER INSTALLATION *************/
+/* Liste doublement chainée pour pouvoir naviguer dans la liste d'installations	*
+ * et récupérer facilement n'importe quelle installation dans la liste 			*/
 typedef struct struct_fileInstallation {
 
-	//Type de la tour : R (radar) S (stock) et U (Usine)
+	//Type de l'installation : R (radar) S (stock) et U (Usine)
 	char* type_installation;
 
-	//porté de la tour
+	//Portée de l'installation
 	int range;
 
-	//cout de la tour
+	//Coût de l'installation
 	int cost;
 
-	//Pointer vers l'élément précédent
+	//Pointeur vers l'élément précédent
 	struct struct_fileInstallation* p_prev;
 
 	//Pointeur vers l'élément suivant
@@ -23,7 +23,7 @@ typedef struct struct_fileInstallation {
 
 }FileInstallation;
 
-/************* STRUCTURE DE LA LISTE DE TOURS *************/
+/************* STRUCTURE DE LA LISTE D'INSTALLATIONS *************/
 typedef struct struct_lfileInstallation {
 
 	//Taille de la liste
@@ -32,17 +32,20 @@ typedef struct struct_lfileInstallation {
 	//Pointeur
 	FileInstallation *p_head; //pointeur vers le premier element
 	FileInstallation *p_tail; //pointeur vers le dernier element
+
 }LFileInstallation;
 
+
 /************* Prtotypes de fonctions *************/
-//Initialisation de la liste de tours
+//Initialisation de la liste des installations
 LFileInstallation* newFileInstallation ();
-//Ajout d'une tour à la liste
+//Ajout d'une installation à la liste
 int addFileInstallation(LFileInstallation*, char*, int, int);
-//Supprimer une tour de la liste
+//Supprimer une installation de la liste
 LFileInstallation* removeFileInstallation(LFileInstallation*, FileInstallation*);
-//Supprimer la liste de tour
+//Supprimer la liste des installations
 void freeAllFileInstallation (LFileInstallation*);
+//Charge les informations des installations
 int loadInfoInstallation(LFileInstallation* p_lfileInstallation);
 
 #endif

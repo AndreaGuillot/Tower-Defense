@@ -3,11 +3,12 @@
 
 #include "file/Map.h"
 
-/************* Prototype des fonctions *************/
+/************* Prototypes des fonctions *************/
 //Chargement de la texture de la carte
 int loadMapTexture(Map*, GLuint*, SDL_Surface*);
-//Chargement de texture
+//Chargement des textures
 int loadTexture(char*, GLuint*, SDL_Surface*);
 //Supprimer une texture
 void freeTexture(GLuint*, SDL_Surface*);
+
 #endif

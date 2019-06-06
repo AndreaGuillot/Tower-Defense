@@ -8,27 +8,27 @@
 #include "ihm/Interface.h"
 
 /************* STRUCTURE DU SHOT *************/
-/* Liste doublement chainée pour pouvoir naviger dans la liste de tours	*
-*  et récupérer facile n'importe quelle tour dans la liste 		*/
+/* Liste doublement chainée pour pouvoir naviguer dans la liste de shots	*
+ * et récupérer facilement n'importe quel shot dans la liste 				*/
 typedef struct struct_shot {
 
-	//position du missile
+	//Position du missile
 	float x;
 	float y;
 
-	//Ennemie visé
+	//Ennemi visé
 	Monster* target;
 	
 	//Tour d'origine
 	Tower* tower;
 
-	//puissance
+	//Puissance
 	int power;
 
 	//Type tower
 	char* type_tower;
 
-	//Pointer vers l'élément précédent
+	//Pointeur vers l'élément précédent
 	struct struct_shot* p_prev;
 
 	//Pointeur vers l'élément suivant
@@ -45,6 +45,7 @@ typedef struct struct_lshot {
 	//Pointeur
 	Shot *p_head; //pointeur vers le premier element
 	Shot *p_tail; //pointeur vers le dernier element
+
 }LShot;
 
 /************* Prototypes des fonctions *************/

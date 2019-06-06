@@ -18,18 +18,18 @@
 #define NBSOUNDS 2  
 #define MAXVOLUME 100
 
-//sound
- Mix_Chunk* sounds[NBSOUNDS];
- int currCanal;
- int mute;
+//Propriétés son
+Mix_Chunk* sounds[NBSOUNDS];
+int currCanal;
+int mute;
 
-
+//Importe librairie
 void initSounds();
-	 // Import Library 
+//Charge les différents fichiers son
 void loadMusics();
-    //loads the differents sound files on memory 
+//Joue la musique
 void playMusic(int canal, int musique, float volume) ;
-    //plays a given music on a given canal
+//Stoppe la musique
 void muteMusic();
 
 

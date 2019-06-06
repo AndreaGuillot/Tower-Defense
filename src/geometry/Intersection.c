@@ -10,8 +10,7 @@
 /************* Intersection d'un segment avec un point  *************/
 /* Vérifie s'il y a une intersection entre un segment et un point. Calcule l'équation de le droite. Vérifie 	*
 *  s'il y a une intersection. Si oui vérifie s'il appartient au segment. Si oui retourne 1 sinon retourne 0. 	*
-*  Prend en paramètre 3 points dont 2 qui constituent le segment.							*/
-
+*  Prend en paramètre 3 points dont 2 qui constituent le segment.												*/
 int intersectionPointSegment (Point2D point, Point2D A, Point2D B) {
 
 	float a, b;
@@ -49,8 +48,7 @@ int intersectionPointSegment (Point2D point, Point2D A, Point2D B) {
 /************* Intersection entre deux segments de droite *************/
 /* Vérifie s'il y a une intersection entre deux segments. Calcule l'équation de le droite et vérifie si	*
 *  l'intersection se trouve dans les deux segments. Si oui retourne le point d'intersection. Prend en 	*
-*  paramètre 4 points qui constituent les deux segments. 						*/
-
+*  paramètre 4 points qui constituent les deux segments. 												*/
 int intersectionSegments (Point2D A1, Point2D B1, Point2D A2, Point2D B2) {
 		
 	float a1, b1, a2, b2;
@@ -107,9 +105,8 @@ int intersectionSegments (Point2D A1, Point2D B1, Point2D A2, Point2D B2) {
 }
 
 /************* Intersection entre un segment et un cercle *************/
-/* Vérifie s'il y a une intersection entre un segment et un cercle.  					*
+/* Vérifie s'il y a une intersection entre un segment et un cercle.  									*
 *  Si oui retourne 1 sinon retourne 0. Prend en paramètre deux points, l'origine et le rayon du cercle 	*/
-
 int intersectionSegmentCercle (Point2D A, Point2D B, Point2D origin, float ray) {
 
 	float a, b;
@@ -179,8 +176,7 @@ int intersectionSegmentCercle (Point2D A, Point2D B, Point2D origin, float ray) 
 /************* Intersection entre deux carrés *************/
 /* Vérifie s'il y a une intersection entre deux carrés. Regarde pour chaque extremité du carré	*
 *  s'il est contenu dans l'autre carré. Si oui retourne 1 sinon retourne 0. Prend en paramètre 	*
-*  quatres points : les deux extremités opposées de chaque carré				*/
-
+*  quatres points : les deux extremités opposées de chaque carré								*/
 int intersectionCarres (Point2D point1, Point2D point2, Point2D pointC1, Point2D pointC2) {
 
 	int i;
@@ -222,10 +218,9 @@ int intersectionCarres (Point2D point1, Point2D point2, Point2D pointC1, Point2D
 }
 
 /************* Intersection entre un carré et un disque *************/
-/* Vérifie s'il y a une intersection entre un carré et un disque. Regarde pour chaque extremité du carré	*
+/* Vérifie s'il y a une intersection entre un carré et un disque. Regarde pour chaque extremité du carré		*
 *  s'il est contenu dans dans le cercle. Si oui retourne 1 sinon retourne 0. Prend en paramètre quatre points :	*
-*  les deux extremités opposées du carré, le rayon du cercle et son centre.					*/
-
+*  les deux extremités opposées du carré, le rayon du cercle et son centre.										*/
 int intersectionCarreDisque (Point2D point1, Point2D point2, float rayon, Point2D origin) {
 
 	int i;

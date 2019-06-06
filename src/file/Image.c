@@ -6,12 +6,11 @@
 #include "file/Map.h"
 
 /************* Ouverture de l'image => Lecture de l'image ************/
-/* Récupère les valeurs de l'image et la stock dans une structure Image, 	*
-*  vérifie si l'image existe et s'il possède un commentaire. S'il y a un 	*
-*  commentaire alors il passe la ligne. Ferme l'image à la fin.			*
-*  Prend en paramètre une Image (pour stocker les informations dans la structure*
-*  et l'adresse de l'image						*/
-
+/* Récupère les valeurs de l'image et la stock dans une structure Image, 			*
+*  vérifie si l'image existe et s'il possède un commentaire. S'il y a un 			*
+*  commentaire alors il passe la ligne. Ferme l'image à la fin.						*
+*  Prend en paramètre une Image (pour stocker les informations dans la structure	*
+*  et l'adresse de l'image															*/
 int openImg(Image* img, char* nameImg) {
 
 	FILE* image = NULL;
@@ -73,9 +72,8 @@ int openImg(Image* img, char* nameImg) {
 	return 1;
 }
 
-/************* Supprimer un image  ***********/
-/* Supprime une image. Prend en paramètre un pointeur vers l'image  	*/
-
+/************* Supprimer une image  ***********/
+/* Supprime une image. Prend en paramètre un pointeur vers l'image 	*/
 void freeImage (Image* image) {
 	//Si l'interface existe
 	if (image != NULL) {

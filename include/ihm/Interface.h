@@ -6,15 +6,16 @@
 /************* STRUCTURE DE L'INTERFACE *************/
 typedef struct struct_interface {
 	
-	//argent
+	//Argent
 	int money;
 
-	//niveau
+	//Niveau
 	int lvl;
 
 }Joueur;
 
-/************* Prtotypes des fonctions *************/
+
+/************* Prototypes des fonctions *************/
 //Initialisation de l'interface
 Joueur* newGame (void);
 //Mise à jour de l'agent, score et nb de monstre

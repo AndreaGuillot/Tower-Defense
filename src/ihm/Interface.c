@@ -7,7 +7,7 @@
 
 /************* Initialisation de l'interface *************/
 /* Alloue de la mémoire pour l'interface et initialise les valeurs.	*
-*  Retourne le pointeur vers l'interface.				*/
+*  Retourne le pointeur vers l'interface.							*/
 Joueur* newGame (void) {
 
 	//Alloue la memoire
@@ -27,10 +27,9 @@ Joueur* newGame (void) {
 }
 
 /************* Mise à jour de l'argent, du score et du nombre de monstres *************/
-/* Met à jours les valeurs de money, score et nbMonster. Prend en paramètre un pointeur		*
+/* Met à jours les valeurs de money, score et nbMonster. Prend en paramètre un pointeur			*
 *  vers l'interface et un pointeur vers le monstre tué.Retourne le pointeur vers l'interface.	*	
-*  Retourne 0 en cas d'erreur et 1 sinon. 							*/
-
+*  Retourne 0 en cas d'erreur et 1 sinon. 														*/
 int updateInterface(Joueur* joueur, Monster* monster) {
 
 	//Si l'joueur a été alloué
@@ -59,8 +58,7 @@ int updateInterface(Joueur* joueur, Monster* monster) {
 
 /************* Mise à jour lors d'un changement de niveau  *************/
 /* Met à jour le niveau, le score, l'argents. Prend en paramètre un pointeur 	*
-*  vers l'interface. Retourne 0 en cas d'erreur et 1 sinon.			*/
-
+*  vers l'interface. Retourne 0 en cas d'erreur et 1 sinon.						*/
 int updateLvl(Joueur* joueur) {
 	
 	//Si l'joueur a été alloué
@@ -79,8 +77,7 @@ int updateLvl(Joueur* joueur) {
 
 /************* Mise à jour de l'argent  ***********/
 /* Met à jour de l'argent. Prend en paramètre un pointeur vers l'interface	*
-*  et le prix d'une tour. Retourne 0 en cas d'erreur et 1 sinon.		*/
-
+*  et le prix d'une tour. Retourne 0 en cas d'erreur et 1 sinon.			*/
 int updateMoney(Joueur* joueur, int price) {
 
 	//Si l'joueur a été alloué
@@ -97,9 +94,8 @@ int updateMoney(Joueur* joueur, int price) {
 	return 1;
 }
 
-/************* Réinitialise l'joueur  ***********/
-/* Réinitialise l'joueur. Prend en paramètre un pointeur vers l'joueur.  	*/
-
+/************* Réinitialise le joueur  ***********/
+/* Réinitialise le joueur. Prend en paramètre un pointeur vers le joueur.  	*/
 void initInterface (Joueur* joueur) {
 	//Si l'joueur existe
 	if (joueur != NULL) {
@@ -108,11 +104,10 @@ void initInterface (Joueur* joueur) {
 	}
 }
 
-/************* Supprimer l'joueur  ***********/
-/* Supprime l'joueur. Prend en paramètre un pointeur vers l'joueur  	*/
-
+/************* Supprimer le joueur  ***********/
+/* Supprime le joueur. Prend en paramètre un pointeur vers le joueur  	*/
 void freeInterface (Joueur* joueur) {
-	//Si l'joueur existe
+	//Si le joueur existe
 	if (joueur != NULL) {
 		free(joueur);
 	}

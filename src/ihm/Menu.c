@@ -17,7 +17,6 @@
 
 /*********************** Clique sur le menuPrincipale  ***********************/
 /* action clique menu Principale. Prend en paramètre la position et un pointeur vers nbMenu. Retourne 0 en cas d'erreur et 1 sinon	*/
-
 void clickMenuPrincipal(float x, float y, int* nbMenu) {
 
 	if(*nbMenu == 1 || *nbMenu == 4 || *nbMenu == 5) {
@@ -86,7 +85,6 @@ int clickPlay(float x, float y, int isPlaying, int* nbMonster, int* j) {
 
 /*********************** Clique sur le menu : achat de tour ***********************/
 /* Achat d'une tour losqu'on clique sur le menu puis affiche la tour. 	*/
-
 int clickMenuTour(LTower* p_ltower, LFileTower* p_lfileTower, Joueur* joueur, float x, float y) {
 
 	//Vérifie si les elements ont été alloué
@@ -149,7 +147,6 @@ int clickMenuTour(LTower* p_ltower, LFileTower* p_lfileTower, Joueur* joueur, fl
 
 /*********************** Clique sur le menu : achat d'installation ***********************/
 /* Achat d'une installation losqu'on clique sur le menu puis affiche l'installation. 	*/
-
 int clickMenuInstallation(LInstallation* p_linstallation, LFileInstallation* p_lfileInstallation, Joueur* joueur, float x, float y) {
 
 	//Vérifie si les elements ont été alloué
@@ -210,8 +207,7 @@ int clickMenuInstallation(LInstallation* p_linstallation, LFileInstallation* p_l
 
 /*********************** Clique sur le menu : supprimer tour ***********************/
 /* supprimer tour lorsqu'on clique sur le bouton supprimer. Prend en paramètre un pointeur vers la liste de tour, un pointeur	*
-*  vers la liste de shot, la tour courant, la position et un pointeur vers propriete. Retourne 0 en cas d'erreur sinon 1. 	*/
-
+*  vers la liste de shot, la tour courant, la position et un pointeur vers propriete. Retourne 0 en cas d'erreur sinon 1. 		*/
 int clickTourDelete(LTower* p_ltower, LShot* p_lshot, Tower* p_courant, Joueur* joueur, float x, float y, int* propriete) {
 
 	if(p_ltower != NULL) {
@@ -323,10 +319,9 @@ int clickAide(float x, float y, int aide) {
 }
 
 /*********************** Clique : pour afficher les propriétés d'une tour ***********************/
-/* click retour une tour pour afficher ces propriétés. Prend en paramètre la liste de tours,  la 	*
-*  position du clique et un pointeur int qui permet de savoir si on affiche ou non des propriétés.	*
+/* click retour une tour pour afficher ces propriétés. Prend en paramètre la liste de tours,  la 		*
+*  position du clique et un pointeur int qui permet de savoir si on affiche ou non des propriétés.		*
 *  Retourne NULL s'il y a une erreur, ou si on n'a pas cliquer sur une tour. Sinon retourne la tour.	*/
-
 Tower* clickTower(LTower* p_ltower, float x, float y, int* propriete) {
 	
 	//Vérifie que la liste de tours existe
@@ -358,9 +353,8 @@ Tower* clickTower(LTower* p_ltower, float x, float y, int* propriete) {
 
 /*********************** Clique : pour afficher les propriétés d'une installation ***********************/
 /* click retour une installation pour afficher ces propriétés. Prend en paramètre la liste de installations,  la 	*
-*  position du clique et un pointeur int qui permet de savoir si on affiche ou non des propriétés.	*
+*  position du clique et un pointeur int qui permet de savoir si on affiche ou non des propriétés.					*
 *  Retourne NULL s'il y a une erreur, ou si on n'a pas cliquer sur une installation. Sinon retourne l'installation.	*/
-
 Installation* clickInstallation(LInstallation* p_linstallation, float x, float y, int* propriete) {
 	
 	//Vérifie que la liste de tours existe
@@ -392,7 +386,7 @@ Installation* clickInstallation(LInstallation* p_linstallation, float x, float y
 
 /*********************** Clique : pour afficher les propriétés d'un monstre ***********************/
 /* click retour un monstre pour afficher ces propriétés. Prend en paramètre la liste de monstres,  la 	*
-*  position du clique et un pointeur int qui permet de savoir si on affiche ou non des propriétés.	*
+*  position du clique et un pointeur int qui permet de savoir si on affiche ou non des propriétés.		*
 *  Retourne NULL s'il y a une erreur, ou si on n'a pas cliquer sur une tour. Sinon retourne la tour.	*/
 
 Monster* clickMonster(ListMonsters* p_lmonster, float x, float y, int* propriete) {
@@ -426,7 +420,6 @@ Monster* clickMonster(ListMonsters* p_lmonster, float x, float y, int* propriete
 
 /*********************** Réinitialise l'joueur ***********************/
 /* Supprime tous. Prend en paramètre 	*/
-
 void initAll (ListMonsters* p_lmonster, LShot* p_lshot, LTower* p_ltower, LInstallation* p_linstallation, Joueur* joueur) {
 
 	//Retire les missiles de la liste
@@ -443,7 +436,6 @@ void initAll (ListMonsters* p_lmonster, LShot* p_lshot, LTower* p_ltower, LInsta
 
 /*********************** Supprime tous ***********************/
 /* Supprime tous. Prend en paramètre 	*/
-
 void freeAll (ListMonsters* p_lmonster, LShot* p_lshot, LTower* p_ltower, LInstallation* p_linstallation, LFileTower* p_lfileTower, LFileInstallation* p_lfileInstallation, Map* map, Joueur* joueur) {
 
 	//Liblère la liste de missiles

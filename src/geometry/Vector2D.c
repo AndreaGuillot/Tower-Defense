@@ -28,7 +28,6 @@ Vector2D Vector(Point2D A, Point2D B) {
 
 }
 
-
 /*AddVectors : La fonction d’addition de vecteurs */
 Vector2D AddVectors(Vector2D V1, Vector2D V2){
 
@@ -129,4 +128,3 @@ Point2D PointPlusVector(Point2D P, Vector2D V) {
 	return new_point;
 
 }
-

@@ -6,36 +6,37 @@
 #include "ihm/Node.h"
 #include "ihm/Interface.h"
 
-/************* STRUCTURE DU TOUR *************/
-/* Liste doublement chainée pour pouvoir naviger dans la liste de tours	*
-*  et récupérer facile n'importe quelle tour dans la liste 		*/
+/************* STRUCTURE DE LA TOUR *************/
+/* Liste doublement chainée pour pouvoir naviguer dans la liste de tours	*
+ * et récupérer facile n'importe quelle tour dans la liste 					*/
 typedef struct struct_tower {
 
-	//position de la tour
+	//Position de la tour
 	float x;
 	float y;
 
-	//Type de la tour : R (rocket) L (laser), M (mitraillette) et H (hybride)
+	//Type de la tour : R (rocket) L (laser) M (mitraillette) et H (hybride)
 	char* type_tower;
 
-	//cadence 
+	//Cadence 
 	int rate;
 
-	//compteur
+	//Compteur
 	int compteur;
 
-	//porté de la tour
+	//Porté de la tour
 	int range;
 
-	//cout de la tour
+	//Coût de la tour
 	int cost;
 
-	//puissance de tir de la tour
+	//Puissance de tir de la tour
 	int power;
 
+	//Effet des installations
 	int affectedByRadar, affectedByUsine, affectedByStock;
 
-	//Pointer vers l'élément précédent
+	//Pointeur vers l'élément précédent
 	struct struct_tower* p_prev;
 
 	//Pointeur vers l'élément suivant
@@ -52,6 +53,7 @@ typedef struct struct_ltower {
 	//Pointeur
 	Tower *p_head; //pointeur vers le premier element
 	Tower *p_tail; //pointeur vers le dernier element
+
 }LTower;
 
 /************* Prtotypes de fonctions *************/
@@ -63,9 +65,9 @@ int addTower(LTower*, int, int, char*, int, int, float, float);
 int verificationConstruct(LNode*, Point2D, Point2D);
 //Supprimer une tour de la liste
 LTower* removeTower(LTower*, Tower*);
-//Supprime toutes les tours de la liste
+//Supprimer toutes les tours de la liste
 void removeAllTower (LTower*);
-//Suprime la liste de tours
+//Supprimer la liste de tours
 void freeAllTower (LTower*);
 
 #endif

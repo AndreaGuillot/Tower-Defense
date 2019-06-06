@@ -7,25 +7,25 @@
 #include "ihm/Node.h"
 #include "ihm/Interface.h"
 
-/************* STRUCTURE D'INSTALLATION *************/
-/* Liste doublement chainée pour pouvoir naviger dans la liste de tours	*
-*  et récupérer facile n'importe quelle tour dans la liste 		*/
+/************* STRUCTURE DE L'INSTALLATION *************/
+/* Liste doublement chainée pour pouvoir naviguer dans la liste d'installations	*
+ * et récupérer facilement n'importe quelle installation dans la liste 			*/
 typedef struct struct_installation {
 
-	//position de la tour
+	//Position de l'installation
 	float x;
 	float y;
 
-	//Type de l'installation : U (Usine) R (radar) S (stock)
+	//Type de l'installation : U (usine) R (radar) S (stock)
 	char* type_installation;
 
-	//porté de la tour
+	//Portée de l'installation
 	int range;
 
-	//cout de la tour
+	//Coût de l'installation
 	int cost;
 
-	//Pointer vers l'élément précédent
+	//Pointeur vers l'élément précédent
 	struct struct_installation* p_prev;
 
 	//Pointeur vers l'élément suivant
@@ -33,36 +33,40 @@ typedef struct struct_installation {
 
 }Installation;
 
-/************* STRUCTURE DE LA LISTE DE TOURS *************/
+/************* STRUCTURE DE LA LISTE DES INSTALLATIONS *************/
 typedef struct struct_linstallation {
 
 	//Taille de la liste
 	size_t length;
 
-	//Pointeur
+	//Pointeurs
 	Installation *p_head; //pointeur vers le premier element
 	Installation *p_tail; //pointeur vers le dernier element
+
 }LInstallation;
 
-/************* Prtotypes de fonctions *************/
+
+/************* Prototypes de fonctions *************/
 //Initialisation de la liste de tours
 LInstallation* new_LInstallation(void);
 //Ajout d'une tour à la liste
 int addInstallation(LInstallation*, char*, int, int, float, float);
 //Vérifie si la tour se trouve sur une zone constructible
 int verificationConstructInstallation(LNode*, Point2D, Point2D);
-//Déplacer une tour
+//Déplacer une installation
 int moveInstallation(LInstallation*, LTower*, Installation*, LNode*, float, float);
 //Déplacer une tour
 int moveTower(LTower*, LInstallation*, Tower*, LNode*, float, float);
-//Supprimer une tour de la liste
+//Supprimer une installation de la liste
 LInstallation* removeInstallation(LInstallation*, Installation*, LTower*);
-//Supprime toutes les tours de la liste
+//Supprimer toutes les tours de la liste
 void removeAllInstallation (LInstallation*);
-//Suprime la liste de tours
+//Supprimer la liste de tours
 void freeAllInstallation (LInstallation*);
+//Gèrent les effets des installations sur les tours
 int reach (LInstallation* , LTower* , Installation*);
 int affects(Tower*, Installation*);
 int wontreach (LInstallation* , LTower* , Installation*);
 int notaffect(Tower*, Installation*);
+
 #endif

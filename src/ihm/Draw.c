@@ -22,7 +22,6 @@
 
 /*********************** Dessiner le menu des map ***********************/
 /* Dessine le menu des map. Prend en paramètre les textures.	*/
-
 int drawMenuMap (GLuint* texture, GLuint* bt_texture, int nbTexture) {
 
 	if(texture != NULL) {
@@ -133,7 +132,6 @@ int drawMenuMap (GLuint* texture, GLuint* bt_texture, int nbTexture) {
 
 /*********************** Dessiner le menu principale ***********************/
 /* Dessine le menu principale. Prend en paramètre les textures.	*/
-
 int drawMenuPrincipal (GLuint* texture, GLuint* spriteButton) {
 
 	if(texture != NULL) {
@@ -272,7 +270,6 @@ int drawMenuPrincipal (GLuint* texture, GLuint* spriteButton) {
 
 /*********************** Dessiner la map ***********************/
 /* Dessine la map. Prend en paramètre une texture.	*/
-
 int drawMap (GLuint* texture) {
 
 	if(texture != NULL) {
@@ -317,7 +314,6 @@ int drawMap (GLuint* texture) {
 
 /*********************** Dessiner l'aide ***********************/
 /* Dessine la map. Prend en paramètre une texture.	*/
-
 int drawHelp (GLuint* texture, GLuint* spriteButton, GLuint* spriteButtonMenu, int nbMenu) {
 
 	if(texture != NULL) {
@@ -462,7 +458,6 @@ int drawHelp (GLuint* texture, GLuint* spriteButton, GLuint* spriteButtonMenu, i
 
 /*********************** Dessiner le menu haut ***********************/
 /* Dessine le menu. Prend en paramètre la texture pour le menu et la variable play. Retourne 0 en cas d'erreur 1 sinon.	*/
-
 int drawMenuUp (GLuint* spriteButton, GLuint* fondMenuUp, int isPlaying) {
 
 	if(spriteButton != NULL) {
@@ -643,8 +638,7 @@ int drawMenuUp (GLuint* spriteButton, GLuint* fondMenuUp, int isPlaying) {
 
 /*********************** Dessiner le menu left ***********************/
 /* Dessine le menu. Prend en paramètre les textures pour le menu et un pointeur vers l'joueur.	*
-*  Retourne 0 en cas d'erreur 1 sinon.									*/
-
+*  Retourne 0 en cas d'erreur 1 sinon.															*/
 int drawMenuLeft (GLuint* spriteMenu, GLuint* fondMenu, Joueur* joueur) {
 
 	if(spriteMenu != NULL && fondMenu != NULL) {
@@ -944,8 +938,7 @@ int drawMenuLeft (GLuint* spriteMenu, GLuint* fondMenu, Joueur* joueur) {
 
 /*********************** Dessiner l'joueur (score, argent, vie, nb de monstre tués ***********************/
 /* Dessine l'joueur. Prend en paramètre un pointeur vers la texture et un pointeur vers l'joueur.	*
-*  Retourne 0 en cas d'erreur, 1 sinon. 								*/
-
+*  Retourne 0 en cas d'erreur, 1 sinon. 															*/
 int drawInterface (GLuint* spriteButton, Joueur* joueur) {
 
 	if(joueur != NULL) {
@@ -1018,8 +1011,7 @@ int drawInterface (GLuint* spriteButton, Joueur* joueur) {
 
 /*********************** Dessiner les propriétés des tours ***********************/
 /* Dessine les propriétés des tours. Prend en paramètre un pointeur vers la tour courante 		*
-*  Retourne 0 en cas d'erreur, 1 sinon. 								*/
-
+*  Retourne 0 en cas d'erreur, 1 sinon. 														*/
 int drawProprieteTower (GLuint* tower, GLuint* spriteMenu, Tower* p_courant, Joueur* joueur) {
 
 	if(p_courant != NULL) {
@@ -1184,8 +1176,7 @@ int drawProprieteTower (GLuint* tower, GLuint* spriteMenu, Tower* p_courant, Jou
 
 /*********************** Dessiner les propriétés des installations ***********************/
 /* Dessine les propriétés des installations. Prend en paramètre un pointeur vers la installation courante 		*
-*  Retourne 0 en cas d'erreur, 1 sinon. 								*/
-
+*  Retourne 0 en cas d'erreur, 1 sinon. 																		*/
 int drawProprieteInstallation (GLuint* installation, GLuint* spriteMenu, Installation* p_courant, Joueur* joueur) {
 
 	if(p_courant != NULL) {
@@ -1331,8 +1322,7 @@ int drawProprieteInstallation (GLuint* installation, GLuint* spriteMenu, Install
 
 /*********************** Dessiner les propriétés des monstres ***********************/
 /* Dessine les propriétés des tours. Prend en paramètre un pointeur vers le monstre courant 		*
-*  Retourne 0 en cas d'erreur, 1 sinon. 								*/
-
+*  Retourne 0 en cas d'erreur, 1 sinon. 															*/
 int drawProprieteMonster (GLuint* monster, Monster* p_courant) {
 
 	if(p_courant != NULL) {
@@ -1476,8 +1466,7 @@ int drawProprieteMonster (GLuint* monster, Monster* p_courant) {
 
 /*********************** Dessiner les tours ***********************/
 /* Dessine les tours. Prend en paramètre la texture de la tour, la liste de tours, la liste de monstres, la tour courant	*
-*  et les variables xt1, xt2, testMouse et propriete. Retourne 0 en cas d'erreur, 1 sinon. 					*/
-
+*  et les variables xt1, xt2, testMouse et propriete. Retourne 0 en cas d'erreur, 1 sinon. 									*/
 int drawTower (GLuint* tower, LTower* p_ltower, ListMonsters* p_lmonster, Tower* p_courant, int testMouse, int testTower) {
 
 	if(tower != NULL && p_ltower != NULL && p_lmonster != NULL) {
@@ -1580,8 +1569,7 @@ int drawTower (GLuint* tower, LTower* p_ltower, ListMonsters* p_lmonster, Tower*
 
 /*********************** Dessiner les installations ***********************/
 /* Dessine les installations. Prend en paramètre la texture de l'installation, la liste d'installations, la liste de monstres, l'installation courant	*
-*  et les variables xt1, xt2, testMouse et propriete. Retourne 0 en cas d'erreur, 1 sinon. 					*/
-
+*  et les variables xt1, xt2, testMouse et propriete. Retourne 0 en cas d'erreur, 1 sinon. 																*/
 int drawInstallation (GLuint* installation, LInstallation* p_linstallation, Installation* p_courant, int testMouse, int testInstallation) {
 
 	if(installation != NULL && p_linstallation != NULL ) {
@@ -1682,8 +1670,7 @@ int drawInstallation (GLuint* installation, LInstallation* p_linstallation, Inst
 
 /*********************** Dessiner les missiles ***********************/
 /* Dessine les missiles. Prend en paramètre la texture du missile, et la liste de missiles. Retourne 0 en cas	*
-*  d'erreur, 1 sinon.												*/
-
+*  d'erreur, 1 sinon.																							*/
 int drawShot (GLuint* shot, LShot* p_lshot) {
 
 	if(shot != NULL && p_lshot != NULL) {
@@ -1741,8 +1728,7 @@ int drawShot (GLuint* shot, LShot* p_lshot) {
 
 /*********************** Dessiner les monstres ***********************/
 /* Dessine les monstres. Prend en paramètre la texture des monstres, la liste de monstre, le dernier noeud. 	*
-*  Retourne 0 en cas d'erreur et 1 sinon.									*/
-
+*  Retourne 0 en cas d'erreur et 1 sinon.																		*/
 int drawMonster(GLuint* monster, ListMonsters* p_lmonster) {
 
 	if(monster != NULL && p_lmonster != NULL) {
@@ -1815,8 +1801,7 @@ int drawMonster(GLuint* monster, ListMonsters* p_lmonster) {
 
 /************* Dessiner la barre de vie du monstre *************/
 /* Dessine la barre de vie du monstre. Descend en fonction du nombre de vie restant et change de 	*
-*  couleur. Prend en paramètre la liste de monstres. Retourne 0 en cas d'erreur et 1 sinon.		*/
-
+*  couleur. Prend en paramètre la liste de monstres. Retourne 0 en cas d'erreur et 1 sinon.			*/
 int drawPVMonster(ListMonsters* p_lmonster) {
 
 	//On vérifie si notre liste a été allouée
@@ -1881,8 +1866,7 @@ int drawPVMonster(ListMonsters* p_lmonster) {
 }
 
 /******************** Dessiner GameOver / Win ********************/
-/* Affiche Game Over ou Win. Prend en paramètre les textures.		*/
-
+/* Affiche Game Over ou Win. Prend en paramètre les textures.	*/
 int drawGameOverWin(GLuint* texture, GLuint* spriteButton) {
 
 	if(texture != NULL) {
@@ -2021,9 +2005,8 @@ int drawGameOverWin(GLuint* texture, GLuint* spriteButton) {
 
 /************ Faire apparaitre un monstre sur la map **************/
 /* Fait apparaitre un monstre sur la map. Prend en paramètre un pointeur vers la liste de monstre, un pointeur vers 	*
-*  l'joueur, un pointeur vers la map, un int, un int (apparition) et int nombre de monstre. Retourne 0 en cas 	*
-*  d'erreur et 1 sinon.													*/
-
+*  l'joueur, un pointeur vers la map, un int, un int (apparition) et int nombre de monstre. Retourne 0 en cas 			*
+*  d'erreur et 1 sinon.																									*/
 int apparitionMonster(ListMonsters* p_lmonster, Joueur* joueur, Map* map, int* apparition, int j, int* nb_monster) {
 
 	if(p_lmonster != NULL) {
@@ -2226,7 +2209,6 @@ int apparitionMonster(ListMonsters* p_lmonster, Joueur* joueur, Map* map, int* a
 
 /************* Dessiner un cercle en fonction de son rayon plein *************/
 /* Dessine un cercle plein. Prend en paramètre le rayon du cercle.		*/
-
 void drawDisque(float rayon) {
 	
 	int i, j = 100;
@@ -2249,7 +2231,6 @@ void drawDisque(float rayon) {
 
 /************* Dessiner un cercle en fonction de son rayon vide *************/
 /* Dessine un cercle vide. Prend en paramètre le rayon du cercle.		*/
-
 void drawCercle(float rayon) {
 	
 	int i, j = 100;
@@ -2270,7 +2251,6 @@ void drawCercle(float rayon) {
 
 /******************** Dessiner un rectangle / carré plein ********************/
 /* Dessine un carré ou rectangle plein. Prend en paramètre les coordonées des deux points opposés	*/
-
 void drawRectangle (int x1, int y1, int x2, int y2) {
 
 	glBegin(GL_QUADS);
@@ -2283,7 +2263,6 @@ void drawRectangle (int x1, int y1, int x2, int y2) {
 
 /******************** Dessiner un rectangle / carré vide ********************/
 /* Dessine un carré ou rectangle vide. Prend en paramètre les coordonées des deux points opposés	*/
-
 void drawRectangleLine (int x1, int y1, int x2, int y2) {
 
 	glBegin(GL_LINE_LOOP);
@@ -2297,7 +2276,6 @@ void drawRectangleLine (int x1, int y1, int x2, int y2) {
 
 /******************** Ecrire du texte ********************/
 /* Ecrire du texte. Prend en paramamètre sa position et la chaine de caractère	*/
-
 void writeString(int x, int y,  char* s) {
 
 		char* c;
@@ -2310,5 +2288,3 @@ void writeString(int x, int y,  char* s) {
 		// Réinitialise la position du premier caractère de la chaîne
 		glRasterPos2f(0, 0);
 }
-
-

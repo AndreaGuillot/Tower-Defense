@@ -11,33 +11,35 @@ typedef struct struct_map {
 	//Image ppm
 	Image* img;
 
-	//énergie
+	//Energie
 	int energie;
 
-	//couleur du chemin
+	//Couleur du chemin
 	Color3f road;
 
-	//couleur des noeuds
+	//Couleur des noeuds
 	Color3f node;
 
-	//couleur à la zone constructible
+	//Couleur à la zone constructible
 	Color3f construct;
-	//liste des pixels de zone constructible
+
+	//Liste des pixels de zone constructible
 	LNode* list_pixels;
 
-	//couleur clé de la zone d'entrée
+	//Couleur clé de la zone d'entrée
 	Color3f in;
 
-	//couleur clé de la zone de sortie
+	//Couleur clé de la zone de sortie
 	Color3f out;
 
-	//Nombre de noeud
+	//Nombre de noeuds
 	int number_node;
 
 	//Liste des noeuds
 	LNode* list_node;
 
 }Map;
+
 
 /************* Prototypes des fonctions *************/
 //Initialisation de la map

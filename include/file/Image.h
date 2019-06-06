@@ -7,7 +7,7 @@ typedef struct struct_image {
 	//Chemin vers l'image
 	char* path;
 
-	//Numero magic : identifie le type de fichier
+	//Numero magique : identifie le type de fichier
 	char magicNumber[2];
 	
 	//Les dimensions de l'images
@@ -19,9 +19,11 @@ typedef struct struct_image {
 
 }Image;
 
+
 /************* Prototypes des fonctions *************/
 //Ouvrir et stocker une image
 int openImg(Image*, char*);
 //Supprimer une image
 void freeImage (Image*);
+
 #endif
